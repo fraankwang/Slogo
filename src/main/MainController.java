@@ -2,12 +2,13 @@
  * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
  */
 
-package main;
+package src.main;
 
 import javafx.animation.Timeline;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
-import model.MainModel;
+import src.model.MainModel;
+
 
 public class MainController {
 	

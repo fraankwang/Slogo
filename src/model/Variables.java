@@ -2,13 +2,17 @@
  * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
  */
 
-package model;
+package src.model;
 
 import java.util.Map;
 
 public class Variables {
 	
 	Map myVariables;
+	
+	public Variables(){
+		
+	}
 	
 	public Map getVariables () {
 		return myVariables;
