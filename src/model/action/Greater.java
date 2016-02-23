@@ -1,11 +1,11 @@
-package model;
+package model.action;
 
-public class Less extends Action {
+public class Greater extends Action {
 
 	private double a;
 	private double b;
 	
-	public Less (double a, double b) {
+	public Greater (double a, double b) {
 		super();
 		this.a = a;
 		this.b = b;
@@ -14,11 +14,12 @@ public class Less extends Action {
 
 	@Override
 	public double rule() {
-		if (a < b) {
+		if (a > b) {
 			return 1;
 		}
 		else {
 			return 0;
 		}
 	}
+
 }

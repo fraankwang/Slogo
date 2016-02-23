@@ -1,4 +1,6 @@
-package model;
+package model.action;
+
+import model.TurtlePlayground;
 
 public abstract class Action {
 	TurtlePlayground playground;

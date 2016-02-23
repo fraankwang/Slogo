@@ -1,11 +1,11 @@
-package model;
+package model.action;
 
-public class Notequal extends Action {
+public class Equal extends Action {
 
 	private double a;
 	private double b;
 	
-	public Notequal (double a, double b) {
+	public Equal (double a, double b) {
 		super();
 		this.a = a;
 		this.b = b;
@@ -14,12 +14,12 @@ public class Notequal extends Action {
 
 	@Override
 	public double rule() {
-		if (a != b) {
+		if (a == b) {
 			return 1;
 		}
 		else {
 			return 0;
 		}
 	}
-	
+
 }

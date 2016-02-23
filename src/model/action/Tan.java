@@ -1,4 +1,4 @@
-package model;
+package model.action;
 
 public class Tan extends Action {
 

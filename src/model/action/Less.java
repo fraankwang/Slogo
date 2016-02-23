@@ -1,11 +1,11 @@
-package model;
+package model.action;
 
-public class Or extends Action {
+public class Less extends Action {
 
 	private double a;
 	private double b;
 	
-	public Or (double a, double b) {
+	public Less (double a, double b) {
 		super();
 		this.a = a;
 		this.b = b;
@@ -14,12 +14,11 @@ public class Or extends Action {
 
 	@Override
 	public double rule() {
-		if (a != 0 || b != 0) {
+		if (a < b) {
 			return 1;
 		}
 		else {
 			return 0;
 		}
 	}
-
 }
