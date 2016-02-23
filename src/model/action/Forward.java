@@ -3,11 +3,11 @@ package model.action;
 public class Forward extends Action {
 
 	int pixels;
-	
+
 	public Forward(int pixels) {
 		super();
 		this.pixels = pixels;
-		
+
 	}
 
 	@Override
