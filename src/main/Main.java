@@ -15,9 +15,13 @@ public class Main extends Application {
         MainController controller = new MainController(view);
         view.setController(controller);
         view.display();
-        
+ 
     }
 
+	/**
+	 * 
+	 * @param args
+	 */
     public static void main (String[] args) {
         launch(args);
     }
