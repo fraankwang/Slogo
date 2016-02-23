@@ -5,6 +5,7 @@ public abstract class Action {
 	public Action(){
 		playground = new TurtlePlayground() ;
 	}
-	public abstract int rule();
+	public abstract double rule();
+	//switched to double for sin/cos/etc
 
 }
