@@ -2,8 +2,8 @@ package model.action;
 
 public class Pi extends Action {
 
-	public Pi () {
-		super();
+	public Pi (double[] params) {
+		super(params);
 		
 	}
 

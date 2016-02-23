@@ -4,10 +4,10 @@ public class Not extends Action {
 
 	private double a;
 	
-	public Not (double a) {
-		super();
-		this.a = a;
-		
+	public Not (double[] params) {
+		super(params);
+		a = params[0];
+
 	}
 
 	@Override

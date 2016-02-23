@@ -4,9 +4,9 @@ public class Sin extends Action {
 
 	double degrees;
 
-	public Sin (double degrees) {
-		super();
-		this.degrees = degrees;
+	public Sin (double[] params) {
+		super(params);
+		degrees = params[0];
 
 	}
 

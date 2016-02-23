@@ -5,12 +5,13 @@ public class Pow extends Action {
 	double a;
 	double b;
 
-	public Pow (double a, double b) {
-		super();
-		this.a = a;
-		this.b = b;
+	public Pow (double[] params) {
+		super(params);
+		a = params[0];
+		b = params[1];
 
 	}
+
 
 	@Override
 	public double rule() {

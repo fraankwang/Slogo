@@ -4,9 +4,9 @@ public class Atan extends Action {
 
 	double degrees;
 
-	public Atan (double degrees) {
-		super();
-		this.degrees = degrees;
+	public Atan (double[] params) {
+		super(params);
+		degrees = params[0];
 
 	}
 

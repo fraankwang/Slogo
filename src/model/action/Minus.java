@@ -4,10 +4,10 @@ public class Minus extends Action {
 
 	double a;
 	
-	public Minus (double a) {
-		super();
-		this.a = a;
-		
+	public Minus (double[] params) {
+		super(params);
+		a = params[0];
+
 	}
 
 	@Override
