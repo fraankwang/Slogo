@@ -2,7 +2,7 @@
  * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
  */
 
-package src.model;
+package model;
 
 import java.util.Collection;
 import java.util.PriorityQueue;

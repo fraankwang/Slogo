@@ -2,7 +2,7 @@
  * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
  */
 
-package src.main;
+package main;
 
 import javafx.application.Application;
 import javafx.stage.Stage;

@@ -2,9 +2,9 @@
  * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
  */
 
-package src.model;
+package model;
 
-import src.main.MainController;
+import main.MainController;
 
 public class MainModel {
 	private MainController myController;
