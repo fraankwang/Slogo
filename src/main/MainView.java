@@ -29,12 +29,12 @@ public class MainView {
 	public MainView (Stage stage) {
 		initializeRoot();
 		myPrimaryStage = stage;
-		display();
+		
 		
 	}
 
 	public void display () {
-		Scene scene = new Scene(myPrimaryRoot, 500, 500);
+		Scene scene = new Scene(myPrimaryRoot, 500, 500, Color.WHITE);
 		myPrimaryStage.setScene(scene);
 		myPrimaryStage.show();
 		
