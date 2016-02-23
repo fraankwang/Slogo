@@ -42,6 +42,9 @@ public class MainModel {
 	 * 
 	 */
 	
+	// =========================================================================
+	// Getters and Setters
+	// =========================================================================
 	
 	public CommandParser getMyParser() {
 		return myParser;
