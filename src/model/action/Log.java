@@ -4,9 +4,9 @@ public class Log extends Action {
 
 	double a;
 
-	public Log (double[] params) {
-		super(params);
-		a = params[0];
+	public Log (double a) {
+		super();
+		this.a = a;
 
 	}
 

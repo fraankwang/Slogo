@@ -22,10 +22,29 @@ public class CommandParser {
 
 	}
 
+	public void makeTree(){
+		//if object
+		//check number of children
+		//for i<children add children(stack.pop)
+		//if var put string and later (when collapsing) get value
+		//if child, it's done
+		
+		//do errors in the 
+	}
+	
+	
 	public double checkNext() throws Exception {
 		String next = stack.pop();
-		if (actionResources.containsKey(next)) {
+
+		try{
 			//??????? also language?
+			//decide array vs indiv params
+//			make interface for api
+//			try-catch blocks
+//			how to resources--maybe have a local thing?
+//			variables--figure out how to re-make stuff?
+			
+			
 			Class a = Class.forName(Constants.getAction(next));
 			Constructor constructor = a.getConstructors()[0];
 			double[] params = new double[constructor.getParameterTypes().length];
@@ -35,8 +54,18 @@ public class CommandParser {
 
 			Action action = (Action) constructor.newInstance(params);
 			return action.rule();
-		} else {
-			return Double.parseDouble(next);
 		}
+		catch (Exception e){
+			throw e ;
+		}
+		finally {
+			try {
+				return Double.parseDouble(next);
+			}
+			catch (Exception e){
+//				throw e;
+			}
+		}
+
 	}
 }

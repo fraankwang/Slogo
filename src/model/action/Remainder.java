@@ -5,11 +5,11 @@ public class Remainder extends Action {
 	private double a;
 	private double b;
 
-	public Remainder (double[] params) {
-		super(params);
-		a = params[0];
-		b = params[1];
-
+	public Remainder (double a, double b) {
+		super();
+		this.a = a;
+		this.b = b;
+		
 	}
 	
 	@Override

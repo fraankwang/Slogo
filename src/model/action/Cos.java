@@ -4,9 +4,9 @@ public class Cos extends Action {
 
 	double degrees;
 
-	public Cos (double[] params) {
-		super(params);
-		degrees = params[0];
+	public Cos (double degrees) {
+		super();
+		this.degrees = degrees;
 
 	}
 

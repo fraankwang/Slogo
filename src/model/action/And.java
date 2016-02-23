@@ -4,21 +4,22 @@ public class And extends Action {
 
 	private double a;
 	private double b;
-
-	public And(double[] params) {
-		super(params);
-		a = params[0];
-		b = params[1];
-
+	
+	public And (double a, double b) {
+		super();
+		this.a = a;
+		this.b = b;
+		
 	}
 
 	@Override
 	public double rule() {
 		if (a != 0 && b != 0) {
 			return 1;
-		} else {
+		}
+		else {
 			return 0;
 		}
 	}
-
+	
 }

@@ -5,13 +5,12 @@ public class Product extends Action{
 	private double a;
 	private double b;
 
-	public Product(double[] params) {
-		super(params);
-		a = params[0];
-		b = params[1];
-
+	public Product(double a, double b) {
+		super();
+		this.a = a;
+		this.b = b;
+		
 	}
-
 
 	@Override
 	public double rule() {

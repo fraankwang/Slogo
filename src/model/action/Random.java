@@ -4,10 +4,10 @@ public class Random extends Action {
 
 	double max;
 	
-	public Random (double[] params) {
-		super(params);
-		max = params[0];
-
+	public Random (double max) {
+		super();
+		this.max = max;
+		
 	}
 
 	@Override

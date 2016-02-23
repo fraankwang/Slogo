@@ -5,11 +5,11 @@ public class Less extends Action {
 	private double a;
 	private double b;
 	
-	public Less (double[] params) {
-		super(params);
-		a = params[0];
-		b = params[1];
-
+	public Less (double a, double b) {
+		super();
+		this.a = a;
+		this.b = b;
+		
 	}
 
 	@Override

@@ -5,11 +5,11 @@ public class Greater extends Action {
 	private double a;
 	private double b;
 	
-	public Greater (double[] params) {
-		super(params);
-		a = params[0];
-		b = params[1];
-
+	public Greater (double a, double b) {
+		super();
+		this.a = a;
+		this.b = b;
+		
 	}
 
 	@Override

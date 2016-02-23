@@ -4,9 +4,9 @@ public class Tan extends Action {
 
 	double degrees;
 
-	public Tan (double[] params) {
-		super(params);
-		degrees = params[0];
+	public Tan (double degrees) {
+		super();
+		this.degrees = degrees;
 
 	}
 

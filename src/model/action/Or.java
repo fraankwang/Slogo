@@ -5,11 +5,11 @@ public class Or extends Action {
 	private double a;
 	private double b;
 	
-	public Or (double[] params) {
-		super(params);
-		a = params[0];
-		b = params[1];
-
+	public Or (double a, double b) {
+		super();
+		this.a = a;
+		this.b = b;
+		
 	}
 
 	@Override

@@ -8,8 +8,7 @@ public abstract class Action {
 	TurtlePlayground playground;
 	Variables variables;
 	
-	public Action(double[] params){
-		
+	public Action(){
 		playground = new TurtlePlayground() ;
 		variables = new Variables();
 	}
