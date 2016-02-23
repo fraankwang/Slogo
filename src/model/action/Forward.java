@@ -2,17 +2,17 @@ package model.action;
 
 public class Forward extends Action {
 
-	int pixels;
+	double pixels;
 
-	public Forward(int pixels) {
-		super();
-		this.pixels = pixels;
+	public Forward(double[] params) {
+		super(params);
+		pixels = params[0];
 
 	}
 
 	@Override
 	public double rule() {
-		playground.moveTurtle(pixels);
+		playground.moveTurtle((int) pixels);
 		return 0;
 	}
 
