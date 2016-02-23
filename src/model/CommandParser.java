@@ -2,18 +2,21 @@
  * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
  */
 
-package model;
+package src.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class CommandParser {
-	Collection myCommands;
 	
-	public void parse (String input) {
+	public CommandParser(){
 		
 	}
 	
-	public Collection getParsedCommands () {
-		return myCommands;
+	public String[] parse (String input) {
+		return input.split(" ");		
 	}
+	
+	
+	
 }

@@ -2,9 +2,9 @@
  * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
  */
 
-package model;
+package src.model;
 
-import main.MainController;
+import src.main.MainController;
 
 public class MainModel {
 	private MainController myController;
@@ -12,6 +12,10 @@ public class MainModel {
 	private History myHistory;
 	private TurtlePlayground myPlayground;
 	private Variables myVariables;
+	
+	public MainModel(){
+		
+	}
 	
 	public void readCommand (String input) {
 		// wrapper method that does everything (extensive use of helper classes and objects)

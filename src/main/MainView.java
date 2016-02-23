@@ -2,7 +2,7 @@
  * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
  */
 
-package main;
+package src.main;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
