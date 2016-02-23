@@ -1,4 +1,4 @@
-package model;
+package model.action;
 
 public class Forward extends Action {
 
@@ -11,7 +11,7 @@ public class Forward extends Action {
 	}
 
 	@Override
-	public int rule() {
+	public double rule() {
 		playground.moveTurtle(pixels);
 		return 0;
 	}
