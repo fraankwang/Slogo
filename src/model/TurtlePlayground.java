@@ -10,12 +10,22 @@ public class TurtlePlayground {
 	private int myHeight;
 
 	public TurtlePlayground(){
-
+		myTurtle=new Turtle();
+	}
+	
+	public TurtlePlayground(int width, int height){
+		myTurtle=new Turtle();
+		myWidth=width;
+		myHeight=height;
 	}
 
 	public void setTurtle (Turtle turtle) {
 		myTurtle = turtle;
 
+	}
+	
+	public Turtle getTurtle(){
+		return this.myTurtle;
 	}
 
 	public void setWidth (int width) {
@@ -61,7 +71,8 @@ public class TurtlePlayground {
 	}
 
 	public float turnTurtle(float degrees){
-		myTurtle.setOrientation(degrees);
+		float newDegree=myTurtle.getOrientation()+degrees;
+		myTurtle.setOrientation(newDegree);
 		return degrees;
 	}
 	

@@ -18,6 +18,16 @@ public class Turtle {
 		penDown = false;
 		showTurtle = false;
 		Orientation = 90;
+		xCoordinate=0;
+		yCoordinate=0;
+	}
+	
+	public Turtle(int xCoord, int yCoord){
+		penDown = false;
+		showTurtle = false;
+		Orientation = 90;
+		xCoordinate=xCoord;
+		yCoordinate=yCoord;
 	}
 
 	public void setPenDown(boolean down) {
@@ -51,5 +61,14 @@ public class Turtle {
 	public void setyCoordinate(int yCoordinate) {
 		this.yCoordinate = yCoordinate;
 	}
+	
+	public boolean isPenDown(){
+		return this.penDown;
+	}
+	
+	public boolean isVisible(){
+		return this.showTurtle;
+	}
+	
 
 }

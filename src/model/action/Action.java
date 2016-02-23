@@ -9,5 +9,8 @@ public abstract class Action {
 	}
 	public abstract double rule();
 	//switched to double for sin/cos/etc
-
+	
+	public void setTurtlePlayground(TurtlePlayground playground){
+		this.playground=playground;
+	}
 }

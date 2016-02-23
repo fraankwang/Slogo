@@ -13,7 +13,7 @@ public class Forward extends Action {
 	@Override
 	public double rule() {
 		playground.moveTurtle(pixels);
-		return 0;
+		return pixels;
 	}
 
 }
