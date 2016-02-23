@@ -2,7 +2,7 @@
  * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
  */
 
-package src.main;
+package main;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -13,6 +13,7 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class MainView {
@@ -29,12 +30,12 @@ public class MainView {
 	public MainView (Stage stage) {
 		initializeRoot();
 		myPrimaryStage = stage;
-		display();
+		
 		
 	}
 
 	public void display () {
-		Scene scene = new Scene(myPrimaryRoot, 500, 500);
+		Scene scene = new Scene(myPrimaryRoot, 500, 500, Color.WHITE);
 		myPrimaryStage.setScene(scene);
 		myPrimaryStage.show();
 		
