@@ -15,6 +15,10 @@ public class History {
 		myHistory=new PriorityQueue<String>();
 	}
 	
+	/**
+	 * 
+	 * @param command
+	 */
 	public void add (String command) {
 		myHistory.add(command);
 	}
