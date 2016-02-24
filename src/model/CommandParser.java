@@ -30,6 +30,9 @@ public class CommandParser {
 		//if child, it's done
 		
 		//do errors in the 
+		
+		TreeNode tree = new TreeNode();
+		
 	}
 	
 	

@@ -11,7 +11,10 @@ public class And extends Action {
 		this.b = b;
 		
 	}
-
+	public And (double[]c){
+		this(c[0], c[1]);
+	}
+	
 	@Override
 	public double rule() {
 		if (a != 0 && b != 0) {
