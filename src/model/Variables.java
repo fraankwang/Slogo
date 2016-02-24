@@ -4,21 +4,25 @@
 
 package model;
 
-import java.util.Map;
+import java.util.*;
 
 public class Variables {
 	
-	Map myVariables;
+	Map<String, Double> myVariables;
 	
 	public Variables(){
 		
 	}
 	
-	public Map getVariables () {
-		return myVariables;
+	public Collection<String> getVariables () {
+		return myVariables.keySet();
 	}
 	
-	public void addVariable (String name, String value) {
-		
+	public void addVariable (String name, double value) {
+		myVariables.put(name, value);
+	}
+	
+	public double getVariableValue (String name) {
+		return myVariables.get(name);
 	}
 }
