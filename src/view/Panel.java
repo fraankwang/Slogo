@@ -1,18 +1,27 @@
 package view;
 
+import java.util.Arrays;
+import java.util.List;
+
 import constants.Constants;
 import controller.MainController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Control;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -23,15 +32,16 @@ public class Panel {
 
 	private MainController myController;
 
-	private final int SCENE_WIDTH = 1000;
-	private final int SCENE_HEIGHT = 1000;
-	private final int LEFT_COLUMN_WIDTH = 700;
-	private final int PLAYGROUND_HEIGHT = 550;
-	private final int RIGHT_COLUMN_WIDTH = 300;
+	private static final int LEFT_COLUMN_WIDTH = Constants.LEFT_COLUMN_WIDTH;
+	private static final int PLAYGROUND_HEIGHT = Constants.PLAYGROUND_HEIGHT;
+	private static final int RIGHT_COLUMN_WIDTH = Constants.RIGHT_COLUMN_WIDTH;
+	private static final int RIGHT_COLUMN_ELEMENT_HEIGHT = Constants.RIGHT_COLUMN_ELEMENT_HEIGHT;
 
-	CornerRadii CORNER_RADIUS = new CornerRadii(10.0);
-	StackPane myTurtleBackground;
-	GraphicsContext turtleBox;
+	private static final double ELEMENT_INSET_HORIZONTAL = Constants.ELEMENT_INSET_HORIZONTAL;
+	private static final double ELEMENT_INSET_VERTICAL = Constants.ELEMENT_INSET_VERTICAL;
+	
+	private StackPane myTurtleBackground;
+	private GraphicsContext turtleBox;
 
 	public Panel(MainController controller) {
 		myController = controller;
@@ -64,16 +74,23 @@ public class Panel {
 		ScrollPane variablesScrollPane = createVariablesScrollPane();
 		ScrollPane commandsScrollPane = createCommandsScrollPane();
 		ScrollPane historyScrollPane = createHistoryScrollPane();
+		StackPane outputPane = createOutputPane();
 		
-		// TODO: add console output box, change all print statements to show in output box instead of Eclipse console
-		vb.getChildren().addAll(variablesScrollPane, commandsScrollPane, historyScrollPane);
+		List<Node> allElements = Arrays.asList(variablesScrollPane, commandsScrollPane, historyScrollPane, outputPane);
+		setMargins(allElements);
+		
+		// TODO: change all print statements to show in output box instead of Eclipse console
+		vb.getChildren().addAll(allElements);
 		return vb;
 	}
 
+	/**
+	 * @return formatted ScrollPane wrapper that contains StackPane with Variables elements
+	 */
 	private ScrollPane createVariablesScrollPane() {
 		ScrollPane variablesScrollPane = new ScrollPane();
 		
-		variablesScrollPane.setPrefHeight(200);
+		variablesScrollPane.setPrefHeight(RIGHT_COLUMN_ELEMENT_HEIGHT);
 		variablesScrollPane.setPrefWidth(RIGHT_COLUMN_WIDTH);
 	
 		StackPane variablesStackPane = new StackPane();
@@ -92,7 +109,7 @@ public class Panel {
 			}
 		});
 	
-		Rectangle rec = new Rectangle(200, 400);
+		Rectangle rec = new Rectangle(RIGHT_COLUMN_ELEMENT_HEIGHT, 400);
 		rec.setFill(Color.BLACK);
 		rec.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
@@ -111,10 +128,13 @@ public class Panel {
 		return variablesScrollPane;
 	}
 
+	/**
+	 * @return formatted ScrollPane wrapper that contains StackPane with commands elements
+	 */
 	private ScrollPane createCommandsScrollPane() {
 		ScrollPane commandsScrollPane = new ScrollPane();
 		
-		commandsScrollPane.setPrefHeight(200);
+		commandsScrollPane.setPrefHeight(RIGHT_COLUMN_ELEMENT_HEIGHT);
 		commandsScrollPane.setPrefWidth(RIGHT_COLUMN_WIDTH);
 
 		StackPane commandsStackPane = new StackPane();
@@ -133,7 +153,7 @@ public class Panel {
 			}
 		});
 
-		Rectangle rec = new Rectangle(200, 400);
+		Rectangle rec = new Rectangle(RIGHT_COLUMN_ELEMENT_HEIGHT, 400);
 		rec.setFill(Color.BLACK);
 		rec.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
@@ -152,10 +172,13 @@ public class Panel {
 		return commandsScrollPane;
 	}
 
+	/**
+	 * @return formatted ScrollPane wrapper that contains StackPane with History elements
+	 */
 	private ScrollPane createHistoryScrollPane() {
 		ScrollPane historyScrollPane = new ScrollPane();
 		
-		historyScrollPane.setPrefHeight(200);
+		historyScrollPane.setPrefHeight(RIGHT_COLUMN_ELEMENT_HEIGHT);
 		historyScrollPane.setPrefWidth(RIGHT_COLUMN_WIDTH);
 	
 		StackPane historyStackPane = new StackPane();
@@ -174,7 +197,7 @@ public class Panel {
 			}
 		});
 	
-		Rectangle rec = new Rectangle(200, 400);
+		Rectangle rec = new Rectangle(RIGHT_COLUMN_ELEMENT_HEIGHT, 400);
 		rec.setFill(Color.BLACK);
 		rec.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
 			@Override
@@ -194,6 +217,37 @@ public class Panel {
 	}
 
 	/**
+	 * @return formatted StackPane wrapper that contains output elements
+	 */
+	private StackPane createOutputPane() {
+		StackPane outputPane = new StackPane();
+		outputPane.setPrefHeight(RIGHT_COLUMN_ELEMENT_HEIGHT);
+		outputPane.setPrefWidth(RIGHT_COLUMN_WIDTH);
+		outputPane.setBackground(new Background(new BackgroundFill(Color.BLACK, Constants.CORNER_RADIUS, null)));
+		
+		Text txt = new Text("Output Console");
+		txt.setFill(Color.WHITE);
+		StackPane.setAlignment(txt, Pos.BOTTOM_LEFT);
+		outputPane.getChildren().add(txt);
+		
+		
+		return outputPane;
+	}
+
+	/**
+	 * Takes @param items, checks what type of Object they are, and applies relevant insets
+	 */
+	private void setMargins(List<Node> items) {
+		Insets insets = new Insets(ELEMENT_INSET_HORIZONTAL, ELEMENT_INSET_VERTICAL,
+				ELEMENT_INSET_HORIZONTAL, ELEMENT_INSET_VERTICAL);
+		
+		for (Node item: items) {
+			VBox.setMargin(item, insets);
+		}
+		
+	}
+	
+	/**
 	 * Helper UI-creating function that adds tool bar elements and links them to
 	 * myController
 	 * 
@@ -202,17 +256,21 @@ public class Panel {
 	public VBox createLeftColumn() {
 		VBox vb = new VBox();
 
+		StackPane turtlePlayground = makePlayground();
+		Group inputBox = makeInputBox();
 		// ***this is just here for backend to test commands
 		TextField tf = makeTextField();
 		// ***this is just here for backend to test commands
 
-		StackPane turtlePlayground = makePlayground();
-		Group inputBox = makeInputBox();
-
+		List<Node> allElements = Arrays.asList(turtlePlayground, inputBox);
+		setMargins(allElements);
 		vb.getChildren().addAll(turtlePlayground, inputBox, tf);
 		return vb;
 	}
 
+	/**
+	 * @return formatted inputBox
+	 */
 	private Group makeInputBox() {
 		Group inputBox = new Group();
 		// make border pane within this? set dimensions -- CALCULATE THIS using
@@ -227,11 +285,15 @@ public class Panel {
 		return inputBox;
 	}
 
+	/**
+	 * @return formatted StackPane which contains turtle Canvas
+	 */
 	private StackPane makePlayground() {
 		myTurtleBackground = new StackPane();
 		myTurtleBackground.setPrefHeight(PLAYGROUND_HEIGHT);
 		myTurtleBackground.setPrefWidth(LEFT_COLUMN_WIDTH);
-
+		myTurtleBackground.setBackground(
+				new Background(new BackgroundFill(Constants.DEFAULT_BACKGROUND_COLOR, Constants.CORNER_RADIUS, null)));
 		Canvas playground = new Canvas(LEFT_COLUMN_WIDTH, PLAYGROUND_HEIGHT);
 		setTurtleBox(playground.getGraphicsContext2D());
 
@@ -258,6 +320,10 @@ public class Panel {
 
 	}
 
+	// =========================================================================
+	// Getters and Setters
+	// =========================================================================	
+	
 	private void setTurtleBox(GraphicsContext tb) {
 		turtleBox = tb;
 	}
