@@ -5,8 +5,6 @@
 package main;
 
 import javafx.animation.Timeline;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import model.MainModel;
 
@@ -103,6 +101,10 @@ public class MainController {
 	public void setPenColor(Color color) {
 		// updates Model information, needs to refresh display
 
+	}
+
+	public void setLanguage(String value) {
+		
 	}
 
 }
