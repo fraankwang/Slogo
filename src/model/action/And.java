@@ -1,5 +1,7 @@
 package model.action;
 
+import java.util.List;
+
 public class And extends Action {
 
 	private double a;
@@ -11,8 +13,8 @@ public class And extends Action {
 		this.b = b;
 		
 	}
-	public And (double[]c){
-		this(c[0], c[1]);
+	public And (List<Double>c){
+		this(c.get(0), c.get(1));
 	}
 	
 	@Override

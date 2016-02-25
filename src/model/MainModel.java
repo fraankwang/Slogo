@@ -22,7 +22,8 @@ public class MainModel {
 	private Variables myVariables;
 
 	public MainModel() {
-
+		myParser = new CommandParser();
+		myHistory = new History();
 	}
 
 	public void readCommand(String input) {
@@ -33,6 +34,14 @@ public class MainModel {
 		// store command in history and update history
 		// anything else I missed
 		System.out.println("command read: " + input);
+		try {
+			myParser.parseCommands(input);
+			myHistory.add(input);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/** NOTE to Huijia and Srikar:
