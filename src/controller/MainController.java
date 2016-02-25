@@ -18,8 +18,8 @@ public class MainController {
 
 	public MainController(MainView view) {
 		myView = view;
-		myModel = new MainModel();
 		myTransformer = new ModelTransformer(this);
+		myModel = new MainModel(myTransformer.getLanguage());
 		
 	}
 
@@ -74,7 +74,7 @@ public class MainController {
 	}
 
 	public void setBackgroundColor(Color color) {
-		getMyView().setTurtleBackground(color);
+		getMyView().setTurtleBackgroundColor(color);
 	}
 
 	public void setPenColor(Color color) {

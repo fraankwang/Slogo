@@ -8,7 +8,7 @@ import controller.MainController;
 
 public class MainModel {
 	private MainController myController;
-	// we can eliminate a dependency with MainModel setnding stuff to myController if we have getters 
+	// we can eliminate a dependency with MainModel sending stuff to myController if we have getters 
 	// in the MainModel class (i.e. getHistory) that calls respective Model elements to return their values
 
 	// for example: MainController.sendStuff(MainModel), MainController.getStuff(MainModel). 
@@ -20,10 +20,13 @@ public class MainModel {
 	private History myHistory;
 	private TurtlePlayground myPlayground;
 	private Variables myVariables;
-
-	public MainModel() {
+	private String myLanguage;
+	
+	public MainModel(String language) {
+		myLanguage = language;
 		myParser = new CommandParser();
 		myHistory = new History();
+		
 	}
 
 	public void readCommand(String input) {

@@ -4,6 +4,7 @@
 
 package view;
 
+import constants.Constants;
 import controller.MainController;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -21,8 +22,8 @@ import javafx.stage.Stage;
 
 public class MainView {
 
-	private final int SCENE_WIDTH = 1000;
-	private final int SCENE_HEIGHT = 1000;
+	private static final int SCENE_WIDTH = 1000;
+	private static final int SCENE_HEIGHT = 1000;
 
 	private Stage myPrimaryStage;
 	private MainController myController;
@@ -69,7 +70,9 @@ public class MainView {
 
 		setMyTurtleBox(panel.getTurtleBox());
 		setMyTurtleBackground(panel.getTurtleBackground());
-
+		//set other stuff too
+		
+		
 		myPrimaryPane.setTop(toolBar);
 		myPrimaryPane.setLeft(leftColumn);
 		myPrimaryPane.setRight(rightColumn);
@@ -117,8 +120,8 @@ public class MainView {
 		myTurtleBackground = turtleBackground;
 	}
 
-	public void setTurtleBackground(Color color) {
-		myTurtleBackground.setBackground(new Background(new BackgroundFill(color, null, null)));
+	public void setTurtleBackgroundColor(Color color) {
+		myTurtleBackground.setBackground(new Background(new BackgroundFill(color, Constants.CORNER_RADIUS, null)));
 		
 	}
 

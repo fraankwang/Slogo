@@ -1,15 +1,18 @@
 package controller;
 
+import constants.Constants;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class ModelTransformer {
 	
+	private static final int CENTER_X_COORDINATE = 350;
+	private static final int CENTER_Y_COORDINATE = 275;
+
 	private MainController myController;
 	
 	//configuration variables should be here, i.e. background color
-	private String myLanguage;
-	private Color myBackgroundColor;
+	private String myLanguage = Constants.getSpecification("DefaultLanguage");
 	private Color myPenColor;
 	private String myTurtleImage;
 	
@@ -79,11 +82,11 @@ public class ModelTransformer {
 	 */
 	private void updateTurtleBox(GraphicsContext gc) {
 				
-		gc.setFill(Color.BLACK);
+		gc.setFill(myPenColor);
 		gc.setStroke(myPenColor);
 		gc.setLineWidth(5);
 
-		gc.strokeLine(350, 275, 350 + 100, 275 + 100);
+		gc.strokeLine(CENTER_X_COORDINATE, CENTER_Y_COORDINATE, CENTER_X_COORDINATE + 100, CENTER_Y_COORDINATE + 100);
 	}
 
 	// =========================================================================
@@ -94,16 +97,16 @@ public class ModelTransformer {
 		myLanguage = language;
 	}
 
-	public void setBackgroundColor(Color color) {
-		myBackgroundColor = color;
-	}
-
 	public void setPenColor(Color color) {
 		myPenColor = color;
 	}
 
 	public void setTurtleImage(String image) {
 		myTurtleImage = image;
+	}
+
+	public String getLanguage() {
+		return myLanguage;
 	}
 	
 }

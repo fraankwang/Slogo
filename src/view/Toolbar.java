@@ -1,5 +1,6 @@
 package view;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -7,6 +8,7 @@ import constants.Constants;
 import constants.StringImageCell;
 import controller.MainController;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
@@ -20,13 +22,13 @@ import javafx.scene.text.TextAlignment;
 
 public class Toolbar {
 
-	private final int SCENE_WIDTH = 1000;
+	private static final int SCENE_WIDTH = Constants.SCENE_WIDTH;
 	
-	private final int TOOLBAR_HEIGHT = 50;
-	private final int TOOLBAR_INSET_HORIZONTAL = 10;
-	private final int TOOLBAR_INSET_HORIZONTAL_LABEL = 16;
-	private final int TOOLBAR_INSET_VERTICAL = 5;
-	private final int TOOLBAR_LABEL_FONT_SIZE = 11;
+	private static final int TOOLBAR_HEIGHT = Constants.TOOLBAR_HEIGHT;
+	private static final int TOOLBAR_INSET_HORIZONTAL = Constants.TOOLBAR_INSET_HORIZONTAL;
+	private static final int TOOLBAR_INSET_HORIZONTAL_LABEL = Constants.TOOLBAR_INSET_HORIZONTAL_LABEL;
+	private static final int TOOLBAR_INSET_VERTICAL = Constants.TOOLBAR_INSET_VERTICAL;
+	private static final int TOOLBAR_LABEL_FONT_SIZE = Constants.TOOLBAR_LABEL_FONT_SIZE;
 	
 	private MainController myController;
 	
@@ -44,14 +46,14 @@ public class Toolbar {
 		HBox toolbar = new HBox();
 		toolbar.setPrefHeight(TOOLBAR_HEIGHT);
 		toolbar.setPrefWidth(SCENE_WIDTH);
-		toolbar.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
+		toolbar.setBackground(new Background(new BackgroundFill(Constants.DEFAULT_TOOLBAR_COLOR, Constants.CORNER_RADIUS, null)));
 
 		Label penColorPickerLabel = makeLabel("PenColorPickerLabel");
-		ColorPicker penColorPicker = new ColorPicker(Color.BLACK);
+		ColorPicker penColorPicker = new ColorPicker(Constants.DEFAULT_PEN_COLOR);
 		penColorPicker.setOnAction(e -> myController.setPenColor(penColorPicker.getValue()));
 
 		Label backgroundColorPickerLabel = makeLabel("BackgroundPickerLabel");
-		ColorPicker backgroundColorPicker = new ColorPicker(Color.WHITE);
+		ColorPicker backgroundColorPicker = new ColorPicker(Constants.DEFAULT_BACKGROUND_COLOR);
 		backgroundColorPicker.setOnAction(e -> myController.setBackgroundColor(backgroundColorPicker.getValue()));
 
 		Label turtleImageChooserLabel = makeLabel("ImagePickerLabel");
@@ -62,14 +64,16 @@ public class Toolbar {
 		ComboBox<String> languageChooser = makeComboBox(Constants.getLanguages(), false);
 		languageChooser.setOnAction(e -> myController.setLanguage(languageChooser.getValue()));
 
-		List<Label> labels = Arrays.asList(penColorPickerLabel, backgroundColorPickerLabel, turtleImageChooserLabel,
+		List<Node> labels = Arrays.asList(penColorPickerLabel, backgroundColorPickerLabel, turtleImageChooserLabel,
 				languageChooserLabel);
-		setMarginsLabel(labels);
 
-		List<Control> controls = Arrays.asList(penColorPicker, backgroundColorPicker, turtleImageChooser,
+		List<Node> controls = Arrays.asList(penColorPicker, backgroundColorPicker, turtleImageChooser,
 				languageChooser);
-		setMarginsControl(controls);
 
+		List<Node> allElements = new ArrayList<Node>(labels);
+		allElements.addAll(controls);
+		setMargins(allElements);
+		
 		for (int i = 0; i < labels.size(); i++) {
 			toolbar.getChildren().addAll(labels.get(i), controls.get(i));
 		}
@@ -84,33 +88,24 @@ public class Toolbar {
 	}
 
 	/**
-	 * Loops through all tool bar labels and formats margins
-	 * 
-	 * @param labels
+	 * Takes @param items, checks what type of Object they are, and applies relevant insets
 	 */
-	private void setMarginsLabel(List<Label> labels) {
-		Insets insets = new Insets(TOOLBAR_INSET_HORIZONTAL_LABEL, TOOLBAR_INSET_VERTICAL,
+	private void setMargins(List<Node> items) {
+		Insets labelInsets = new Insets(TOOLBAR_INSET_HORIZONTAL_LABEL, TOOLBAR_INSET_VERTICAL,
 				TOOLBAR_INSET_HORIZONTAL_LABEL, TOOLBAR_INSET_VERTICAL);
 
-		for (Label label : labels) {
-			HBox.setMargin(label, insets);
-		}
-
-	}
-
-	/**
-	 * Loops through all tool bar controls and formats margins
-	 * 
-	 * @param labels
-	 */
-	private void setMarginsControl(List<Control> controls) {
-		Insets insets = new Insets(TOOLBAR_INSET_HORIZONTAL, TOOLBAR_INSET_VERTICAL, TOOLBAR_INSET_HORIZONTAL,
+		Insets controlInsets = new Insets(TOOLBAR_INSET_HORIZONTAL, TOOLBAR_INSET_VERTICAL, TOOLBAR_INSET_HORIZONTAL,
 				TOOLBAR_INSET_VERTICAL);
-
-		for (Control control : controls) {
-			HBox.setMargin(control, insets);
+		
+		for (Node item: items) {
+			if (item instanceof Label) {
+				HBox.setMargin(item, labelInsets);
+			}
+			else if (item instanceof Control) {
+				HBox.setMargin(item, controlInsets);
+			}
 		}
-
+		
 	}
 
 	/**
