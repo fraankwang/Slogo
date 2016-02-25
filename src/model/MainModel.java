@@ -4,7 +4,7 @@
 
 package model;
 
-import main.MainController;
+import controller.MainController;
 
 public class MainModel {
 	private MainController myController;
