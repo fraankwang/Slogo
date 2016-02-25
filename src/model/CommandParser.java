@@ -6,6 +6,9 @@ package model;
 
 import java.lang.reflect.*;
 import java.util.*;
+
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
+
 import constants.Constants;
 import model.action.*;
 
@@ -20,6 +23,7 @@ public class CommandParser {
 	}
 
 	private Queue<String> queue;
+
 	public CommandParser(String language) {
 		myLanguage = language;
 	}
@@ -27,7 +31,7 @@ public class CommandParser {
 
 	private void parse(String input) {
 		queue = new LinkedList<String>();
-		List<String> list = Arrays.asList(input.split(" "));
+		List<String> list = Arrays.asList(input.split("\n"));
 		for(String s:list){
 			try{
 				s = Constants.getCommand(myLanguage, s);
@@ -74,17 +78,27 @@ public class CommandParser {
 	private double treeTraversal(Node<String> node) throws Exception {
 		System.out.println(node.data);
 		if (node.children.isEmpty()){
-			return Double.parseDouble(node.data);
+			try{
+				return Double.parseDouble(node.data);
+			}
+			catch (NumberFormatException nfe){
+				throw nfe;
+			}
 		}
 		else{
 			ArrayList<Double> param = new ArrayList<Double>();
 			for (Node n: node.children){
 				param.add(treeTraversal(n));
 			}
-			Class a = Class.forName(Constants.getAction(node.data));
-			Constructor constructor = a.getConstructors()[1];
-			Action action = (Action) constructor.newInstance(param);
-			return action.rule();
+			try{
+				Class a = Class.forName(Constants.getAction(node.data));
+				Constructor constructor = a.getConstructors()[1];
+				Action action = (Action) constructor.newInstance(param);
+				return action.rule();
+			}
+			catch (ParseException exception){
+				throw exception;
+			}
 
 		}
 	}

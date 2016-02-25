@@ -9,11 +9,11 @@ public class TurtlePlayground {
 	private int myWidth;
 	private int myHeight;
 
-	public TurtlePlayground(){
+	public TurtlePlayground (){
 		myTurtle=new Turtle();
 	}
-	
-	public TurtlePlayground(int width, int height){
+
+	public TurtlePlayground (int width, int height){
 		myTurtle=new Turtle();
 		myWidth=width;
 		myHeight=height;
@@ -23,7 +23,7 @@ public class TurtlePlayground {
 		myTurtle = turtle;
 
 	}
-	
+
 	public Turtle getTurtle(){
 		return this.myTurtle;
 	}
@@ -45,7 +45,7 @@ public class TurtlePlayground {
 		if(xCoord<0 || xCoord>myWidth || yCoord<0 || yCoord>myHeight) return false;
 		else return true;
 	}
-	
+
 	public int getDistance(int xCoord1, int yCoord1, int xCoord2, int yCoord2){
 		return (int) Math.sqrt( Math.pow((xCoord1-xCoord2),2) + Math.pow((yCoord1-yCoord2),2));
 	}
@@ -75,9 +75,11 @@ public class TurtlePlayground {
 		myTurtle.setOrientation(newDegree);
 		return degrees;
 	}
-	
+
 	public int setTurtleHome(){
 		return placeTurtle(0,0);
 	}
+
+	
 	//methods relating to moving the Turtle around in the playground
 }
