@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 public class ModelTransformer {
@@ -32,7 +33,8 @@ public class ModelTransformer {
 	}
 
 	public void transformTurtleBox() {
-		// TODO Auto-generated method stub
+		GraphicsContext tb = myController.getMyView().getMyTurtleBox();
+		updateTurtleBox(tb);
 		
 	}
 
@@ -75,8 +77,13 @@ public class ModelTransformer {
 	/**
 	 * Updates where the turtle (or turtles) has drawn
 	 */
-	private void updateTurtleBox() {
-		//
+	private void updateTurtleBox(GraphicsContext gc) {
+				
+		gc.setFill(Color.BLACK);
+		gc.setStroke(myPenColor);
+		gc.setLineWidth(5);
+
+		gc.strokeLine(350, 275, 350 + 100, 275 + 100);
 	}
 
 	// =========================================================================

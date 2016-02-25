@@ -53,7 +53,6 @@ public class MainController {
 	 * changing UI elements in the view
 	 */
 	private void refreshDisplay() {
-		// get myView's outputbox, historybox, turtlebox and call respective
 		myTransformer.transformOutputBox();
 		myTransformer.transformHistoryBox();
 		myTransformer.transformTurtleBox();
@@ -75,7 +74,7 @@ public class MainController {
 	}
 
 	public void setBackgroundColor(Color color) {
-		myTransformer.setBackgroundColor(color);
+		getMyView().setTurtleBackground(color);
 	}
 
 	public void setPenColor(Color color) {
