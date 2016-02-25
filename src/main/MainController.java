@@ -6,6 +6,7 @@ package main;
 
 import javafx.animation.Timeline;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import model.MainModel;
 
@@ -85,21 +86,21 @@ public class MainController {
 	// Getters and Setters
 	// =========================================================================
 	
-	private void setTurtleColor(Color color) {
+	public void setTurtleColor(Color color) {
 		// updates Model information, needs to refresh display
 
 	}
 
-	private void setBackgroundColor(Color color) {
+	public void setBackgroundColor(Color color) {
 
 	}
 
-	private void setTurtleImage(Image image) {
+	public void setTurtleImage(String string) {
 		// updates Model information, needs to refresh display
 
 	}
 
-	private void setPenColor(Color color) {
+	public void setPenColor(Color color) {
 		// updates Model information, needs to refresh display
 
 	}
