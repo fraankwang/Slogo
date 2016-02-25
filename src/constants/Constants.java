@@ -16,13 +16,14 @@ public class Constants {
 
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 	private static final String DEFAULT_RESOURCE_FILE = "Specifications";
-	private static final String DEFAULT_LANGUAGE = "languages/English";
+	private static final String DEFAULT_LANGUAGES = "languages/";
+//	private static final String DEFAULT_LANGUAGE = DEFAULT_LANGUAGES+"English";
 	private static final String DEFAULT_ACTIONS = "possibleactions";
 
 	private static final ResourceBundle SPECIFICATIONS = ResourceBundle
 			.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_RESOURCE_FILE);
-	private static final ResourceBundle COMMANDS = ResourceBundle
-			.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_LANGUAGE);
+//	private static final ResourceBundle COMMANDS = ResourceBundle
+//			.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_LANGUAGE);
 	private static final ResourceBundle ACTIONS = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_ACTIONS);
 
 	private static final List<String> TURTLE_IMAGES = Arrays.asList("basic", "duvall");
@@ -55,8 +56,15 @@ public class Constants {
 		return SPECIFICATIONS.getString(name);
 	}
 
-	public static String getCommand(String command) {
-		return COMMANDS.getString(command);
+	public static String getCommand(String language, String command) {
+		ResourceBundle COMMANDS = ResourceBundle
+				.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_LANGUAGES+language);
+	        for (String e : COMMANDS.keySet()) {
+	            if (COMMANDS.getString(e).equals(command)) {
+	                return e;
+	            }
+	        }
+	        return null;
 	}
 
 	public static String getAction(String action) {

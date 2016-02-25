@@ -10,19 +10,31 @@ import constants.Constants;
 import model.action.*;
 
 public class CommandParser {
+	private String myLanguage;
+
+
 	private static class Node<T> {
 		private T data;
 		private List<Node<T>> children;
 	}
 
 	private Queue<String> queue;
-	public CommandParser() {
-
+	public CommandParser(String language) {
+		myLanguage = language;
 	}
+
 
 	private void parse(String input) {
 		queue = new LinkedList<String>();
-		queue.addAll(Arrays.asList(input.split(" ")));
+		List<String> list = Arrays.asList(input.split(" "));
+		for(String s:list){
+			try{
+				s = Constants.getCommand(myLanguage, s);
+			}
+			catch (Exception e){
+			}
+		}
+		queue.addAll(list);
 
 	}
 
@@ -40,6 +52,7 @@ public class CommandParser {
 				try{
 					Class a = Class.forName(Constants.getAction(tree.data));
 					Constructor constructor = a.getConstructors()[0];
+					//??????'
 					for (int i = 0; i<constructor.getParameterTypes().length; i++){
 						tree.children.add(makeTree());
 
@@ -48,7 +61,7 @@ public class CommandParser {
 				}
 				catch (Exception exception){
 					try{
-//						variable
+						//						variable
 					}
 					catch (Exception exception2){
 						System.out.println("input error");

@@ -24,7 +24,7 @@ public class MainModel {
 	
 	public MainModel(String language) {
 		myLanguage = language;
-		myParser = new CommandParser();
+		myParser = new CommandParser(myLanguage);
 		myHistory = new History();
 		
 	}
