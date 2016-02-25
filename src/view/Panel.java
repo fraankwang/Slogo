@@ -1,17 +1,17 @@
 package view;
 
 import constants.Constants;
+import controller.MainController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import main.MainController;
 
 public class Panel {
 
-	MainController myController;
+	private MainController myController;
 	
 	public Panel(MainController controller) {
 		myController = controller;
@@ -75,7 +75,7 @@ public class Panel {
 
 	private Canvas makePlayground() {
 		Canvas playground = new Canvas();
-
+		
 		// figure out turtle stuff, set dimensions
 
 		return playground;

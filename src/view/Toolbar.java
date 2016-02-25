@@ -5,6 +5,7 @@ import java.util.List;
 
 import constants.Constants;
 import constants.StringImageCell;
+import controller.MainController;
 import javafx.geometry.Insets;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
@@ -16,7 +17,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
-import main.MainController;
 
 public class Toolbar {
 
@@ -28,7 +28,7 @@ public class Toolbar {
 	private final int TOOLBAR_INSET_VERTICAL = 5;
 	private final int TOOLBAR_LABEL_FONT_SIZE = 11;
 	
-	MainController myController;
+	private MainController myController;
 	
 	public Toolbar (MainController controller) {
 		myController = controller;
