@@ -8,8 +8,12 @@ import controller.MainController;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -26,12 +30,12 @@ public class MainView {
 	private BorderPane myPrimaryPane;
 	private Node myOutputBox;
 	private Node myHistoryBox;
-	private Node myTurtleBox;
+	private GraphicsContext myTurtleBox;
+	private StackPane myTurtleBackground;
 	private Node myCommandsBox;
 	private Node myVariablesBox;
 
 	public MainView(Stage stage) {
-		initializeRoot();
 		myPrimaryStage = stage;
 
 	}
@@ -40,6 +44,7 @@ public class MainView {
 	 * Displays primaryRoot on the primaryStage
 	 */
 	public void display() {
+		initializeRoot();
 		Scene scene = new Scene(myPrimaryRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.WHITE);
 		myPrimaryStage.setScene(scene);
 		myPrimaryStage.show();
@@ -61,6 +66,9 @@ public class MainView {
 		HBox toolBar = tb.createToolBar();
 		VBox leftColumn = panel.createLeftColumn();
 		VBox rightColumn = panel.createRightColumn();
+
+		setMyTurtleBox(panel.getTurtleBox());
+		setMyTurtleBackground(panel.getTurtleBackground());
 
 		myPrimaryPane.setTop(toolBar);
 		myPrimaryPane.setLeft(leftColumn);
@@ -85,7 +93,11 @@ public class MainView {
 		return myHistoryBox;
 	}
 
-	public Node getMyTurtleBox() {
+	public void setMyTurtleBox(GraphicsContext gc) {
+		myTurtleBox = gc;
+	}
+	
+	public GraphicsContext getMyTurtleBox() {
 		return myTurtleBox;
 	}
 
@@ -95,6 +107,19 @@ public class MainView {
 
 	public Node getMyVariablesBox() {
 		return myVariablesBox;
+	}
+
+	public StackPane getTurtleBackground() {
+		return myTurtleBackground;
+	}
+	
+	private void setMyTurtleBackground(StackPane turtleBackground) {
+		myTurtleBackground = turtleBackground;
+	}
+
+	public void setTurtleBackground(Color color) {
+		myTurtleBackground.setBackground(new Background(new BackgroundFill(color, null, null)));
+		
 	}
 
 }

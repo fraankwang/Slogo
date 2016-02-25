@@ -6,16 +6,32 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 
 public class Panel {
 
 	private MainController myController;
+
+	private final int SCENE_WIDTH = 1000;
+	private final int SCENE_HEIGHT = 1000;
+	private final int LEFT_COLUMN_WIDTH = 700;
+	private final int PLAYGROUND_HEIGHT = 550;
+	private final int RIGHT_COLUMN_WIDTH = 300;
+	
+	CornerRadii CORNER_RADIUS = new CornerRadii(10.0);
+	StackPane myTurtleBackground;
+	GraphicsContext turtleBox;
 	
 	public Panel(MainController controller) {
 		myController = controller;
-		
+
 	}
 
 	/**
@@ -49,13 +65,12 @@ public class Panel {
 
 		// ***this is just here for backend to test commands
 		TextField tf = makeTextField();
-		vb.getChildren().add(tf);
 		// ***this is just here for backend to test commands
 
-		Canvas turtlePlayground = makePlayground();
+		StackPane turtlePlayground = makePlayground();
 		Group inputBox = makeInputBox();
 
-		vb.getChildren().addAll(turtlePlayground, inputBox);
+		vb.getChildren().addAll(turtlePlayground, inputBox, tf);
 		return vb;
 	}
 
@@ -73,15 +88,18 @@ public class Panel {
 		return inputBox;
 	}
 
-	private Canvas makePlayground() {
-		Canvas playground = new Canvas();
-		
-		// figure out turtle stuff, set dimensions
+	private StackPane makePlayground() {
+		myTurtleBackground = new StackPane();
+		myTurtleBackground.setPrefHeight(PLAYGROUND_HEIGHT);
+		myTurtleBackground.setPrefWidth(LEFT_COLUMN_WIDTH);
 
-		return playground;
+		Canvas playground = new Canvas(LEFT_COLUMN_WIDTH, PLAYGROUND_HEIGHT);
+		setTurtleBox(playground.getGraphicsContext2D());
+
+		myTurtleBackground.getChildren().add(playground);
+		return myTurtleBackground;
 	}
 
-	
 
 	/**
 	 * @return TextField that sets myController to fully run the command and
@@ -101,6 +119,16 @@ public class Panel {
 		return textField;
 
 	}
+
+	private void setTurtleBox(GraphicsContext tb) {
+		turtleBox = tb;
+	}
 	
-	
+	public GraphicsContext getTurtleBox() {
+		return turtleBox;
+	}
+
+	public StackPane getTurtleBackground() {
+		return myTurtleBackground;
+	}
 }
