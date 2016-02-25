@@ -2,24 +2,25 @@
  * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
  */
 
-package main;
+package controller;
 
 import javafx.animation.Timeline;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import model.MainModel;
+import view.MainView;
 
 public class MainController {
 
 	private MainView myView;
 	private MainModel myModel;
+	private ModelTransformer myTransformer;
 	// private Timeline myTimeline;
 
 	public MainController(MainView view) {
 		myView = view;
 		myModel = new MainModel();
-
+		myTransformer = new ModelTransformer(this);
+		
 	}
 
 	/**
@@ -44,6 +45,7 @@ public class MainController {
 	 */
 	private void readCommand(String input) {
 		myModel.readCommand(input);
+		
 	}
 
 	/**
@@ -52,57 +54,36 @@ public class MainController {
 	 */
 	private void refreshDisplay() {
 		// get myView's outputbox, historybox, turtlebox and call respective
-		updateOutputBox();
-		updateHistoryBox();
-		updateTurtleBox();
+		myTransformer.transformOutputBox();
+		myTransformer.transformHistoryBox();
+		myTransformer.transformTurtleBox();
+		myTransformer.transformVariablesBox();
+		myTransformer.transformCommandsBox();
 
-	}
-
-	/**
-	 * Updates what is visible in the console to the user
-	 */
-	private void updateOutputBox() {
-		// modify elements within outputbox so we don't have to deal with actual
-		// UI wrapper
-		// myView.getMyOutputBox().text or whatever
-	}
-
-	/**
-	 * Updates what is visible in the history to the user
-	 */
-	private void updateHistoryBox() {
-		// myView.getMyHistoryBox() and modify element within it so we don't
-		// deal with actual UI wrapper
-	}
-
-	/**
-	 * Updates where the turtle (or turtles) has drawn
-	 */
-	private void updateTurtleBox() {
-		//
 	}
 
 	// =========================================================================
 	// Getters and Setters
 	// =========================================================================
 	
-	public void setTurtleColor(Color color) {
-		// updates Model information, needs to refresh display
+	public MainView getMyView() {
+		return myView;
+	}
 
+	public void setTurtleImage(String image) {
+		myTransformer.setTurtleImage(image);		
 	}
 
 	public void setBackgroundColor(Color color) {
-
-	}
-
-	public void setTurtleImage(String string) {
-		// updates Model information, needs to refresh display
-
+		myTransformer.setBackgroundColor(color);
 	}
 
 	public void setPenColor(Color color) {
-		// updates Model information, needs to refresh display
+		myTransformer.setPenColor(color);
+	}
 
+	public void setLanguage(String language) {
+		myTransformer.setLanguage(language);
 	}
 
 }
