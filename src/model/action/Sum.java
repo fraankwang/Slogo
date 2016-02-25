@@ -1,5 +1,7 @@
 package model.action;
 
+import java.util.List;
+
 public class Sum extends Action {
 	
 private double a;
@@ -10,6 +12,9 @@ private double b;
 		this.a = a;
 		this.b = b;
 		
+	}
+	public Sum (List<Double>c){
+		this(c.get(0), c.get(1));
 	}
 
 	@Override

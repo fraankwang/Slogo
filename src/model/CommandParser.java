@@ -10,63 +10,82 @@ import constants.Constants;
 import model.action.*;
 
 public class CommandParser {
-	private Stack<String> stack;
+	private String myLanguage;
 
-	public CommandParser() {
-
-	}
-
-
-	public double parseCommands(String s) throws Exception {
-		parse(s);
-		Node<String> root = makeTree();
-		return treeTraversal(root);
-	}
-	
-	private void parse(String input) {
-		Stack<String> stack = new Stack<String>();
-		stack.addAll(Arrays.asList(input.split(" ")));
-
-	}
 
 	private static class Node<T> {
 		private T data;
-		private Node<T> parent;
 		private List<Node<T>> children;
 	}
 
-	private Node<String> makeTree() throws Exception {
+	private Queue<String> queue;
+	public CommandParser(String language) {
+		myLanguage = language;
+	}
 
-		Node<String> tree = new Node<String>();
-		tree.data = stack.pop();
-		try {
-			Double.parseDouble(tree.data);
-			return tree;
-		} catch (Exception e) {
-			try {
-				Class a = Class.forName(Constants.getAction(tree.data));
-				Constructor constructor = a.getConstructors()[0];
-				for (int i = 0; i < constructor.getParameterTypes().length; i++) {
-					tree.children.add(makeTree());
 
-				}
-				return tree;
-			} catch (Exception exception) {
-				throw exception;
+	private void parse(String input) {
+		queue = new LinkedList<String>();
+		List<String> list = Arrays.asList(input.split(" "));
+		for(String s:list){
+			try{
+				s = Constants.getCommand(myLanguage, s);
 			}
-
+			catch (Exception e){
+			}
 		}
+		queue.addAll(list);
 
 	}
 
-	private double treeTraversal(Node<String> node) throws ClassNotFoundException, InstantiationException,
-			IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		
-		if (node.children.isEmpty()) {
+	private Node<String> makeTree() throws Exception{
+		try{
+			Node<String> tree =  new Node<String>();
+
+			tree.data = queue.poll();	
+			tree.children = new ArrayList<Node<String>>();
+			try {
+				Double.parseDouble(tree.data);
+				return tree;
+			}
+			catch (Exception e) {
+				try{
+					Class a = Class.forName(Constants.getAction(tree.data));
+					Constructor constructor = a.getConstructors()[0];
+					//??????'
+					for (int i = 0; i<constructor.getParameterTypes().length; i++){
+						tree.children.add(makeTree());
+
+					}
+					return tree;
+				}
+				catch (Exception exception){
+					try{
+						//						variable
+					}
+					catch (Exception exception2){
+						System.out.println("input error");
+						throw exception2;
+					}
+				}
+			}
+		}
+		catch (Exception exception1){
+			throw exception1;
+		}
+		return null;
+
+
+	}
+
+	private double treeTraversal(Node<String> node) throws Exception {
+		System.out.println(node.data);
+		if (node.children.isEmpty()){
 			return Double.parseDouble(node.data);
-		} else {
+		}
+		else{
 			ArrayList<Double> param = new ArrayList<Double>();
-			for (Node n : node.children) {
+			for (Node n: node.children){
 				param.add(treeTraversal(n));
 			}
 			Class a = Class.forName(Constants.getAction(node.data));
@@ -77,5 +96,12 @@ public class CommandParser {
 		}
 	}
 
+	public double parseCommands(String s) throws Exception{
+		parse(s);		
+		Node<String> root = makeTree();
+		double t = treeTraversal(root);
+		System.out.println(t);
+		return t;
+	}
 
 }
