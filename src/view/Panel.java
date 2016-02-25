@@ -262,6 +262,8 @@ public class Panel {
 		TextField tf = makeTextField();
 		// ***this is just here for backend to test commands
 
+		List<Node> allElements = Arrays.asList(turtlePlayground, inputBox);
+		setMargins(allElements);
 		vb.getChildren().addAll(turtlePlayground, inputBox, tf);
 		return vb;
 	}
