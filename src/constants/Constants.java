@@ -30,6 +30,9 @@ public class Constants {
 	private static final List<String> LANGUAGES = Arrays.asList("English", "Spanish", "Chinese", "French", "German",
 			"Italian", "Portuguese", "Russian");
 	
+	public static final String OPEN_BRACKET = "[";
+	public static final String CLOSE_BRACKET = "]";
+	
 	public static final Color DEFAULT_PEN_COLOR = Color.BLACK;
 	public static final Color DEFAULT_BACKGROUND_COLOR = Color.WHITE;
 	public static final Paint DEFAULT_TOOLBAR_COLOR = Color.BLACK;
