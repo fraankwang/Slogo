@@ -10,6 +10,7 @@ import constants.Constants;
 import model.action.*;
 
 public class CommandParser {
+
 	private String myLanguage;
 
 
@@ -39,42 +40,34 @@ public class CommandParser {
 	}
 
 	private Node<String> makeTree() throws Exception{
-		try{
-			Node<String> tree =  new Node<String>();
+//		try{
+		Node<String> tree =  new Node<String>();
 
+		if(queue.peek().equals(Constants.OPEN_BRACKET)){
+			StringBuilder commandstring = new StringBuilder();
+			while (!queue.peek().equals(Constants.CLOSE_BRACKET)){
+			commandstring.append(queue.poll());
+			}
+			queue.poll();
+			tree.data = commandstring.toString();
+			return tree;
+		}
+		else{
 			tree.data = queue.poll();	
 			tree.children = new ArrayList<Node<String>>();
-			try {
-				Double.parseDouble(tree.data);
+			try{
+				Class a = Class.forName(Constants.getAction(tree.data));
+				Constructor constructor = a.getConstructors()[0];
+				//??????'
+				for (int i = 0; i<constructor.getParameterTypes().length; i++){
+					tree.children.add(makeTree());
+
+				}
+				return tree;
+			}catch (Exception exception){
 				return tree;
 			}
-			catch (Exception e) {
-				try{
-					Class a = Class.forName(Constants.getAction(tree.data));
-					Constructor constructor = a.getConstructors()[0];
-					//??????'
-					for (int i = 0; i<constructor.getParameterTypes().length; i++){
-						tree.children.add(makeTree());
-
-					}
-					return tree;
-				}
-				catch (Exception exception){
-					try{
-						//						variable
-					}
-					catch (Exception exception2){
-						System.out.println("input error");
-						throw exception2;
-					}
-				}
-			}
 		}
-		catch (Exception exception1){
-			throw exception1;
-		}
-		return null;
-
 
 	}
 
