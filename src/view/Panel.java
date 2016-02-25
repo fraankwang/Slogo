@@ -216,6 +216,9 @@ public class Panel {
 		return historyScrollPane;
 	}
 
+	/**
+	 * @return formatted StackPane wrapper that contains output elements
+	 */
 	private StackPane createOutputPane() {
 		StackPane outputPane = new StackPane();
 		outputPane.setPrefHeight(RIGHT_COLUMN_ELEMENT_HEIGHT);
@@ -237,7 +240,7 @@ public class Panel {
 	private void setMargins(List<Node> items) {
 		Insets insets = new Insets(ELEMENT_INSET_HORIZONTAL, ELEMENT_INSET_VERTICAL,
 				ELEMENT_INSET_HORIZONTAL, ELEMENT_INSET_VERTICAL);
-		Insets insets2 = new Insets(0,0,0,0);
+		
 		for (Node item: items) {
 			VBox.setMargin(item, insets);
 		}
