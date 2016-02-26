@@ -31,15 +31,22 @@ public class CommandParser {
 
 	private void parse(String input) {
 		queue = new LinkedList<String>();
-		List<String> list = Arrays.asList(input.split("\n"));
+		List<String> list = Arrays.asList(input.split("\\s"));
+		List<String> modified = new ArrayList<String>();
 		for(String s:list){
+//			System.out.println(Constants.getCommand(myLanguage, s));
+
 			try{
-				s = Constants.getCommand(myLanguage, s);
+				String s1 = Constants.getCommand(myLanguage, s);
+				System.out.println(Constants.getCommand(myLanguage, s));
+
+				modified.add(s1);
 			}
 			catch (Exception e){
+				modified.add(s);
 			}
 		}
-		queue.addAll(list);
+		queue.addAll(modified);
 
 	}
 
@@ -47,23 +54,28 @@ public class CommandParser {
 //		try{
 		Node<String> tree =  new Node<String>();
 
-		if(queue.peek().equals(Constants.OPEN_BRACKET)){
-			StringBuilder commandstring = new StringBuilder();
-			while (!queue.peek().equals(Constants.CLOSE_BRACKET)){
-			commandstring.append(queue.poll());
-			}
-			queue.poll();
-			tree.data = commandstring.toString();
-			return tree;
-		}
-		else{
+//		if(queue.peek().equals(Constants.OPEN_BRACKET)){
+//			StringBuilder commandstring = new StringBuilder();
+//			while (!queue.peek().equals(Constants.CLOSE_BRACKET)){
+//			commandstring.append(queue.poll());
+//			}
+//			queue.poll();
+//			tree.data = commandstring.toString();
+//			return tree;
+//		}
+//		else{
 			tree.data = queue.poll();	
 			tree.children = new ArrayList<Node<String>>();
+			
 			try{
+
 				Class a = Class.forName(Constants.getAction(tree.data));
+				
 				Constructor constructor = a.getConstructors()[0];
 				//??????'
 				for (int i = 0; i<constructor.getParameterTypes().length; i++){
+					System.out.println("    "+Constants.getAction(tree.data)+ " "+ i);
+
 					tree.children.add(makeTree());
 
 				}
@@ -73,16 +85,17 @@ public class CommandParser {
 			}
 		}
 
-	}
+//	}
 
 	private double treeTraversal(Node<String> node) throws Exception {
 		System.out.println(node.data);
 		if (node.children.isEmpty()){
 			try{
-				return Double.parseDouble(node.data);
+				Double a = Double.parseDouble(node.data);
+				return a;
 			}
-			catch (NumberFormatException nfe){
-				throw nfe;
+			catch ( Exception nfe){
+				throw (NumberFormatException) nfe;
 			}
 		}
 		else{
