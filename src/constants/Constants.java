@@ -47,6 +47,8 @@ public class Constants {
 	public static final int TOOLBAR_INSET_VERTICAL = 5;
 	public static final int TOOLBAR_LABEL_FONT_SIZE = 11;
 	
+	public static final int TEXTFIELD_HEIGHT = SCENE_HEIGHT - TOOLBAR_HEIGHT - PLAYGROUND_HEIGHT;
+	
 	public static final CornerRadii CORNER_RADIUS = new CornerRadii(10.0);
 	public static final double ELEMENT_INSET_HORIZONTAL = 7;
 	public static final double ELEMENT_INSET_VERTICAL = 0;

@@ -307,7 +307,7 @@ public class Panel {
 	 */
 	private TextField makeTextField() {
 		TextField textField = new TextField(Constants.getSpecification("TextFieldDefault"));
-
+		textField.setPrefHeight(Constants.TEXTFIELD_HEIGHT);
 		textField.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
