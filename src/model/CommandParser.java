@@ -15,7 +15,8 @@ import model.action.*;
 public class CommandParser {
 
 	private String myLanguage;
-
+	private TurtlePlayground myPlayground;
+	private Variables myVariables;
 
 	private static class Node<T> {
 		private T data;
@@ -24,8 +25,10 @@ public class CommandParser {
 
 	private Queue<String> queue;
 
-	public CommandParser(String language) {
+	public CommandParser(String language, TurtlePlayground playground, Variables variables) {
 		myLanguage = language;
+		myPlayground = playground;
+		myVariables = variables;
 	}
 
 
@@ -73,7 +76,9 @@ public class CommandParser {
 				
 				Constructor constructor = a.getConstructors()[0];
 				//??????'
-				for (int i = 0; i<constructor.getParameterTypes().length; i++){
+				int totalchildren = constructor.getParameterTypes().length -2;
+				//because variables and turtleplayground dont count
+				for (int i = 0; i<totalchildren; i++){
 					System.out.println("    "+Constants.getAction(tree.data)+ " "+ i);
 
 					tree.children.add(makeTree());
@@ -106,7 +111,7 @@ public class CommandParser {
 			try{
 				Class a = Class.forName(Constants.getAction(node.data));
 				Constructor constructor = a.getConstructors()[1];
-				Action action = (Action) constructor.newInstance(param);
+				Action action = (Action) constructor.newInstance(param, myPlayground, myVariables);
 				return action.rule();
 			}
 			catch (ParseException exception){
@@ -116,12 +121,12 @@ public class CommandParser {
 		}
 	}
 
-	public double parseCommands(String s) throws Exception{
+	public String parseCommands(String s) throws Exception{
 		parse(s);		
 		Node<String> root = makeTree();
-		double t = treeTraversal(root);
-		System.out.println(t);
-		return t;
+		Double output = treeTraversal(root);
+		System.out.println(output);
+		return output.toString();
 	}
 
 }
