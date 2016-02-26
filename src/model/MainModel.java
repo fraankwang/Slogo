@@ -21,24 +21,20 @@ public class MainModel {
 	private TurtlePlayground myPlayground;
 	private Variables myVariables;
 	private String myLanguage;
+	private History myOutputs;
 	
 	public MainModel(String language) {
 		myLanguage = language;
 		myParser = new CommandParser(myLanguage);
 		myHistory = new History();
+		myOutputs = new History();
 		
 	}
 
 	public void readCommand(String input) {
-		// wrapper method that does everything (extensive use of helper classes
-		// and objects)
-		// parse command
-		// calculate/run the command
-		// store command in history and update history
-		// anything else I missed
 		System.out.println("command read: " + input);
 		try {
-			myParser.parseCommands(input);
+			myOutputs.add(myParser.parseCommands(input));
 			myHistory.add(input);
 			
 		} catch (Exception e) {

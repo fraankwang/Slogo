@@ -116,12 +116,12 @@ public class CommandParser {
 		}
 	}
 
-	public double parseCommands(String s) throws Exception{
+	public String parseCommands(String s) throws Exception{
 		parse(s);		
 		Node<String> root = makeTree();
-		double t = treeTraversal(root);
-		System.out.println(t);
-		return t;
+		Double output = treeTraversal(root);
+		System.out.println(output);
+		return output.toString();
 	}
 
 }
