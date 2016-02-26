@@ -1,5 +1,7 @@
 package model.action;
 
+import java.util.List;
+
 public class Forward extends Action {
 
 	int pixels;
@@ -7,6 +9,11 @@ public class Forward extends Action {
 	public Forward(int pixels) {
 		super();
 		this.pixels = pixels;
+
+	}
+	public Forward(List<Double>c) {
+		super();
+		this.pixels = c.get(0).intValue();
 
 	}
 
