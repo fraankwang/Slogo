@@ -1,13 +1,22 @@
 package model.action;
 
+import java.util.List;
+
+import model.TurtlePlayground;
+import model.Variables;
+
 public class Minus extends Action {
 
 	double a;
 	
-	public Minus (double a) {
-		super();
+	public Minus (double a, TurtlePlayground playground, Variables variables) {
+		super(playground, variables);
 		this.a = a;
 		
+	}
+	
+	public Minus (List<Double> params, TurtlePlayground playground, Variables variables){
+		this(params.get(0), playground, variables);
 	}
 
 	@Override

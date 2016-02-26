@@ -8,10 +8,11 @@ public abstract class Action {
 	TurtlePlayground playground;
 	Variables variables;
 	
-	public Action(){
-		playground = new TurtlePlayground() ;
-		variables = new Variables();
+	public Action(TurtlePlayground newPlayground, Variables newVariables){
+		playground = newPlayground;
+		variables = newVariables;
 	}
+	
 	public abstract double rule();
 	//switched to double for sin/cos/etc
 	
