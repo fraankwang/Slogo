@@ -1,13 +1,22 @@
 package model.action;
 
+import java.util.List;
+
+import model.TurtlePlayground;
+import model.Variables;
+
 public class Tan extends Action {
 
-	double degrees;
+	Double degrees;
 
-	public Tan (double degrees) {
-		super();
+	public Tan (Double degrees, TurtlePlayground playground, Variables variables) {
+		super(playground, variables);
 		this.degrees = degrees;
 
+	}
+	
+	public Tan (List<Double> params, TurtlePlayground playground, Variables variables){
+		this(params.get(0), playground, variables);
 	}
 
 	@Override

@@ -5,11 +5,11 @@
 package model;
 
 public class Turtle {
-	private int xCoordinate;
-	private int yCoordinate;
+	private Double xCoordinate;
+	private Double yCoordinate;
 	private boolean penDown;
 	private boolean showTurtle;
-	private float Orientation;
+	private Double Orientation;
 
 	// other info like pen color and turtle image can be added later
 	// Turtle should have some sort of identifier functionality. My friend said 
@@ -17,15 +17,15 @@ public class Turtle {
 	public Turtle() {
 		penDown = false;
 		showTurtle = false;
-		Orientation = 90;
-		xCoordinate=0;
-		yCoordinate=0;
+		Orientation = 90.0;
+		xCoordinate=0.0;
+		yCoordinate=0.0;
 	}
 	
-	public Turtle(int xCoord, int yCoord){
+	public Turtle(Double xCoord, Double yCoord){
 		penDown = false;
 		showTurtle = false;
-		Orientation = 90;
+		Orientation = 90.0;
 		xCoordinate=xCoord;
 		yCoordinate=yCoord;
 	}
@@ -38,27 +38,27 @@ public class Turtle {
 		this.showTurtle = show;
 	}
 
-	public void setOrientation(float orientation) {
+	public void setOrientation(Double orientation) {
 		this.Orientation = orientation;
 	}
 
-	public float getOrientation() {
+	public Double getOrientation() {
 		return this.Orientation;
 	}
 
-	public int getxCoordinate() {
+	public Double getxCoordinate() {
 		return xCoordinate;
 	}
 
-	public void setxCoordinate(int xCoordinate) {
+	public void setxCoordinate(Double xCoordinate) {
 		this.xCoordinate = xCoordinate;
 	}
 
-	public int getyCoordinate() {
+	public Double getyCoordinate() {
 		return yCoordinate;
 	}
 
-	public void setyCoordinate(int yCoordinate) {
+	public void setyCoordinate(Double yCoordinate) {
 		this.yCoordinate = yCoordinate;
 	}
 	
