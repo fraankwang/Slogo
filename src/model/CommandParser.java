@@ -18,7 +18,7 @@ public class CommandParser {
 	private TurtlePlayground myPlayground;
 	private Variables myVariables;
 
-	private static class Node<T> {
+	private class Node<T> {
 		private T data;
 		private List<Node<T>> children;
 	}
