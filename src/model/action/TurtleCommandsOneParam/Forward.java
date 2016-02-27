@@ -8,8 +8,8 @@ import model.action.Action;
 
 public class Forward extends TurtleCommandsOneParam {
 
-	public Forward(List<Double> params, TurtlePlayground playground, Variables variables) {
-		super(params, playground, variables);
+	public Forward(List<Double> params, TurtlePlayground playground) {
+		super(params, playground);
 		// TODO Auto-generated constructor stub
 	}
 
