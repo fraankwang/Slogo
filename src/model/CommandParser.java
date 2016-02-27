@@ -40,7 +40,7 @@ public class CommandParser {
 
 			try {
 				String s1 = Constants.getCommand(myLanguage, s);
-				System.out.println(Constants.getCommand(myLanguage, s));
+//				System.out.println(Constants.getCommand(myLanguage, s));
 
 				modified.add(s1);
 			} catch (Exception e) {
@@ -70,14 +70,14 @@ public class CommandParser {
 		}
 		else{
 			tree.data = queue.poll();
-			System.out.println("tree data "+ tree.data);
+//			System.out.println("tree data "+ tree.data);
 			try{
 				String superclass = Class.forName(Constants.getAction(tree.data))
 						.getSuperclass().getName();
 				System.out.println("  super: "+superclass);
 				int totalchildren = Constants.getNumberParams(superclass);
 				for (int i = 0; i<totalchildren; i++){
-					System.out.println("    "+Constants.getAction(tree.data)+ " + "+ i);
+//					System.out.println("    "+Constants.getAction(tree.data)+ " + "+ i);
 
 					tree.children.add(makeTree(queue));
 				}
@@ -86,7 +86,7 @@ public class CommandParser {
 				try{
 					int totalchildren = myUserCommands.getCommandParams(tree.data).size();
 					for (int i = 0; i<totalchildren; i++){
-						System.out.println("    "+Constants.getAction(tree.data)+ " "+ i);
+//						System.out.println("    "+Constants.getAction(tree.data)+ " "+ i);
 
 						tree.children.add(makeTree(queue));
 					}
@@ -101,7 +101,7 @@ public class CommandParser {
 	}
 
 	private double treeTraversal(Node node) throws Exception {
-		System.out.println("at node "+node.data);
+//		System.out.println("at node "+node.data);
 		
 		
 		if (node.children.isEmpty()) {
@@ -128,6 +128,7 @@ public class CommandParser {
 				try{
 					Iterator<Node> iter = node.children.iterator();
 					for (String s: myUserCommands.getCommandParams(node.data)){
+						
 						myVariables.addVariable(s, treeTraversal(iter.next()));
 					}
 					return parseCommands(myUserCommands.getCommand(node.data));
@@ -146,6 +147,8 @@ public class CommandParser {
 		Constructor constructor = action.getConstructors()[0];
 		Action finalaction = null;
 		
+//		System.out.println("superclass to make action: "+action.getSuperclass().getName());
+		
 		switch(action.getSuperclass().getName()){
 		case "model.action.MathOneParam.MathOneParam":
 		case "model.action.MathTwoParams.MathTwoParams":
@@ -155,7 +158,10 @@ public class CommandParser {
 			}
 			 finalaction = (Action) constructor.newInstance(params);
 			break;
-		case "HigherOrderCommands":
+		case "model.action.HigherOrderCommands.ControlStructures":
+		case "model.action.HigherOrderCommands.HigherOrderCommands":
+			System.out.println("higher "+ node.data);
+
 			ArrayList<String> stringparams = new ArrayList<String>();					
 			for (Node n : node.children) {
 				stringparams.add(n.data);
