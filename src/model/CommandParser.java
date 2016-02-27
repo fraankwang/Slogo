@@ -18,12 +18,12 @@ public class CommandParser {
 	private TurtlePlayground myPlayground;
 	private Variables myVariables;
 
-	private static class Node<T> {
+	private class Node<T> {
 		private T data;
 		private List<Node<T>> children;
 	}
 
-	private Queue<String> queue;
+	
 
 	public CommandParser(String language, TurtlePlayground playground, Variables variables) {
 		myLanguage = language;
@@ -32,8 +32,8 @@ public class CommandParser {
 	}
 
 
-	private void parse(String input) {
-		queue = new LinkedList<String>();
+	private  Queue<String> parse(String input) {
+		 Queue<String> queue = new LinkedList<String>();
 		List<String> list = Arrays.asList(input.split("\\s"));
 		List<String> modified = new ArrayList<String>();
 		for(String s:list){
@@ -50,10 +50,11 @@ public class CommandParser {
 			}
 		}
 		queue.addAll(modified);
+		return queue;
 
 	}
 
-	private Node<String> makeTree() throws Exception{
+	private Node<String> makeTree( Queue<String> queue) throws Exception{
 //		try{
 		Node<String> tree =  new Node<String>();
 
@@ -81,7 +82,7 @@ public class CommandParser {
 				for (int i = 0; i<totalchildren; i++){
 					System.out.println("    "+Constants.getAction(tree.data)+ " "+ i);
 
-					tree.children.add(makeTree());
+					tree.children.add(makeTree(queue));
 
 				}
 				return tree;
@@ -100,7 +101,20 @@ public class CommandParser {
 				return a;
 			}
 			catch ( Exception nfe){
-				throw (NumberFormatException) nfe;
+				try{
+					Double var = myVariables.getVariableValue(node.data);
+					return var;
+				}
+				catch ( Exception e){
+					try{
+						//makeactions
+						
+					}
+					catch( Exception ex) {
+						throw new Exception("wrong variable-etc");
+					}
+				}
+				
 			}
 		}
 		else{
@@ -110,7 +124,7 @@ public class CommandParser {
 			}
 			try{
 				Class a = Class.forName(Constants.getAction(node.data));
-				Constructor constructor = a.getConstructors()[1];
+				Constructor constructor = a.getConstructors()[0];
 				Action action = (Action) constructor.newInstance(param, myPlayground, myVariables);
 				return action.rule();
 			}
@@ -121,12 +135,16 @@ public class CommandParser {
 		}
 	}
 
-	public String parseCommands(String s) throws Exception{
-		parse(s);		
-		Node<String> root = makeTree();
-		Double output = treeTraversal(root);
-		System.out.println(output);
-		return output.toString();
+	public Double parseCommands(String s) throws Exception{
+		Queue<String> queue = parse(s);
+		Double output = 0.0;
+		while(!queue.isEmpty()){
+			Node<String> root = makeTree(queue);
+			output = treeTraversal(root);
+			System.out.println(output);
+		}
+		
+		return output;
 	}
 
 }
