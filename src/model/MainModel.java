@@ -20,12 +20,13 @@ public class MainModel {
 	private History myHistory;
 	private TurtlePlayground myPlayground;
 	private Variables myVariables;
+	private UserCommands myUserCommands;
 	private String myLanguage;
 	private History myOutputs;
 	
 	public MainModel(String language) {
 		myLanguage = language;
-		myParser = new CommandParser(myLanguage, myPlayground, myVariables);
+		myParser = new CommandParser(myLanguage, myPlayground, myVariables, myUserCommands);
 		myHistory = new History();
 		myOutputs = new History();
 		
