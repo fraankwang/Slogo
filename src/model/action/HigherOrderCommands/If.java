@@ -1,29 +1,26 @@
 package model.action.HigherOrderCommands;
 
+import java.util.List;
+
 import model.TurtlePlayground;
+import model.UserCommands;
 import model.Variables;
 import model.action.Action;
 
-public class If extends Action{
-	private String expr;
-	private String commands;
-	private CommandParser 
+public class If extends ControlStructures{
 
-	public If(String expr, String commands, TurtlePlayground playground, Variables variables) {
-		super(playground, variables);
-		this.expr = expr;
-		this.commands = commands;
+	public If(List<String> params, String language, TurtlePlayground playground, Variables variables, UserCommands usercommands) {
+		super(params, language, playground, variables, usercommands);
 	
 	}
 
 	@Override
 	public double rule() {
-		if(parse(expr)) != 0){
-			return parse commands
+		if( Double.parseDouble(params.get(0)) != 0 ){
+			return myCommandParser.parseCommands(params.get(1)); 
 		}
-		else {
+		else{
 			return 0;
 		}
-		
 	}
 }

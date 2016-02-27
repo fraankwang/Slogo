@@ -10,21 +10,26 @@ import model.action.Action;
 
 public class UserCommands {
 	
-	Map<String, Action> myUserCommand;
+	Map<String, String> myUserCommands;
+	Map<String, List<String>> myCommandParams;
 	
 	public UserCommands(){
 		
 	}
 	
-	public Collection<String> getVariables () {
-		return myUserCommand.keySet();
+	public Collection<String> getCommands () {
+		return myUserCommands.keySet();
 	}
 	
-	public void addCommand (String name, Action action) {
-		myUserCommand.put(name, action);
+	public void addCommand (String name, List<String> paramvars, String commands) {
+		myUserCommands.put(name, commands);
+		myCommandParams.put(name, paramvars);
 	}
 	
-	public Action getCommand (String name) {
-		return myUserCommand.get(name);
+	public String getCommand (String name) {
+		return myUserCommands.get(name);
+	}
+	public List<String> getCommandParams (String name){
+		return myCommandParams.get(name);
 	}
 }

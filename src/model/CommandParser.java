@@ -57,11 +57,11 @@ public class CommandParser {
 		Node tree =  new Node();
 
 		if(queue.peek().equals(Constants.OPEN_BRACKET)){
+			queue.poll();
 			StringBuilder commandstring = new StringBuilder();
 			while (!queue.peek().equals(Constants.CLOSE_BRACKET)){
 				commandstring.append(queue.poll());
 			}
-			commandstring.append(queue.poll());
 			tree.data = commandstring.toString();
 			return tree;
 		}
@@ -77,10 +77,23 @@ public class CommandParser {
 					System.out.println("    "+Constants.getAction(tree.data)+ " "+ i);
 
 					tree.children.add(makeTree(queue));
-
 				}
 				return tree;
 			}catch (Exception exception){
+				try{
+					int totalchildren = myUserCommands.getCommandParams(tree.data).size();
+					for (int i = 0; i<totalchildren; i++){
+						System.out.println("    "+Constants.getAction(tree.data)+ " "+ i);
+
+						tree.children.add(makeTree(queue));
+					}
+					return tree;
+					}
+				catch(Exception e){
+					
+
+				}
+
 				return tree;
 			}
 		}
@@ -89,6 +102,8 @@ public class CommandParser {
 
 	private double treeTraversal(Node node) throws Exception {
 		System.out.println(node.data);
+		
+		
 		if (node.children.isEmpty()) {
 			try {
 				Double a = Double.parseDouble(node.data);
@@ -99,8 +114,6 @@ public class CommandParser {
 					return var;
 				} catch (Exception e) {
 					try {
-						// makeactions
-
 					} catch (Exception ex) {
 						throw new Exception("wrong variable-etc");
 					}
@@ -112,7 +125,16 @@ public class CommandParser {
 				Action action = makeAction(node);
 				return action.rule();
 			} catch (ParseException exception) {
-				throw exception;
+				try{
+					Iterator<Node> iter = node.children.iterator();
+					for (String s: myUserCommands.getCommandParams(node.data)){
+						myVariables.addVariable(s, treeTraversal(iter.next()));
+					}
+					return parseCommands(myUserCommands.getCommand(node.data));
+				}
+				catch (Exception ex){
+					throw exception;
+				}
 			}
 		}
 		return 0;
