@@ -6,24 +6,18 @@ import model.TurtlePlayground;
 import model.Variables;
 import model.action.Action;
 
-public class Forward extends Action {
+public class Forward extends TurtleCommandsOneParam {
 
-	Double pixels;
-
-	public Forward(Double pixels, TurtlePlayground playground, Variables variables) {
-		super(playground, variables);
-		this.pixels = pixels;
-
-	}
 	public Forward(List<Double> params, TurtlePlayground playground, Variables variables) {
-		this(params.get(0), playground, variables);
-
+		super(params, playground, variables);
+		// TODO Auto-generated constructor stub
 	}
+
 
 	@Override
 	public double rule() {
-		playground.moveTurtle(pixels);
-		return pixels;
+		playground.moveTurtle(value);
+		return value;
 	}
 
 }
