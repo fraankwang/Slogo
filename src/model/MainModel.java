@@ -34,7 +34,7 @@ public class MainModel {
 	public void readCommand(String input) {
 		System.out.println("command read: " + input);
 		try {
-			myOutputs.add(myParser.parseCommands(input));
+			myOutputs.add(myParser.parseCommands(input).toString());
 			myHistory.add(input);
 			
 		} catch (Exception e) {
