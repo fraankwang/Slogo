@@ -17,6 +17,7 @@ public class CommandParser {
 	private String myLanguage;
 	private TurtlePlayground myPlayground;
 	private Variables myVariables;
+	private UserCommands myUserCommands;
 
 	private class Node<T> {
 		private T data;
@@ -25,10 +26,11 @@ public class CommandParser {
 
 	
 
-	public CommandParser(String language, TurtlePlayground playground, Variables variables) {
+	public CommandParser(String language, TurtlePlayground playground, Variables variables, UserCommands usercommands) {
 		myLanguage = language;
 		myPlayground = playground;
 		myVariables = variables;
+		myUserCommands  = usercommands;
 	}
 
 
@@ -59,6 +61,7 @@ public class CommandParser {
 		Node<String> tree =  new Node<String>();
 
 //		if(queue.peek().equals(Constants.OPEN_BRACKET)){
+//			queue.poll();
 //			StringBuilder commandstring = new StringBuilder();
 //			while (!queue.peek().equals(Constants.CLOSE_BRACKET)){
 //			commandstring.append(queue.poll());
