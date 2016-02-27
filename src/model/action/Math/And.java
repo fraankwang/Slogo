@@ -1,11 +1,12 @@
-package model.action;
+package model.action.Math;
 
 import java.util.List;
 
 import model.TurtlePlayground;
 import model.Variables;
+import model.action.Action;
 
-public class And extends Action {
+public class And extends Math {
 
 	private double a;
 	private double b;

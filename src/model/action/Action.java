@@ -4,19 +4,12 @@ import model.TurtlePlayground;
 import model.Variables;
 
 public abstract class Action {
+		Variables variables;
 	
-	TurtlePlayground playground;
-	Variables variables;
-	
-	public Action(TurtlePlayground newPlayground, Variables newVariables){
-		playground = newPlayground;
+	public Action(Variables newVariables){
 		variables = newVariables;
 	}
 	
 	public abstract double rule();
-	//switched to double for sin/cos/etc
 	
-	public void setTurtlePlayground(TurtlePlayground playground){
-		this.playground=playground;
-	}
 }
