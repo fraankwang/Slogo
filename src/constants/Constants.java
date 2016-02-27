@@ -21,6 +21,7 @@ public class Constants {
 	private static final String DEFAULT_LANGUAGES = "languages/";
 	//	private static final String DEFAULT_LANGUAGE = DEFAULT_LANGUAGES+"English";
 	private static final String DEFAULT_ACTIONS = "possibleactions";
+	private static final String DEFAULT_PARAMS = "numberofparams";
 
 	private static final ResourceBundle SPECIFICATIONS = ResourceBundle
 			.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_RESOURCE_FILE);
@@ -28,6 +29,9 @@ public class Constants {
 	//			.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_LANGUAGE);
 	private static final ResourceBundle ACTIONS = ResourceBundle
 			.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_ACTIONS);
+	
+	private static final ResourceBundle NUMBER_OF_PARAMS = ResourceBundle
+			.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_PARAMS);
 
 	private static final List<String> TURTLE_IMAGES = Arrays.asList("basic", "duvall");
 	private static final List<String> LANGUAGES = Arrays.asList("English", "Spanish", "Chinese", "French", "German",
@@ -75,7 +79,9 @@ public class Constants {
 		}
 		throw new ParseException();
 	}
-
+	public static int getNumberParams(String superclass){
+		return Integer.parseInt(NUMBER_OF_PARAMS.getString(superclass));
+	}
 	public static String getAction(String action) {
 		return ACTIONS.getString(action);
 	}
