@@ -10,8 +10,8 @@ public class Product extends MathTwoParams{
 	private double a;
 	private double b;
 
-	public Product(List<Double> params, Variables variables){
-		super(params, variables);
+	public Product(List<Double> params){
+		super(params);
 	}
 
 	@Override

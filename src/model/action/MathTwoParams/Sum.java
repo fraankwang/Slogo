@@ -9,8 +9,8 @@ import model.action.Action;
 public class Sum extends MathTwoParams {
 	
 
-	public Sum (List<Double> params, Variables variables){
-		super(params, variables);
+	public Sum (List<Double> params){
+		super(params);
 	}
 	
 

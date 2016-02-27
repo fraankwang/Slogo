@@ -8,10 +8,9 @@ import model.action.Action;
 
 public class Quotient extends MathTwoParams {
 	
-	public Quotient(List<Double> params, Variables variables){
-		super(params, variables);
+	public Quotient(List<Double> params){
+		super(params);
 	}
-	
 	
 	@Override
 	public double rule() {

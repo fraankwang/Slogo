@@ -8,8 +8,8 @@ import model.action.Action;
 
 public class Remainder extends MathTwoParams {
 	
-	public Remainder (List<Double> params, Variables variables){
-		super(params, variables);
+	public Remainder (List<Double> params){
+		super(params);
 	}
 	
 	

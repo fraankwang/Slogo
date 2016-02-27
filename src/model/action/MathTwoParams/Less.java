@@ -9,8 +9,8 @@ import model.action.Action;
 public class Less extends MathTwoParams {
 
 	
-	public Less (List<Double> params, Variables variables){
-		super(params, variables);
+	public Less (List<Double> params){
+		super(params);
 	}
 	
 

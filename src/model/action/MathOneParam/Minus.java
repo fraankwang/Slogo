@@ -9,8 +9,8 @@ import model.action.Action;
 public class Minus extends MathOneParam {
 
 	
-	public Minus (List<Double> params, Variables variables){
-		super(params, variables);
+	public Minus (List<Double> params){
+		super(params);
 	}
 	
 	@Override

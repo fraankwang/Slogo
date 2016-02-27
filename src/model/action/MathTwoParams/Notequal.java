@@ -9,8 +9,8 @@ import model.action.Action;
 public class Notequal extends MathTwoParams {
 
 	
-	public Notequal (List<Double> params, Variables variables){
-		super(params, variables);
+	public Notequal (List<Double> params){
+		super(params);
 	}
 	
 

@@ -8,8 +8,8 @@ import model.action.Action;
 
 public class Log extends MathOneParam {
 
-	public Log (List<Double> params, Variables variables){
-		super(params, variables);
+	public Log (List<Double> params){
+		super(params);
 	}
 	
 	@Override

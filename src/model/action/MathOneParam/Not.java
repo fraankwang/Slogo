@@ -8,8 +8,8 @@ import model.action.Action;
 
 public class Not extends MathOneParam {
 	
-	public Not (List<Double> params, Variables variables){
-		super(params, variables);
+	public Not (List<Double> params){
+		super(params);
 	}
 	
 	@Override

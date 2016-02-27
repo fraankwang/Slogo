@@ -7,10 +7,8 @@ import model.Variables;
 public class And extends MathTwoParams {
 
 	
-	public And (List<Double> params, Variables variables){
-		super(params, variables);
-		
-		
+	public And (List<Double> params){
+		super(params);
 	}
 	
 	@Override

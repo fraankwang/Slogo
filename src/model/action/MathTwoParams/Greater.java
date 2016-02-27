@@ -8,10 +8,9 @@ import model.action.Action;
 
 public class Greater extends MathTwoParams {
 
-	public Greater (List<Double> params, Variables variables){
-		super(params, variables);
+	public Greater (List<Double> params){
+		super(params);
 	}
-	
 
 	@Override
 	public double rule() {

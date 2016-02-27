@@ -9,8 +9,8 @@ import model.action.Action;
 public class Sin extends MathOneParam {
 
 
-	public Sin(List<Double> params, Variables variables){
-		super(params, variables);
+	public Sin(List<Double> params){
+		super(params);
 	}
 
 	@Override

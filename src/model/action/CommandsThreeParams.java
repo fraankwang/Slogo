@@ -6,7 +6,7 @@ import model.Variables;
 public abstract class CommandsThreeParams extends Action {
 
 	public CommandsThreeParams(String language, TurtlePlayground playground, Variables variables) {
-		super(newVariables);
+		super();
 		// TODO Auto-generated constructor stub
 	}
 

@@ -8,8 +8,8 @@ import model.action.Action;
 
 public class Or extends MathTwoParams {
 
-	public Or (List<Double> params, Variables variables){
-		super(params, variables);
+	public Or (List<Double> params){
+		super(params);
 	}
 	
 	

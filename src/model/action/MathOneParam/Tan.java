@@ -9,8 +9,8 @@ import model.action.Action;
 public class Tan extends MathOneParam {
 
 
-	public Tan (List<Double> params, Variables variables){
-		super(params, variables);
+	public Tan(List<Double> params){
+		super(params);
 	}
 
 	@Override

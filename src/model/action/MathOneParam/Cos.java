@@ -8,8 +8,8 @@ import model.action.Action;
 
 public class Cos extends MathOneParam {
 
-	public Cos (List<Double> params, Variables variables){
-		super(params, variables);
+	public Cos (List<Double> params){
+		super(params);
 	}
 	
 	@Override

@@ -6,8 +6,8 @@ import model.Variables;
 public class Equal extends MathTwoParams {
 
 
-	public Equal (List<Double> params, Variables variables){
-		super(params, variables);
+	public Equal (List<Double> params){
+		super(params);
 	}
 	
 

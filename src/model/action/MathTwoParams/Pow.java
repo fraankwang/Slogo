@@ -9,8 +9,8 @@ import model.action.Action;
 public class Pow extends MathTwoParams {
 
 
-	public Pow (List<Double> params, Variables variables){
-		super(params, variables);
+	public Pow (List<Double> params){
+		super(params);
 	}
 	
 	

@@ -9,8 +9,8 @@ public abstract class MathOneParam extends Action {
 
 	protected double a;
 	
-	public MathOneParam(List<Double> params, Variables variables) {
-		super(variables);
+	public MathOneParam(List<Double> params) {
+		super();
 		this.a = params.get(0);
 		
 	}

@@ -9,8 +9,8 @@ import model.action.Action;
 public class Random extends MathOneParam {
 
 	
-	public Random (List<Double> params, Variables variables){
-		super(params, variables);
+	public Random (List<Double> params){
+		super(params);
 	}
 	
 	@Override

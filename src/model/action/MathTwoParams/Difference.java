@@ -7,8 +7,8 @@ import model.Variables;
 public class Difference extends MathTwoParams {
 
 
-	public Difference (List<Double> params, Variables variables){
-		super(params, variables);
+	public Difference (List<Double> params){
+		super(params);
 	}
 	
 
