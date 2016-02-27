@@ -33,7 +33,7 @@ public class CommandParser {
 
 
 	private  Queue<String> parse(String input) {
-		 Queue<String> queue = new LinkedList<String>();
+		Queue<String> queue = new LinkedList<String>();
 		List<String> list = Arrays.asList(input.split("\\s"));
 		List<String> modified = new ArrayList<String>();
 		for(String s:list){
