@@ -55,26 +55,29 @@ public class CommandParser {
 	private Node makeTree( Queue<String> queue) throws Exception{
 		//		try{
 		Node tree =  new Node();
+		tree.children = new ArrayList<Node>();
+
 
 		if(queue.peek().equals(Constants.OPEN_BRACKET)){
 			queue.poll();
 			StringBuilder commandstring = new StringBuilder();
 			while (!queue.peek().equals(Constants.CLOSE_BRACKET)){
-				commandstring.append(queue.poll());
+				commandstring.append(" " +queue.poll());
 			}
+			queue.poll();
 			tree.data = commandstring.toString();
 			return tree;
 		}
 		else{
-			tree.data = queue.poll();	
-			tree.children = new ArrayList<Node>();
-
+			tree.data = queue.poll();
+			System.out.println("tree data "+ tree.data);
 			try{
 				String superclass = Class.forName(Constants.getAction(tree.data))
 						.getSuperclass().getName();
+				System.out.println("  super: "+superclass);
 				int totalchildren = Constants.getNumberParams(superclass);
 				for (int i = 0; i<totalchildren; i++){
-					System.out.println("    "+Constants.getAction(tree.data)+ " "+ i);
+					System.out.println("    "+Constants.getAction(tree.data)+ " + "+ i);
 
 					tree.children.add(makeTree(queue));
 				}
@@ -90,10 +93,7 @@ public class CommandParser {
 					return tree;
 					}
 				catch(Exception e){
-					
-
 				}
-
 				return tree;
 			}
 		}
@@ -101,7 +101,7 @@ public class CommandParser {
 	}
 
 	private double treeTraversal(Node node) throws Exception {
-		System.out.println(node.data);
+		System.out.println("at node "+node.data);
 		
 		
 		if (node.children.isEmpty()) {
@@ -113,10 +113,10 @@ public class CommandParser {
 					Double var = myVariables.getVariableValue(node.data);
 					return var;
 				} catch (Exception e) {
-					try {
-					} catch (Exception ex) {
-						throw new Exception("wrong variable-etc");
-					}
+//					try {
+//					} catch (Exception ex) {
+//						throw new Exception("wrong variable-etc");
+//					}
 				}
 
 			}
@@ -124,7 +124,7 @@ public class CommandParser {
 			try {
 				Action action = makeAction(node);
 				return action.rule();
-			} catch (ParseException exception) {
+			} catch (Exception exception) {
 				try{
 					Iterator<Node> iter = node.children.iterator();
 					for (String s: myUserCommands.getCommandParams(node.data)){
@@ -147,8 +147,8 @@ public class CommandParser {
 		Action finalaction = null;
 		
 		switch(action.getSuperclass().getName()){
-		case "MathOneParam":
-		case "MathTwoParams":
+		case "model.action.MathOneParam.MathOneParam":
+		case "model.action.MathTwoParams.MathTwoParams":
 			ArrayList<Double> params = new ArrayList<Double>();					
 			for (Node n : node.children) {
 				params.add(treeTraversal(n));
@@ -172,8 +172,8 @@ public class CommandParser {
 		while (!queue.isEmpty()) {
 			Node root = makeTree(queue);
 			output = treeTraversal(root);
-			System.out.println(output);
 		}
+		System.out.println("output = "+output);
 
 		return output;
 	}
