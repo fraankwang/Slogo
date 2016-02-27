@@ -107,8 +107,7 @@ public class CommandParser {
 				}
 				catch ( Exception e){
 					try{
-						Double commands = parseCommands(node.data);
-						return commands;
+						//makeactions
 						
 					}
 					catch( Exception ex) {

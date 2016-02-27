@@ -1,6 +1,6 @@
 package model.action;
 
-public class Repeat extends Action {
+public class Repeat extends MathOneParam {
 
 	private double exp;
 	private Action command;

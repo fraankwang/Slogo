@@ -1,6 +1,5 @@
 package model.action;
 
-import model.TurtlePlayground;
 import model.Variables;
 
 public abstract class Action {
