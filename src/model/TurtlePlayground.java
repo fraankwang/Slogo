@@ -43,7 +43,7 @@ public class TurtlePlayground {
 	}
 
 	public boolean inBounds(){
-		if(myTurtle.getxCoordinate()<0 || myTurtle.getxCoordinate()>myWidth || myTurtle.getyCoordinate()<0 || myTurtle.getyCoordinate()>myHeight) return false;
+		if(myTurtle.getxCoordinate()<-myWidth/2 || myTurtle.getxCoordinate()>myWidth/2 || myTurtle.getyCoordinate()<-myHeight/2 || myTurtle.getyCoordinate()>myHeight/2) return false;
 		else return true;
 	}
 

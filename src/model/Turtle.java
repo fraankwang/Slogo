@@ -34,7 +34,7 @@ public class Turtle {
 		return this.turtleCoordinates;
 	}
 	public void addCoordinates(Double xCoord, Double yCoord){
-		TurtleCoordinates coordinate=new TurtleCoordinates(xCoord, yCoord);
+		TurtleCoordinates coordinate=new TurtleCoordinates(xCoord, yCoord, penDown);
 		turtleCoordinates.add(coordinate);
 	}
 
