@@ -5,6 +5,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Queue;
 
 public class TurtlePlayground {
 	private Turtle myTurtle;
@@ -73,7 +74,8 @@ public class TurtlePlayground {
 
 	public Double moveTurtle(Double pixels){
 		Double xCoord=myTurtle.getxCoordinate() + (pixels*Math.cos(Math.toRadians(myTurtle.getOrientation())));
-		Double yCoord=myTurtle.getyCoordinate() + (pixels*Math.cos(Math.toRadians(myTurtle.getOrientation())));
+		Double yCoord=myTurtle.getyCoordinate() + (pixels*Math.sin(Math.toRadians(myTurtle.getOrientation())));
+		System.out.println(xCoord+" , "+yCoord);
 		return setTurtleCoordinates(xCoord,yCoord,Math.abs(pixels));
 
 	}
@@ -88,11 +90,9 @@ public class TurtlePlayground {
 		return placeTurtle(0.0,0.0);
 	}
 	
-	public Double[] getTurtleCoordinates(){
-		Double xCoord= (myTurtle.getxCoordinate() - .5*myWidth);
-		Double yCoord= (myTurtle.getyCoordinate() - .5*myHeight);
-		Double[] coordinateArray={xCoord, yCoord};
-		return coordinateArray;
+	public Queue<TurtleCoordinates> getTurtleCoordinates(){
+		
+		return myTurtle.getCoordinates();
 		
 	}
 	

@@ -26,7 +26,7 @@ public class MainModel {
 	
 	public MainModel(String language) {
 		myLanguage = language;
-		myPlayground = new TurtlePlayground();
+		myPlayground = new TurtlePlayground(500, 500);
 		myParser = new CommandParser(myLanguage, myPlayground, myVariables, myUserCommands);
 		myHistory = new History();
 		myOutputs = new History();

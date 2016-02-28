@@ -17,6 +17,7 @@ public class Forward extends TurtleCommandsOneParam {
 	@Override
 	public double rule() {
 		playground.moveTurtle(value);
+		System.out.println(playground.getTurtleCoordinates()[0]+" , "+ playground.getTurtleCoordinates()[1]);
 		return value;
 	}
 
