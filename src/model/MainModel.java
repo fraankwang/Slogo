@@ -29,6 +29,7 @@ public class MainModel {
 		myParser = new CommandParser(myLanguage, myPlayground, myVariables, myUserCommands);
 		myHistory = new History();
 		myOutputs = new History();
+		myPlayground = new TurtlePlayground();
 		
 	}
 

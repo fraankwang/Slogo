@@ -81,7 +81,7 @@ public class CommandParser {
 				System.out.println("  super: "+superclass);
 				int totalchildren = Constants.getNumberParams(superclass);
 				for (int i = 0; i<totalchildren; i++){
-					//					System.out.println("    "+Constants.getAction(tree.data)+ " + "+ i);
+					System.out.println("    "+Constants.getAction(tree.data)+ " + "+ i);
 					if (queue.isEmpty()){
 						throw new Exception("Too few parameters");
 					}
@@ -108,7 +108,7 @@ public class CommandParser {
 	}
 
 	private double treeTraversal(Node node) throws Exception {
-				System.out.println("at node "+node.data);
+		System.out.println("at node "+node.data);
 		if (node.children.isEmpty()) {
 			if (node.data.startsWith(":")){
 				return myVariables.getVariableValue(node.data);
@@ -159,12 +159,12 @@ public class CommandParser {
 				}
 				finalaction = (Action) constructor.newInstance(params);
 				break;
-			case "model.action.TurtleCommandsNoParams":
+			case "model.action.TurtleCommandsNoParams.TurtleCommands":
 				finalaction = (Action) constructor.newInstance(myPlayground);
 
 				break;
-			case "model.action.TurtleCommandsOneParam":
-			case "model.action.TurtleCommandsTwoParams":
+			case "model.action.TurtleCommandsOneParam.TurtleCommandsOneParam":
+			case "model.action.TurtleCommandsTwoParams.TurtleCommandsTwoParams":
 				ArrayList<Double> params1 = new ArrayList<Double>();					
 				for (Node n : node.children) {
 					params1.add(treeTraversal(n));
