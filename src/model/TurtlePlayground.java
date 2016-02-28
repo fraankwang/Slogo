@@ -4,10 +4,15 @@
 
 package model;
 
+import java.util.ArrayList;
+import java.util.Queue;
+
 public class TurtlePlayground {
 	private Turtle myTurtle;
 	private int myWidth;
 	private int myHeight;
+	//private ArrayList<Turtle> turtleList;
+	// saved for later
 
 	public TurtlePlayground (){
 		myTurtle=new Turtle();
@@ -19,6 +24,7 @@ public class TurtlePlayground {
 		myHeight=height;
 	}
 
+	
 	public void setTurtle (Turtle turtle) {
 		myTurtle = turtle;
 
@@ -37,7 +43,7 @@ public class TurtlePlayground {
 	}
 
 	public boolean inBounds(){
-		if(myTurtle.getxCoordinate()<0 || myTurtle.getxCoordinate()>myWidth || myTurtle.getyCoordinate()<0 || myTurtle.getyCoordinate()>myHeight) return false;
+		if(myTurtle.getxCoordinate()<-myWidth/2 || myTurtle.getxCoordinate()>myWidth/2 || myTurtle.getyCoordinate()<-myHeight/2 || myTurtle.getyCoordinate()>myHeight/2) return false;
 		else return true;
 	}
 
@@ -54,6 +60,7 @@ public class TurtlePlayground {
 		if(inBounds(xCoord,yCoord)){
 			myTurtle.setxCoordinate(xCoord);
 			myTurtle.setyCoordinate(yCoord);
+			myTurtle.addCoordinates(xCoord, yCoord);
 			return returnValue;
 		}
 		else return (double) 0;
@@ -65,7 +72,8 @@ public class TurtlePlayground {
 
 	public Double moveTurtle(Double pixels){
 		Double xCoord=myTurtle.getxCoordinate() + (pixels*Math.cos(Math.toRadians(myTurtle.getOrientation())));
-		Double yCoord=myTurtle.getyCoordinate() + (pixels*Math.cos(Math.toRadians(myTurtle.getOrientation())));
+		Double yCoord=myTurtle.getyCoordinate() + (pixels*Math.sin(Math.toRadians(myTurtle.getOrientation())));
+		System.out.println(xCoord+" , "+yCoord);
 		return setTurtleCoordinates(xCoord,yCoord,Math.abs(pixels));
 
 	}
@@ -80,11 +88,9 @@ public class TurtlePlayground {
 		return placeTurtle(0.0,0.0);
 	}
 	
-	public Double[] getTurtleCoordinates(){
-		Double xCoord= (myTurtle.getxCoordinate() - .5*myWidth);
-		Double yCoord= (myTurtle.getyCoordinate() - .5*myHeight);
-		Double[] coordinateArray={xCoord, yCoord};
-		return coordinateArray;
+	public Queue<TurtleCoordinates> getTurtleCoordinates(){
+		
+		return myTurtle.getCoordinates();
 		
 	}
 	
