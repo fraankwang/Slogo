@@ -4,6 +4,9 @@
 
 package view;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import constants.Constants;
 import controller.MainController;
 import javafx.event.ActionEvent;
@@ -43,12 +46,16 @@ public class MainView {
 	private MainController myController;
 	private Group myPrimaryRoot;
 	private BorderPane myPrimaryPane;
-	private Node myOutputBox;
-	private Node myHistoryBox;
+	
+	private PanelElementFactory myPanelElementFactory;
+	private PanelElement myOutputElement;
+	private PanelElement myHistoryElement;
+	private PanelElement myCommandsElement;
+	private PanelElement myVariablesElement;
 	private GraphicsContext myTurtleBox;
 	private StackPane myTurtleBackground;
-	private Node myCommandsBox;
-	private Node myVariablesBox;
+	
+	
 
 	public MainView(Stage stage) {
 		myPrimaryStage = stage;
@@ -72,52 +79,21 @@ public class MainView {
 	 */
 	private void initializeRoot() {
 		Group root = new Group();
-		
-		final Menu menu1 = new Menu("File");
-		MenuItem openFile = new CheckMenuItem("Open");
-		CustomMenuItem customMenuItem = new CustomMenuItem(new Slider());
-		customMenuItem.setHideOnClick(false);
-		
-		openFile.setOnAction(new EventHandler<ActionEvent>() {
-		    @Override 
-		    public void handle(ActionEvent e) {
-		    	((CheckMenuItem) openFile).setSelected(true);
-		        System.out.println("Open File");
-		    }
-		});
-		
-		/**
-		 * TODO: put everything in MenuBar, setHideOnClick, images for picking turtle, upload new images
-		 * dividers etc within the menu, help button that opens HTML page(??)
-		 */
-		openFile.setGraphic(new ImageView(new Image("basic.jpg")));
-		
-		menu1.getItems().addAll(openFile, customMenuItem);
-		CustomMenuItem menuItemColor = new CustomMenuItem(new ColorPicker());
-		menuItemColor.setHideOnClick(false);
-		menu1.getItems().add(menuItemColor);
-		final Menu menu2 = new Menu("Options");
-		final Menu menu3 = new Menu("Help");
-
-		MenuBar menuBar = new MenuBar();
-		menuBar.getMenus().addAll(menu1, menu2, menu3);
-	
-		
-		
 		myPrimaryPane = new BorderPane();
 		root.getChildren().add(myPrimaryPane);
 
-		Toolbar tb = new Toolbar(myController);
-		Panel panel = new Panel(myController);
+		myPanelElementFactory = new PanelElementFactory(myController);
 		
-		HBox toolBar = tb.createToolBar();
-		VBox leftColumn = panel.createLeftColumn();
-		VBox rightColumn = panel.createRightColumn();
-
-		setMyTurtleBox(panel.getTurtleBox());
-		setMyTurtleBackground(panel.getTurtleBackground());
-		//set other stuff too
+		MenuBar menuBar = myPanelElementFactory.createMenuBar();
+		VBox leftColumn = myPanelElementFactory.createLeftColumn();
+		VBox rightColumn = myPanelElementFactory.createRightColumn();
 		
+		setMyTurtleGraphics(myPanelElementFactory.createTurtleGraphics());
+		setMyTurtleBackground(myPanelElementFactory.createTurtleBackground());
+		setMyVariablesElement(myPanelElementFactory.createVariablesElement());
+		setMyCommandsElement(myPanelElementFactory.createCommandsElement());
+		setMyHistoryElement(myPanelElementFactory.createHistoryElement());
+		setMyOutputElement(myPanelElementFactory.createOutputElement());
 		
 		myPrimaryPane.setTop(menuBar);
 		myPrimaryPane.setLeft(leftColumn);
@@ -126,40 +102,79 @@ public class MainView {
 		myPrimaryRoot = root;
 	}
 
+	/**
+	 * Changes visibility of Node
+	 * @param element
+	 */
+	public void toggleDisplay(PanelElement element) {
+		element.toggleDisplay();
+
+	}
+	
 	// =========================================================================
 	// Getters and Setters
 	// =========================================================================
 
-	public void setController(MainController controller) {
-		myController = controller;
-	}
-
-	public Node getMyOutputBox() {
-		return myOutputBox;
-	}
-
-	public Node getMyHistoryBox() {
-		return myHistoryBox;
-	}
-
-	public void setMyTurtleBox(GraphicsContext gc) {
-		myTurtleBox = gc;
-	}
-	
-	public GraphicsContext getMyTurtleBox() {
+	public GraphicsContext getMyTurtleGraphics() {
 		return myTurtleBox;
 	}
 
-	public Node getMyCommandsBox() {
-		return myCommandsBox;
+	public PanelElement getMyOutputElement() {
+		return myOutputElement;
 	}
 
-	public Node getMyVariablesBox() {
-		return myVariablesBox;
+	public PanelElement getMyHistoryElement() {
+		return myHistoryElement;
+	}
+
+	public PanelElement getMyCommandsElement() {
+		return myCommandsElement;
+	}
+
+	public PanelElement getMyVariablesElement() {
+		return myVariablesElement;
 	}
 
 	public StackPane getTurtleBackground() {
 		return myTurtleBackground;
+	}
+	
+	public List<PanelElement> getViewableElements() {
+		List<PanelElement> viewableElements = new ArrayList<PanelElement>();
+		viewableElements.add(myVariablesElement);
+		viewableElements.add(myCommandsElement);
+		viewableElements.add(myHistoryElement);
+		viewableElements.add(myOutputElement);
+		return viewableElements;
+		
+	}
+	
+	public void setController(MainController controller) {
+		myController = controller;
+	}
+
+	public void setMyPrimaryStage(Stage myPrimaryStage) {
+		this.myPrimaryStage = myPrimaryStage;
+	}
+
+	public void setMyController(MainController myController) {
+		this.myController = myController;
+	}
+
+	public void setMyPrimaryRoot(Group myPrimaryRoot) {
+		this.myPrimaryRoot = myPrimaryRoot;
+	}
+
+	public void setMyPrimaryPane(BorderPane myPrimaryPane) {
+		this.myPrimaryPane = myPrimaryPane;
+	}
+
+	public void setMyPanelElementFactory(PanelElementFactory myPanelElementFactory) {
+		this.myPanelElementFactory = myPanelElementFactory;
+	}
+	
+	public void setMyTurtleGraphics(GraphicsContext gc) {
+		myTurtleBox = gc;
 	}
 	
 	private void setMyTurtleBackground(StackPane turtleBackground) {
@@ -168,7 +183,26 @@ public class MainView {
 
 	public void setTurtleBackgroundColor(Color color) {
 		myTurtleBackground.setBackground(new Background(new BackgroundFill(color, Constants.CORNER_RADIUS, null)));
-		
 	}
+	
+	public void setMyOutputElement(PanelElement outputElement) {
+		this.myOutputElement = outputElement;
+	}
+
+	public void setMyHistoryBox(PanelElement historyElement) {
+		this.myHistoryElement = historyElement;
+	}
+
+	public void setMyCommandsBox(PanelElement commandsElement) {
+		this.myCommandsElement = commandsElement;
+	}
+
+	public void setMyVariablesBox(PanelElement variablesElement) {
+		this.myVariablesElement = variablesElement;
+	}
+
+	
+
+	
 
 }

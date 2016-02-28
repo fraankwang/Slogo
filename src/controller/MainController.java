@@ -4,10 +4,14 @@
 
 package controller;
 
+import java.util.List;
+
 import javafx.animation.Timeline;
+import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import model.MainModel;
 import view.MainView;
+import view.PanelElement;
 
 public class MainController {
 
@@ -61,6 +65,15 @@ public class MainController {
 
 	}
 
+	/**
+	 * Reroutes control back to MainView which toggles visibility
+	 * @param toToggle
+	 */
+	public void toggleDisplay(PanelElement element) {
+		myView.toggleDisplay(element);
+		
+	}
+	
 	// =========================================================================
 	// Getters and Setters
 	// =========================================================================
@@ -69,12 +82,16 @@ public class MainController {
 		return myView;
 	}
 
+	public List<PanelElement> getViewableElements() {
+		return myView.getViewableElements();
+	}
+
 	public void setTurtleImage(String image) {
 		myTransformer.setTurtleImage(image);		
 	}
 
 	public void setBackgroundColor(Color color) {
-		getMyView().setTurtleBackgroundColor(color);
+		myView.setTurtleBackgroundColor(color);
 	}
 
 	public void setPenColor(Color color) {
@@ -84,5 +101,8 @@ public class MainController {
 	public void setLanguage(String language) {
 		myTransformer.setLanguage(language);
 	}
+
+
+	
 
 }

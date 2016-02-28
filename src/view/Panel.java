@@ -266,9 +266,6 @@ public class Panel {
 		return textArea;
 	}
 	
-	
-	
-
 	private Button makeRunButton(TextArea ta) {
 		Button runButton = new Button(Constants.getSpecification("RunButtonDefaultText"));
 		runButton.setPrefHeight(Constants.RUN_BUTTON_HEIGHT);

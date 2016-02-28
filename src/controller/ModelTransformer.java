@@ -36,7 +36,7 @@ public class ModelTransformer {
 	}
 
 	public void transformTurtleBox() {
-		GraphicsContext tb = myController.getMyView().getMyTurtleBox();
+		GraphicsContext tb = myController.getMyView().getMyTurtleGraphics();
 		updateTurtleBox(tb);
 		
 	}
