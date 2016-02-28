@@ -1,4 +1,6 @@
-package model.action;
+package model.action.HigherOrderCommands;
+
+import model.action.Action;
 
 public class Make extends Action {
 

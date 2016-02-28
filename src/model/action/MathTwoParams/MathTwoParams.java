@@ -12,7 +12,7 @@ public abstract class MathTwoParams extends Action {
 	public MathTwoParams (List<Double> params) {
 		super();
 		this.a = params.get(0);
-		this.b = params.get(0);
+		this.b = params.get(1);
 	
 	}
 

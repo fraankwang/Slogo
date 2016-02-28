@@ -4,6 +4,7 @@
 
 package model;
 
+import constants.Constants;
 import controller.MainController;
 
 public class MainModel {
@@ -20,14 +21,18 @@ public class MainModel {
 	private History myHistory;
 	private TurtlePlayground myPlayground;
 	private Variables myVariables;
+	private UserCommands myUserCommands;
 	private String myLanguage;
 	private History myOutputs;
 	
 	public MainModel(String language) {
 		myLanguage = language;
-		myParser = new CommandParser(myLanguage, myPlayground, myVariables);
+		myPlayground = new TurtlePlayground(Constants.PLAYGROUND_HEIGHT, Constants.PLAYGROUND_HEIGHT); 
+		
+		myParser = new CommandParser(myLanguage, myPlayground, myVariables, myUserCommands);
 		myHistory = new History();
 		myOutputs = new History();
+		
 		
 	}
 
@@ -43,13 +48,6 @@ public class MainModel {
 		}
 	}
 
-	/** NOTE to Huijia and Srikar:
-	 * whatever the final data structure is like for all the coordinates to plot,
-	 * you need to have some way to tell if the pen is up or down for each of them, maybe like a
-	 * list of (x, y, penUp) tuples sort of data structure. A double[] is not going to be good enough
-	 * 
-	 */
-	
 	// =========================================================================
 	// Getters and Setters
 	// =========================================================================
