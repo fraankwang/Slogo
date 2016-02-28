@@ -33,6 +33,9 @@ public class Turtle {
 		yCoordinate=yCoord;
 	}
 	
+	public Queue<TurtleCoordinates> getCoordinates(){
+		return this.turtleCoordinates;
+	}
 	public void addCoordinates(Double xCoord, Double yCoord){
 		TurtleCoordinates coordinate=new TurtleCoordinates(xCoord, yCoord);
 		turtleCoordinates.add(coordinate);
