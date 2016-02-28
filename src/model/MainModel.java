@@ -4,6 +4,7 @@
 
 package model;
 
+import constants.Constants;
 import controller.MainController;
 
 public class MainModel {
@@ -20,30 +21,33 @@ public class MainModel {
 	private History myHistory;
 	private TurtlePlayground myPlayground;
 	private Variables myVariables;
+	private UserCommands myUserCommands;
 	private String myLanguage;
+	private History myOutputs;
 	
 	public MainModel(String language) {
 		myLanguage = language;
+		myPlayground = new TurtlePlayground(Constants.PLAYGROUND_HEIGHT, Constants.PLAYGROUND_HEIGHT); 
+		
+		myParser = new CommandParser(myLanguage, myPlayground, myVariables, myUserCommands);
+		myHistory = new History();
+		myOutputs = new History();
+		
 		
 	}
 
 	public void readCommand(String input) {
-		// wrapper method that does everything (extensive use of helper classes
-		// and objects)
-		// parse command
-		// calculate/run the command
-		// store command in history and update history
-		// anything else I missed
 		System.out.println("command read: " + input);
+		try {
+			myOutputs.add(myParser.parseCommands(input).toString());
+			myHistory.add(input);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
-	/** NOTE to Huijia and Srikar:
-	 * whatever the final data structure is like for all the coordinates to plot,
-	 * you need to have some way to tell if the pen is up or down for each of them, maybe like a
-	 * list of (x, y, penUp) tuples sort of data structure. A double[] is not going to be good enough
-	 * 
-	 */
-	
 	// =========================================================================
 	// Getters and Setters
 	// =========================================================================
