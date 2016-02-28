@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -92,6 +93,9 @@ public class MainView {
 		openFile.setGraphic(new ImageView(new Image("basic.jpg")));
 		
 		menu1.getItems().addAll(openFile, customMenuItem);
+		CustomMenuItem menuItemColor = new CustomMenuItem(new ColorPicker());
+		menuItemColor.setHideOnClick(false);
+		menu1.getItems().add(menuItemColor);
 		final Menu menu2 = new Menu("Options");
 		final Menu menu3 = new Menu("Help");
 
