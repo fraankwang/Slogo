@@ -1,10 +1,13 @@
 package view;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import constants.Constants;
 import controller.MainController;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -13,10 +16,14 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -39,7 +46,7 @@ public class Panel {
 
 	private static final double ELEMENT_INSET_HORIZONTAL = Constants.ELEMENT_INSET_HORIZONTAL;
 	private static final double ELEMENT_INSET_VERTICAL = Constants.ELEMENT_INSET_VERTICAL;
-	
+
 	private StackPane myTurtleBackground;
 	private GraphicsContext turtleBox;
 
@@ -57,163 +64,110 @@ public class Panel {
 	public VBox createRightColumn() {
 
 		/**
-		 * NOTES ON THIS: 
-		 * 1. Outer most wrapper is a VBox with 4 elements: Variables, Commands, History, Output Console 
-		 * 2. Each of the first 3 elements should be scrollpanes, last element can just be a Text 
-		 * 	2a. Scrollpanes have a setContent(Node) method, so you have to have another wrapper inside each scrollpane 
-		 * 		NOTE: I think a GridPane would be good, and you can do some CSS formatting to make it neat. It would
-		 * 		work well with the layout for picking variables/commands
-		 * 	2b. For formatting purposes, you might want to make OutputConsole a stackpane with a text as a child 
-		 * 3. Make sure to use VBox.setMargins (look at Toolbar.java lines 106-112 for reference) for the 4 elements to make them look neat
-		 * 4. Whatever your element is that you're actually modifying (i.e. Map or ArrayList), make it a global
-		 * variable and add getters/setters, then link them to myController, so ModelTransformer has access to them
-		 * 	4a. If that doesn't make sense, look at myTurtleBox (GraphicsContext) and how it's traced
+		 * NOTES ON THIS: 1. Outer most wrapper is a VBox with 4 elements:
+		 * Variables, Commands, History, Output Console 2. Each of the first 3
+		 * elements should be scrollpanes, last element can just be a Text 2a.
+		 * Scrollpanes have a setContent(Node) method, so you have to have
+		 * another wrapper inside each scrollpane NOTE: I think a GridPane would
+		 * be good, and you can do some CSS formatting to make it neat. It would
+		 * work well with the layout for picking variables/commands 2b. For
+		 * formatting purposes, you might want to make OutputConsole a stackpane
+		 * with a text as a child 3. Make sure to use VBox.setMargins (look at
+		 * Toolbar.java lines 106-112 for reference) for the 4 elements to make
+		 * them look neat 4. Whatever your element is that you're actually
+		 * modifying (i.e. Map or ArrayList), make it a global variable and add
+		 * getters/setters, then link them to myController, so ModelTransformer
+		 * has access to them 4a. If that doesn't make sense, look at
+		 * myTurtleBox (GraphicsContext) and how it's traced
 		 */
 
-		VBox vb = new VBox();
-		ScrollPane variablesScrollPane = createVariablesScrollPane();
-		ScrollPane commandsScrollPane = createCommandsScrollPane();
-		ScrollPane historyScrollPane = createHistoryScrollPane();
+		Text variablesLabel = new Text(Constants.getSpecification("Variables"));
+		ListView<String> variablesListView = createVariablesListView();
+		VBox variablesWrapper = new VBox();
+		variablesWrapper.getChildren().addAll(variablesLabel, variablesListView);
+
+		Text commandsLabel = new Text(Constants.getSpecification("Commands"));
+		ListView<String> commandsListView = createCommandsListView();
+		VBox commandsWrapper = new VBox();
+		commandsWrapper.getChildren().addAll(commandsLabel, commandsListView);
+
+		Text historyLabel = new Text(Constants.getSpecification("History"));
+		ListView<String> historyListView = createHistoryListView();
+		VBox historyWrapper = new VBox();
+		historyWrapper.getChildren().addAll(historyLabel, historyListView);
+
+		Text outputLabel = new Text(Constants.getSpecification("Output"));
 		StackPane outputPane = createOutputPane();
-		
-		List<Node> allElements = Arrays.asList(variablesScrollPane, commandsScrollPane, historyScrollPane, outputPane);
-		setMargins(allElements);
-		
-		// TODO: change all print statements to show in output box instead of Eclipse console
-		vb.getChildren().addAll(allElements);
+		VBox outputWrapper = new VBox();
+		outputWrapper.getChildren().addAll(outputLabel, outputPane);
+
+		List<Node> allWrappers = Arrays.asList(variablesWrapper, commandsWrapper, historyWrapper, outputWrapper);
+		setMargins(allWrappers);
+
+		// TODO: change all print statements to show in output box instead of
+		// Eclipse console
+		VBox vb = new VBox();
+		vb.getChildren().addAll(allWrappers);
 		return vb;
 	}
 
 	/**
-	 * @return formatted ScrollPane wrapper that contains StackPane with Variables elements
+	 * @return formatted ScrollPane wrapper that contains StackPane with
+	 *         Variables elements
 	 */
-	private ScrollPane createVariablesScrollPane() {
-		ScrollPane variablesScrollPane = new ScrollPane();
-		
-		variablesScrollPane.setPrefHeight(RIGHT_COLUMN_ELEMENT_HEIGHT);
-		variablesScrollPane.setPrefWidth(RIGHT_COLUMN_WIDTH);
-	
-		StackPane variablesStackPane = new StackPane();
-		variablesStackPane.setMaxWidth(RIGHT_COLUMN_WIDTH);
-		
-		Text txtbox = new Text();
-		txtbox.setText("VARIABLES HERE");
-		txtbox.setFill(Color.WHITE);
-		txtbox.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				if (txtbox.getLayoutBounds().contains(event.getX(), event.getY())) {
-					System.out.println("modified variables text");
-				}
-	
-			}
-		});
-	
-		Rectangle rec = new Rectangle(RIGHT_COLUMN_ELEMENT_HEIGHT, 400);
-		rec.setFill(Color.BLACK);
-		rec.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				if (rec.getLayoutBounds().contains(event.getX(), event.getY())) {
-					System.out.println("pressed variables box");
-				}
-	
-			}
-	
-		});
-		
-		variablesStackPane.getChildren().addAll(rec,txtbox);
-		
-		variablesScrollPane.setContent(variablesStackPane);
-		return variablesScrollPane;
+	private ListView<String> createVariablesListView() {
+		ObservableList<String> test = FXCollections.observableArrayList("variable0", "variable1");
+		ListView<String> listView = new ListView<String>(test);
+		listView.setPrefSize(RIGHT_COLUMN_WIDTH, RIGHT_COLUMN_ELEMENT_HEIGHT);
+
+		listView.setEditable(true);
+		listView.setCellFactory(TextFieldListCell.forListView());
+		//
+		// listView.setOnEditCommit(new
+		// EventHandler<ListView.EditEvent<String>>() {
+		// @Override
+		// public void handle(ListView.EditEvent<String> t) {
+		// listView.getItems().set(t.getIndex(), t.getNewValue());
+		// System.out.println("setOnEditCommit");
+		// }
+		// });
+		//
+		// listView.setOnEditCancel(new
+		// EventHandler<ListView.EditEvent<String>>() {
+		// @Override
+		// public void handle(ListView.EditEvent<String> t) {
+		// System.out.println("setOnEditCancel");
+		// }
+		// });
+		return listView;
 	}
 
 	/**
-	 * @return formatted ScrollPane wrapper that contains StackPane with commands elements
+	 * @return formatted ScrollPane wrapper that contains StackPane with
+	 *         commands elements
 	 */
-	private ScrollPane createCommandsScrollPane() {
-		ScrollPane commandsScrollPane = new ScrollPane();
-		
-		commandsScrollPane.setPrefHeight(RIGHT_COLUMN_ELEMENT_HEIGHT);
-		commandsScrollPane.setPrefWidth(RIGHT_COLUMN_WIDTH);
+	private ListView<String> createCommandsListView() {
+		ObservableList<String> test = FXCollections.observableArrayList("command0", "command1");
+		ListView<String> listView = new ListView<String>(test);
+		listView.setPrefSize(RIGHT_COLUMN_WIDTH, RIGHT_COLUMN_ELEMENT_HEIGHT);
 
-		StackPane commandsStackPane = new StackPane();
-		commandsStackPane.setMaxWidth(RIGHT_COLUMN_WIDTH);
-		
-		Text txtbox = new Text();
-		txtbox.setText("COMMANDS HERE");
-		txtbox.setFill(Color.WHITE);
-		txtbox.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				if (txtbox.getLayoutBounds().contains(event.getX(), event.getY())) {
-					System.out.println("modified commands text");
-				}
+		listView.setCellFactory(TextFieldListCell.forListView());
 
-			}
-		});
-
-		Rectangle rec = new Rectangle(RIGHT_COLUMN_ELEMENT_HEIGHT, 400);
-		rec.setFill(Color.BLACK);
-		rec.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				if (rec.getLayoutBounds().contains(event.getX(), event.getY())) {
-					System.out.println("pressed commands box");
-				}
-
-			}
-
-		});
-		
-		commandsStackPane.getChildren().addAll(rec,txtbox);
-		
-		commandsScrollPane.setContent(commandsStackPane);
-		return commandsScrollPane;
+		return listView;
 	}
 
 	/**
-	 * @return formatted ScrollPane wrapper that contains StackPane with History elements
+	 * @return formatted ScrollPane wrapper that contains StackPane with History
+	 *         elements
 	 */
-	private ScrollPane createHistoryScrollPane() {
-		ScrollPane historyScrollPane = new ScrollPane();
-		
-		historyScrollPane.setPrefHeight(RIGHT_COLUMN_ELEMENT_HEIGHT);
-		historyScrollPane.setPrefWidth(RIGHT_COLUMN_WIDTH);
-	
-		StackPane historyStackPane = new StackPane();
-		historyStackPane.setMaxWidth(RIGHT_COLUMN_WIDTH);
-		
-		Text txtbox = new Text();
-		txtbox.setText("HISTORY HERE");
-		txtbox.setFill(Color.WHITE);
-		txtbox.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				if (txtbox.getLayoutBounds().contains(event.getX(), event.getY())) {
-					System.out.println("modified history text");
-				}
-	
-			}
-		});
-	
-		Rectangle rec = new Rectangle(RIGHT_COLUMN_ELEMENT_HEIGHT, 400);
-		rec.setFill(Color.BLACK);
-		rec.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
-			@Override
-			public void handle(MouseEvent event) {
-				if (rec.getLayoutBounds().contains(event.getX(), event.getY())) {
-					System.out.println("pressed history box");
-				}
-	
-			}
-	
-		});
-		
-		historyStackPane.getChildren().addAll(rec,txtbox);
-		
-		historyScrollPane.setContent(historyStackPane);
-		return historyScrollPane;
+	private ListView<String> createHistoryListView() {
+		ObservableList<String> test = FXCollections.observableArrayList("history0", "history1");
+		ListView<String> listView = new ListView<String>(test);
+		listView.setPrefSize(RIGHT_COLUMN_WIDTH, RIGHT_COLUMN_ELEMENT_HEIGHT);
+
+		listView.setCellFactory(TextFieldListCell.forListView());
+
+		return listView;
 	}
 
 	/**
@@ -224,29 +178,28 @@ public class Panel {
 		outputPane.setPrefHeight(RIGHT_COLUMN_ELEMENT_HEIGHT);
 		outputPane.setPrefWidth(RIGHT_COLUMN_WIDTH);
 		outputPane.setBackground(new Background(new BackgroundFill(Color.BLACK, Constants.CORNER_RADIUS, null)));
-		
+
 		Text txt = new Text("Output Console");
 		txt.setFill(Color.WHITE);
 		StackPane.setAlignment(txt, Pos.BOTTOM_LEFT);
 		outputPane.getChildren().add(txt);
-		
-		
+
 		return outputPane;
 	}
 
 	/**
-	 * Takes @param items, checks what type of Object they are, and applies relevant insets
+	 * Takes @param items, checks what type of Object they are, and applies
+	 * relevant insets
 	 */
 	private void setMargins(List<Node> items) {
-		Insets insets = new Insets(ELEMENT_INSET_HORIZONTAL, ELEMENT_INSET_VERTICAL,
-				ELEMENT_INSET_HORIZONTAL, ELEMENT_INSET_VERTICAL);
-		
-		for (Node item: items) {
+		Insets insets = new Insets(ELEMENT_INSET_HORIZONTAL, ELEMENT_INSET_VERTICAL, ELEMENT_INSET_HORIZONTAL,
+				ELEMENT_INSET_VERTICAL);
+
+		for (Node item : items) {
 			VBox.setMargin(item, insets);
 		}
-		
 	}
-	
+
 	/**
 	 * Helper UI-creating function that adds tool bar elements and links them to
 	 * myController
@@ -259,12 +212,13 @@ public class Panel {
 		StackPane turtlePlayground = makePlayground();
 		Group inputBox = makeInputBox();
 		// ***this is just here for backend to test commands
-		TextField tf = makeTextField();
+		TextArea ta = makeTextArea();
 		// ***this is just here for backend to test commands
+		Button runButton = makeRunButton(ta);
 
 		List<Node> allElements = Arrays.asList(turtlePlayground, inputBox);
-		setMargins(allElements);
-		vb.getChildren().addAll(turtlePlayground, inputBox, tf);
+		// setMargins(allElements);
+		vb.getChildren().addAll(turtlePlayground, inputBox, ta, runButton);
 		return vb;
 	}
 
@@ -302,28 +256,32 @@ public class Panel {
 	}
 
 	/**
-	 * @return TextField that sets myController to fully run the command and
+	 * @return TextArea that sets myController to fully run the command and
 	 *         refresh the display
 	 */
-	private TextField makeTextField() {
-		TextField textField = new TextField(Constants.getSpecification("TextFieldDefault"));
-		textField.setPrefHeight(Constants.TEXTFIELD_HEIGHT);
-		textField.setOnAction(new EventHandler<ActionEvent>() {
+	private TextArea makeTextArea() {
+		TextArea textArea = new TextArea();
+		textArea.setPromptText(Constants.getSpecification("TextAreaDefaultText"));
+		textArea.setPrefHeight(Constants.TEXTAREA_HEIGHT);
+		return textArea;
+	}
+
+	private Button makeRunButton(TextArea ta) {
+		Button runButton = new Button(Constants.getSpecification("RunButtonDefaultText"));
+		runButton.setPrefHeight(Constants.RUN_BUTTON_HEIGHT);
+		runButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				myController.executeCommand(textField.getText());
-				textField.clear();
+				myController.executeCommand(ta.getText());
 			}
 		});
-
-		return textField;
-
+		return runButton;
 	}
 
 	// =========================================================================
 	// Getters and Setters
-	// =========================================================================	
-	
+	// =========================================================================
+
 	private void setTurtleBox(GraphicsContext tb) {
 		turtleBox = tb;
 	}
