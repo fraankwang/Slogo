@@ -4,13 +4,16 @@
 
 package model;
 
+import java.util.ArrayList;
+import java.util.Queue;
+
 public class Turtle {
 	private Double xCoordinate;
 	private Double yCoordinate;
 	private boolean penDown;
 	private boolean showTurtle;
 	private Double Orientation;
-
+	private Queue<TurtleCoordinates> turtleCoordinates;
 	// other info like pen color and turtle image can be added later
 	// Turtle should have some sort of identifier functionality. My friend said 
 	// if we command turtle1 to move, then turtle2 to move, our code should be able to handle that.
@@ -28,6 +31,11 @@ public class Turtle {
 		Orientation = 90.0;
 		xCoordinate=xCoord;
 		yCoordinate=yCoord;
+	}
+	
+	public void addCoordinates(Double xCoord, Double yCoord){
+		TurtleCoordinates coordinate=new TurtleCoordinates(xCoord, yCoord);
+		turtleCoordinates.add(coordinate);
 	}
 
 	public void setPenDown(boolean down) {
