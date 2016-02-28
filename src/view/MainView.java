@@ -6,10 +6,23 @@ package view;
 
 import constants.Constants;
 import controller.MainController;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckMenuItem;
+import javafx.scene.control.CustomMenuItem;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.Separator;
+import javafx.scene.control.Slider;
+import javafx.scene.control.ToolBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -58,6 +71,35 @@ public class MainView {
 	 */
 	private void initializeRoot() {
 		Group root = new Group();
+		
+		final Menu menu1 = new Menu("File");
+		MenuItem openFile = new CheckMenuItem("Open");
+		CustomMenuItem customMenuItem = new CustomMenuItem(new Slider());
+		customMenuItem.setHideOnClick(false);
+		
+		openFile.setOnAction(new EventHandler<ActionEvent>() {
+		    @Override 
+		    public void handle(ActionEvent e) {
+		    	((CheckMenuItem) openFile).setSelected(true);
+		        System.out.println("Open File");
+		    }
+		});
+		
+		/**
+		 * TODO: put everything in MenuBar, setHideOnClick, images for picking turtle, upload new images
+		 * dividers etc within the menu, help button that opens HTML page(??)
+		 */
+		openFile.setGraphic(new ImageView(new Image("basic.jpg")));
+		
+		menu1.getItems().addAll(openFile, customMenuItem);
+		final Menu menu2 = new Menu("Options");
+		final Menu menu3 = new Menu("Help");
+
+		MenuBar menuBar = new MenuBar();
+		menuBar.getMenus().addAll(menu1, menu2, menu3);
+	
+		
+		
 		myPrimaryPane = new BorderPane();
 		root.getChildren().add(myPrimaryPane);
 
@@ -73,7 +115,7 @@ public class MainView {
 		//set other stuff too
 		
 		
-		myPrimaryPane.setTop(toolBar);
+		myPrimaryPane.setTop(menuBar);
 		myPrimaryPane.setLeft(leftColumn);
 		myPrimaryPane.setRight(rightColumn);
 
