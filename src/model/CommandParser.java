@@ -109,35 +109,37 @@ public class CommandParser {
 
 	private double treeTraversal(Node node) throws Exception {
 		System.out.println("at node "+node.data);
-		if (node.children.isEmpty()) {
-			if (node.data.startsWith(":")){
-				return myVariables.getVariableValue(node.data);
-			}
-			else{
-				try {
-					Double a = Double.parseDouble(node.data);
-					return a;
+		try {
+			Action action = makeAction(node);
+			return action.rule();
+		} catch (Exception exception) {
+			try{
+				Iterator<Node> iter = node.children.iterator();
+				for (String s: myUserCommands.getCommandParams(node.data)){
+					myVariables.addVariable(s, treeTraversal(iter.next()));
 				}
-				catch (Exception nfe) {
-					throw new Exception("Incorrect syntax for parameter");
-				}
+				return parseCommands(myUserCommands.getCommand(node.data));
 			}
-		} else {
-			try {
-				Action action = makeAction(node);
-				return action.rule();
-			} catch (Exception exception) {
-				try{
-					Iterator<Node> iter = node.children.iterator();
-					for (String s: myUserCommands.getCommandParams(node.data)){
-						myVariables.addVariable(s, treeTraversal(iter.next()));
+			catch (Exception ex){
+				if (node.children.isEmpty()) {
+					if (node.data.startsWith(":")){
+						return myVariables.getVariableValue(node.data);
 					}
-					return parseCommands(myUserCommands.getCommand(node.data));
-				}
-				catch (Exception ex){
+					else{
+						try {
+							Double a = Double.parseDouble(node.data);
+							return a;
+						}
+						catch (Exception nfe) {
+							throw new Exception("Incorrect syntax for parameter");
+						}
+					}
+				} 
+				else {
 					throw exception;
 				}
 			}
+
 		}
 	}
 
