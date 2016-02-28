@@ -4,13 +4,19 @@
 
 package model;
 
+import java.util.ArrayList;
+
 public class TurtlePlayground {
 	private Turtle myTurtle;
 	private int myWidth;
 	private int myHeight;
+	//private ArrayList<Turtle> turtleList;
+	// saved for later
 
 	public TurtlePlayground (){
 		myTurtle=new Turtle();
+		
+		
 	}
 
 	public TurtlePlayground (int width, int height){
@@ -19,6 +25,7 @@ public class TurtlePlayground {
 		myHeight=height;
 	}
 
+	
 	public void setTurtle (Turtle turtle) {
 		myTurtle = turtle;
 
@@ -54,6 +61,7 @@ public class TurtlePlayground {
 		if(inBounds(xCoord,yCoord)){
 			myTurtle.setxCoordinate(xCoord);
 			myTurtle.setyCoordinate(yCoord);
+			myTurtle.addCoordinates(xCoord, yCoord);
 			return returnValue;
 		}
 		else return (double) 0;
