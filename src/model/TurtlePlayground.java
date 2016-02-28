@@ -16,8 +16,6 @@ public class TurtlePlayground {
 
 	public TurtlePlayground (){
 		myTurtle=new Turtle();
-		
-		
 	}
 
 	public TurtlePlayground (int width, int height){
