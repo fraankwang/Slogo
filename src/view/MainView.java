@@ -38,8 +38,8 @@ import javafx.stage.Stage;
 
 public class MainView {
 
-	private static final int SCENE_WIDTH = 1000;
-	private static final int SCENE_HEIGHT = 1000;
+	private static final int SCENE_WIDTH = Constants.SCENE_WIDTH;
+	private static final int SCENE_HEIGHT = Constants.SCENE_HEIGHT;
 
 	private Stage myPrimaryStage;
 	private MainController myController;

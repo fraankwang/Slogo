@@ -19,7 +19,7 @@ public class HistoryElement extends PanelElement {
 		myListView = historyListView;
 		
 	}
-
+	
 	public ListView<String> getListView(){
 		return myListView;
 	}

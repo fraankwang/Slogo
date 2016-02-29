@@ -34,7 +34,7 @@ public class Toolbar {
 
 	private static final int SCENE_WIDTH = Constants.SCENE_WIDTH;
 	
-	private static final int TOOLBAR_HEIGHT = Constants.TOOLBAR_HEIGHT;
+	private static final int MENU_BAR_HEIGHT = Constants.MENU_BAR_HEIGHT;
 	private static final int TOOLBAR_INSET_HORIZONTAL = Constants.TOOLBAR_INSET_HORIZONTAL;
 	private static final int TOOLBAR_INSET_HORIZONTAL_LABEL = Constants.TOOLBAR_INSET_HORIZONTAL_LABEL;
 	private static final int TOOLBAR_INSET_VERTICAL = Constants.TOOLBAR_INSET_VERTICAL;
@@ -58,7 +58,7 @@ public class Toolbar {
 	 */
 	public HBox createToolBar() {
 		HBox toolbar = new HBox();
-		toolbar.setPrefHeight(TOOLBAR_HEIGHT);
+		toolbar.setPrefHeight(MENU_BAR_HEIGHT);
 		toolbar.setPrefWidth(SCENE_WIDTH);
 		toolbar.setBackground(new Background(new BackgroundFill(Constants.DEFAULT_TOOLBAR_COLOR, Constants.CORNER_RADIUS, null)));
 

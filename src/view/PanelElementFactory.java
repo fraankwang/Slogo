@@ -5,6 +5,7 @@
 package view;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import constants.Constants;
 import controller.MainController;
@@ -12,6 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
@@ -38,6 +40,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import model.MainModel;
+import model.Variables;
 
 public class PanelElementFactory {
 
@@ -45,6 +49,9 @@ public class PanelElementFactory {
 	private static final int PLAYGROUND_HEIGHT = Constants.PLAYGROUND_HEIGHT;
 	private static final int RIGHT_COLUMN_WIDTH = Constants.RIGHT_COLUMN_WIDTH;
 	private static final int RIGHT_COLUMN_ELEMENT_HEIGHT = Constants.RIGHT_COLUMN_ELEMENT_HEIGHT;
+	
+	private static final double ELEMENT_INSET_HORIZONTAL = Constants.ELEMENT_INSET_HORIZONTAL;
+	private static final double ELEMENT_INSET_VERTICAL = Constants.ELEMENT_INSET_VERTICAL;
 
 	private MainController myController;
 
@@ -86,10 +93,20 @@ public class PanelElementFactory {
 		CommandsElement commands = (CommandsElement) createCommandsElement();
 		HistoryElement history = (HistoryElement) createHistoryElement();
 		OutputElement outputArea = (OutputElement) createOutputElement();
-
-		rightColumn.getChildren().addAll(variables.getNode(), commands.getNode(), history.getNode(),
-				outputArea.getNode());
+		
+		List<Node> allNodes = Arrays.asList(variables.getNode(), commands.getNode(), history.getNode(), outputArea.getNode());
+		setMargins(allNodes);
+		
+		rightColumn.getChildren().addAll(allNodes);
 		return rightColumn;
+	}
+	
+	private void setMargins(List<Node> items) {
+		Insets insets = new Insets(ELEMENT_INSET_HORIZONTAL, ELEMENT_INSET_VERTICAL, ELEMENT_INSET_HORIZONTAL,
+				ELEMENT_INSET_VERTICAL);
+		for (Node item : items) {
+			VBox.setMargin(item, insets);
+		}
 	}
 
 	/**
@@ -114,7 +131,7 @@ public class PanelElementFactory {
 	private TextArea makeTextArea() {
 		textArea = new TextArea();
 		textArea.setPromptText(Constants.getSpecification("TextAreaDefaultText"));
-		textArea.setPrefHeight(Constants.TEXTAREA_HEIGHT);
+		textArea.setPrefSize(Constants.TEXTAREA_WIDTH, Constants.TEXTAREA_HEIGHT);
 		return textArea;
 	}
 
@@ -124,7 +141,7 @@ public class PanelElementFactory {
 	 */
 	private Button makeRunButton() {
 		Button runButton = new Button(Constants.getSpecification("RunButtonDefaultText"));
-		runButton.setPrefHeight(Constants.RUN_BUTTON_HEIGHT);
+		runButton.setPrefSize(Constants.RUN_BUTTON_WIDTH, Constants.RUN_BUTTON_HEIGHT);
 		runButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -132,7 +149,6 @@ public class PanelElementFactory {
 			}
 		});
 		return runButton;
-
 	}
 
 	/**
@@ -141,7 +157,7 @@ public class PanelElementFactory {
 	 */
 	private Button makeClearButton() {
 		Button clearButton = new Button(Constants.getSpecification("ClearButtonDefaultText"));
-		clearButton.setPrefHeight(Constants.CLEAR_BUTTON_HEIGHT);
+		clearButton.setPrefSize(Constants.CLEAR_BUTTON_WIDTH, Constants.CLEAR_BUTTON_HEIGHT);
 		clearButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
@@ -179,7 +195,7 @@ public class PanelElementFactory {
 	public PanelElement createVariablesElement() {
 		VBox variablesWrapper = new VBox();
 		Text variablesLabel = new Text(Constants.getSpecification("VariablesLabel"));
-		ObservableList<String> test = FXCollections.observableArrayList("variable0", "variable1");
+		ObservableList<String> test = FXCollections.observableArrayList();
 		ListView<String> variablesListView = new ListView<String>(test);
 		variablesListView.setEditable(true);
 		variablesListView.setPrefSize(RIGHT_COLUMN_WIDTH, RIGHT_COLUMN_ELEMENT_HEIGHT);
@@ -227,7 +243,7 @@ public class PanelElementFactory {
 	public PanelElement createHistoryElement() {
 		VBox historyWrapper = new VBox();
 		Text historyLabel = new Text(Constants.getSpecification("HistoryLabel"));
-		ObservableList<String> test = FXCollections.observableArrayList("history0", "history1");
+		ObservableList<String> test = FXCollections.observableArrayList();
 		ListView<String> historyListView = new ListView<String>(test);
 		historyListView.setPrefSize(RIGHT_COLUMN_WIDTH, RIGHT_COLUMN_ELEMENT_HEIGHT);
 		historyListView.setCellFactory(TextFieldListCell.forListView());
@@ -236,7 +252,11 @@ public class PanelElementFactory {
 	        @Override
 	        public void handle(MouseEvent event) {
 	        	String text = textArea.getText();
-	        	text = text + "\n" + historyListView.getSelectionModel().getSelectedItem();
+	        	if(text.equals(Constants.getSpecification("TextAreaDefaultText"))){
+	        		text = text + historyListView.getSelectionModel().getSelectedItem();
+	        	} else { 
+	        		text = text + "\n" + historyListView.getSelectionModel().getSelectedItem();
+	        	}
 	        	textArea.setText(text);
 	        }
 	    });
@@ -253,13 +273,16 @@ public class PanelElementFactory {
 	 * @return formatted OutputElement which has a set TextArea
 	 */
 	public PanelElement createOutputElement() {
-		StackPane outputWrapper = new StackPane();
+		VBox outputWrapper = new VBox();
+		Text outputLabel = new Text(Constants.getSpecification("OutputLabel"));
+		//StackPane outputWrapper = new StackPane();
 		outputWrapper.setPrefHeight(RIGHT_COLUMN_ELEMENT_HEIGHT);
 		outputWrapper.setPrefWidth(RIGHT_COLUMN_WIDTH);
 		outputWrapper.setBackground(new Background(new BackgroundFill(Color.WHITE, Constants.CORNER_RADIUS, null)));
 
 		TextArea outputArea = new TextArea();
-		outputWrapper.getChildren().add(outputArea);
+		outputArea.setEditable(false);
+		outputWrapper.getChildren().addAll(outputLabel, outputArea);
 		StackPane.setAlignment(outputArea, Pos.BOTTOM_LEFT);
 		
 		outputElement = new OutputElement(outputWrapper, Constants.getSpecification("OutputElementName"));
