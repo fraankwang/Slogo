@@ -209,6 +209,15 @@ public class PanelElementFactory {
 		commandsElement = new CommandsElement(commandsWrapper,
 				Constants.getSpecification("CommandsElementName"));
 		commandsElement.setListView(commandsListView);
+		
+		commandsListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+	        @Override
+	        public void handle(MouseEvent event) {
+	        	textArea.setText(commandsListView.getSelectionModel().getSelectedItem());
+	        	myController.executeCommand(textArea.getText());
+	        }
+	    });
+		
 		return commandsElement;
 	}
 
