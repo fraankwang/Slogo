@@ -6,7 +6,6 @@ package view;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import constants.Constants;
 import controller.MainController;
 import javafx.event.ActionEvent;
@@ -48,15 +47,14 @@ public class MainView {
 	private BorderPane myPrimaryPane;
 	
 	private PanelElementFactory myPanelElementFactory;
+	private MenuBarFactory myMenuBarFactory;
 	private PanelElement myOutputElement;
 	private PanelElement myHistoryElement;
 	private PanelElement myCommandsElement;
 	private PanelElement myVariablesElement;
-	private GraphicsContext myTurtleBox;
-	private StackPane myTurtleBackground;
+	private PanelElement myTurtleBackground;
+	private GraphicsContext myTurtleGraphics;
 	
-	
-
 	public MainView(Stage stage) {
 		myPrimaryStage = stage;
 
@@ -75,7 +73,7 @@ public class MainView {
 
 	/**
 	 * Primary init method which pieces together all the elements to be
-	 * displayed
+	 * displayed. PanelElements are created once using the factory
 	 */
 	private void initializeRoot() {
 		Group root = new Group();
@@ -83,40 +81,33 @@ public class MainView {
 		root.getChildren().add(myPrimaryPane);
 
 		myPanelElementFactory = new PanelElementFactory(myController);
+		myMenuBarFactory = new MenuBarFactory(myController);
 		
-		MenuBar menuBar = myPanelElementFactory.createMenuBar();
 		VBox leftColumn = myPanelElementFactory.createLeftColumn();
 		VBox rightColumn = myPanelElementFactory.createRightColumn();
 		
-		setMyTurtleGraphics(myPanelElementFactory.createTurtleGraphics());
-		setMyTurtleBackground(myPanelElementFactory.createTurtleBackground());
-		setMyVariablesElement(myPanelElementFactory.createVariablesElement());
-		setMyCommandsElement(myPanelElementFactory.createCommandsElement());
-		setMyHistoryElement(myPanelElementFactory.createHistoryElement());
-		setMyOutputElement(myPanelElementFactory.createOutputElement());
+		setMyTurtleGraphics(myPanelElementFactory.getTurtleGraphics());
+		setMyTurtleBackground(myPanelElementFactory.getTurtleBackground());
+		setMyVariablesElement(myPanelElementFactory.getVariablesElement());	
+		setMyCommandsElement(myPanelElementFactory.getCommandsElement());
+		setMyHistoryElement(myPanelElementFactory.getHistoryElement());
+		setMyOutputElement(myPanelElementFactory.getOutputElement());
+//		MenuBar menuBar = myMenuBarFactory.createMenuBar();
 		
-		myPrimaryPane.setTop(menuBar);
+//		myPrimaryPane.setTop(menuBar);
 		myPrimaryPane.setLeft(leftColumn);
 		myPrimaryPane.setRight(rightColumn);
 
 		myPrimaryRoot = root;
 	}
 
-	/**
-	 * Changes visibility of Node
-	 * @param element
-	 */
-	public void toggleDisplay(PanelElement element) {
-		element.toggleDisplay();
 
-	}
-	
 	// =========================================================================
 	// Getters and Setters
 	// =========================================================================
 
 	public GraphicsContext getMyTurtleGraphics() {
-		return myTurtleBox;
+		return myTurtleGraphics;
 	}
 
 	public PanelElement getMyOutputElement() {
@@ -135,7 +126,7 @@ public class MainView {
 		return myVariablesElement;
 	}
 
-	public StackPane getTurtleBackground() {
+	public PanelElement getTurtleBackground() {
 		return myTurtleBackground;
 	}
 	
@@ -145,6 +136,7 @@ public class MainView {
 		viewableElements.add(myCommandsElement);
 		viewableElements.add(myHistoryElement);
 		viewableElements.add(myOutputElement);
+		viewableElements.add(myTurtleBackground);
 		return viewableElements;
 		
 	}
@@ -174,10 +166,10 @@ public class MainView {
 	}
 	
 	public void setMyTurtleGraphics(GraphicsContext gc) {
-		myTurtleBox = gc;
+		myTurtleGraphics = gc;
 	}
 	
-	private void setMyTurtleBackground(StackPane turtleBackground) {
+	private void setMyTurtleBackground(PanelElement turtleBackground) {
 		myTurtleBackground = turtleBackground;
 	}
 
@@ -189,20 +181,16 @@ public class MainView {
 		this.myOutputElement = outputElement;
 	}
 
-	public void setMyHistoryBox(PanelElement historyElement) {
+	public void setMyHistoryElement(PanelElement historyElement) {
 		this.myHistoryElement = historyElement;
 	}
 
-	public void setMyCommandsBox(PanelElement commandsElement) {
+	public void setMyCommandsElement(PanelElement commandsElement) {
 		this.myCommandsElement = commandsElement;
 	}
 
-	public void setMyVariablesBox(PanelElement variablesElement) {
+	public void setMyVariablesElement(PanelElement variablesElement) {
 		this.myVariablesElement = variablesElement;
 	}
-
-	
-
-	
 
 }

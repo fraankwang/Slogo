@@ -57,22 +57,14 @@ public class MainController {
 	 * changing UI elements in the view
 	 */
 	private void refreshDisplay() {
-		myTransformer.transformOutputBox();
-		myTransformer.transformHistoryBox();
-		myTransformer.transformTurtleBox();
-		myTransformer.transformVariablesBox();
-		myTransformer.transformCommandsBox();
+		myTransformer.transformOutputElement();
+		myTransformer.transformHistoryElement();
+		myTransformer.transformTurtleGraphics();
+		myTransformer.transformVariablesElement();
+		myTransformer.transformCommandsElement();
 
 	}
 
-	/**
-	 * Reroutes control back to MainView which toggles visibility
-	 * @param toToggle
-	 */
-	public void toggleDisplay(PanelElement element) {
-		myView.toggleDisplay(element);
-		
-	}
 	
 	// =========================================================================
 	// Getters and Setters
