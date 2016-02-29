@@ -101,6 +101,9 @@ public class PanelElementFactory {
 		return rightColumn;
 	}
 	
+	/**
+	 * Formats @param items using pre-defined insets
+	 */
 	private void setMargins(List<Node> items) {
 		Insets insets = new Insets(ELEMENT_INSET_HORIZONTAL, ELEMENT_INSET_VERTICAL, ELEMENT_INSET_HORIZONTAL,
 				ELEMENT_INSET_VERTICAL);
@@ -249,16 +252,17 @@ public class PanelElementFactory {
 		historyListView.setCellFactory(TextFieldListCell.forListView());
 
 		historyListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
-	        @Override
-	        public void handle(MouseEvent event) {
-	        	String text = textArea.getText();
-	        	if(text.equals(Constants.getSpecification("TextAreaDefaultText"))){
-	        		text = text + historyListView.getSelectionModel().getSelectedItem();
-	        	} else { 
-	        		text = text + "\n" + historyListView.getSelectionModel().getSelectedItem();
-	        	}
-	        	textArea.setText(text);
-	        }
+			@Override
+			public void handle(MouseEvent event) {
+				String text = textArea.getText();				
+				if (text.length() > 1) {					
+					text = text + "\n" + historyListView.getSelectionModel().getSelectedItem();
+				} else {
+					text = text + historyListView.getSelectionModel().getSelectedItem();
+				}
+
+				textArea.setText(text);
+			}
 	    });
 		historyWrapper.getChildren().addAll(historyLabel, historyListView);
 
