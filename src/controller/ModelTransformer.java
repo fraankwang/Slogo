@@ -11,7 +11,6 @@ public class ModelTransformer {
 
 	private MainController myController;
 	
-	//configuration variables should be here, i.e. background color
 	private String myLanguage = Constants.getSpecification("DefaultLanguage");
 	private Color myPenColor;
 	private String myTurtleImage;
@@ -20,28 +19,28 @@ public class ModelTransformer {
 		myController = controller;
 	}
 
-	public void transformOutputBox() {
+	public void transformOutputElement() {
 		
-		//thing that's inside node = myController.getMyView().getMyOutputBox() .get ???;
+		//thing that's inside node = myController.getMyView().getMyOutputElement() .get ???;
 	}
 
-	public void transformHistoryBox() {
+	public void transformHistoryElement() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void transformVariablesBox() {
+	public void transformVariablesElement() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void transformTurtleBox() {
-		GraphicsContext tb = myController.getMyView().getMyTurtleBox();
-		updateTurtleBox(tb);
+	public void transformTurtleGraphics() {
+		GraphicsContext tb = myController.getMyView().getMyTurtleGraphics();
+		updateTurtleGraphics(tb);
 		
 	}
 
-	public void transformCommandsBox() {
+	public void transformCommandsElement() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -49,38 +48,38 @@ public class ModelTransformer {
 	/**
 	 * Updates what is visible in the Variables to the user
 	 */
-	private void updateVariablesBox() {
+	private void updateVariablesElement() {
 		
 	}
 	
 	/**
 	 * Updates what is visible in the Commands to the user
 	 */
-	private void updateCommandsBox() {
+	private void updateCommandsElement() {
 		
 	}
 	
 	/**
 	 * Updates what is visible in the console to the user
 	 */
-	private void updateOutputBox() {
+	private void updateOutputElement() {
 		// modify elements within outputbox so we don't have to deal with actual
 		// UI wrapper
-		// myView.getMyOutputBox().text or whatever
+		// myView.getMyOutputElement().text or whatever
 	}
 
 	/**
 	 * Updates what is visible in the history to the user
 	 */
-	private void updateHistoryBox() {
-		// myView.getMyHistoryBox() and modify element within it so we don't
+	private void updateHistoryElement() {
+		// myView.getMyHistoryElement() and modify element within it so we don't
 		// deal with actual UI wrapper
 	}
 
 	/**
 	 * Updates where the turtle (or turtles) has drawn
 	 */
-	private void updateTurtleBox(GraphicsContext gc) {
+	private void updateTurtleGraphics(GraphicsContext gc) {
 				
 		gc.setFill(myPenColor);
 		gc.setStroke(myPenColor);
