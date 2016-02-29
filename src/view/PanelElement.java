@@ -46,6 +46,4 @@ public class PanelElement implements IViewable {
 		}
 	}
 
-
-
 }

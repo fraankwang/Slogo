@@ -18,5 +18,9 @@ public class OutputElement extends PanelElement {
 		textArea = outputArea;
 		
 	}
+	
+	public TextArea getText(){
+		return textArea;
+	}
 
 }

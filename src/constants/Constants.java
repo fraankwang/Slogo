@@ -33,7 +33,7 @@ public class Constants {
 	private static final ResourceBundle NUMBER_OF_PARAMS = ResourceBundle
 			.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_PARAMS);
 
-	private static final List<String> TURTLE_IMAGES = Arrays.asList("basic", "duvall");
+	private static List<String> TURTLE_IMAGES = Arrays.asList("basic", "duvall");
 	private static final List<String> LANGUAGES = Arrays.asList("English", "Spanish", "Chinese", "French", "German",
 			"Italian", "Portuguese", "Russian");
 
@@ -50,19 +50,21 @@ public class Constants {
 	public static final int LEFT_COLUMN_WIDTH = 700;
 	public static final int PLAYGROUND_HEIGHT = 550;
 	public static final int RIGHT_COLUMN_WIDTH = 300;
-	public static final int RIGHT_COLUMN_ELEMENT_HEIGHT = 145;
+	public static final int RIGHT_COLUMN_ELEMENT_HEIGHT = 155;
 
-	public static final int TOOLBAR_HEIGHT = 50;
+	public static final int MENU_BAR_HEIGHT = 50;
 	public static final int TOOLBAR_INSET_HORIZONTAL = 10;
 	public static final int TOOLBAR_INSET_HORIZONTAL_LABEL = 16;
 	public static final int TOOLBAR_INSET_VERTICAL = 5;
 	public static final int TOOLBAR_LABEL_FONT_SIZE = 11;
+	public static final int TOOLBAR_IMAGE_SIZE = 20;
 
-	public static final int TEXTAREA_HEIGHT = 125;
-	public static final int RUN_BUTTON_HEIGHT = 25;
-	public static final double CLEAR_BUTTON_HEIGHT = 25;
-
-	public static final int TEXTFIELD_HEIGHT = SCENE_HEIGHT - TOOLBAR_HEIGHT - PLAYGROUND_HEIGHT;
+	public static final int TEXTAREA_HEIGHT = SCENE_HEIGHT - PLAYGROUND_HEIGHT - 30;
+	public static final int TEXTAREA_WIDTH = 600;
+	public static final int RUN_BUTTON_HEIGHT = TEXTAREA_HEIGHT/2;
+	public static final int RUN_BUTTON_WIDTH = LEFT_COLUMN_WIDTH - TEXTAREA_WIDTH;
+	public static final double CLEAR_BUTTON_HEIGHT = RUN_BUTTON_HEIGHT;
+	public static final double CLEAR_BUTTON_WIDTH = RUN_BUTTON_WIDTH;
 
 	public static final CornerRadii CORNER_RADIUS = new CornerRadii(10.0);
 	public static final double ELEMENT_INSET_HORIZONTAL = 7;

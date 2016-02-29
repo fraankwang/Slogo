@@ -20,5 +20,9 @@ public class VariablesElement extends PanelElement {
 		myListView = variablesListView;
 		
 	}
+	
+	public ListView<String> getListView() {
+		return myListView;
+	}
 
 }

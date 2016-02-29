@@ -5,6 +5,7 @@
 package controller;
 
 import java.util.List;
+import java.util.Queue;
 
 import javafx.animation.Timeline;
 import javafx.scene.Node;
@@ -58,11 +59,10 @@ public class MainController {
 	 */
 	private void refreshDisplay() {
 		myTransformer.transformOutputElement();
-		myTransformer.transformHistoryElement();
+		myTransformer.transformHistoryElement((Queue<String>) myModel.getMyHistory());
 		myTransformer.transformTurtleGraphics();
 		myTransformer.transformVariablesElement();
 		myTransformer.transformCommandsElement();
-
 	}
 
 	
