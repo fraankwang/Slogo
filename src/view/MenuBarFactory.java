@@ -32,7 +32,8 @@ public class MenuBarFactory {
 		Menu configurationMenu = createConfigurationMenu(); //animation speed, background color, language
 		Menu helpMenu = createHelpMenu();
 		
-		menuBar.getMenus().addAll(languageMenu, viewMenu, configurationMenu, turtleMenu, helpMenu);
+		menuBar.getMenus().addAll(languageMenu, viewMenu);
+//		menuBar.getMenus().addAll(languageMenu, viewMenu, configurationMenu, turtleMenu, helpMenu);
 		return menuBar;
 
 //		CustomMenuItem customMenuItem = new CustomMenuItem(new Slider());

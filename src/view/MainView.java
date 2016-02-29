@@ -85,16 +85,16 @@ public class MainView {
 		
 		VBox leftColumn = myPanelElementFactory.createLeftColumn();
 		VBox rightColumn = myPanelElementFactory.createRightColumn();
-		
 		setMyTurtleGraphics(myPanelElementFactory.getTurtleGraphics());
 		setMyTurtleBackground(myPanelElementFactory.getTurtleBackground());
 		setMyVariablesElement(myPanelElementFactory.getVariablesElement());	
 		setMyCommandsElement(myPanelElementFactory.getCommandsElement());
 		setMyHistoryElement(myPanelElementFactory.getHistoryElement());
 		setMyOutputElement(myPanelElementFactory.getOutputElement());
-//		MenuBar menuBar = myMenuBarFactory.createMenuBar();
 		
-//		myPrimaryPane.setTop(menuBar);
+		MenuBar menuBar = myMenuBarFactory.createMenuBar();
+		
+		myPrimaryPane.setTop(menuBar);
 		myPrimaryPane.setLeft(leftColumn);
 		myPrimaryPane.setRight(rightColumn);
 
