@@ -58,11 +58,10 @@ public class MainController {
 	 */
 	private void refreshDisplay() {
 		myTransformer.transformOutputElement();
-		myTransformer.transformHistoryElement();
+		myTransformer.transformHistoryElement(myModel.getMyHistory().getHistory());
 		myTransformer.transformTurtleGraphics();
-		myTransformer.transformVariablesElement();
+		myTransformer.transformVariablesElement(myModel.getMyVariables().getVariables());
 		myTransformer.transformCommandsElement();
-
 	}
 
 	

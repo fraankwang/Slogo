@@ -1,8 +1,22 @@
 package controller;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Queue;
+import java.util.Stack;
+
 import constants.Constants;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
+import model.History;
+import model.MainModel;
+import model.Variables;
+import view.HistoryElement;
+import view.OutputElement;
+import view.VariablesElement;
 
 public class ModelTransformer {
 	
@@ -20,18 +34,27 @@ public class ModelTransformer {
 	}
 
 	public void transformOutputElement() {
-		
+		OutputElement outputElement = (OutputElement) myController.getMyView().getMyOutputElement();
+		TextArea outputText = outputElement.getText();
 		//thing that's inside node = myController.getMyView().getMyOutputElement() .get ???;
 	}
 
-	public void transformHistoryElement() {
-		// TODO Auto-generated method stub
-		
+	public void transformHistoryElement(Queue<String> history) {
+		HistoryElement historyElement = (HistoryElement) myController.getMyView().getMyHistoryElement();
+		ListView<String> historyValues = historyElement.getListView();
+		historyValues.getItems().clear();
+		for(String historyItem : history){
+			historyValues.getItems().add(historyItem);
+		}
 	}
 
-	public void transformVariablesElement() {
-		// TODO Auto-generated method stub
-		
+	public void transformVariablesElement(Collection<String> variables) {
+		VariablesElement variablesElement = (VariablesElement) myController.getMyView().getMyVariablesElement();
+		ListView<String> variablesValues = variablesElement.getListView();
+		variablesValues.getItems().clear();
+		for(String variablesItem : variables){
+			variablesValues.getItems().add(variablesItem);
+		}
 	}
 
 	public void transformTurtleGraphics() {
