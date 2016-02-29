@@ -6,15 +6,14 @@ package model;
 
 import java.util.*;
 
-import model.action.Action;
-
 public class UserCommands {
 	
 	Map<String, String> myUserCommands;
 	Map<String, List<String>> myCommandParams;
 	
 	public UserCommands(){
-		
+		myUserCommands = new HashMap<String, String>();
+		myCommandParams = new HashMap<String, List<String>>();
 	}
 	
 	public Collection<String> getCommands () {
