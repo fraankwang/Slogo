@@ -11,7 +11,7 @@ public class Variables {
 	Map<String, Double> myVariables;
 	
 	public Variables(){
-		
+		myVariables=new HashMap<String, Double>();
 	}
 	
 	public Collection<String> getVariables () {
@@ -25,4 +25,6 @@ public class Variables {
 	public double getVariableValue (String name) {
 		return myVariables.get(name);
 	}
+	
+	
 }

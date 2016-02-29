@@ -1,6 +1,9 @@
 package model.action.HigherOrderCommands;
 
 import java.util.List;
+import java.util.Map;
+
+import com.sun.org.apache.xpath.internal.operations.Variable;
 
 import model.TurtlePlayground;
 import model.UserCommands;
@@ -10,20 +13,22 @@ import model.action.Action;
 public class Make extends ControlStructures {
 
 	private String var;
-	private double exp;
+	private Double exp;
 
-	public Make (String var, double exp, List<String> params, String language, TurtlePlayground playground, Variables variables, UserCommands usercommands) {
+	public Make (List<String> params, String language, TurtlePlayground playground, Variables variables, UserCommands usercommands) {
 		super(params, language, playground, variables, usercommands);
-		this.var = var;
-		this.exp = exp;
-
+		this.var = params.get(0);
+		System.out.println(var);
+		System.out.println(params.get(1));
+		this.exp = Double.parseDouble(params.get(1));
 	}
 
 	@Override
-	public double rule() {
+	public double rule() {		
 		myCommandParser.getVariableList().addVariable(var, exp);
 		return exp;
 		
 	}
 
 }
+	
