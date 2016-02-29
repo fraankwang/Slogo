@@ -52,6 +52,10 @@ public class CommandParser {
 			}
 		}
 		queue.addAll(modified);
+		for(String s:queue){
+			System.out.println("QUEUE "+ s);
+
+		}
 		return queue;
 
 	}
@@ -66,10 +70,12 @@ public class CommandParser {
 			queue.poll();
 			StringBuilder commandstring = new StringBuilder();
 			while (!queue.peek().equals(Constants.CLOSE_BRACKET)){
-				commandstring.append(" " +queue.poll());
+				String a = queue.poll();
+				commandstring.append(a+" " );
 			}
 			queue.poll();
-			tree.data = commandstring.toString();
+			tree.data = commandstring.deleteCharAt(commandstring.length()-1).toString();
+			System.out.println("in brackets "+ tree.data);
 			return tree;
 		}
 		else{
@@ -116,14 +122,32 @@ public class CommandParser {
 			try{
 				Iterator<Node> iter = node.children.iterator();
 				for (String s: myUserCommands.getCommandParams(node.data)){
-					myVariables.addVariable(s, treeTraversal(iter.next()));
+					double k = treeTraversal(iter.next());
+					myVariables.addVariable(s, k);
+					System.out.println("   variable "+s+" = "+k);
 				}
-				return parseCommands(myUserCommands.getCommand(node.data));
+				String thiscommand = myUserCommands.getCommand(node.data);
+				System.out.println("    command to be exectued: " +thiscommand);
+				return parseCommands(thiscommand);
 			}
 			catch (Exception ex){
 				if (node.children.isEmpty()) {
+					System.out.println("child node: "+node.data);
 					if (node.data.startsWith(":")){
-						return myVariables.getVariableValue(node.data);
+						System.out.println("variable-"+node.data+".");
+						try{
+							double f = myVariables.getVariableValue(node.data);
+							System.out.println("variable is "+f);
+							return f;
+						}
+						catch (Exception vare){
+							for(String var:myVariables.getVariables()){
+								System.out.println("   "+var+". "+myVariables.getVariableValue(var));
+
+							}
+							throw new Exception("can't get variable");
+						}
+
 					}
 					else{
 						try {
@@ -180,7 +204,9 @@ public class CommandParser {
 				ArrayList<String> stringparams = new ArrayList<String>();					
 				for (Node n : node.children) {
 					stringparams.add(n.data);
+					System.out.println("  added to stringparams" +n.data);
 				}
+				
 				finalaction = (Action) constructor.newInstance(stringparams, myLanguage, myPlayground, myVariables, myUserCommands);
 				break;
 			}

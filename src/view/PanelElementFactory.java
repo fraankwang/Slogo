@@ -19,6 +19,7 @@ import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.Cell;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.CustomMenuItem;
@@ -31,6 +32,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
@@ -53,6 +55,7 @@ public class PanelElementFactory {
 
 	private MainController myController;
 
+	private TextArea textArea;
 	private GraphicsContext myTurtleGraphics;
 	private TurtleBackground myTurtleBackground;
 	private VariablesElement variablesElement;
@@ -115,7 +118,7 @@ public class PanelElementFactory {
 		TextArea textArea = makeTextArea();
 
 		VBox buttons = new VBox();
-		buttons.getChildren().addAll(makeRunButton(textArea), makeClearButton(textArea));
+		buttons.getChildren().addAll(makeRunButton(), makeClearButton());
 
 		inputWrapper.getChildren().addAll(textArea, buttons);
 		return inputWrapper;
@@ -126,7 +129,7 @@ public class PanelElementFactory {
 	 *         refresh the display
 	 */
 	private TextArea makeTextArea() {
-		TextArea textArea = new TextArea();
+		textArea = new TextArea();
 		textArea.setPromptText(Constants.getSpecification("TextAreaDefaultText"));
 		textArea.setPrefSize(Constants.TEXTAREA_WIDTH, Constants.TEXTAREA_HEIGHT);
 		return textArea;
@@ -136,13 +139,13 @@ public class PanelElementFactory {
 	 * Helper function to execute commands given in @param ta
 	 * @return button that is set on action to call MainController
 	 */
-	private Button makeRunButton(TextArea ta) {
+	private Button makeRunButton() {
 		Button runButton = new Button(Constants.getSpecification("RunButtonDefaultText"));
 		runButton.setPrefSize(Constants.RUN_BUTTON_WIDTH, Constants.RUN_BUTTON_HEIGHT);
 		runButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				myController.executeCommand(ta.getText());
+				myController.executeCommand(textArea.getText());
 			}
 		});
 		return runButton;
@@ -152,13 +155,13 @@ public class PanelElementFactory {
 	 * Helper function to clear commands given in @param ta
 	 * @return button that is set on action to clear the input box
 	 */
-	private Button makeClearButton(TextArea ta) {
+	private Button makeClearButton() {
 		Button clearButton = new Button(Constants.getSpecification("ClearButtonDefaultText"));
 		clearButton.setPrefSize(Constants.CLEAR_BUTTON_WIDTH, Constants.CLEAR_BUTTON_HEIGHT);
 		clearButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				ta.clear();
+				textArea.clear();
 			}
 		});
 		return clearButton;
@@ -236,6 +239,14 @@ public class PanelElementFactory {
 		historyListView.setPrefSize(RIGHT_COLUMN_WIDTH, RIGHT_COLUMN_ELEMENT_HEIGHT);
 		historyListView.setCellFactory(TextFieldListCell.forListView());
 
+		historyListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+	        @Override
+	        public void handle(MouseEvent event) {
+	        	String text = textArea.getText();
+	        	text = text + "\n" + historyListView.getSelectionModel().getSelectedItem();
+	        	textArea.setText(text);
+	        }
+	    });
 		historyWrapper.getChildren().addAll(historyLabel, historyListView);
 
 		historyElement = new HistoryElement(historyWrapper,
