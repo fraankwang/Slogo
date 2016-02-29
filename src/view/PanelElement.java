@@ -4,6 +4,7 @@
 
 package view;
 
+import javafx.beans.property.Property;
 import javafx.scene.Node;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.StackPane;
@@ -44,6 +45,11 @@ public class PanelElement implements IViewable {
 		if (myNode instanceof StackPane) {
 			((StackPane) myNode).setBackground(value);
 		}
+	}
+
+	public Property<Boolean> visibleProperty() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

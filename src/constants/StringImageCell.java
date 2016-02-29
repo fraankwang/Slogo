@@ -13,7 +13,7 @@ public class StringImageCell extends ListCell<String> {
 
 	private Label label;
 	private final int TOOLBAR_IMAGE_SIZE = Constants.TOOLBAR_IMAGE_SIZE;
-	
+
 	@Override
 	protected void updateItem(String item, boolean empty) {
 		super.updateItem(item, empty);

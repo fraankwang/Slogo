@@ -8,33 +8,22 @@ import java.util.ArrayList;
 import java.util.List;
 import constants.Constants;
 import controller.MainController;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckMenuItem;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.CustomMenuItem;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Separator;
-import javafx.scene.control.Slider;
-import javafx.scene.control.ToolBar;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
+import javafx.scene.web.WebView;
 
+import javafx.stage.Stage;
 
 public class MainView {
 
@@ -42,19 +31,23 @@ public class MainView {
 	private static final int SCENE_HEIGHT = Constants.SCENE_HEIGHT;
 
 	private Stage myPrimaryStage;
+	private Scene myPrimaryScene;
+	private Scene myHelpScene;
 	private MainController myController;
 	private Group myPrimaryRoot;
+	private Group myHelpRoot;
 	private BorderPane myPrimaryPane;
-	
+
 	private PanelElementFactory myPanelElementFactory;
 	private MenuBarFactory myMenuBarFactory;
+	private HelpPageFactory myHelpPageFactory;
 	private PanelElement myOutputElement;
 	private PanelElement myHistoryElement;
 	private PanelElement myCommandsElement;
 	private PanelElement myVariablesElement;
 	private PanelElement myTurtleBackground;
 	private GraphicsContext myTurtleGraphics;
-	
+
 	public MainView(Stage stage) {
 		myPrimaryStage = stage;
 
@@ -63,37 +56,65 @@ public class MainView {
 	/**
 	 * Displays primaryRoot on the primaryStage
 	 */
-	public void display() {
-		initializeRoot();
-		Scene scene = new Scene(myPrimaryRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.WHITE);
-		myPrimaryStage.setScene(scene);
+	public void init() {
+		initializePrimaryRoot();
+		initializeHelpRoot();
+		myPrimaryScene = new Scene(myPrimaryRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.WHITE);
+		myPrimaryScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+	        @Override
+	        public void handle(KeyEvent t) {
+	            KeyCode key = t.getCode();
+	            if (key == KeyCode.ESCAPE){
+	                myPrimaryStage.close();
+	            }
+	        }
+	    });
+		
+		myHelpScene = new Scene(myHelpRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.WHITE);
+		showPrimaryScene();
+
+	}
+
+	/**
+	 * Shows Help Scene
+	 */
+	public void showHelpScene() {
+		myPrimaryStage.setScene(myHelpScene);
 		myPrimaryStage.show();
 
+	}
+
+	/**
+	 * Shows Primary Scene
+	 */
+	public void showPrimaryScene() {
+		myPrimaryStage.setScene(myPrimaryScene);
+		myPrimaryStage.show();
 	}
 
 	/**
 	 * Primary init method which pieces together all the elements to be
 	 * displayed. PanelElements are created once using the factory
 	 */
-	private void initializeRoot() {
+	private void initializePrimaryRoot() {
 		Group root = new Group();
 		myPrimaryPane = new BorderPane();
 		root.getChildren().add(myPrimaryPane);
 
 		myPanelElementFactory = new PanelElementFactory(myController);
 		myMenuBarFactory = new MenuBarFactory(myController, myPrimaryStage);
-		
+
 		VBox leftColumn = myPanelElementFactory.createLeftColumn();
 		VBox rightColumn = myPanelElementFactory.createRightColumn();
 		setMyTurtleGraphics(myPanelElementFactory.getTurtleGraphics());
 		setMyTurtleBackground(myPanelElementFactory.getTurtleBackground());
-		setMyVariablesElement(myPanelElementFactory.getVariablesElement());	
+		setMyVariablesElement(myPanelElementFactory.getVariablesElement());
 		setMyCommandsElement(myPanelElementFactory.getCommandsElement());
 		setMyHistoryElement(myPanelElementFactory.getHistoryElement());
 		setMyOutputElement(myPanelElementFactory.getOutputElement());
-		
+
 		MenuBar menuBar = myMenuBarFactory.createMenuBar();
-		
+
 		myPrimaryPane.setTop(menuBar);
 		myPrimaryPane.setLeft(leftColumn);
 		myPrimaryPane.setRight(rightColumn);
@@ -101,6 +122,19 @@ public class MainView {
 		myPrimaryRoot = root;
 	}
 
+	private void initializeHelpRoot() {
+		Group helpRoot = new Group();
+		VBox wrapper = new VBox();
+		myHelpPageFactory = new HelpPageFactory(myController);
+
+		Button backButton = myHelpPageFactory.createBackButton();
+		WebView htmlPage = myHelpPageFactory.createHTMLPage();
+
+		wrapper.getChildren().addAll(backButton, htmlPage);
+		helpRoot.getChildren().add(wrapper);
+		myHelpRoot = helpRoot;
+
+	}
 
 	// =========================================================================
 	// Getters and Setters
@@ -129,7 +163,7 @@ public class MainView {
 	public PanelElement getTurtleBackground() {
 		return myTurtleBackground;
 	}
-	
+
 	public List<PanelElement> getViewableElements() {
 		List<PanelElement> viewableElements = new ArrayList<PanelElement>();
 		viewableElements.add(myVariablesElement);
@@ -138,9 +172,9 @@ public class MainView {
 		viewableElements.add(myOutputElement);
 		viewableElements.add(myTurtleBackground);
 		return viewableElements;
-		
+
 	}
-	
+
 	public void setController(MainController controller) {
 		myController = controller;
 	}
@@ -164,11 +198,11 @@ public class MainView {
 	public void setMyPanelElementFactory(PanelElementFactory myPanelElementFactory) {
 		this.myPanelElementFactory = myPanelElementFactory;
 	}
-	
+
 	public void setMyTurtleGraphics(GraphicsContext gc) {
 		myTurtleGraphics = gc;
 	}
-	
+
 	private void setMyTurtleBackground(PanelElement turtleBackground) {
 		myTurtleBackground = turtleBackground;
 	}
@@ -176,7 +210,7 @@ public class MainView {
 	public void setTurtleBackgroundColor(Color color) {
 		myTurtleBackground.setBackground(new Background(new BackgroundFill(color, Constants.CORNER_RADIUS, null)));
 	}
-	
+
 	public void setMyOutputElement(PanelElement outputElement) {
 		this.myOutputElement = outputElement;
 	}
@@ -191,6 +225,14 @@ public class MainView {
 
 	public void setMyVariablesElement(PanelElement variablesElement) {
 		this.myVariablesElement = variablesElement;
+	}
+
+	public Group getMyPrimaryRoot() {
+		return myPrimaryRoot;
+	}
+
+	public Group getMyHelpRoot() {
+		return myHelpRoot;
 	}
 
 }
