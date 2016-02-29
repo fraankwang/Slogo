@@ -81,7 +81,7 @@ public class MainView {
 		root.getChildren().add(myPrimaryPane);
 
 		myPanelElementFactory = new PanelElementFactory(myController);
-		myMenuBarFactory = new MenuBarFactory(myController);
+		myMenuBarFactory = new MenuBarFactory(myController, myPrimaryStage);
 		
 		VBox leftColumn = myPanelElementFactory.createLeftColumn();
 		VBox rightColumn = myPanelElementFactory.createRightColumn();

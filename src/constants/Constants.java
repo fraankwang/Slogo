@@ -33,7 +33,7 @@ public class Constants {
 	private static final ResourceBundle NUMBER_OF_PARAMS = ResourceBundle
 			.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_PARAMS);
 
-	private static final List<String> TURTLE_IMAGES = Arrays.asList("basic", "duvall");
+	private static List<String> TURTLE_IMAGES = Arrays.asList("basic", "duvall");
 	private static final List<String> LANGUAGES = Arrays.asList("English", "Spanish", "Chinese", "French", "German",
 			"Italian", "Portuguese", "Russian");
 
@@ -57,6 +57,7 @@ public class Constants {
 	public static final int TOOLBAR_INSET_HORIZONTAL_LABEL = 16;
 	public static final int TOOLBAR_INSET_VERTICAL = 5;
 	public static final int TOOLBAR_LABEL_FONT_SIZE = 11;
+	public static final int TOOLBAR_IMAGE_SIZE = 20;
 
 	public static final int TEXTAREA_HEIGHT = 125;
 	public static final int RUN_BUTTON_HEIGHT = 25;
