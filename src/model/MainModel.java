@@ -16,18 +16,20 @@ public class MainModel {
 	// Avoids MainModel.sendStuff(MainController) 
 
 	// I think the MainController should still do the translating
-	
-	private CommandParser myParser;
-	private History myHistory;
+	private String myLanguage;
 	private TurtlePlayground myPlayground;
 	private Variables myVariables;
 	private UserCommands myUserCommands;
-	private String myLanguage;
+	private CommandParser myParser;
+	private History myHistory;
 	private History myOutputs;
 	
 	public MainModel(String language) {
 		myLanguage = language;
 		myPlayground = new TurtlePlayground(Constants.PLAYGROUND_HEIGHT, Constants.PLAYGROUND_HEIGHT); 
+		
+		myVariables = new Variables();
+		myUserCommands = new UserCommands();
 		
 		myParser = new CommandParser(myLanguage, myPlayground, myVariables, myUserCommands);
 		myHistory = new History();
