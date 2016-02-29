@@ -8,11 +8,14 @@ import java.util.ArrayList;
 import java.util.List;
 import constants.Constants;
 import controller.MainController;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
@@ -57,6 +60,16 @@ public class MainView {
 		initializePrimaryRoot();
 		initializeHelpRoot();
 		myPrimaryScene = new Scene(myPrimaryRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.WHITE);
+		myPrimaryScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
+	        @Override
+	        public void handle(KeyEvent t) {
+	            KeyCode key = t.getCode();
+	            if (key == KeyCode.ESCAPE){
+	                myPrimaryStage.close();
+	            }
+	        }
+	    });
+		
 		myHelpScene = new Scene(myHelpRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.WHITE);
 		showPrimaryScene();
 
