@@ -30,7 +30,11 @@ public class CommandParser {
 		myVariables = variables;
 		myUserCommands = usercommands;
 	}
-
+	
+	public Variables getVariableList(){
+		return this.myVariables;
+	}
+	
 	private Queue<String> parse(String input) {
 		Queue<String> queue = new LinkedList<String>();
 		List<String> list = Arrays.asList(input.split("\\s"));

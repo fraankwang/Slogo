@@ -1,26 +1,38 @@
 package model.action.HigherOrderCommands;
 
+import java.util.List;
+
+import model.TurtlePlayground;
+import model.UserCommands;
+import model.Variables;
 import model.action.Action;
 
-public class Repeat extends MathOneParam {
+public class Repeat extends ControlStructures {
 
 	private double exp;
-	private Action command;
 
-	public Repeat ( double exp, Action command) {
-		super();
-		this.exp = exp;
-		this.command = command;
+	public Repeat(List<String> params, String language, TurtlePlayground playground, Variables variables,
+			UserCommands usercommands) {
+		super(params, language, playground, variables, usercommands);
+		this.exp = Double.parseDouble(params.get(0));
 
 	}
 
 	@Override
 	public double rule() {
-		double val = 0;
-		for ( int i = 0; i <exp; i++ ){
-			val = command.rule();
+
+		for (int repCount = 0; repCount < exp; repCount++) {
+			
+			myCommandParser.getVariableList().addVariable("repCount", repCount);
+			
+			try {
+				return myCommandParser.parseCommands(params.get(1));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		return val;
+		return 0.0;
 
 	}
 
