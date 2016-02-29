@@ -11,7 +11,11 @@ public class Variables {
 	Map<String, Double> myVariables;
 	
 	public Variables(){
-		myVariables=new HashMap<String, Double>();
+		myVariables = new HashMap<String, Double>();
+	}
+	
+	public Map<String, Double> getVariableMap() {
+		return myVariables;
 	}
 	
 	public Collection<String> getVariables () {

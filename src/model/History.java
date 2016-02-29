@@ -31,7 +31,7 @@ public class History {
 		myHistory.add(command);
 	}
 	
-	public Collection<String> getHistory () {
+	public Queue<String> getHistory () {
 		return myHistory;
 		//should be a queue
 	}

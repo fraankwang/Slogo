@@ -7,12 +7,22 @@ import java.util.List;
 import constants.Constants;
 import constants.StringImageCell;
 import controller.MainController;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
+import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
@@ -24,7 +34,7 @@ public class Toolbar {
 
 	private static final int SCENE_WIDTH = Constants.SCENE_WIDTH;
 	
-	private static final int TOOLBAR_HEIGHT = Constants.TOOLBAR_HEIGHT;
+	private static final int MENU_BAR_HEIGHT = Constants.MENU_BAR_HEIGHT;
 	private static final int TOOLBAR_INSET_HORIZONTAL = Constants.TOOLBAR_INSET_HORIZONTAL;
 	private static final int TOOLBAR_INSET_HORIZONTAL_LABEL = Constants.TOOLBAR_INSET_HORIZONTAL_LABEL;
 	private static final int TOOLBAR_INSET_VERTICAL = Constants.TOOLBAR_INSET_VERTICAL;
@@ -36,6 +46,10 @@ public class Toolbar {
 		myController = controller;
 	}
 	
+	
+	
+	
+
 	/**
 	 * Helper UI-creating function that adds tool bar elements and links them to
 	 * myController
@@ -44,7 +58,7 @@ public class Toolbar {
 	 */
 	public HBox createToolBar() {
 		HBox toolbar = new HBox();
-		toolbar.setPrefHeight(TOOLBAR_HEIGHT);
+		toolbar.setPrefHeight(MENU_BAR_HEIGHT);
 		toolbar.setPrefWidth(SCENE_WIDTH);
 		toolbar.setBackground(new Background(new BackgroundFill(Constants.DEFAULT_TOOLBAR_COLOR, Constants.CORNER_RADIUS, null)));
 
@@ -85,6 +99,10 @@ public class Toolbar {
 		// slider.valueProperty().addListener(e ->
 		// myController.setAnimationSpeed(slider.getValue()));
 
+		
+		
+		
+		
 	}
 
 	/**
@@ -145,4 +163,9 @@ public class Toolbar {
 		return label;
 
 	}
+	
+	
+	
+	
+
 }

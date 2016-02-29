@@ -1,7 +1,6 @@
 package model.action.HigherOrderCommands;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
@@ -17,13 +16,18 @@ public class To extends HigherOrderCommands {
 	String commands;
 	Variables variables;
 	UserCommands usercommands;
-	
+
 	public To(List<String> params, String language, TurtlePlayground playground, Variables variables, UserCommands usercommands) {
 		super(language, playground, variables, usercommands);
 		commandname = params.get(0);
-		parametervariables = Arrays.asList(params.get(1).split("\\s:"));
+		if(!params.get(1).isEmpty()){
+			parametervariables = Arrays.asList(params.get(1).split("\\s"));
+		}
+		else{
+			parametervariables = new ArrayList<String>();
+		}
 		commands = params.get(2);
-		
+
 		this.variables = variables;
 		this.usercommands = usercommands;
 	}
@@ -31,16 +35,19 @@ public class To extends HigherOrderCommands {
 	@Override
 	public double rule() {
 		try{
-		 usercommands.addCommand(commandname, parametervariables, commands);
-		 for(String s:parametervariables){
-			 variables.addVariable(s,0);
-		 }
-		 return 1;
+			usercommands.addCommand(commandname, parametervariables, commands);
+			System.out.println("added command "+commands+" with params "+ String.join(",", parametervariables));
+			for(String s:parametervariables){
+				System.out.println("param:"+s+".");
+				variables.addVariable(s,0);
+			}
+			return 1;
 		}
 		catch (Exception e){
+			e.printStackTrace();
 			return 0;
 		}
-		 
+
 	}
 
 }

@@ -12,7 +12,7 @@ import javafx.scene.image.ImageView;
 public class StringImageCell extends ListCell<String> {
 
 	private Label label;
-	private final int TOOLBAR_IMAGE_SIZE = 20;
+	private final int TOOLBAR_IMAGE_SIZE = Constants.TOOLBAR_IMAGE_SIZE;
 	
 	@Override
 	protected void updateItem(String item, boolean empty) {
