@@ -16,7 +16,7 @@ public class Main extends Application {
 		MainView view = new MainView(s);
 		MainController controller = new MainController(view);
 		view.setController(controller);
-		view.display();
+		view.init();
 
 	}
 
