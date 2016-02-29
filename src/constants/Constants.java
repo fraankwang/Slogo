@@ -67,7 +67,7 @@ public class Constants {
 	public static final double CLEAR_BUTTON_WIDTH = RUN_BUTTON_WIDTH;
 
 	public static final CornerRadii CORNER_RADIUS = new CornerRadii(10.0);
-	public static final double ELEMENT_INSET_HORIZONTAL = 7;
+	public static final double ELEMENT_INSET_HORIZONTAL = 5;
 	public static final double ELEMENT_INSET_VERTICAL = 0;
 
 	public static String getSpecification(String name) {
