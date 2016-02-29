@@ -21,7 +21,7 @@ public class To extends HigherOrderCommands {
 		super(language, playground, variables, usercommands);
 		commandname = params.get(0);
 		if(!params.get(1).isEmpty()){
-			parametervariables = Arrays.asList(params.get(1).split("\\s:"));
+			parametervariables = Arrays.asList(params.get(1).split("\\s"));
 		}
 		else{
 			parametervariables = new ArrayList<String>();
