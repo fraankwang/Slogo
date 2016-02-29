@@ -33,7 +33,7 @@ public class Constants {
 	private static final ResourceBundle NUMBER_OF_PARAMS = ResourceBundle
 			.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_PARAMS);
 
-	private static List<String> TURTLE_IMAGES = Arrays.asList("basic", "duvall");
+	private static final List<String> TURTLE_IMAGES = Arrays.asList("basic", "duvall");
 	private static final List<String> LANGUAGES = Arrays.asList("English", "Spanish", "Chinese", "French", "German",
 			"Italian", "Portuguese", "Russian");
 
@@ -78,7 +78,6 @@ public class Constants {
 		ResourceBundle COMMANDS = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_LANGUAGES + language);
 		for (String e : COMMANDS.keySet()) {
 			for (String f : COMMANDS.getString(e).split("\\|")) {
-				// System.out.println(f);
 				if (f.equals(command)) {
 					return e;
 				}
