@@ -243,7 +243,11 @@ public class PanelElementFactory {
 	        @Override
 	        public void handle(MouseEvent event) {
 	        	String text = textArea.getText();
-	        	text = text + "\n" + historyListView.getSelectionModel().getSelectedItem();
+	        	if(text.equals(Constants.getSpecification("TextAreaDefaultText"))){
+	        		text = text + historyListView.getSelectionModel().getSelectedItem();
+	        	} else { 
+	        		text = text + "\n" + historyListView.getSelectionModel().getSelectedItem();
+	        	}
 	        	textArea.setText(text);
 	        }
 	    });

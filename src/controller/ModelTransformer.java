@@ -48,13 +48,13 @@ public class ModelTransformer {
 		}
 	}
 
-	public void transformVariablesElement(Collection<String> variables) {
-		VariablesElement variablesElement = (VariablesElement) myController.getMyView().getMyVariablesElement();
-		ListView<String> variablesValues = variablesElement.getListView();
-		variablesValues.getItems().clear();
-		for(String variablesItem : variables){
-			variablesValues.getItems().add(variablesItem);
-		}
+	public void transformVariablesElement(/*Collection<String> variables*/) {
+//		VariablesElement variablesElement = (VariablesElement) myController.getMyView().getMyVariablesElement();
+//		ListView<String> variablesValues = variablesElement.getListView();
+//		variablesValues.getItems().clear();
+//		for(String variablesItem : variables){
+//			variablesValues.getItems().add(variablesItem);
+//		}
 	}
 
 	public void transformTurtleGraphics() {
