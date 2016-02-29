@@ -30,28 +30,32 @@ public class CommandParser {
 		myVariables = variables;
 		myUserCommands = usercommands;
 	}
-
+	
+	public Variables getVariableList(){
+		return this.myVariables;
+	}
+	
 	private Queue<String> parse(String input) {
 		Queue<String> queue = new LinkedList<String>();
-		List<String> list = Arrays.asList(input.split("\\s"));
-		List<String> modified = new ArrayList<String>();
-		for (String s : list) {
+		List<String> parsedInputList = Arrays.asList(input.split("\\s"));
+		List<String> comandsList = new ArrayList<String>();
+		for (String string : parsedInputList) {
 			// System.out.println(Constants.getCommand(myLanguage, s));
-			if(!s.startsWith("#")){
+			if(!string.startsWith("#")){
 				try {
-					String s1 = Constants.getCommand(myLanguage, s);
+					String command = Constants.getCommand(myLanguage, string);
 					//				System.out.println(Constants.getCommand(myLanguage, s));
 
-					modified.add(s1);
+					comandsList.add(command);
 				} catch (Exception e) {
-					modified.add(s);
+					comandsList.add(string);
 				}
 			}
 			else{
-				System.out.println(s);
+				System.out.println(string);
 			}
 		}
-		queue.addAll(modified);
+		queue.addAll(comandsList);
 		for(String s:queue){
 			System.out.println("QUEUE "+ s);
 
