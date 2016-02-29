@@ -41,7 +41,7 @@ public class CommandParser {
 		List<String> comandsList = new ArrayList<String>();
 		for (String string : parsedInputList) {
 			// System.out.println(Constants.getCommand(myLanguage, s));
-			if(!string.startsWith("#")){
+			if(!string.startsWith("#")&&!string.isEmpty()){
 				try {
 					String command = Constants.getCommand(myLanguage, string);
 					//				System.out.println(Constants.getCommand(myLanguage, s));
