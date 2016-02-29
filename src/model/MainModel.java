@@ -4,6 +4,8 @@
 
 package model;
 
+import java.util.*;
+
 import constants.Constants;
 import controller.MainController;
 
@@ -57,17 +59,23 @@ public class MainModel {
 	public CommandParser getMyParser() {
 		return myParser;
 	}
-
-	public History getMyHistory() {
-		return myHistory;
-	}
-
 	public TurtlePlayground getMyPlayground() {
 		return myPlayground;
 	}
 
-	public Variables getMyVariables() {
-		return myVariables;
+	public Collection<String> getMyOutputs() {
+		return myOutputs.getHistory();
+	}
+	public Collection<String> getMyHistory() {
+		return myHistory.getHistory();
+	}
+
+	public Map<String,Double> getMyVariables() {
+		return myVariables.getVariableMap();
+	}
+	
+	public Map<String,String> getMyUserCommands() {
+		return myUserCommands.getUserCommandMap();
 	}
 
 }

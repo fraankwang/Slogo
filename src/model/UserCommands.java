@@ -31,4 +31,8 @@ public class UserCommands {
 	public List<String> getCommandParams (String name){
 		return myCommandParams.get(name);
 	}
+	
+	public Map<String, String> getUserCommandMap(){
+		return myUserCommands;
+	}
 }
