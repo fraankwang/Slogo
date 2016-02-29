@@ -65,6 +65,10 @@ public class Constants {
 	public static final int RUN_BUTTON_WIDTH = LEFT_COLUMN_WIDTH - TEXTAREA_WIDTH;
 	public static final double CLEAR_BUTTON_HEIGHT = RUN_BUTTON_HEIGHT;
 	public static final double CLEAR_BUTTON_WIDTH = RUN_BUTTON_WIDTH;
+	
+	public static final int ANIMATION_SLIDER_MIN = 10;
+	public static final int ANIMATION_SLIDER_MAX = 50;
+	public static final int DEFAULT_ANIMATION_SPEED = 25;
 
 	public static final CornerRadii CORNER_RADIUS = new CornerRadii(10.0);
 	public static final double ELEMENT_INSET_HORIZONTAL = 7;

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import constants.Constants;
+import constants.SettingsCell;
 import controller.MainController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -198,12 +199,13 @@ public class PanelElementFactory {
 	public PanelElement createVariablesElement() {
 		VBox variablesWrapper = new VBox();
 		Text variablesLabel = new Text(Constants.getSpecification("VariablesLabel"));
-		ObservableList<String> test = FXCollections.observableArrayList();
-		ListView<String> variablesListView = new ListView<String>(test);
+		ListView<String> variablesListView = new ListView<String>();
 		variablesListView.setEditable(true);
 		variablesListView.setPrefSize(RIGHT_COLUMN_WIDTH, RIGHT_COLUMN_ELEMENT_HEIGHT);
 		variablesListView.setCellFactory(TextFieldListCell.forListView());
-
+		
+//		variablesListView.setCellFactory(listview -> new SettingsCell());
+		
 		variablesWrapper.getChildren().addAll(variablesLabel, variablesListView);
 		
 		variablesElement = new VariablesElement(variablesWrapper,
@@ -218,8 +220,7 @@ public class PanelElementFactory {
 	public PanelElement createCommandsElement() {
 		VBox commandsWrapper = new VBox();
 		Text commandsLabel = new Text(Constants.getSpecification("CommandsLabel"));
-		ObservableList<String> test = FXCollections.observableArrayList("command0", "command1");
-		ListView<String> commandsListView = new ListView<String>(test);
+		ListView<String> commandsListView = new ListView<String>();
 		commandsListView.setPrefSize(RIGHT_COLUMN_WIDTH, RIGHT_COLUMN_ELEMENT_HEIGHT);
 		commandsListView.setCellFactory(TextFieldListCell.forListView());
 
@@ -246,8 +247,7 @@ public class PanelElementFactory {
 	public PanelElement createHistoryElement() {
 		VBox historyWrapper = new VBox();
 		Text historyLabel = new Text(Constants.getSpecification("HistoryLabel"));
-		ObservableList<String> test = FXCollections.observableArrayList();
-		ListView<String> historyListView = new ListView<String>(test);
+		ListView<String> historyListView = new ListView<String>();
 		historyListView.setPrefSize(RIGHT_COLUMN_WIDTH, RIGHT_COLUMN_ELEMENT_HEIGHT);
 		historyListView.setCellFactory(TextFieldListCell.forListView());
 

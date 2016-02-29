@@ -4,20 +4,18 @@ import java.io.File;
 import java.util.List;
 
 import constants.Constants;
-import constants.StringImageCell;
 import controller.MainController;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ColorPicker;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
+import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -47,19 +45,110 @@ public class MenuBarFactory {
 	 */
 	public MenuBar createMenuBar() {
 		MenuBar menuBar = new MenuBar();
-		Menu languageMenu = createLanguageMenu();
 		Menu viewMenu = createViewMenu();
 		Menu turtleMenu = createTurtleMenu();
-		Menu configurationMenu = createConfigurationMenu(); // animation speed,
-															// background color,
-															// language
+		Menu configurationMenu = createConfigurationMenu();
 		Menu helpMenu = createHelpMenu();
 
-		menuBar.getMenus().addAll(languageMenu, viewMenu, turtleMenu);
-		// menuBar.getMenus().addAll(languageMenu, viewMenu, configurationMenu,
-		// turtleMenu, helpMenu);
+		menuBar.getMenus().addAll(configurationMenu, viewMenu, turtleMenu, helpMenu);
 		return menuBar;
 
+	}
+
+	/**
+	 * Creates all modifiable configuration options
+	 * 
+	 * @return
+	 */
+	private Menu createConfigurationMenu() {
+		Menu configurationMenu = new Menu(Constants.getSpecification("ConfigurationMenuOption"));
+	
+		// CustomMenuItem customMenuItem = new CustomMenuItem(new Slider());
+		// customMenuItem.setHideOnClick(false);
+	
+		CustomMenuItem backgroundColor = makeBackgroundColorPicker(Constants.DEFAULT_BACKGROUND_COLOR);
+		CustomMenuItem animationSlider = makeAnimationRateSlider();
+		Menu languageMenu = createLanguageMenu();
+		configurationMenu.getItems().addAll(languageMenu, backgroundColor, animationSlider);
+	
+		return configurationMenu;
+	}
+
+	/**
+	 * Creates a menu to change language options and initializes default
+	 * language to English
+	 * 
+	 * @return
+	 */
+	private Menu createLanguageMenu() {
+		Menu languages = new Menu(Constants.getSpecification("LanguageMenuOption"));
+		List<String> allOptions = Constants.getLanguages();
+	
+		for (String language : allOptions) {
+			MenuItem item = new CheckMenuItem(language);
+			languages.getItems().add(item);
+		}
+	
+		((CheckMenuItem) languages.getItems().get(0)).setSelected(true);
+	
+		for (MenuItem item : languages.getItems()) {
+			item.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent e) {
+					deselectAll(languages.getItems());
+					((CheckMenuItem) item).setSelected(true);
+					myController.setLanguage(item.getText());
+	
+				}
+			});
+		}
+		return languages;
+	
+	}
+
+	/**
+	 * Creates and links Animation speed to MainController
+	 * 
+	 * @return
+	 */
+	private CustomMenuItem makeAnimationRateSlider() {
+		VBox sliderWrapper = new VBox();
+	
+		Label sliderLabel = new Label(Constants.getSpecification("AnimationSliderLabel"));
+		sliderLabel.setTextFill(Color.BLACK);
+		
+		Slider slider = new Slider(Constants.ANIMATION_SLIDER_MIN, Constants.ANIMATION_SLIDER_MAX,
+				Constants.DEFAULT_ANIMATION_SPEED);
+		slider.setShowTickLabels(true);
+		slider.setShowTickMarks(true);
+		slider.setStyle("-fx-stroke: black;");
+		slider.valueProperty().addListener(e -> myController.setAnimationSpeed(slider.getValue()));
+	
+		sliderWrapper.getChildren().addAll(sliderLabel, slider);
+		CustomMenuItem sliderItem = new CustomMenuItem(sliderWrapper);
+		sliderItem.setHideOnClick(false);
+		return sliderItem;
+	}
+
+	/**
+	 * Creates and links background color selection to MainController
+	 * 
+	 * @param defaultBackgroundColor
+	 * @return
+	 */
+	private CustomMenuItem makeBackgroundColorPicker(Color defaultBackgroundColor) {
+		VBox BackgroundColorWrapper = new VBox();
+	
+		Label BackgroundColorlabel = new Label(Constants.getSpecification("BackgroundColorPickerLabel"));
+		BackgroundColorlabel.setTextFill(Color.BLACK);
+	
+		ColorPicker colorPicker = new ColorPicker(defaultBackgroundColor);
+		BackgroundColorWrapper.getChildren().addAll(BackgroundColorlabel, colorPicker);
+		CustomMenuItem penColor = new CustomMenuItem(BackgroundColorWrapper);
+		penColor.setHideOnClick(false);
+		penColor.setOnAction(e -> myController.setBackgroundColor(colorPicker.getValue()));
+	
+		return penColor;
 	}
 
 	/**
@@ -90,55 +179,7 @@ public class MenuBarFactory {
 		item.setText("Show " + element.getName());
 		item.selectedProperty().setValue(true);
 		element.getNode().visibleProperty().bindBidirectional(item.selectedProperty());
-//		item.setOnAction(new EventHandler<ActionEvent>() {
-//			@Override
-//			public void handle(ActionEvent e) {	
-//				System.out.println(item.selectedProperty().getValue());
-//				if (item.selectedProperty().getValue() == false) {
-//					item.selectedProperty().setValue(true);
-//				} 
-//				else if (item.selectedProperty().getValue() == true){
-//					item.selectedProperty().setValue(false);
-//				}
-//				
-//				element.toggleDisplay();
-//			}
-//		});
-
 		return item;
-
-		
-	}
-
-	/**
-	 * Creates a menu to change language options and initializes default
-	 * language to English
-	 * 
-	 * @return
-	 */
-	private Menu createLanguageMenu() {
-		Menu languages = new Menu(Constants.getSpecification("LanguageMenuOption"));
-		List<String> allOptions = Constants.getLanguages();
-
-		for (String language : allOptions) {
-			MenuItem item = new CheckMenuItem(language);
-			languages.getItems().add(item);
-		}
-
-		((CheckMenuItem) languages.getItems().get(0)).setSelected(true);
-
-		for (MenuItem item : languages.getItems()) {
-			item.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent e) {
-					deselectAll(languages.getItems());
-					((CheckMenuItem) item).setSelected(true);
-					myController.setLanguage(item.getText());
-
-				}
-			});
-		}
-		return languages;
 
 	}
 
@@ -152,12 +193,11 @@ public class MenuBarFactory {
 		// pen color, image, add new image
 
 		CustomMenuItem penColor = makePenColorPicker(Constants.DEFAULT_PEN_COLOR);
-		CustomMenuItem backgroundColor = makeBackgroundColorPicker(Constants.DEFAULT_BACKGROUND_COLOR);
 		MenuItem turtleImages = makeTurtleImages();
 		MenuItem uploadNew = makeUploadNewOption();
 
 		SeparatorMenuItem sep = new SeparatorMenuItem();
-		turtleMenu.getItems().addAll(penColor, backgroundColor, sep, turtleImages, uploadNew);
+		turtleMenu.getItems().addAll(penColor, sep, turtleImages, uploadNew);
 		return turtleMenu;
 	}
 
@@ -181,25 +221,6 @@ public class MenuBarFactory {
 	}
 
 	/**
-	 * Creates and links background color selection to MainController
-	 * 
-	 * @param defaultBackgroundColor
-	 * @return
-	 */
-	private CustomMenuItem makeBackgroundColorPicker(Color defaultBackgroundColor) {
-		Label label = new Label(Constants.getSpecification("BackgroundColorPickerLabel"));
-		label.setTextFill(Color.BLACK);
-		ColorPicker colorPicker = new ColorPicker(defaultBackgroundColor);
-		VBox wrapper = new VBox();
-		wrapper.getChildren().addAll(label, colorPicker);
-		CustomMenuItem penColor = new CustomMenuItem(wrapper);
-		penColor.setHideOnClick(false);
-		penColor.setOnAction(e -> myController.setBackgroundColor(colorPicker.getValue()));
-
-		return penColor;
-	}
-
-	/**
 	 * @return selection of names of images for turtle
 	 */
 	private MenuItem makeTurtleImages() {
@@ -213,8 +234,8 @@ public class MenuBarFactory {
 			item.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent e) {
-					deselectAll(turtleImages.getItems());
-					((CheckMenuItem) item).setSelected(true);
+//					deselectAll(turtleImages.getItems());
+//					((CheckMenuItem) item).setSelected(true);
 					myController.setTurtleImage(item.getText());
 
 				}
@@ -224,13 +245,15 @@ public class MenuBarFactory {
 		return turtleImages;
 
 	}
-	
+
 	/**
-	 * Takes @param image and creates a CheckMenuItem with the name and corresponding image as the elements
+	 * Takes @param image and creates a CheckMenuItem with the name and
+	 * corresponding image as the elements
+	 * 
 	 * @return
 	 */
-	private CheckMenuItem createTurtleImageMenuItem(String image) {
-		CheckMenuItem turtleImage = new CheckMenuItem(image);
+	private MenuItem createTurtleImageMenuItem(String image) {
+		MenuItem turtleImage = new MenuItem(image);
 		ImageView iv = createTurtleMenuGraphic(image);
 		turtleImage.setGraphic(iv);
 		return turtleImage;
@@ -275,29 +298,21 @@ public class MenuBarFactory {
 	}
 
 	/**
-	 * Creates all modifiable configuration options
-	 * 
-	 * @return
-	 */
-	private Menu createConfigurationMenu() {
-		Menu configMenu = new Menu(Constants.getSpecification("ConfigurationMenuOption"));
-		return null;
-		// CustomMenuItem customMenuItem = new CustomMenuItem(new Slider());
-		// customMenuItem.setHideOnClick(false);
-	}
-
-	/**
 	 * Creates help menu button
 	 * 
 	 * @return
 	 */
 	private Menu createHelpMenu() {
-		// TODO Auto-generated method stub
-		return null;
+		Menu helpMenu = new Menu(Constants.getSpecification("HelpMenuOption"));
+		MenuItem item = new MenuItem(Constants.getSpecification("HelpMenuOption"));
+		item.setOnAction(e -> myController.setHelpMenu());
+
+		helpMenu.getItems().add(item);
+		return helpMenu;
 	}
 
 	/**
-	 * Unselects all CheckMenuItems in given list
+	 * Deselects all CheckMenuItems in given list
 	 * 
 	 * @param lists
 	 */

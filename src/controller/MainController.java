@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Queue;
 
 import javafx.animation.Timeline;
-import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import model.MainModel;
 import view.MainView;
@@ -19,13 +18,13 @@ public class MainController {
 	private MainView myView;
 	private MainModel myModel;
 	private ModelTransformer myTransformer;
-	// private Timeline myTimeline;
+	private Timeline myTimeline;
 
 	public MainController(MainView view) {
 		myView = view;
 		myTransformer = new ModelTransformer(this);
 		myModel = new MainModel(myTransformer.getLanguage());
-		
+
 	}
 
 	/**
@@ -50,7 +49,7 @@ public class MainController {
 	 */
 	private void readCommand(String input) {
 		myModel.readCommand(input);
-		
+
 	}
 
 	/**
@@ -65,11 +64,10 @@ public class MainController {
 		myTransformer.transformCommandsElement();
 	}
 
-	
 	// =========================================================================
 	// Getters and Setters
 	// =========================================================================
-	
+
 	public MainView getMyView() {
 		return myView;
 	}
@@ -79,7 +77,7 @@ public class MainController {
 	}
 
 	public void setTurtleImage(String image) {
-		myTransformer.setTurtleImage(image);		
+		myTransformer.setTurtleImage(image);
 	}
 
 	public void setBackgroundColor(Color color) {
@@ -94,7 +92,19 @@ public class MainController {
 		myTransformer.setLanguage(language);
 	}
 
-
+    public void setAnimationSpeed (double speed){
+    	if (myTimeline != null){
+    		myTimeline.setRate(speed);
+    	}
+    }
+        
 	
+	public void setHelpMenu() {
+		myView.showHelpScene();
+	}
+
+	public void setPrimaryPane() {
+		myView.showPrimaryScene();
+	}
 
 }
