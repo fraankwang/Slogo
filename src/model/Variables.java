@@ -14,6 +14,10 @@ public class Variables {
 		myVariables = new HashMap<String, Double>();
 	}
 	
+	public Map<String, Double> getVariableMap() {
+		return myVariables;
+	}
+	
 	public Collection<String> getVariables () {
 		return myVariables.keySet();
 	}
