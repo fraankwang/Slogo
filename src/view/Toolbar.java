@@ -7,12 +7,22 @@ import java.util.List;
 import constants.Constants;
 import constants.StringImageCell;
 import controller.MainController;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Control;
+import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.Slider;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
@@ -36,6 +46,10 @@ public class Toolbar {
 		myController = controller;
 	}
 	
+	
+	
+	
+
 	/**
 	 * Helper UI-creating function that adds tool bar elements and links them to
 	 * myController
@@ -85,6 +99,10 @@ public class Toolbar {
 		// slider.valueProperty().addListener(e ->
 		// myController.setAnimationSpeed(slider.getValue()));
 
+		
+		
+		
+		
 	}
 
 	/**
@@ -145,4 +163,9 @@ public class Toolbar {
 		return label;
 
 	}
+	
+	
+	
+	
+
 }

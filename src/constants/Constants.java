@@ -60,6 +60,7 @@ public class Constants {
 
 	public static final int TEXTAREA_HEIGHT = 125;
 	public static final int RUN_BUTTON_HEIGHT = 25;
+	public static final double CLEAR_BUTTON_HEIGHT = 25;
 
 	public static final int TEXTFIELD_HEIGHT = SCENE_HEIGHT - TOOLBAR_HEIGHT - PLAYGROUND_HEIGHT;
 

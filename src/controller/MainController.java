@@ -4,10 +4,14 @@
 
 package controller;
 
+import java.util.List;
+
 import javafx.animation.Timeline;
+import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import model.MainModel;
 import view.MainView;
+import view.PanelElement;
 
 public class MainController {
 
@@ -53,14 +57,15 @@ public class MainController {
 	 * changing UI elements in the view
 	 */
 	private void refreshDisplay() {
-		myTransformer.transformOutputBox();
-		myTransformer.transformHistoryBox();
-		myTransformer.transformTurtleBox();
-		myTransformer.transformVariablesBox();
-		myTransformer.transformCommandsBox();
+		myTransformer.transformOutputElement();
+		myTransformer.transformHistoryElement();
+		myTransformer.transformTurtleGraphics();
+		myTransformer.transformVariablesElement();
+		myTransformer.transformCommandsElement();
 
 	}
 
+	
 	// =========================================================================
 	// Getters and Setters
 	// =========================================================================
@@ -69,12 +74,16 @@ public class MainController {
 		return myView;
 	}
 
+	public List<PanelElement> getViewableElements() {
+		return myView.getViewableElements();
+	}
+
 	public void setTurtleImage(String image) {
 		myTransformer.setTurtleImage(image);		
 	}
 
 	public void setBackgroundColor(Color color) {
-		getMyView().setTurtleBackgroundColor(color);
+		myView.setTurtleBackgroundColor(color);
 	}
 
 	public void setPenColor(Color color) {
@@ -84,5 +93,8 @@ public class MainController {
 	public void setLanguage(String language) {
 		myTransformer.setLanguage(language);
 	}
+
+
+	
 
 }
