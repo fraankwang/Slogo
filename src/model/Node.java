@@ -21,7 +21,7 @@ public class Node {
 	
 	public Node makeCommandString(Queue<String> queue, Node tree){
 		queue.poll();
-		StringBuilder commandstring = new StringBuilder();
+		StringBuilder commandstring = new StringBuilder(" ");
 		int opencount = 1;
 		int closecount = 0;
 		while (true) {
@@ -39,7 +39,8 @@ public class Node {
 			commandstring.append(action + " ");
 		}
 		queue.poll();
-		tree.data = commandstring.deleteCharAt(commandstring.length() - 1).toString();
+		
+		tree.data =commandstring.deleteCharAt(commandstring.length() - 1).toString();
 		return tree;
 	}
 	

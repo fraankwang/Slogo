@@ -25,6 +25,8 @@ public class Constants {
 	private static final String DEFAULT_ACTIONS = "possibleactions";
 	private static final String DEFAULT_PARAMS = "numberofparams";
 	
+	public static final String MATH_NOPARAMS = "model.action.MathNoParams.MathNoParams";
+
 	public static final String MATH_ONEPARAM = "model.action.MathOneParam.MathOneParam";
 	public static final String MATH_TWOPARAMS = "model.action.MathTwoParams.MathTwoParams";
 	public static final String TURTLE_NOCOMMANDS = "model.action.TurtleCommandsNoParams.TurtleCommands";

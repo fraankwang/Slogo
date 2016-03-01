@@ -39,6 +39,9 @@ public class CommandParser {
 			if (!isComment(string) && !string.isEmpty()) {
 				try {
 					String command = Constants.getCommand(myLanguage, string);
+					if(command.startsWith("\"")){
+						command = command.substring(1, command.length()-1);
+					}
 					comandsList.add(command);
 				} catch (Exception e) {
 					comandsList.add(string);
@@ -58,7 +61,6 @@ public class CommandParser {
 
 	private Node makeTree(Queue<String> queue) throws Exception {
 		Node tree = new Node();
-
 		if (tree.isOpenBracket(queue)) {
 			return tree.makeCommandString(queue, tree);
 		} else {
@@ -72,6 +74,7 @@ public class CommandParser {
 			}
 		}
 	}
+
 
 	private Node addParamsToTree(Node tree, Queue<String> queue) throws Exception {
 		int totalchildren=0;
@@ -160,8 +163,12 @@ public class CommandParser {
 			Class action = Class.forName(Constants.getAction(node.data));
 			Constructor constructor = action.getConstructors()[0];
 			Action finalaction = null;
+			System.out.println(action.getSuperclass().getName());
 
 			switch (action.getSuperclass().getName()) {
+			case Constants.MATH_NOPARAMS:
+				finalaction = (Action) constructor.newInstance();
+				break;
 			case Constants.MATH_ONEPARAM:
 			case Constants.MATH_TWOPARAMS:
 				finalaction = (Action) constructor.newInstance(addDoubleParams(node));
