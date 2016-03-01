@@ -4,7 +4,6 @@
 
 package model;
 
-import java.util.ArrayList;
 import java.util.Queue;
 
 public class TurtlePlayground {
@@ -84,7 +83,7 @@ public class TurtlePlayground {
 	}
 
 	public Double turnTurtle(Double degrees) {
-		Double newDegree = myTurtle.getOrientation() + degrees;
+		Double newDegree = myTurtle.getOrientation() - degrees;
 		myTurtle.setOrientation(newDegree);
 		return degrees;
 	}

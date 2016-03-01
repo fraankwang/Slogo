@@ -1,7 +1,5 @@
 package controller;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
@@ -13,10 +11,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
-import model.History;
-import model.MainModel;
 import model.TurtleCoordinates;
-import model.Variables;
 import view.CommandsElement;
 import view.HistoryElement;
 import view.OutputElement;

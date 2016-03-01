@@ -8,9 +8,11 @@ import java.util.*;
 
 public class History {
 	private Queue<String> myHistory;
-	
-	public History(){
-		myHistory=new LinkedList<String>();
+
+	public History() {
+
+		myHistory = new LinkedList<String>();
+
 	}
 
 	public void add(String command) {

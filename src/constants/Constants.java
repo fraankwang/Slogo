@@ -7,14 +7,9 @@ package constants;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.ParseException;
-
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 
 public class Constants {
 
@@ -24,7 +19,15 @@ public class Constants {
 
 	private static final String DEFAULT_ACTIONS = "possibleactions";
 	private static final String DEFAULT_PARAMS = "numberofparams";
-
+	
+	public static final String MATH_ONEPARAM = "model.action.MathOneParam.MathOneParam";
+	public static final String MATH_TWOPARAMS = "model.action.MathTwoParams.MathTwoParams";
+	public static final String TURTLE_NOCOMMANDS = "model.action.TurtleCommandsNoParams.TurtleCommands";
+	public static final String TURTLE_ONEPARAM = "model.action.TurtleCommandsOneParam.TurtleCommandsOneParam";
+	public static final String TURTLE_TWOPARAMS= "model.action.TurtleCommandsTwoParams.TurtleCommandsTwoParams";
+	public static final String CONTROL_STRUCTURES= "model.action.HigherOrderCommands.ControlStructures";
+	public static final String HIGHER_ORDERSTRUCTURE = "model.action.HigherOrderCommands.HigherOrderCommands";
+	
 	private static final ResourceBundle SPECIFICATIONS = ResourceBundle
 			.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_RESOURCE_FILE);
 	private static final ResourceBundle ACTIONS = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_ACTIONS);

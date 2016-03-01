@@ -15,7 +15,13 @@ public class Repeat extends ControlStructures {
 	public Repeat(List<String> params, String language, TurtlePlayground playground, Variables variables,
 			UserCommands usercommands) {
 		super(params, language, playground, variables, usercommands);
-		this.exp = Double.parseDouble(params.get(0));
+		//to discuss
+		try {
+			this.exp = myCommandParser.parseCommands(params.get(0));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 	}
 

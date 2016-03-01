@@ -6,8 +6,6 @@ package controller;
 
 import java.util.List;
 import java.util.Queue;
-import java.util.Stack;
-
 import javafx.animation.Timeline;
 import javafx.scene.paint.Color;
 import model.MainModel;
