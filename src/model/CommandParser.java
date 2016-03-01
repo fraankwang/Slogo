@@ -208,7 +208,7 @@ public class CommandParser {
 			Node root = makeTree(queue);
 			output = treeTraversal(root);
 		}
-		System.out.println("output:" + output);
+		System.out.println("output: " + output);
 		return output;
 	}
 
