@@ -4,14 +4,10 @@
 
 package view;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import constants.Constants;
-import constants.SettingsCell;
 import controller.MainController;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -20,15 +16,7 @@ import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.control.Cell;
-import javafx.scene.control.CheckMenuItem;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.image.Image;
@@ -42,13 +30,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
-import model.MainModel;
-import model.Variables;
 
 public class PanelElementFactory {
 
 	private static final int LEFT_COLUMN_WIDTH = Constants.LEFT_COLUMN_WIDTH;
 	private static final int PLAYGROUND_HEIGHT = Constants.PLAYGROUND_HEIGHT;
+	private static final int PLAYGROUND_WIDTH = Constants.PLAYGROUND_WIDTH;
 	private static final int RIGHT_COLUMN_WIDTH = Constants.RIGHT_COLUMN_WIDTH;
 	private static final int RIGHT_COLUMN_ELEMENT_HEIGHT = Constants.RIGHT_COLUMN_ELEMENT_HEIGHT;
 
@@ -191,7 +178,7 @@ public class PanelElementFactory {
 	public PanelElement createTurtleBackground() {
 		myTurtleWrapper = new StackPane();
 		myTurtleWrapper.setPrefHeight(PLAYGROUND_HEIGHT);
-		myTurtleWrapper.setPrefWidth(LEFT_COLUMN_WIDTH);
+		myTurtleWrapper.setPrefWidth(PLAYGROUND_WIDTH);
 		myTurtleWrapper.setBackground(
 				new Background(new BackgroundFill(Constants.DEFAULT_BACKGROUND_COLOR, Constants.CORNER_RADIUS, null)));
 		myTurtlePlayground = new Canvas(LEFT_COLUMN_WIDTH, PLAYGROUND_HEIGHT);
