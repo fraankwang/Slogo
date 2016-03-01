@@ -2,10 +2,6 @@ package model.action.MathOneParam;
 
 import java.util.List;
 
-import model.TurtlePlayground;
-import model.Variables;
-import model.action.Action;
-
 public class Atan extends MathOneParam {
 
 
