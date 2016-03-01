@@ -227,20 +227,57 @@ public class PanelElementFactory {
 	public PanelElement createVariablesElement() {
 		VBox variablesWrapper = new VBox();
 		Text variablesLabel = new Text(Constants.getSpecification("VariablesLabel"));
-		ListView<String> variablesListView = new ListView<String>();
-		variablesListView.setEditable(true);
-		variablesListView.setPrefSize(RIGHT_COLUMN_WIDTH, RIGHT_COLUMN_ELEMENT_HEIGHT);
-		variablesListView.setCellFactory(TextFieldListCell.forListView());
-
-		// For later
-		// variablesListView.setCellFactory(listview -> new SettingsCell());
-
-		variablesWrapper.getChildren().addAll(variablesLabel, variablesListView);
+		
+		HBox variablesListViews = new HBox();
+		ListView<String> variablesNamesListView = createVariablesNamesListView();
+		ListView<String> variablesValuesListView = createVariablesValuesListView(variablesNamesListView);
+		variablesListViews.getChildren().addAll(variablesNamesListView, variablesValuesListView);
+		
+		variablesWrapper.getChildren().addAll(variablesLabel, variablesListViews);
 
 		variablesElement = new VariablesElement(variablesWrapper, Constants.getSpecification("VariablesElementName"));
-		variablesElement.setListView(variablesListView);
+		variablesElement.addListView(variablesNamesListView);
+		variablesElement.addListView(variablesValuesListView);
 		return variablesElement;
-
+	}
+	
+	private ListView<String> createVariablesNamesListView(){
+		ListView<String> namesListView = new ListView<String>();
+		namesListView.setPrefSize(RIGHT_COLUMN_WIDTH/2.0, RIGHT_COLUMN_ELEMENT_HEIGHT);
+		
+		namesListView.setCellFactory(TextFieldListCell.forListView());
+		namesListView.setEditable(true);
+		namesListView.setCellFactory(TextFieldListCell.forListView());
+		namesListView.setOnEditCommit(new EventHandler<ListView.EditEvent<String>>() {
+			@Override
+			public void handle(ListView.EditEvent<String> t) {
+				myController.replaceVariable(namesListView.getSelectionModel().getSelectedItem(), t.getNewValue());
+				myController.refreshDisplay();
+			}		
+		});
+		// For later
+		// variablesListView.setCellFactory(listview -> new SettingsCell());
+		
+		return namesListView;
+	}
+	
+	private ListView<String> createVariablesValuesListView(ListView<String> names){
+		ListView<String> valuesListView = new ListView<String>();
+		valuesListView.setPrefSize(RIGHT_COLUMN_WIDTH/2.0, RIGHT_COLUMN_ELEMENT_HEIGHT);
+		
+		valuesListView.setCellFactory(TextFieldListCell.forListView());
+		valuesListView.setEditable(true);
+		valuesListView.setCellFactory(TextFieldListCell.forListView());
+		valuesListView.setOnEditCommit(new EventHandler<ListView.EditEvent<String>>() {
+			@Override
+			public void handle(ListView.EditEvent<String> t) {
+				int indexToChange = valuesListView.getSelectionModel().getSelectedIndex();
+				names.getSelectionModel().select(indexToChange);
+				myController.replaceVariableValue(names.getSelectionModel().getSelectedItem(), t.getNewValue());
+				myController.refreshDisplay();
+			}		
+		});
+		return valuesListView;
 	}
 
 	/**
