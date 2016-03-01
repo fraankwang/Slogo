@@ -27,19 +27,18 @@ public class Repeat extends ControlStructures {
 
 	@Override
 	public double rule() {
+		Double curr =0.0;
+		try {
+			for (int repCount = 0; repCount < exp; repCount++) {
 
-		for (int repCount = 0; repCount < exp; repCount++) {
-			
-			myCommandParser.getVariableList().addVariable("repCount", repCount);
-			
-			try {
-				return myCommandParser.parseCommands(params.get(1));
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+				myCommandParser.getVariableList().addVariable("repCount", repCount);
+				curr = myCommandParser.parseCommands(params.get(1));
+			} 
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return 0.0;
+		return curr;
 
 	}
 
