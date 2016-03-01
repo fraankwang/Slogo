@@ -3,6 +3,7 @@ package controller;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -14,6 +15,7 @@ import javafx.scene.paint.Color;
 import model.History;
 import model.MainModel;
 import model.Variables;
+import view.CommandsElement;
 import view.HistoryElement;
 import view.OutputElement;
 import view.VariablesElement;
@@ -33,10 +35,15 @@ public class ModelTransformer {
 		myController = controller;
 	}
 
-	public void transformOutputElement() {
+	public void transformOutputElement(Queue<String> output) {
 		OutputElement outputElement = (OutputElement) myController.getMyView().getMyOutputElement();
 		TextArea outputText = outputElement.getText();
-		//thing that's inside node = myController.getMyView().getMyOutputElement() .get ???;
+		String displayText = "";
+		for(String outputItem : output){
+			displayText += outputItem + "\n";
+		}
+		outputText.clear();
+		outputText.setText(displayText);
 	}
 
 	public void transformHistoryElement(Queue<String> history) {
@@ -48,13 +55,13 @@ public class ModelTransformer {
 		}
 	}
 
-	public void transformVariablesElement(/*Collection<String> variables*/) {
-//		VariablesElement variablesElement = (VariablesElement) myController.getMyView().getMyVariablesElement();
-//		ListView<String> variablesValues = variablesElement.getListView();
-//		variablesValues.getItems().clear();
-//		for(String variablesItem : variables){
-//			variablesValues.getItems().add(variablesItem);
-//		}
+	public void transformVariablesElement(Map<String, Double> variables) {
+		VariablesElement variablesElement = (VariablesElement) myController.getMyView().getMyVariablesElement();
+		ListView<String> variablesValues = variablesElement.getListView();
+		variablesValues.getItems().clear();
+		for(String variablesItem : variables.keySet()){
+			variablesValues.getItems().add(variablesItem);
+		}
 	}
 
 	public void transformTurtleGraphics() {
@@ -63,8 +70,13 @@ public class ModelTransformer {
 		
 	}
 
-	public void transformCommandsElement() {
-		// TODO Auto-generated method stub
+	public void transformCommandsElement(Map<String, String> commands) {
+		CommandsElement commandsElement = (CommandsElement) myController.getMyView().getMyCommandsElement();
+		ListView<String> commandsValues = commandsElement.getListView();
+		commandsValues.getItems().clear();
+		for(String commandsItem : commands.keySet()){
+			commandsValues.getItems().add(commandsItem);
+		}
 		
 	}
 
