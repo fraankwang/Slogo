@@ -11,14 +11,18 @@ import controller.MainController;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
@@ -46,6 +50,9 @@ public class MainView {
 	private PanelElement myCommandsElement;
 	private PanelElement myVariablesElement;
 	private PanelElement myTurtleBackground;
+	private PanelElement myTurtleElement;
+	private StackPane myTurtleWrapper; 
+	private Canvas myTurtlePlayground;
 	private GraphicsContext myTurtleGraphics;
 
 	public MainView(Stage stage) {
@@ -61,15 +68,15 @@ public class MainView {
 		initializeHelpRoot();
 		myPrimaryScene = new Scene(myPrimaryRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.WHITE);
 		myPrimaryScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-	        @Override
-	        public void handle(KeyEvent t) {
-	            KeyCode key = t.getCode();
-	            if (key == KeyCode.ESCAPE){
-	                myPrimaryStage.close();
-	            }
-	        }
-	    });
-		
+			@Override
+			public void handle(KeyEvent t) {
+				KeyCode key = t.getCode();
+				if (key == KeyCode.ESCAPE) {
+					myPrimaryStage.close();
+				}
+			}
+		});
+
 		myHelpScene = new Scene(myHelpRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.WHITE);
 		showPrimaryScene();
 
@@ -108,6 +115,9 @@ public class MainView {
 		VBox rightColumn = myPanelElementFactory.createRightColumn();
 		setMyTurtleGraphics(myPanelElementFactory.getTurtleGraphics());
 		setMyTurtleBackground(myPanelElementFactory.getTurtleBackground());
+		setMyTurtleElement(myPanelElementFactory.getTurtleElement());
+		setMyTurtleWrapper(myPanelElementFactory.getTurtleWrapper());
+		setMyTurtlePlayground(myPanelElementFactory.getTurtlePlayground());
 		setMyVariablesElement(myPanelElementFactory.getVariablesElement());
 		setMyCommandsElement(myPanelElementFactory.getCommandsElement());
 		setMyHistoryElement(myPanelElementFactory.getHistoryElement());
@@ -143,6 +153,10 @@ public class MainView {
 	public GraphicsContext getMyTurtleGraphics() {
 		return myTurtleGraphics;
 	}
+	
+	public TurtleElement getMyTurtleElement() {
+		return (TurtleElement) myTurtleElement;
+	}
 
 	public PanelElement getMyOutputElement() {
 		return myOutputElement;
@@ -171,6 +185,7 @@ public class MainView {
 		viewableElements.add(myHistoryElement);
 		viewableElements.add(myOutputElement);
 		viewableElements.add(myTurtleBackground);
+		viewableElements.add(myTurtleElement);
 		return viewableElements;
 
 	}
@@ -205,6 +220,27 @@ public class MainView {
 
 	private void setMyTurtleBackground(PanelElement turtleBackground) {
 		myTurtleBackground = turtleBackground;
+	}
+
+	private void setMyTurtleElement(PanelElement turtleElement) {
+		myTurtleElement = turtleElement;
+	}
+	
+	private void setMyTurtleWrapper(StackPane wrapper) {
+		myTurtleWrapper = wrapper;
+	}
+
+	private void setMyTurtlePlayground(Canvas playground) {
+		myTurtlePlayground = playground;
+	}
+	
+	public void setTurtleImage(String image) {
+		ImageView newImage = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(image + ".jpg")));
+		newImage.setFitWidth(Constants.TURTLE_ELEMENT_WIDTH);
+		newImage.setFitHeight(Constants.TURTLE_ELEMENT_HEIGHT);
+		((TurtleElement) myTurtleElement).setTurtleImage(newImage);
+		myTurtleWrapper.getChildren().clear();
+		myTurtleWrapper.getChildren().addAll(myTurtlePlayground, myTurtleElement.getNode());
 	}
 
 	public void setTurtleBackgroundColor(Color color) {

@@ -78,7 +78,7 @@ public class MainController {
 	}
 
 	public void setTurtleImage(String image) {
-		myTransformer.setTurtleImage(image);
+		myView.setTurtleImage(image);
 	}
 
 	public void setBackgroundColor(Color color) {

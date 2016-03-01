@@ -10,6 +10,8 @@ import java.util.ResourceBundle;
 
 import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.ParseException;
 
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -19,21 +21,18 @@ public class Constants {
 	private static final String DEFAULT_RESOURCE_PACKAGE = "resources/";
 	private static final String DEFAULT_RESOURCE_FILE = "Specifications";
 	private static final String DEFAULT_LANGUAGES = "languages/";
-	// private static final String DEFAULT_LANGUAGE =
-	// DEFAULT_LANGUAGES+"English";
+
 	private static final String DEFAULT_ACTIONS = "possibleactions";
 	private static final String DEFAULT_PARAMS = "numberofparams";
 
 	private static final ResourceBundle SPECIFICATIONS = ResourceBundle
 			.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_RESOURCE_FILE);
-	// private static final ResourceBundle COMMANDS = ResourceBundle
-	// .getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_LANGUAGE);
 	private static final ResourceBundle ACTIONS = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_ACTIONS);
 
 	private static final ResourceBundle NUMBER_OF_PARAMS = ResourceBundle
 			.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_PARAMS);
 
-	private static final List<String> TURTLE_IMAGES = Arrays.asList("basic", "duvall");
+	private static final List<String> DEFAULT_TURTLE_IMAGES = Arrays.asList("basic", "duvall");
 	private static final List<String> LANGUAGES = Arrays.asList("English", "Spanish", "Chinese", "French", "German",
 			"Italian", "Portuguese", "Russian");
 
@@ -42,7 +41,6 @@ public class Constants {
 
 	public static final Color DEFAULT_PEN_COLOR = Color.BLACK;
 	public static final Color DEFAULT_BACKGROUND_COLOR = Color.WHITE;
-	public static final Paint DEFAULT_TOOLBAR_COLOR = Color.BLACK;
 
 	public static final int SCENE_WIDTH = 1000;
 	public static final int SCENE_HEIGHT = 750;
@@ -52,20 +50,18 @@ public class Constants {
 	public static final int RIGHT_COLUMN_WIDTH = 300;
 	public static final int RIGHT_COLUMN_ELEMENT_HEIGHT = 155;
 
+	public static final int TURTLE_ELEMENT_WIDTH = 50;
+	public static final int TURTLE_ELEMENT_HEIGHT = TURTLE_ELEMENT_WIDTH;
 	public static final int MENU_BAR_HEIGHT = 50;
-	public static final int TOOLBAR_INSET_HORIZONTAL = 10;
-	public static final int TOOLBAR_INSET_HORIZONTAL_LABEL = 16;
-	public static final int TOOLBAR_INSET_VERTICAL = 5;
-	public static final int TOOLBAR_LABEL_FONT_SIZE = 11;
-	public static final int TOOLBAR_IMAGE_SIZE = 20;
+	public static final int MENU_TURTLE_IMAGE_SIZE = 50;
 
 	public static final int TEXTAREA_HEIGHT = SCENE_HEIGHT - PLAYGROUND_HEIGHT - 30;
 	public static final int TEXTAREA_WIDTH = 600;
-	public static final int RUN_BUTTON_HEIGHT = TEXTAREA_HEIGHT/2;
+	public static final int RUN_BUTTON_HEIGHT = TEXTAREA_HEIGHT / 2;
 	public static final int RUN_BUTTON_WIDTH = LEFT_COLUMN_WIDTH - TEXTAREA_WIDTH;
 	public static final double CLEAR_BUTTON_HEIGHT = RUN_BUTTON_HEIGHT;
 	public static final double CLEAR_BUTTON_WIDTH = RUN_BUTTON_WIDTH;
-	
+
 	public static final int ANIMATION_SLIDER_MIN = 10;
 	public static final int ANIMATION_SLIDER_MAX = 50;
 	public static final int DEFAULT_ANIMATION_SPEED = 25;
@@ -99,10 +95,14 @@ public class Constants {
 	}
 
 	public static List<String> getTurtleImages() {
-		return TURTLE_IMAGES;
+		return DEFAULT_TURTLE_IMAGES;
 	}
 
 	public static List<String> getLanguages() {
 		return LANGUAGES;
+	}
+	
+	public static String getDefaultTurtleImageFileName() {
+		return DEFAULT_TURTLE_IMAGES.get(0) + ".jpg"; 
 	}
 }
