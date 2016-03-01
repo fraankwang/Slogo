@@ -74,20 +74,28 @@ public class CommandParser {
 	}
 
 	private Node addParamsToTree(Node tree, Queue<String> queue) throws Exception {
+		int totalchildren=0;
+
 		try{
 			String superclass = Class.forName(Constants.getAction(tree.data)).getSuperclass().getName();
-			int totalchildren = Constants.getNumberParams(superclass);
+			totalchildren = Constants.getNumberParams(superclass);
 
-			for (int i = 0; i < totalchildren; i++) {
-				if (queue.isEmpty()) {
-					throw new Exception("Too few parameters");
-				}
-				tree.addChild(makeTree(queue));
-				System.out.println("child" +tree.getChildren().get(i).getData());
-			}
 		}
 		catch (Exception e){
+			try{
+				totalchildren = myUserCommands.getCommandParams(tree.getData()).size();
+			}
+			catch (Exception ex){
+			}
 		}
+		for (int i = 0; i < totalchildren; i++) {
+			if (queue.isEmpty()) {
+				throw new Exception("Too few parameters");
+			}
+			tree.addChild(makeTree(queue));
+			System.out.println("child" +tree.getChildren().get(i).getData());
+		}
+
 		return tree;
 	}
 
@@ -102,12 +110,7 @@ public class CommandParser {
 			} catch (Exception ex) {
 
 				if (node.areChildrenEmpty()) {
-					try{
-						return parseUserCommands(node);
-					} catch (Exception e){
-						return parseValue(node);
-
-					}
+					return parseValue(node);
 				} else {
 					throw exception;
 				}
@@ -137,9 +140,12 @@ public class CommandParser {
 
 	private Double parseUserCommands(Node node) throws Exception {
 		Iterator<Node> iter = node.getChildren().iterator();
-		System.out.println(myUserCommands.getCommandParams(node.getData()).size());
+		System.out.println(" size "+myUserCommands.getCommandParams(node.getData()).size());
 		for (String string : myUserCommands.getCommandParams(node.getData())) {
-			myVariables.addVariable(string, treeTraversal(iter.next()));
+			System.out.println(" param:"+ string);
+			Node val = iter.next();
+			System.out.println(" value"+val.getData());
+			myVariables.addVariable(string, treeTraversal(val));
 			System.out.println("param:"+ string+ " , "+myVariables.getVariableValue(string));
 
 		}

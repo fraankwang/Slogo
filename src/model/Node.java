@@ -76,6 +76,7 @@ public class Node {
 	}
 	
 	public boolean isVariable(){
+		System.out.println("  variable!");
 		return getData().startsWith(":");
 	}
 }
