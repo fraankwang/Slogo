@@ -64,6 +64,9 @@ public class MainController {
 		myTransformer.transformVariablesElement(myModel.getMyVariables());
 		myTransformer.transformCommandsElement(myModel.getMyUserCommands());
 	}
+	public void modifyVariable (String oldVar, String newVar) {
+		   myModel.modifyVariable(oldVar, newVar);
+		}
 
 	// =========================================================================
 	// Getters and Setters
