@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
+import java.util.TreeMap;
 
 import constants.Constants;
 import javafx.scene.canvas.GraphicsContext;
@@ -76,10 +77,13 @@ public class ModelTransformer {
 	 */
 	public void transformVariablesElement(Map<String, Double> variables) {
 		VariablesElement variablesElement = (VariablesElement) myController.getMyView().getMyVariablesElement();
-		ListView<String> variablesValues = variablesElement.getListView();
+		ListView<String> variablesNames = variablesElement.getListView().get(0);
+		ListView<String> variablesValues = variablesElement.getListView().get(1);
+		variablesNames.getItems().clear();
 		variablesValues.getItems().clear();
 		for (String variablesItem : variables.keySet()) {
-			variablesValues.getItems().add(variablesItem);
+			variablesNames.getItems().add(variablesItem);
+			variablesValues.getItems().add(variables.get(variablesItem).toString());
 		}
 	}
 
@@ -94,9 +98,11 @@ public class ModelTransformer {
 		ListView<String> commandsValues = commandsElement.getListView();
 		commandsValues.getItems().clear();
 		for (String commandsItem : map.keySet()) {
-			System.out.println("command key " + commandsItem);
-			System.out.println(map.get("command value " + commandsItem));
-			commandsValues.getItems().add(commandsItem);
+			String parameters = "";
+			for(String parameter : map.get(commandsItem)){
+				parameters += parameter + " ";
+			}
+			commandsValues.getItems().add(commandsItem + " (" + parameters.trim() + ")");
 		}
 		
 	}

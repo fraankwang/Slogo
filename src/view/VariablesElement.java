@@ -4,24 +4,24 @@
 
 package view;
 
+import java.util.ArrayList;
+
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 
 public class VariablesElement extends PanelElement {
 
-	private ListView<String> myListView;
+	private ArrayList<ListView<String>> myListView = new ArrayList<ListView<String>>();
 	
 	public VariablesElement(Node node, String name) {
 		super(node, name);
-		
 	}
 
-	public void setListView(ListView<String> variablesListView) {
-		myListView = variablesListView;
-		
+	public void addListView(ListView<String> variablesListView) {
+		myListView.add(variablesListView);
 	}
 	
-	public ListView<String> getListView() {
+	public ArrayList<ListView<String>> getListView() {
 		return myListView;
 	}
 

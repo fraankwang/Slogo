@@ -47,7 +47,7 @@ public class Constants {
 
 	public static final int LEFT_COLUMN_WIDTH = 700;
 	public static final int PLAYGROUND_HEIGHT = 550;
-	public static final int RIGHT_COLUMN_WIDTH = 300;
+	public static int RIGHT_COLUMN_WIDTH = 300;
 	public static final int RIGHT_COLUMN_ELEMENT_HEIGHT = 155;
 
 	public static final int TURTLE_ELEMENT_WIDTH = 50;

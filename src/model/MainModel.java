@@ -74,5 +74,9 @@ public class MainModel {
 	public void replaceVariable(String oldVar, String newVar) {
 		myVariables.replaceVariable(oldVar, newVar);
 	}
+	
+	public void replaceVariableValue(String name, String newVal){
+		myVariables.replaceVariableValue(name, newVal);
+	}
 
 }
