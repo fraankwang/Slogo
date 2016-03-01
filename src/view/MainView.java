@@ -66,6 +66,7 @@ public class MainView {
 	public void init() {
 		initializePrimaryRoot();
 		initializeHelpRoot();
+
 		myPrimaryScene = new Scene(myPrimaryRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.WHITE);
 		myPrimaryScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
@@ -190,16 +191,13 @@ public class MainView {
 
 	}
 
-	public void setController(MainController controller) {
-		myController = controller;
-	}
-
 	public void setMyPrimaryStage(Stage myPrimaryStage) {
 		this.myPrimaryStage = myPrimaryStage;
 	}
 
-	public void setMyController(MainController myController) {
+	public void linkController(MainController myController) {
 		this.myController = myController;
+		myController.setTurtleElement(myTurtleElement);
 	}
 
 	public void setMyPrimaryRoot(Group myPrimaryRoot) {

@@ -12,7 +12,7 @@ public class Turtle {
 	private boolean penDown;
 	private boolean showTurtle;
 	private Double Orientation;
-	private Queue<TurtleCoordinates> turtleCoordinates;
+	private LinkedList<TurtleCoordinates> turtleCoordinates;
 	// other info like pen color and turtle image can be added later
 	// Turtle should have some sort of identifier functionality. My friend said 
 	// if we command turtle1 to move, then turtle2 to move, our code should be able to handle that.
@@ -30,7 +30,7 @@ public class Turtle {
 		turtleCoordinates = new LinkedList<TurtleCoordinates>();
 	}
 	
-	public Queue<TurtleCoordinates> getCoordinates(){
+	public LinkedList<TurtleCoordinates> getCoordinates(){
 		return this.turtleCoordinates;
 	}
 	public void addCoordinates(Double xCoord, Double yCoord){
