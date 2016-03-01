@@ -23,7 +23,14 @@ public class Constants {
 	// DEFAULT_LANGUAGES+"English";
 	private static final String DEFAULT_ACTIONS = "possibleactions";
 	private static final String DEFAULT_PARAMS = "numberofparams";
-
+	
+	public static final String MATH_ONEPARAM = "model.action.MathOneParam.MathOneParam";
+	public static final String MATH_TWOPARAMS = "model.action.MathTwoParams.MathTwoParams";
+	public static final String TURTLE_NOCOMMANDS = "model.action.TurtleCommandsNoParams.TurtleCommands";
+	public static final String TURTLE_ONEPARAM = "model.action.TurtleCommandsOneParam.TurtleCommandsOneParam";
+	public static final String TURTLE_TWOPARAMS= "model.action.TurtleCommandsTwoParams.TurtleCommandsTwoParams";
+	public static final String CONTROL_STRUCTURES= "model.action.HigherOrderCommands.ControlStructures";
+	public static final String HIGHER_ORDERSTRUCTURE = "model.action.HigherOrderCommands.HigherOrderCommands";
 	private static final ResourceBundle SPECIFICATIONS = ResourceBundle
 			.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_RESOURCE_FILE);
 	// private static final ResourceBundle COMMANDS = ResourceBundle
