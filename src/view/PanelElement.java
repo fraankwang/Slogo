@@ -4,7 +4,6 @@
 
 package view;
 
-import javafx.beans.property.Property;
 import javafx.scene.Node;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.StackPane;

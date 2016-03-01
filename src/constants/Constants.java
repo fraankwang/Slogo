@@ -7,14 +7,9 @@ package constants;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.ParseException;
-
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 
 public class Constants {
 

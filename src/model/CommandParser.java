@@ -6,9 +6,6 @@ package model;
 
 import java.lang.reflect.*;
 import java.util.*;
-
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
-
 import constants.Constants;
 import model.action.*;
 import model.Node;
@@ -77,18 +74,16 @@ public class CommandParser {
 
 
 	private Node addParamsToTree(Node tree, Queue<String> queue) throws Exception {
-		int totalchildren=0;
+		int totalchildren = 0;
 
-		try{
+		try {
 			String superclass = Class.forName(Constants.getAction(tree.data)).getSuperclass().getName();
 			totalchildren = Constants.getNumberParams(superclass);
 
-		}
-		catch (Exception e){
-			try{
+		} catch (Exception e) {
+			try {
 				totalchildren = myUserCommands.getCommandParams(tree.getData()).size();
-			}
-			catch (Exception ex){
+			} catch (Exception ex) {
 			}
 		}
 		for (int i = 0; i < totalchildren; i++) {
@@ -96,14 +91,14 @@ public class CommandParser {
 				throw new Exception("Too few parameters");
 			}
 			tree.addChild(makeTree(queue));
-			System.out.println("child" +tree.getChildren().get(i).getData());
+			System.out.println("child" + tree.getChildren().get(i).getData());
 		}
 
 		return tree;
 	}
 
 	private double treeTraversal(Node node) throws Exception {
-		System.out.println("at node: "+node.getData());
+		System.out.println("at node: " + node.getData());
 		try {
 			Action action = makeAction(node);
 			return action.rule();
@@ -143,13 +138,13 @@ public class CommandParser {
 
 	private Double parseUserCommands(Node node) throws Exception {
 		Iterator<Node> iter = node.getChildren().iterator();
-		System.out.println(" size "+myUserCommands.getCommandParams(node.getData()).size());
+		System.out.println(" size " + myUserCommands.getCommandParams(node.getData()).size());
 		for (String string : myUserCommands.getCommandParams(node.getData())) {
-			System.out.println(" param:"+ string);
+			System.out.println(" param:" + string);
 			Node val = iter.next();
-			System.out.println(" value"+val.getData());
+			System.out.println(" value" + val.getData());
 			myVariables.addVariable(string, treeTraversal(val));
-			System.out.println("param:"+ string+ " , "+myVariables.getVariableValue(string));
+			System.out.println("param:" + string + " , " + myVariables.getVariableValue(string));
 
 		}
 
@@ -182,8 +177,8 @@ public class CommandParser {
 				break;
 			case Constants.CONTROL_STRUCTURES:
 			case Constants.HIGHER_ORDERSTRUCTURE:
-				finalaction = (Action) constructor.newInstance(addStringParams(node), myLanguage, myPlayground, myVariables,
-						myUserCommands);
+				finalaction = (Action) constructor.newInstance(addStringParams(node), myLanguage, myPlayground,
+						myVariables, myUserCommands);
 				break;
 			}
 
@@ -202,6 +197,7 @@ public class CommandParser {
 		}
 		return params;
 	}
+
 	private ArrayList<String> addStringParams(Node node) throws Exception {
 		ArrayList<String> params = new ArrayList<String>();
 		if (node.children.size() > 0) {
@@ -219,7 +215,7 @@ public class CommandParser {
 			Node root = makeTree(queue);
 			output = treeTraversal(root);
 		}
-		System.out.println("output:"+output);
+		System.out.println("output: " + output);
 		return output;
 	}
 
