@@ -42,15 +42,12 @@ public class TurtlePlayground {
 	}
 
 	public boolean inBounds() {
-		if (myTurtle.getxCoordinate() < -myWidth / 2 || myTurtle.getxCoordinate() > myWidth / 2
-				|| myTurtle.getyCoordinate() < -myHeight / 2 || myTurtle.getyCoordinate() > myHeight / 2)
-			return false;
-		else
-			return true;
+		return inBounds(myTurtle.getxCoordinate(), myTurtle.getyCoordinate() );
 	}
 
 	public boolean inBounds(Double xCoord, Double yCoord) {
-		if (xCoord < 0 || xCoord > myWidth || yCoord < 0 || yCoord > myHeight)
+		if (xCoord < -myWidth / 2 || xCoord  > myWidth / 2
+				|| yCoord < -myHeight / 2 || yCoord > myHeight / 2)
 			return false;
 		else
 			return true;
