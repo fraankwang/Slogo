@@ -4,6 +4,7 @@
 
 package model;
 
+import java.util.LinkedList;
 import java.util.Queue;
 
 public class TurtlePlayground {
@@ -92,8 +93,8 @@ public class TurtlePlayground {
 		return placeTurtle(0.0, 0.0);
 	}
 
-	public Queue<TurtleCoordinates> getTurtleCoordinates() {
-		return myTurtle.getCoordinates();
+	public LinkedList<TurtleCoordinates> getTurtleCoordinates() {
+		return (LinkedList<TurtleCoordinates>) myTurtle.getCoordinates();
 	}
 
 

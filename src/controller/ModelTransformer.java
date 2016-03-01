@@ -1,11 +1,9 @@
 package controller;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
-import java.util.Stack;
-import java.util.TreeMap;
-
 import constants.Constants;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ListView;
@@ -15,6 +13,8 @@ import model.TurtleCoordinates;
 import view.CommandsElement;
 import view.HistoryElement;
 import view.OutputElement;
+import view.PanelElement;
+import view.TurtleElement;
 import view.VariablesElement;
 
 public class ModelTransformer {
@@ -26,7 +26,7 @@ public class ModelTransformer {
 
 	private String myLanguage = Constants.getSpecification("DefaultLanguage");
 	private Color myPenColor;
-	private String myTurtleImage;
+	private TurtleElement myTurtleElement;
 
 	public ModelTransformer(MainController controller) {
 		myController = controller;
@@ -106,9 +106,9 @@ public class ModelTransformer {
 	 * Reads TurtleCoordinate from queue and draws new line
 	 * @param queue
 	 */
-	public void transformTurtleGraphics(Queue<TurtleCoordinates> queue) {
-		GraphicsContext tb = myController.getMyView().getMyTurtleGraphics();
-		updateTurtleGraphics(tb);
+	public void transformTurtleGraphics(LinkedList<TurtleCoordinates> coordinates) {
+		GraphicsContext playground = myController.getMyView().getMyTurtleGraphics();
+		updateTurtleGraphics(playground, coordinates);
 
 	}
 
@@ -116,13 +116,23 @@ public class ModelTransformer {
 	/**
 	 * Updates where the turtle (or turtles) has drawn
 	 */
-	private void updateTurtleGraphics(GraphicsContext gc) {
-
+	private void updateTurtleGraphics(GraphicsContext gc, LinkedList<TurtleCoordinates> coordinates) {
+		double currentX = CENTER_X_COORDINATE;
+		double currentY = CENTER_Y_COORDINATE;
 		gc.setFill(myPenColor);
 		gc.setStroke(myPenColor);
 		gc.setLineWidth(5);
+		
+		for (TurtleCoordinates coordinate : coordinates) {
+			System.out.println("X COORD: " + Double.toString(coordinate.getXCoord()));
+			System.out.println("Y COORD: " + Double.toString(coordinate.getYCoord()));
+			gc.strokeLine(currentX, currentY, coordinate.getXCoord(), coordinate.getYCoord());
+			currentX = coordinate.getXCoord();
+			currentY = coordinate.getYCoord();
+			
+		}
+			
 
-		gc.strokeLine(CENTER_X_COORDINATE, CENTER_Y_COORDINATE, CENTER_X_COORDINATE + 100, CENTER_Y_COORDINATE + 100);
 	}
 
 	// =========================================================================
@@ -137,12 +147,13 @@ public class ModelTransformer {
 		myPenColor = color;
 	}
 
-	public void setTurtleImage(String image) {
-		myTurtleImage = image;
-	}
-
 	public String getLanguage() {
 		return myLanguage;
+	}
+
+	public void setTurtleElement(PanelElement turtleElement) {
+		myTurtleElement = (TurtleElement) turtleElement;
+		
 	}
 	
 }

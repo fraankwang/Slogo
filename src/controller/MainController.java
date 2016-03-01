@@ -59,6 +59,7 @@ public class MainController {
 		myTransformer.transformTurtleGraphics(myModel.getMyPlayground().getTurtleCoordinates());
 		myTransformer.transformVariablesElement(myModel.getMyVariables());
 		myTransformer.transformCommandsElement(myModel.getMyUserCommands());
+		
 	}
 
 	// =========================================================================
@@ -77,6 +78,10 @@ public class MainController {
 		myView.setTurtleImage(image);
 	}
 
+	public void setTurtleElement(PanelElement turtleElement) {
+		myTransformer.setTurtleElement(turtleElement);
+	}
+	
 	public void setBackgroundColor(Color color) {
 		myView.setTurtleBackgroundColor(color);
 	}
@@ -110,5 +115,7 @@ public class MainController {
 	public void setPrimaryPane() {
 		myView.showPrimaryScene();
 	}
+
+	
 
 }
