@@ -94,10 +94,8 @@ public class TurtlePlayground {
 	}
 
 	public Queue<TurtleCoordinates> getTurtleCoordinates() {
-
 		return myTurtle.getCoordinates();
-
 	}
 
-	// methods relating to moving the Turtle around in the playground
+
 }

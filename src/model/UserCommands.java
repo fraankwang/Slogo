@@ -32,7 +32,7 @@ public class UserCommands {
 		return myCommandParams.get(name);
 	}
 	
-	public Map<String, String> getUserCommandMap(){
-		return myUserCommands;
+	public Map<String, List<String>> getUserCommandMap(){
+		return myCommandParams;
 	}
 }

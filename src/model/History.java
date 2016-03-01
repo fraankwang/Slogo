@@ -4,15 +4,22 @@
 
 package model;
 
-import java.util.Collection;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 public class History {
 	private Queue<String> myHistory;
+	
+	public History(){
+		myHistory=new LinkedList<String>();
+		// @Srikar @Huijia, please follow a uniform coding checkstyle
+		/**
+		 * myHistory = new PriorityQueue<String>();
+		 * if (condition == condition2) { <--- notice the spacing
+		 * return myHistory.size() == 0 <--- again notice the spacing
+		 * for (int row; row < getRows(); row++) { 
+		 * etc etc. Keep spacing consistent and separate if statements brackets on separate lines 
+		 */
 
-	public History() {
-		myHistory = new PriorityQueue<String>();
 	}
 
 	/**

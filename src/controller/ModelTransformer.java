@@ -71,13 +71,13 @@ public class ModelTransformer {
 		
 	}
 
-	public void transformCommandsElement(Map<String, String> commands) {
+	public void transformCommandsElement(Map<String, List<String>> map) {
 		CommandsElement commandsElement = (CommandsElement) myController.getMyView().getMyCommandsElement();
 		ListView<String> commandsValues = commandsElement.getListView();
 		commandsValues.getItems().clear();
-		for(String commandsItem : commands.keySet()){
+		for(String commandsItem : map.keySet()){
 			System.out.println("command key " + commandsItem);
-			System.out.println(commands.get("command value " + commandsItem));
+			System.out.println(map.get("command value " + commandsItem));
 			commandsValues.getItems().add(commandsItem);
 		}
 		

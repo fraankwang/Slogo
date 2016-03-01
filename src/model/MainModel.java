@@ -74,7 +74,7 @@ public class MainModel {
 		return myVariables.getVariableMap();
 	}
 	
-	public Map<String,String> getMyUserCommands() {
+	public Map<String,List<String>> getMyUserCommands() {
 		return myUserCommands.getUserCommandMap();
 	}
 
