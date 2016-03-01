@@ -11,6 +11,7 @@ import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 import constants.Constants;
 import model.action.*;
+import model.Node;
 
 public class CommandParser {
 
@@ -18,11 +19,6 @@ public class CommandParser {
 	private TurtlePlayground myPlayground;
 	private Variables myVariables;
 	private UserCommands myUserCommands;
-
-	private class Node {
-		private String data;
-		private List<Node> children;
-	}
 
 	public CommandParser(String language, TurtlePlayground playground, Variables variables, UserCommands usercommands) {
 		myLanguage = language;
@@ -40,7 +36,7 @@ public class CommandParser {
 		List<String> parsedInputList = Arrays.asList(input.split("\\s"));
 		List<String> comandsList = new ArrayList<String>();
 		for (String string : parsedInputList) {
-			if (!string.startsWith("#") && !string.isEmpty()) {
+			if (!isComment(string) && !string.isEmpty()) {
 				try {
 					String command = Constants.getCommand(myLanguage, string);
 					comandsList.add(command);
@@ -56,39 +52,23 @@ public class CommandParser {
 
 	}
 
+	private boolean isComment(String string) {
+		return string.startsWith("#");
+	}
+
 	private Node makeTree(Queue<String> queue) {
 		Node tree = new Node();
-		tree.children = new ArrayList<Node>();
 
-		if (queue.peek().equals(Constants.OPEN_BRACKET)) {
-			queue.poll();
-			StringBuilder commandstring = new StringBuilder();
-			while (!queue.peek().equals(Constants.CLOSE_BRACKET)) {
-				String action = queue.poll();
-				commandstring.append(action + " ");
-			}
-			queue.poll();
-			tree.data = commandstring.deleteCharAt(commandstring.length() - 1).toString();
-			return tree;
+		if (tree.isOpenBracket(queue)) {
+			return tree.makeCommandString(queue, tree);
 		} else {
-			tree.data = queue.poll();
+			tree.setData(queue.poll());
 			try {
-				String superclass = Class.forName(Constants.getAction(tree.data)).getSuperclass().getName();
-				int totalchildren = Constants.getNumberParams(superclass);
-				for (int i = 0; i < totalchildren; i++) {
-					if (queue.isEmpty()) {
-						throw new Exception("Too few parameters");
-					}
-					tree.children.add(makeTree(queue));
-				}
+				addParamsToTree(tree, queue);
 				return tree;
 			} catch (Exception exception) {
 				try {
-					int totalchildren = myUserCommands.getCommandParams(tree.data).size();
-					for (int i = 0; i < totalchildren; i++) {
-						tree.children.add(makeTree(queue));
-					}
-					return tree;
+					addNonCommandParamsToTree(tree, queue);
 				} catch (Exception e) {
 
 				}
@@ -98,29 +78,40 @@ public class CommandParser {
 
 	}
 
+	private Node addParamsToTree(Node tree, Queue<String> queue) throws Exception {
+		String superclass = Class.forName(Constants.getAction(tree.data)).getSuperclass().getName();
+		int totalchildren = Constants.getNumberParams(superclass);
+		for (int i = 0; i < totalchildren; i++) {
+			if (queue.isEmpty()) {
+				throw new Exception("Too few parameters");
+			}
+			tree.addChild(makeTree(queue));
+		}
+		return tree;
+	}
+
+	private Node addNonCommandParamsToTree(Node tree, Queue<String> queue) {
+		int totalchildren = myUserCommands.getCommandParams(tree.data).size();
+		for (int i = 0; i < totalchildren; i++) {
+			tree.addChild(makeTree(queue));
+		}
+		return tree;
+	}
+
 	private double treeTraversal(Node node) throws Exception {
 		try {
 			Action action = makeAction(node);
 			return action.rule();
 		} catch (Exception exception) {
 			try {
-				Iterator<Node> iter = node.children.iterator();
-
-				for (String string : myUserCommands.getCommandParams(node.data)) {
-					myVariables.addVariable(string, treeTraversal(iter.next()));
-				}
-
-				String thiscommand = myUserCommands.getCommand(node.data);
-
-				return parseCommands(thiscommand);
+				return parseUserCommands(node);
 			} catch (Exception ex) {
 
-				if (node.children.isEmpty()) {
+				if (node.areChildrenEmpty()) {
 
-					if (node.data.startsWith(":")) {
-
+					if (node.isVariable()) {
 						try {
-							double variable = myVariables.getVariableValue(node.data);
+							double variable = myVariables.getVariableValue(node.getData());
 							return variable;
 						} catch (Exception unreachableVariable) {
 							throw new Exception("can't get variable");
@@ -128,7 +119,7 @@ public class CommandParser {
 
 					} else {
 						try {
-							Double parsedDouble = Double.parseDouble(node.data);
+							Double parsedDouble = Double.parseDouble(node.getData());
 							return parsedDouble;
 						} catch (Exception incorrectSyntax) {
 							throw new Exception("Incorrect syntax for parameter");
@@ -140,6 +131,18 @@ public class CommandParser {
 			}
 
 		}
+	}
+
+	private Double parseUserCommands(Node node) throws Exception {
+		Iterator<Node> iter = node.getChildren().iterator();
+
+		for (String string : myUserCommands.getCommandParams(node.getData())) {
+			myVariables.addVariable(string, treeTraversal(iter.next()));
+		}
+
+		String thiscommand = myUserCommands.getCommand(node.getData());
+
+		return parseCommands(thiscommand);
 	}
 
 	private Action makeAction(Node node) throws Exception {
@@ -163,7 +166,8 @@ public class CommandParser {
 				break;
 			case Constants.CONTROL_STRUCTURES:
 			case Constants.HIGHER_ORDERSTRUCTURE:
-				finalaction = (Action) constructor.newInstance(params, myLanguage, myPlayground, myVariables, myUserCommands);
+				finalaction = (Action) constructor.newInstance(params, myLanguage, myPlayground, myVariables,
+						myUserCommands);
 				break;
 			}
 
@@ -175,9 +179,9 @@ public class CommandParser {
 
 	private ArrayList<Double> addParams(Node node) throws Exception {
 		ArrayList<Double> params = new ArrayList<Double>();
-		if(node.children.size()>0){
-			for (Node n : node.children) {
-				params.add(treeTraversal(n));
+		if (node.children.size() > 0) {
+			for (Node child : node.children) {
+				params.add(treeTraversal(child));
 			}
 		}
 		return params;
@@ -189,7 +193,6 @@ public class CommandParser {
 		while (!queue.isEmpty()) {
 			Node root = makeTree(queue);
 			output = treeTraversal(root);
-			System.out.println("output = " + output);
 		}
 
 		return output;
