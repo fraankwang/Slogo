@@ -39,7 +39,6 @@ public class To extends HigherOrderCommands {
 			System.out.println("added command "+commands+" with params "+ String.join(",", parametervariables));
 			for(String s:parametervariables){
 				System.out.println("param:"+s+".");
-				variables.addVariable(s,0);
 			}
 			return 1;
 		}

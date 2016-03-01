@@ -3,6 +3,7 @@ package controller;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -13,7 +14,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
 import model.History;
 import model.MainModel;
+import model.TurtleCoordinates;
 import model.Variables;
+import view.CommandsElement;
 import view.HistoryElement;
 import view.OutputElement;
 import view.VariablesElement;
@@ -33,10 +36,15 @@ public class ModelTransformer {
 		myController = controller;
 	}
 
-	public void transformOutputElement() {
+	public void transformOutputElement(Queue<String> output) {
 		OutputElement outputElement = (OutputElement) myController.getMyView().getMyOutputElement();
 		TextArea outputText = outputElement.getText();
-		//thing that's inside node = myController.getMyView().getMyOutputElement() .get ???;
+		String displayText = "";
+		for(String outputItem : output){
+			displayText += outputItem + "\n";
+		}
+		outputText.clear();
+		outputText.setText(displayText);
 	}
 
 	public void transformHistoryElement(Queue<String> history) {
@@ -48,55 +56,31 @@ public class ModelTransformer {
 		}
 	}
 
-	public void transformVariablesElement(/*Collection<String> variables*/) {
-//		VariablesElement variablesElement = (VariablesElement) myController.getMyView().getMyVariablesElement();
-//		ListView<String> variablesValues = variablesElement.getListView();
-//		variablesValues.getItems().clear();
-//		for(String variablesItem : variables){
-//			variablesValues.getItems().add(variablesItem);
-//		}
+	public void transformVariablesElement(Map<String, Double> variables) {
+		VariablesElement variablesElement = (VariablesElement) myController.getMyView().getMyVariablesElement();
+		ListView<String> variablesValues = variablesElement.getListView();
+		variablesValues.getItems().clear();
+		for(String variablesItem : variables.keySet()){
+			variablesValues.getItems().add(variablesItem);
+		}
 	}
 
-	public void transformTurtleGraphics() {
+	public void transformTurtleGraphics(Queue<TurtleCoordinates> queue) {
 		GraphicsContext tb = myController.getMyView().getMyTurtleGraphics();
 		updateTurtleGraphics(tb);
 		
 	}
 
-	public void transformCommandsElement() {
-		// TODO Auto-generated method stub
+	public void transformCommandsElement(Map<String, List<String>> map) {
+		CommandsElement commandsElement = (CommandsElement) myController.getMyView().getMyCommandsElement();
+		ListView<String> commandsValues = commandsElement.getListView();
+		commandsValues.getItems().clear();
+		for(String commandsItem : map.keySet()){
+			System.out.println("command key " + commandsItem);
+			System.out.println(map.get("command value " + commandsItem));
+			commandsValues.getItems().add(commandsItem);
+		}
 		
-	}
-
-	/**
-	 * Updates what is visible in the Variables to the user
-	 */
-	private void updateVariablesElement() {
-		
-	}
-	
-	/**
-	 * Updates what is visible in the Commands to the user
-	 */
-	private void updateCommandsElement() {
-		
-	}
-	
-	/**
-	 * Updates what is visible in the console to the user
-	 */
-	private void updateOutputElement() {
-		// modify elements within outputbox so we don't have to deal with actual
-		// UI wrapper
-		// myView.getMyOutputElement().text or whatever
-	}
-
-	/**
-	 * Updates what is visible in the history to the user
-	 */
-	private void updateHistoryElement() {
-		// myView.getMyHistoryElement() and modify element within it so we don't
-		// deal with actual UI wrapper
 	}
 
 	/**
@@ -131,4 +115,36 @@ public class ModelTransformer {
 		return myLanguage;
 	}
 	
+	
+	
+//	/**
+//	 * Updates what is visible in the Variables to the user
+//	 */
+//	private void updateVariablesElement() {
+//		
+//	}
+//	
+//	/**
+//	 * Updates what is visible in the Commands to the user
+//	 */
+//	private void updateCommandsElement() {
+//		
+//	}
+//	
+//	/**
+//	 * Updates what is visible in the console to the user
+//	 */
+//	private void updateOutputElement() {
+//		// modify elements within outputbox so we don't have to deal with actual
+//		// UI wrapper
+//		// myView.getMyOutputElement().text or whatever
+//	}
+//
+//	/**
+//	 * Updates what is visible in the history to the user
+//	 */
+//	private void updateHistoryElement() {
+//		// myView.getMyHistoryElement() and modify element within it so we don't
+//		// deal with actual UI wrapper
+//	}
 }

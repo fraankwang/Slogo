@@ -38,7 +38,6 @@ public class MainModel {
 		myHistory = new History();
 		myOutputs = new History();
 		
-		
 	}
 
 	public void readCommand(String input) {
@@ -48,8 +47,8 @@ public class MainModel {
 			myHistory.add(input);
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			myOutputs.add(e.getMessage());
+//			e.printStackTrace();
 		}
 	}
 
@@ -75,8 +74,13 @@ public class MainModel {
 		return myVariables.getVariableMap();
 	}
 	
-	public Map<String,String> getMyUserCommands() {
+	public Map<String,List<String>> getMyUserCommands() {
 		return myUserCommands.getUserCommandMap();
+	}
+
+	public void modifyVariable(String oldVar, String newVar) {
+		// TODO Auto-generated method stub
+		myVariables.addVariable(newVar, myVariables.getVariableValue(oldVar));
 	}
 
 }

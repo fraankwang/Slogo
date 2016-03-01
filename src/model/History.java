@@ -4,32 +4,31 @@
 
 package model;
 
-import java.util.Collection;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 public class History {
 	private Queue<String> myHistory;
-	
-	public History(){
-		myHistory=new PriorityQueue<String>();
-		
+
+	public History() {
+
+		myHistory = new LinkedList<String>();
+
 	}
-	
+
 	/**
 	 * TODO fill this out
+	 * 
 	 * @param command
 	 */
-	public void add (String command) {
+	public void add(String command) {
 		myHistory.add(command);
 	}
-	
-	public Queue<String> getHistory () {
+
+	public Queue<String> getHistory() {
 		return myHistory;
-		//should be a queue
 	}
-	
-	public boolean isEmpty(){
-		return myHistory.size()==0;
+
+	public boolean isEmpty() {
+		return myHistory.size() == 0;
 	}
 }
