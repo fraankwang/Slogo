@@ -34,5 +34,9 @@ public class Variables {
 		myVariables.put(newVar, myVariables.get(oldVar));
 		myVariables.remove(oldVar);
 	}
+	
+	public void replaceVariableValue(String name, String newVal) {
+		myVariables.put(name, Double.parseDouble(newVal));
+	}
 
 }

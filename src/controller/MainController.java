@@ -37,7 +37,6 @@ public class MainController {
 	public void executeCommand(String input) {
 		readCommand(input);
 		refreshDisplay();
-
 	}
 
 	/**
@@ -54,13 +53,12 @@ public class MainController {
 	/**
 	 * Part 2 of executeCommand. Refreshes every UI elements in the view
 	 */
-	private void refreshDisplay() {
+	public void refreshDisplay() {
 		myTransformer.transformOutputElement((Queue<String>) myModel.getMyOutputs());
 		myTransformer.transformHistoryElement((Queue<String>) myModel.getMyHistory());
 		myTransformer.transformTurtleGraphics(myModel.getMyPlayground().getTurtleCoordinates());
 		myTransformer.transformVariablesElement(myModel.getMyVariables());
 		myTransformer.transformCommandsElement(myModel.getMyUserCommands());
-
 	}
 
 	// =========================================================================
@@ -93,6 +91,10 @@ public class MainController {
 
 	public void replaceVariable(String oldVar, String newVar) {
 		myModel.replaceVariable(oldVar, newVar);
+	}
+	
+	public void replaceVariableValue(String name, String newVal){
+		myModel.replaceVariableValue(name, newVal);
 	}
 
 	public void setAnimationSpeed(double speed) {
