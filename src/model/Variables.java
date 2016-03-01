@@ -10,7 +10,7 @@ public class Variables {
 
 	Map<String, Double> myVariables;
 
-	public Variables(){
+	public Variables() {
 		myVariables = new HashMap<String, Double>();
 	}
 
@@ -18,18 +18,17 @@ public class Variables {
 		return myVariables;
 	}
 
-	public Collection<String> getVariables () {
+	public Collection<String> getVariables() {
 		return myVariables.keySet();
 	}
 
-	public void addVariable (String name, double value) {
+	public void addVariable(String name, double value) {
 		myVariables.put(name, value);
 	}
 
-	public double getVariableValue (String name) {
+	public double getVariableValue(String name) {
 		return myVariables.get(name);
 	}
-
 
 	public void replaceVariable(String oldVar, String newVar) {
 		myVariables.put(newVar, myVariables.get(oldVar));
