@@ -54,8 +54,7 @@ public class MainController {
 	}
 
 	/**
-	 * Part 2 of executeCommand. Calls corresponding update methods to refresh
-	 * changing UI elements in the view
+	 * Part 2 of executeCommand. Refreshes every UI elements in the view
 	 */
 	private void refreshDisplay() {
 		myTransformer.transformOutputElement((Queue<String>) myModel.getMyOutputs());
@@ -63,13 +62,11 @@ public class MainController {
 		myTransformer.transformTurtleGraphics(myModel.getMyPlayground().getTurtleCoordinates());
 		myTransformer.transformVariablesElement(myModel.getMyVariables());
 		myTransformer.transformCommandsElement(myModel.getMyUserCommands());
+
 	}
-	public void modifyVariable (String oldVar, String newVar) {
-		   myModel.modifyVariable(oldVar, newVar);
-		}
 
 	// =========================================================================
-	// Getters and Setters
+	// Modifiers, Getters, and Setters
 	// =========================================================================
 
 	public MainView getMyView() {
@@ -96,13 +93,16 @@ public class MainController {
 		myTransformer.setLanguage(language);
 	}
 
-    public void setAnimationSpeed (double speed){
-    	if (myTimeline != null){
-    		myTimeline.setRate(speed);
-    	}
-    }
-        
-	
+	public void replaceVariable(String oldVar, String newVar) {
+		myModel.replaceVariable(oldVar, newVar);
+	}
+
+	public void setAnimationSpeed(double speed) {
+		if (myTimeline != null) {
+			myTimeline.setRate(speed);
+		}
+	}
+
 	public void setHelpMenu() {
 		myView.showHelpScene();
 	}

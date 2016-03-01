@@ -20,19 +20,23 @@ public class HelpPageFactory {
 	}
 
 	public Button createBackButton() {
-		Button back = new Button("Back");
+		Button back = new Button(Constants.getSpecification("BackButton"));
 		back.setPrefSize(Constants.SCENE_WIDTH, Constants.MENU_BAR_HEIGHT);
 		back.setOnAction(e -> myController.setPrimaryPane());
-
 		return back;
+		
 	}
 
+	/**
+	 * @return WebView that loads help page
+	 */
 	public WebView createHTMLPage() {
 		WebView htmlPage = new WebView();
 		WebEngine webEngine = htmlPage.getEngine();
-		URL helpURL = getClass().getClassLoader().getResource("help.html");
+		URL helpURL = getClass().getClassLoader().getResource(Constants.getSpecification("HelpURLName"));
 		webEngine.load(helpURL.toExternalForm());
 		return htmlPage;
+		
 	}
 
 }
