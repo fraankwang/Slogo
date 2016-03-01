@@ -22,72 +22,101 @@ import view.OutputElement;
 import view.VariablesElement;
 
 public class ModelTransformer {
-	
+
 	private static final int CENTER_X_COORDINATE = 350;
 	private static final int CENTER_Y_COORDINATE = 275;
 
 	private MainController myController;
-	
+
 	private String myLanguage = Constants.getSpecification("DefaultLanguage");
 	private Color myPenColor;
 	private String myTurtleImage;
-	
+
 	public ModelTransformer(MainController controller) {
 		myController = controller;
 	}
 
+	/**
+	 * Clears previous TextArea in OutputElement and repopulates it with updated
+	 * Model information
+	 * 
+	 * @param output
+	 */
 	public void transformOutputElement(Queue<String> output) {
 		OutputElement outputElement = (OutputElement) myController.getMyView().getMyOutputElement();
-		TextArea outputText = outputElement.getText();
-		String displayText = "";
-		for(String outputItem : output){
-			displayText += outputItem + "\n";
+		TextArea textArea = outputElement.getText();
+		String newOutput = "";
+		for (String outputItem : output) {
+			newOutput += outputItem + "\n";
 		}
-		outputText.clear();
-		outputText.setText(displayText);
+		textArea.clear();
+		textArea.setText(newOutput);
 	}
 
+	/**
+	 * Clears previous elements within the HistoryElement ListView and
+	 * repopulates it with updated Model information
+	 * 
+	 * @param history
+	 */
 	public void transformHistoryElement(Queue<String> history) {
 		HistoryElement historyElement = (HistoryElement) myController.getMyView().getMyHistoryElement();
 		ListView<String> historyValues = historyElement.getListView();
 		historyValues.getItems().clear();
-		for(String historyItem : history){
+		for (String historyItem : history) {
 			historyValues.getItems().add(historyItem);
 		}
 	}
 
+	/**
+	 * Clears previous elements within the HistoryElement ListView and
+	 * repopulates it with updated Model information
+	 * 
+	 * @param variables
+	 */
 	public void transformVariablesElement(Map<String, Double> variables) {
 		VariablesElement variablesElement = (VariablesElement) myController.getMyView().getMyVariablesElement();
 		ListView<String> variablesValues = variablesElement.getListView();
 		variablesValues.getItems().clear();
-		for(String variablesItem : variables.keySet()){
+		for (String variablesItem : variables.keySet()) {
 			variablesValues.getItems().add(variablesItem);
 		}
 	}
 
-	public void transformTurtleGraphics(Queue<TurtleCoordinates> queue) {
-		GraphicsContext tb = myController.getMyView().getMyTurtleGraphics();
-		updateTurtleGraphics(tb);
-		
-	}
-
+	/**
+	 * Clears previous elements within the HistoryElement ListView and
+	 * repopulates it with updated Model information
+	 * 
+	 * @param map
+	 */
 	public void transformCommandsElement(Map<String, List<String>> map) {
 		CommandsElement commandsElement = (CommandsElement) myController.getMyView().getMyCommandsElement();
 		ListView<String> commandsValues = commandsElement.getListView();
 		commandsValues.getItems().clear();
-		for(String commandsItem : map.keySet()){
+		for (String commandsItem : map.keySet()) {
 			System.out.println("command key " + commandsItem);
 			System.out.println(map.get("command value " + commandsItem));
 			commandsValues.getItems().add(commandsItem);
 		}
 		
 	}
+	
+	/**
+	 * Reads TurtleCoordinate from queue and draws new line
+	 * @param queue
+	 */
+	public void transformTurtleGraphics(Queue<TurtleCoordinates> queue) {
+		GraphicsContext tb = myController.getMyView().getMyTurtleGraphics();
+		updateTurtleGraphics(tb);
+
+	}
+
 
 	/**
 	 * Updates where the turtle (or turtles) has drawn
 	 */
 	private void updateTurtleGraphics(GraphicsContext gc) {
-				
+
 		gc.setFill(myPenColor);
 		gc.setStroke(myPenColor);
 		gc.setLineWidth(5);
@@ -98,7 +127,7 @@ public class ModelTransformer {
 	// =========================================================================
 	// Getters and Setters
 	// =========================================================================
-		
+
 	public void setLanguage(String language) {
 		myLanguage = language;
 	}
@@ -115,36 +144,4 @@ public class ModelTransformer {
 		return myLanguage;
 	}
 	
-	
-	
-//	/**
-//	 * Updates what is visible in the Variables to the user
-//	 */
-//	private void updateVariablesElement() {
-//		
-//	}
-//	
-//	/**
-//	 * Updates what is visible in the Commands to the user
-//	 */
-//	private void updateCommandsElement() {
-//		
-//	}
-//	
-//	/**
-//	 * Updates what is visible in the console to the user
-//	 */
-//	private void updateOutputElement() {
-//		// modify elements within outputbox so we don't have to deal with actual
-//		// UI wrapper
-//		// myView.getMyOutputElement().text or whatever
-//	}
-//
-//	/**
-//	 * Updates what is visible in the history to the user
-//	 */
-//	private void updateHistoryElement() {
-//		// myView.getMyHistoryElement() and modify element within it so we don't
-//		// deal with actual UI wrapper
-//	}
 }

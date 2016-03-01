@@ -15,11 +15,6 @@ public class History {
 
 	}
 
-	/**
-	 * TODO fill this out
-	 * 
-	 * @param command
-	 */
 	public void add(String command) {
 		myHistory.add(command);
 	}

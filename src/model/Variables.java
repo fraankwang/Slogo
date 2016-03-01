@@ -29,8 +29,11 @@ public class Variables {
 	public double getVariableValue (String name) {
 		return myVariables.get(name);
 	}
-	public void deleteVariable(String name){
-		myVariables.remove(name);
+
+
+	public void replaceVariable(String oldVar, String newVar) {
+		myVariables.put(newVar, myVariables.get(oldVar));
+		myVariables.remove(oldVar);
 	}
 
 }

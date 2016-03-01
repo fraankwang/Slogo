@@ -25,7 +25,7 @@ import javafx.stage.Stage;
 
 public class MenuBarFactory {
 
-	private static final int TOOLBAR_IMAGE_SIZE = Constants.TOOLBAR_IMAGE_SIZE;
+	private static final int TOOLBAR_IMAGE_SIZE = Constants.MENU_TURTLE_IMAGE_SIZE;
 
 	private MainController myController;
 	private Stage myPrimaryStage;
@@ -62,16 +62,14 @@ public class MenuBarFactory {
 	 */
 	private Menu createConfigurationMenu() {
 		Menu configurationMenu = new Menu(Constants.getSpecification("ConfigurationMenuOption"));
-	
-		// CustomMenuItem customMenuItem = new CustomMenuItem(new Slider());
-		// customMenuItem.setHideOnClick(false);
-	
+
 		CustomMenuItem backgroundColor = makeBackgroundColorPicker(Constants.DEFAULT_BACKGROUND_COLOR);
 		CustomMenuItem animationSlider = makeAnimationRateSlider();
 		Menu languageMenu = createLanguageMenu();
 		configurationMenu.getItems().addAll(languageMenu, backgroundColor, animationSlider);
-	
+
 		return configurationMenu;
+		
 	}
 
 	/**
@@ -83,14 +81,14 @@ public class MenuBarFactory {
 	private Menu createLanguageMenu() {
 		Menu languages = new Menu(Constants.getSpecification("LanguageMenuOption"));
 		List<String> allOptions = Constants.getLanguages();
-	
+
 		for (String language : allOptions) {
 			MenuItem item = new CheckMenuItem(language);
 			languages.getItems().add(item);
 		}
-	
+
 		((CheckMenuItem) languages.getItems().get(0)).setSelected(true);
-	
+
 		for (MenuItem item : languages.getItems()) {
 			item.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
@@ -98,12 +96,12 @@ public class MenuBarFactory {
 					deselectAll(languages.getItems());
 					((CheckMenuItem) item).setSelected(true);
 					myController.setLanguage(item.getText());
-	
+
 				}
 			});
 		}
 		return languages;
-	
+
 	}
 
 	/**
@@ -113,21 +111,22 @@ public class MenuBarFactory {
 	 */
 	private CustomMenuItem makeAnimationRateSlider() {
 		VBox sliderWrapper = new VBox();
-	
+
 		Label sliderLabel = new Label(Constants.getSpecification("AnimationSliderLabel"));
 		sliderLabel.setTextFill(Color.BLACK);
-		
+
 		Slider slider = new Slider(Constants.ANIMATION_SLIDER_MIN, Constants.ANIMATION_SLIDER_MAX,
 				Constants.DEFAULT_ANIMATION_SPEED);
 		slider.setShowTickLabels(true);
 		slider.setShowTickMarks(true);
 		slider.setStyle("-fx-stroke: black;");
 		slider.valueProperty().addListener(e -> myController.setAnimationSpeed(slider.getValue()));
-	
+
 		sliderWrapper.getChildren().addAll(sliderLabel, slider);
 		CustomMenuItem sliderItem = new CustomMenuItem(sliderWrapper);
 		sliderItem.setHideOnClick(false);
 		return sliderItem;
+		
 	}
 
 	/**
@@ -138,17 +137,18 @@ public class MenuBarFactory {
 	 */
 	private CustomMenuItem makeBackgroundColorPicker(Color defaultBackgroundColor) {
 		VBox BackgroundColorWrapper = new VBox();
-	
+
 		Label BackgroundColorlabel = new Label(Constants.getSpecification("BackgroundColorPickerLabel"));
 		BackgroundColorlabel.setTextFill(Color.BLACK);
-	
+
 		ColorPicker colorPicker = new ColorPicker(defaultBackgroundColor);
 		BackgroundColorWrapper.getChildren().addAll(BackgroundColorlabel, colorPicker);
 		CustomMenuItem penColor = new CustomMenuItem(BackgroundColorWrapper);
 		penColor.setHideOnClick(false);
 		penColor.setOnAction(e -> myController.setBackgroundColor(colorPicker.getValue()));
-	
+
 		return penColor;
+		
 	}
 
 	/**
@@ -166,6 +166,7 @@ public class MenuBarFactory {
 
 		}
 		return viewMenu;
+		
 	}
 
 	/**
@@ -179,6 +180,16 @@ public class MenuBarFactory {
 		item.setText("Show " + element.getName());
 		item.selectedProperty().setValue(true);
 		element.getNode().visibleProperty().bindBidirectional(item.selectedProperty());
+		
+		if (element instanceof TurtleElement) {
+			item.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent e) {
+					element.toggleDisplay();
+				}
+			});
+		}
+		
 		return item;
 
 	}
@@ -199,6 +210,7 @@ public class MenuBarFactory {
 		SeparatorMenuItem sep = new SeparatorMenuItem();
 		turtleMenu.getItems().addAll(penColor, sep, turtleImages, uploadNew);
 		return turtleMenu;
+		
 	}
 
 	/**
@@ -218,6 +230,7 @@ public class MenuBarFactory {
 		penColor.setOnAction(e -> myController.setPenColor(colorPicker.getValue()));
 
 		return penColor;
+		
 	}
 
 	/**
@@ -234,10 +247,7 @@ public class MenuBarFactory {
 			item.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent e) {
-//					deselectAll(turtleImages.getItems());
-//					((CheckMenuItem) item).setSelected(true);
 					myController.setTurtleImage(item.getText());
-
 				}
 			});
 		}
@@ -257,6 +267,7 @@ public class MenuBarFactory {
 		ImageView iv = createTurtleMenuGraphic(image);
 		turtleImage.setGraphic(iv);
 		return turtleImage;
+
 	}
 
 	/**
@@ -270,6 +281,7 @@ public class MenuBarFactory {
 		iv.setFitHeight(TOOLBAR_IMAGE_SIZE);
 		iv.setFitWidth(TOOLBAR_IMAGE_SIZE);
 		return iv;
+
 	}
 
 	/**
@@ -295,6 +307,7 @@ public class MenuBarFactory {
 		});
 
 		return uploadNew;
+
 	}
 
 	/**
@@ -309,6 +322,7 @@ public class MenuBarFactory {
 
 		helpMenu.getItems().add(item);
 		return helpMenu;
+
 	}
 
 	/**
@@ -320,5 +334,6 @@ public class MenuBarFactory {
 		for (MenuItem item : list) {
 			((CheckMenuItem) item).setSelected(false);
 		}
+
 	}
 }
