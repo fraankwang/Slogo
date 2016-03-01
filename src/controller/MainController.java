@@ -6,6 +6,7 @@ package controller;
 
 import java.util.List;
 import java.util.Queue;
+import java.util.Stack;
 
 import javafx.animation.Timeline;
 import javafx.scene.paint.Color;
@@ -57,11 +58,11 @@ public class MainController {
 	 * changing UI elements in the view
 	 */
 	private void refreshDisplay() {
-		myTransformer.transformOutputElement();
+		myTransformer.transformOutputElement((Queue<String>) myModel.getMyOutputs());
 		myTransformer.transformHistoryElement((Queue<String>) myModel.getMyHistory());
 		myTransformer.transformTurtleGraphics();
-		myTransformer.transformVariablesElement();
-		myTransformer.transformCommandsElement();
+		myTransformer.transformVariablesElement(myModel.getMyVariables());
+		myTransformer.transformCommandsElement(myModel.getMyUserCommands());
 	}
 
 	// =========================================================================
