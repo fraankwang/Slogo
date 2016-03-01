@@ -22,7 +22,19 @@ public class Node {
 	public Node makeCommandString(Queue<String> queue, Node tree){
 		queue.poll();
 		StringBuilder commandstring = new StringBuilder();
-		while (!isOpenBracket(queue)) {
+		int opencount = 1;
+		int closecount = 0;
+		while (true) {
+			
+			if(isOpenBracket(queue)){
+				opencount++;
+			}
+			if(isCloseBracket(queue)){
+				closecount++;
+				if(closecount==opencount){
+					break;
+				}
+			}
 			String action = queue.poll();
 			commandstring.append(action + " ");
 		}
@@ -50,6 +62,9 @@ public class Node {
 	
 	public  boolean isOpenBracket(Queue<String> queue){
 		return queue.peek().equals(Constants.OPEN_BRACKET);
+	}
+	public  boolean isCloseBracket(Queue<String> queue){
+		return queue.peek().equals(Constants.CLOSE_BRACKET);
 	}
 	
 	public void addChild(Node node){

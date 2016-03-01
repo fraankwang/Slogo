@@ -56,49 +56,43 @@ public class CommandParser {
 		return string.startsWith("#");
 	}
 
-	private Node makeTree(Queue<String> queue) {
+	private Node makeTree(Queue<String> queue) throws Exception {
 		Node tree = new Node();
 
 		if (tree.isOpenBracket(queue)) {
 			return tree.makeCommandString(queue, tree);
 		} else {
 			tree.setData(queue.poll());
+			System.out.println(tree.getData());
 			try {
 				addParamsToTree(tree, queue);
 				return tree;
 			} catch (Exception exception) {
-				try {
-					addNonCommandParamsToTree(tree, queue);
-				} catch (Exception e) {
-
-				}
-				return tree;
+				throw exception;
 			}
 		}
-
 	}
 
 	private Node addParamsToTree(Node tree, Queue<String> queue) throws Exception {
-		String superclass = Class.forName(Constants.getAction(tree.data)).getSuperclass().getName();
-		int totalchildren = Constants.getNumberParams(superclass);
-		for (int i = 0; i < totalchildren; i++) {
-			if (queue.isEmpty()) {
-				throw new Exception("Too few parameters");
-			}
-			tree.addChild(makeTree(queue));
-		}
-		return tree;
-	}
+		try{
+			String superclass = Class.forName(Constants.getAction(tree.data)).getSuperclass().getName();
+			int totalchildren = Constants.getNumberParams(superclass);
 
-	private Node addNonCommandParamsToTree(Node tree, Queue<String> queue) {
-		int totalchildren = myUserCommands.getCommandParams(tree.data).size();
-		for (int i = 0; i < totalchildren; i++) {
-			tree.addChild(makeTree(queue));
+			for (int i = 0; i < totalchildren; i++) {
+				if (queue.isEmpty()) {
+					throw new Exception("Too few parameters");
+				}
+				tree.addChild(makeTree(queue));
+				System.out.println("child" +tree.getChildren().get(i).getData());
+			}
+		}
+		catch (Exception e){
 		}
 		return tree;
 	}
 
 	private double treeTraversal(Node node) throws Exception {
+		System.out.println("at node: "+node.getData());
 		try {
 			Action action = makeAction(node);
 			return action.rule();
@@ -108,22 +102,11 @@ public class CommandParser {
 			} catch (Exception ex) {
 
 				if (node.areChildrenEmpty()) {
+					try{
+						return parseUserCommands(node);
+					} catch (Exception e){
+						return parseValue(node);
 
-					if (node.isVariable()) {
-						try {
-							double variable = myVariables.getVariableValue(node.getData());
-							return variable;
-						} catch (Exception unreachableVariable) {
-							throw new Exception("can't get variable");
-						}
-
-					} else {
-						try {
-							Double parsedDouble = Double.parseDouble(node.getData());
-							return parsedDouble;
-						} catch (Exception incorrectSyntax) {
-							throw new Exception("Incorrect syntax for parameter");
-						}
 					}
 				} else {
 					throw exception;
@@ -133,11 +116,32 @@ public class CommandParser {
 		}
 	}
 
+	private double parseValue(Node node) throws Exception {
+		if (node.isVariable()) {
+			try {
+				double variable = myVariables.getVariableValue(node.getData());
+				return variable;
+			} catch (Exception unreachableVariable) {
+				throw new Exception("can't get variable");
+			}
+
+		} else {
+			try {
+				Double parsedDouble = Double.parseDouble(node.getData());
+				return parsedDouble;
+			} catch (Exception incorrectSyntax) {
+				throw new Exception("Incorrect syntax for parameter");
+			}
+		}
+	}
+
 	private Double parseUserCommands(Node node) throws Exception {
 		Iterator<Node> iter = node.getChildren().iterator();
-
+		System.out.println(myUserCommands.getCommandParams(node.getData()).size());
 		for (String string : myUserCommands.getCommandParams(node.getData())) {
 			myVariables.addVariable(string, treeTraversal(iter.next()));
+			System.out.println("param:"+ string+ " , "+myVariables.getVariableValue(string));
+
 		}
 
 		String thiscommand = myUserCommands.getCommand(node.getData());
@@ -150,23 +154,22 @@ public class CommandParser {
 			Class action = Class.forName(Constants.getAction(node.data));
 			Constructor constructor = action.getConstructors()[0];
 			Action finalaction = null;
-			ArrayList<Double> params = addParams(node);
 
 			switch (action.getSuperclass().getName()) {
 			case Constants.MATH_ONEPARAM:
 			case Constants.MATH_TWOPARAMS:
-				finalaction = (Action) constructor.newInstance(params);
+				finalaction = (Action) constructor.newInstance(addDoubleParams(node));
 				break;
 			case Constants.TURTLE_NOCOMMANDS:
 				finalaction = (Action) constructor.newInstance(myPlayground);
 				break;
 			case Constants.TURTLE_ONEPARAM:
 			case Constants.TURTLE_TWOPARAMS:
-				finalaction = (Action) constructor.newInstance(params, myPlayground);
+				finalaction = (Action) constructor.newInstance(addDoubleParams(node), myPlayground);
 				break;
 			case Constants.CONTROL_STRUCTURES:
 			case Constants.HIGHER_ORDERSTRUCTURE:
-				finalaction = (Action) constructor.newInstance(params, myLanguage, myPlayground, myVariables,
+				finalaction = (Action) constructor.newInstance(addStringParams(node), myLanguage, myPlayground, myVariables,
 						myUserCommands);
 				break;
 			}
@@ -177,11 +180,20 @@ public class CommandParser {
 		}
 	}
 
-	private ArrayList<Double> addParams(Node node) throws Exception {
+	private ArrayList<Double> addDoubleParams(Node node) throws Exception {
 		ArrayList<Double> params = new ArrayList<Double>();
 		if (node.children.size() > 0) {
 			for (Node child : node.children) {
 				params.add(treeTraversal(child));
+			}
+		}
+		return params;
+	}
+	private ArrayList<String> addStringParams(Node node) throws Exception {
+		ArrayList<String> params = new ArrayList<String>();
+		if (node.children.size() > 0) {
+			for (Node child : node.children) {
+				params.add(child.getData());
 			}
 		}
 		return params;
@@ -194,7 +206,7 @@ public class CommandParser {
 			Node root = makeTree(queue);
 			output = treeTraversal(root);
 		}
-
+		System.out.println("output:"+output);
 		return output;
 	}
 

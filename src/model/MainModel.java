@@ -48,7 +48,7 @@ public class MainModel {
 			
 		} catch (Exception e) {
 			myOutputs.add(e.getMessage());
-//			e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 
