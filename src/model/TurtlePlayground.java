@@ -46,11 +46,8 @@ public class TurtlePlayground {
 	}
 
 	public boolean inBounds(Double xCoord, Double yCoord) {
-		if (xCoord < -myWidth / 2 || xCoord  > myWidth / 2
-				|| yCoord < -myHeight / 2 || yCoord > myHeight / 2)
-			return false;
-		else
-			return true;
+		return !(xCoord < -myWidth / 2 || xCoord  > myWidth / 2
+				|| yCoord < -myHeight / 2 || yCoord > myHeight / 2);
 	}
 
 	public Double getDistance(Double xCoord1, Double yCoord1, Double xCoord2, Double yCoord2) {
