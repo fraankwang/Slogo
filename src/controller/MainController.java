@@ -60,7 +60,7 @@ public class MainController {
 	private void refreshDisplay() {
 		myTransformer.transformOutputElement((Queue<String>) myModel.getMyOutputs());
 		myTransformer.transformHistoryElement((Queue<String>) myModel.getMyHistory());
-		myTransformer.transformTurtleGraphics();
+		myTransformer.transformTurtleGraphics(myModel.getMyPlayground().getTurtleCoordinates());
 		myTransformer.transformVariablesElement(myModel.getMyVariables());
 		myTransformer.transformCommandsElement(myModel.getMyUserCommands());
 	}
