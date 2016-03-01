@@ -48,8 +48,9 @@ public class MainModel {
 			myHistory.add(input);
 			
 		} catch (Exception e) {
+			myOutputs.add(e.getMessage());
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 	}
 
