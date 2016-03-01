@@ -30,6 +30,7 @@ public class Variables {
 		return myVariables.get(name);
 	}
 
+
 	public void replaceVariable(String oldVar, String newVar) {
 		myVariables.put(newVar, myVariables.get(oldVar));
 		myVariables.remove(oldVar);

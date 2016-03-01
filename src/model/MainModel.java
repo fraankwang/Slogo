@@ -39,7 +39,8 @@ public class MainModel {
 
 		} catch (Exception e) {
 			myOutputs.add(e.getMessage());
-			// e.printStackTrace();
+
+			 e.printStackTrace();
 		}
 	}
 
@@ -70,6 +71,7 @@ public class MainModel {
 	public Map<String, List<String>> getMyUserCommands() {
 		return myUserCommands.getUserCommandMap();
 	}
+
 
 	public void replaceVariable(String oldVar, String newVar) {
 		myVariables.replaceVariable(oldVar, newVar);

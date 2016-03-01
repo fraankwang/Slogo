@@ -95,7 +95,7 @@ public class ModelTransformer {
 		commandsValues.getItems().clear();
 		for (String commandsItem : map.keySet()) {
 			System.out.println("command key " + commandsItem);
-			System.out.println(map.get("command value " + commandsItem));
+			System.out.println("command value " + map.get(commandsItem));
 			commandsValues.getItems().add(commandsItem);
 		}
 		

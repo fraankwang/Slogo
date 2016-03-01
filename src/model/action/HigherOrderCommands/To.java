@@ -22,6 +22,7 @@ public class To extends HigherOrderCommands {
 		commandname = params.get(0);
 		if(!params.get(1).isEmpty()){
 			parametervariables = Arrays.asList(params.get(1).split("\\s"));
+		
 		}
 		else{
 			parametervariables = new ArrayList<String>();
@@ -36,13 +37,22 @@ public class To extends HigherOrderCommands {
 	public double rule() {
 		try{
 			usercommands.addCommand(commandname, parametervariables, commands);
-			System.out.println("added command "+commands+" with params "+ String.join(",", parametervariables));
+			System.out.println("added command ."+commands+". with params ."+ String.join(",", parametervariables)+parametervariables.size());
 			for(String s:parametervariables){
-				System.out.println("param:"+s+".");
+				variables.addVariable(s,0);
 			}
+			
+			for(List<String> l: usercommands.getUserCommandMap().values()){
+				for(String s:l){
+					System.out.println(" command param"+s);
+
+				}
+			}
+			
 			return 1;
 		}
 		catch (Exception e){
+			System.out.println("no");
 			e.printStackTrace();
 			return 0;
 		}
