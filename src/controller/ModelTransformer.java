@@ -121,16 +121,18 @@ public class ModelTransformer {
 		double currentY = CENTER_Y_COORDINATE;
 		gc.setFill(myPenColor);
 		gc.setStroke(myPenColor);
-		gc.setLineWidth(5);
+		gc.setLineWidth(8);
 
 		for (TurtleCoordinates coordinate : coordinates) {
 			System.out.println("X COORD: " + Double.toString(coordinate.getXCoord()));
 			System.out.println("Y COORD: " + Double.toString(coordinate.getYCoord()));
-			gc.strokeLine(currentX, currentY, coordinate.getXCoord() + CENTER_X_COORDINATE,
-					coordinate.getYCoord() + CENTER_Y_COORDINATE);
-			currentX = coordinate.getXCoord() + CENTER_X_COORDINATE;
-			currentY = coordinate.getYCoord() + CENTER_Y_COORDINATE;
+			double newX = CENTER_X_COORDINATE + coordinate.getXCoord();
+			double newY = CENTER_Y_COORDINATE + (-1 * coordinate.getYCoord());
 
+			gc.strokeLine(currentX, currentY, newX, newY);
+			currentX = newX;
+			currentY = newY;
+			
 		}
 
 	}
