@@ -4,15 +4,13 @@
 
 package model;
 
-import java.util.Collection;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 public class History {
 	private Queue<String> myHistory;
 	
 	public History(){
-		myHistory=new PriorityQueue<String>();
+		myHistory=new LinkedList<String>();
 		// @Srikar @Huijia, please follow a uniform coding checkstyle
 		/**
 		 * myHistory = new PriorityQueue<String>();
