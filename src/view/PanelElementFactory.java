@@ -41,6 +41,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import model.MainModel;
 import model.Variables;
 
@@ -50,7 +51,7 @@ public class PanelElementFactory {
 	private static final int PLAYGROUND_HEIGHT = Constants.PLAYGROUND_HEIGHT;
 	private static final int RIGHT_COLUMN_WIDTH = Constants.RIGHT_COLUMN_WIDTH;
 	private static final int RIGHT_COLUMN_ELEMENT_HEIGHT = Constants.RIGHT_COLUMN_ELEMENT_HEIGHT;
-	
+
 	private static final double ELEMENT_INSET_HORIZONTAL = Constants.ELEMENT_INSET_HORIZONTAL;
 	private static final double ELEMENT_INSET_VERTICAL = Constants.ELEMENT_INSET_VERTICAL;
 
@@ -59,12 +60,14 @@ public class PanelElementFactory {
 	private TextArea textArea;
 	private GraphicsContext myTurtleGraphics;
 	private TurtleBackground myTurtleBackground;
+	private Canvas myTurtlePlayground;
+	private StackPane myTurtleWrapper;
+	private TurtleElement myTurtleElement;
 	private VariablesElement variablesElement;
 	private CommandsElement commandsElement;
 	private HistoryElement historyElement;
 	private OutputElement outputElement;
-	
-	
+
 	public PanelElementFactory(MainController controller) {
 		myController = controller;
 
@@ -81,6 +84,7 @@ public class PanelElementFactory {
 		leftColumn.getChildren().addAll(turtleBackground.getNode(), inputBox);
 
 		return leftColumn;
+
 	}
 
 	/**
@@ -94,14 +98,16 @@ public class PanelElementFactory {
 		CommandsElement commands = (CommandsElement) createCommandsElement();
 		HistoryElement history = (HistoryElement) createHistoryElement();
 		OutputElement outputArea = (OutputElement) createOutputElement();
-		
-		List<Node> allNodes = Arrays.asList(variables.getNode(), commands.getNode(), history.getNode(), outputArea.getNode());
+
+		List<Node> allNodes = Arrays.asList(variables.getNode(), commands.getNode(), history.getNode(),
+				outputArea.getNode());
 		setMargins(allNodes);
-		
+
 		rightColumn.getChildren().addAll(allNodes);
 		return rightColumn;
+
 	}
-	
+
 	/**
 	 * Formats @param items using pre-defined insets
 	 */
@@ -111,10 +117,12 @@ public class PanelElementFactory {
 		for (Node item : items) {
 			VBox.setMargin(item, insets);
 		}
+
 	}
 
 	/**
 	 * Wrapper element to put in left column
+	 * 
 	 * @return
 	 */
 	private HBox makeInputWrapper() {
@@ -126,6 +134,7 @@ public class PanelElementFactory {
 
 		inputWrapper.getChildren().addAll(textArea, buttons);
 		return inputWrapper;
+
 	}
 
 	/**
@@ -137,10 +146,12 @@ public class PanelElementFactory {
 		textArea.setPromptText(Constants.getSpecification("TextAreaDefaultText"));
 		textArea.setPrefSize(Constants.TEXTAREA_WIDTH, Constants.TEXTAREA_HEIGHT);
 		return textArea;
+
 	}
 
 	/**
 	 * Helper function to execute commands given in @param ta
+	 * 
 	 * @return button that is set on action to call MainController
 	 */
 	private Button makeRunButton() {
@@ -153,10 +164,12 @@ public class PanelElementFactory {
 			}
 		});
 		return runButton;
+
 	}
 
 	/**
 	 * Helper function to clear commands given in @param ta
+	 * 
 	 * @return button that is set on action to clear the input box
 	 */
 	private Button makeClearButton() {
@@ -176,20 +189,35 @@ public class PanelElementFactory {
 	 * @return formatted TurtleBackground which initializes myTurtleGraphics
 	 */
 	public PanelElement createTurtleBackground() {
-
-		StackPane myTurtleWrapper = new StackPane();
+		myTurtleWrapper = new StackPane();
 		myTurtleWrapper.setPrefHeight(PLAYGROUND_HEIGHT);
 		myTurtleWrapper.setPrefWidth(LEFT_COLUMN_WIDTH);
 		myTurtleWrapper.setBackground(
 				new Background(new BackgroundFill(Constants.DEFAULT_BACKGROUND_COLOR, Constants.CORNER_RADIUS, null)));
-		Canvas playground = new Canvas(LEFT_COLUMN_WIDTH, PLAYGROUND_HEIGHT);
+		myTurtlePlayground = new Canvas(LEFT_COLUMN_WIDTH, PLAYGROUND_HEIGHT);
 
-		myTurtleWrapper.getChildren().add(playground);
+		myTurtleElement = createTurtleElement();
+		myTurtleWrapper.getChildren().addAll(myTurtlePlayground, myTurtleElement.getNode());
+
 		myTurtleBackground = new TurtleBackground(myTurtleWrapper,
 				Constants.getSpecification("TurtleBackgroundElementName"));
-		myTurtleBackground.setGraphics(playground.getGraphicsContext2D());
-		
+		myTurtleBackground.setGraphics(myTurtlePlayground.getGraphicsContext2D());
+
 		return myTurtleBackground;
+
+	}
+
+	/**
+	 * Formatted TurtleElement
+	 * @return
+	 */
+	private TurtleElement createTurtleElement() {
+		ImageView turtleImage = new ImageView(
+				new Image(getClass().getClassLoader().getResourceAsStream(Constants.getDefaultTurtleImageFileName())));
+		turtleImage.setFitWidth(Constants.TURTLE_ELEMENT_WIDTH);
+		turtleImage.setFitHeight(Constants.TURTLE_ELEMENT_HEIGHT);
+		TurtleElement turtleElement = new TurtleElement(turtleImage, Constants.getSpecification("TurtleElementName")); 
+		return turtleElement;
 
 	}
 
@@ -203,15 +231,16 @@ public class PanelElementFactory {
 		variablesListView.setEditable(true);
 		variablesListView.setPrefSize(RIGHT_COLUMN_WIDTH, RIGHT_COLUMN_ELEMENT_HEIGHT);
 		variablesListView.setCellFactory(TextFieldListCell.forListView());
-		
-//		variablesListView.setCellFactory(listview -> new SettingsCell());
-		
+
+		// For later
+		// variablesListView.setCellFactory(listview -> new SettingsCell());
+
 		variablesWrapper.getChildren().addAll(variablesLabel, variablesListView);
-		
-		variablesElement = new VariablesElement(variablesWrapper,
-				Constants.getSpecification("VariablesElementName"));
+
+		variablesElement = new VariablesElement(variablesWrapper, Constants.getSpecification("VariablesElementName"));
 		variablesElement.setListView(variablesListView);
 		return variablesElement;
+
 	}
 
 	/**
@@ -225,20 +254,20 @@ public class PanelElementFactory {
 		commandsListView.setCellFactory(TextFieldListCell.forListView());
 
 		commandsWrapper.getChildren().addAll(commandsLabel, commandsListView);
-		
-		commandsElement = new CommandsElement(commandsWrapper,
-				Constants.getSpecification("CommandsElementName"));
+
+		commandsElement = new CommandsElement(commandsWrapper, Constants.getSpecification("CommandsElementName"));
 		commandsElement.setListView(commandsListView);
-		
+
 		commandsListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
-	        @Override
-	        public void handle(MouseEvent event) {
-	        	textArea.setText(commandsListView.getSelectionModel().getSelectedItem());
-	        	myController.executeCommand(textArea.getText());
-	        }
-	    });
-		
+			@Override
+			public void handle(MouseEvent event) {
+				textArea.setText(commandsListView.getSelectionModel().getSelectedItem());
+				myController.executeCommand(textArea.getText());
+			}
+		});
+
 		return commandsElement;
+
 	}
 
 	/**
@@ -254,32 +283,34 @@ public class PanelElementFactory {
 		historyListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				String text = textArea.getText();				
-				if (text.length() > 1) {					
-					text = text + "\n" + historyListView.getSelectionModel().getSelectedItem();
-				} else {
-					text = text + historyListView.getSelectionModel().getSelectedItem();
-				}
+				if (!historyListView.getItems().isEmpty()) {
+					String text = textArea.getText();
+					if (text.length() > 1) {
+						text = text + "\n" + historyListView.getSelectionModel().getSelectedItem();
+					} else {
+						text = text + historyListView.getSelectionModel().getSelectedItem();
+					}
 
-				textArea.setText(text);
+					textArea.setText(text);
+
+				}
 			}
-	    });
+		});
 		historyWrapper.getChildren().addAll(historyLabel, historyListView);
 
-		historyElement = new HistoryElement(historyWrapper,
-				Constants.getSpecification("HistoryElementName"));
+		historyElement = new HistoryElement(historyWrapper, Constants.getSpecification("HistoryElementName"));
 		historyElement.setListView(historyListView);
 		return historyElement;
+
 	}
 
-	
 	/**
 	 * @return formatted OutputElement which has a set TextArea
 	 */
 	public PanelElement createOutputElement() {
 		VBox outputWrapper = new VBox();
 		Text outputLabel = new Text(Constants.getSpecification("OutputLabel"));
-		//StackPane outputWrapper = new StackPane();
+		outputLabel.setTextAlignment(TextAlignment.CENTER);
 		outputWrapper.setPrefHeight(RIGHT_COLUMN_ELEMENT_HEIGHT);
 		outputWrapper.setPrefWidth(RIGHT_COLUMN_WIDTH);
 		outputWrapper.setBackground(new Background(new BackgroundFill(Color.WHITE, Constants.CORNER_RADIUS, null)));
@@ -288,13 +319,13 @@ public class PanelElementFactory {
 		outputArea.setEditable(false);
 		outputWrapper.getChildren().addAll(outputLabel, outputArea);
 		StackPane.setAlignment(outputArea, Pos.BOTTOM_LEFT);
-		
+
 		outputElement = new OutputElement(outputWrapper, Constants.getSpecification("OutputElementName"));
 		outputElement.setTextArea(outputArea);
-		
+
 		return outputElement;
+
 	}
-	
 
 	// =========================================================================
 	// Getters and Setters
@@ -306,6 +337,18 @@ public class PanelElementFactory {
 
 	public TurtleBackground getTurtleBackground() {
 		return myTurtleBackground;
+	}
+
+	public TurtleElement getTurtleElement() {
+		return myTurtleElement;
+	}
+	
+	public StackPane getTurtleWrapper() {
+		return myTurtleWrapper;
+	}
+	
+	public Canvas getTurtlePlayground() {
+		return myTurtlePlayground;
 	}
 
 	public VariablesElement getVariablesElement() {

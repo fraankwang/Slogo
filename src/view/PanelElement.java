@@ -11,7 +11,7 @@ import javafx.scene.layout.StackPane;
 
 public class PanelElement implements IViewable {
 
-	private Node myNode;
+	protected Node myNode;
 	private String myName;
 
 	public PanelElement(Node node, String name) {
@@ -40,16 +40,11 @@ public class PanelElement implements IViewable {
 		return myNode;
 	}
 
-	
 	public void setBackground(Background value) {
 		if (myNode instanceof StackPane) {
 			((StackPane) myNode).setBackground(value);
 		}
 	}
 
-	public Property<Boolean> visibleProperty() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }
