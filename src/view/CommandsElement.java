@@ -19,5 +19,9 @@ public class CommandsElement extends PanelElement {
 		myListView = commandsListView;
 		
 	}
+	
+	public ListView<String> getListView(){
+		return myListView;
+	}
 
 }
