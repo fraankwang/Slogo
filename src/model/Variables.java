@@ -29,6 +29,8 @@ public class Variables {
 	public double getVariableValue (String name) {
 		return myVariables.get(name);
 	}
-
+	public void deleteVariable(String name){
+		myVariables.remove(name);
+	}
 
 }
