@@ -19,22 +19,23 @@ public class History {
 		 * for (int row; row < getRows(); row++) { 
 		 * etc etc. Keep spacing consistent and separate if statements brackets on separate lines 
 		 */
+
 	}
-	
+
 	/**
 	 * TODO fill this out
+	 * 
 	 * @param command
 	 */
-	public void add (String command) {
+	public void add(String command) {
 		myHistory.add(command);
 	}
-	
-	public Queue<String> getHistory () {
+
+	public Queue<String> getHistory() {
 		return myHistory;
-		//should be a queue
 	}
-	
-	public boolean isEmpty(){
-		return myHistory.size()==0;
+
+	public boolean isEmpty() {
+		return myHistory.size() == 0;
 	}
 }
