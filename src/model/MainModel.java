@@ -78,4 +78,9 @@ public class MainModel {
 		return myUserCommands.getUserCommandMap();
 	}
 
+	public void modifyVariable(String oldVar, String newVar) {
+		// TODO Auto-generated method stub
+		myVariables.addVariable(newVar, myVariables.getVariableValue(oldVar));
+	}
+
 }
