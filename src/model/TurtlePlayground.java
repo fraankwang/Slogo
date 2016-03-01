@@ -84,7 +84,7 @@ public class TurtlePlayground {
 	}
 
 	public Double turnTurtle(Double degrees) {
-		Double newDegree = myTurtle.getOrientation() + degrees;
+		Double newDegree = myTurtle.getOrientation() - degrees;
 		myTurtle.setOrientation(newDegree);
 		return degrees;
 	}
