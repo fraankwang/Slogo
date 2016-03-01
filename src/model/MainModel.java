@@ -38,7 +38,6 @@ public class MainModel {
 		myHistory = new History();
 		myOutputs = new History();
 		
-		
 	}
 
 	public void readCommand(String input) {
@@ -49,7 +48,6 @@ public class MainModel {
 			
 		} catch (Exception e) {
 			myOutputs.add(e.getMessage());
-			// TODO Auto-generated catch block
 //			e.printStackTrace();
 		}
 	}

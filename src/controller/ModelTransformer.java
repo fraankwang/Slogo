@@ -14,6 +14,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
 import model.History;
 import model.MainModel;
+import model.TurtleCoordinates;
 import model.Variables;
 import view.CommandsElement;
 import view.HistoryElement;
@@ -64,7 +65,7 @@ public class ModelTransformer {
 		}
 	}
 
-	public void transformTurtleGraphics() {
+	public void transformTurtleGraphics(Queue<TurtleCoordinates> queue) {
 		GraphicsContext tb = myController.getMyView().getMyTurtleGraphics();
 		updateTurtleGraphics(tb);
 		
@@ -75,40 +76,11 @@ public class ModelTransformer {
 		ListView<String> commandsValues = commandsElement.getListView();
 		commandsValues.getItems().clear();
 		for(String commandsItem : commands.keySet()){
+			System.out.println("command key " + commandsItem);
+			System.out.println(commands.get("command value " + commandsItem));
 			commandsValues.getItems().add(commandsItem);
 		}
 		
-	}
-
-	/**
-	 * Updates what is visible in the Variables to the user
-	 */
-	private void updateVariablesElement() {
-		
-	}
-	
-	/**
-	 * Updates what is visible in the Commands to the user
-	 */
-	private void updateCommandsElement() {
-		
-	}
-	
-	/**
-	 * Updates what is visible in the console to the user
-	 */
-	private void updateOutputElement() {
-		// modify elements within outputbox so we don't have to deal with actual
-		// UI wrapper
-		// myView.getMyOutputElement().text or whatever
-	}
-
-	/**
-	 * Updates what is visible in the history to the user
-	 */
-	private void updateHistoryElement() {
-		// myView.getMyHistoryElement() and modify element within it so we don't
-		// deal with actual UI wrapper
 	}
 
 	/**
@@ -143,4 +115,36 @@ public class ModelTransformer {
 		return myLanguage;
 	}
 	
+	
+	
+//	/**
+//	 * Updates what is visible in the Variables to the user
+//	 */
+//	private void updateVariablesElement() {
+//		
+//	}
+//	
+//	/**
+//	 * Updates what is visible in the Commands to the user
+//	 */
+//	private void updateCommandsElement() {
+//		
+//	}
+//	
+//	/**
+//	 * Updates what is visible in the console to the user
+//	 */
+//	private void updateOutputElement() {
+//		// modify elements within outputbox so we don't have to deal with actual
+//		// UI wrapper
+//		// myView.getMyOutputElement().text or whatever
+//	}
+//
+//	/**
+//	 * Updates what is visible in the history to the user
+//	 */
+//	private void updateHistoryElement() {
+//		// myView.getMyHistoryElement() and modify element within it so we don't
+//		// deal with actual UI wrapper
+//	}
 }
