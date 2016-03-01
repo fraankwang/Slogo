@@ -79,8 +79,7 @@ public class MainModel {
 	}
 
 	public void modifyVariable(String oldVar, String newVar) {
-		// TODO Auto-generated method stub
-		myVariables.addVariable(newVar, myVariables.getVariableValue(oldVar));
+		myVariables.replaceVariable(oldVar, newVar);
 	}
 
 }
