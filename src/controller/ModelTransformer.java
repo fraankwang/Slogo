@@ -94,16 +94,17 @@ public class ModelTransformer {
 		commandsValues.getItems().clear();
 		for (String commandsItem : map.keySet()) {
 			String parameters = "";
-			for(String parameter : map.get(commandsItem)){
+			for (String parameter : map.get(commandsItem)) {
 				parameters += parameter + " ";
 			}
 			commandsValues.getItems().add(commandsItem + " (" + parameters.trim() + ")");
 		}
-		
+
 	}
-	
+
 	/**
 	 * Reads TurtleCoordinate from queue and draws new line
+	 * 
 	 * @param queue
 	 */
 	public void transformTurtleGraphics(LinkedList<TurtleCoordinates> coordinates) {
@@ -111,7 +112,6 @@ public class ModelTransformer {
 		updateTurtleGraphics(playground, coordinates);
 
 	}
-
 
 	/**
 	 * Updates where the turtle (or turtles) has drawn
@@ -122,16 +122,16 @@ public class ModelTransformer {
 		gc.setFill(myPenColor);
 		gc.setStroke(myPenColor);
 		gc.setLineWidth(5);
-		
+
 		for (TurtleCoordinates coordinate : coordinates) {
 			System.out.println("X COORD: " + Double.toString(coordinate.getXCoord()));
 			System.out.println("Y COORD: " + Double.toString(coordinate.getYCoord()));
-			gc.strokeLine(currentX, currentY, coordinate.getXCoord(), coordinate.getYCoord());
-			currentX = coordinate.getXCoord();
-			currentY = coordinate.getYCoord();
-			
+			gc.strokeLine(currentX, currentY, coordinate.getXCoord() + CENTER_X_COORDINATE,
+					coordinate.getYCoord() + CENTER_Y_COORDINATE);
+			currentX = coordinate.getXCoord() + CENTER_X_COORDINATE;
+			currentY = coordinate.getYCoord() + CENTER_Y_COORDINATE;
+
 		}
-			
 
 	}
 
@@ -153,7 +153,7 @@ public class ModelTransformer {
 
 	public void setTurtleElement(PanelElement turtleElement) {
 		myTurtleElement = (TurtleElement) turtleElement;
-		
+
 	}
-	
+
 }
