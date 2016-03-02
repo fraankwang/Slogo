@@ -47,28 +47,28 @@ public class Constants {
 	public static final Color DEFAULT_PEN_COLOR = Color.BLACK;
 	public static final Color DEFAULT_BACKGROUND_COLOR = Color.WHITE;
 
-	public static final int SCENE_WIDTH = 1000;
-	public static final int SCENE_HEIGHT = 750;
 
-	public static final int LEFT_COLUMN_WIDTH = 700;
-	public static final int PLAYGROUND_HEIGHT = 550;
-	public static final int PLAYGROUND_WIDTH = 700;
-	public static final int RIGHT_COLUMN_WIDTH = 300;
-	public static final int RIGHT_COLUMN_ELEMENT_HEIGHT = 155;
+	public static final double SCENE_WIDTH = 1000;
+	public static final double SCENE_HEIGHT = SCENE_WIDTH*0.75;
+
+	public static final double LEFT_COLUMN_WIDTH = SCENE_WIDTH *0.65;
+	public static final double PLAYGROUND_WIDTH = LEFT_COLUMN_WIDTH;
+	public static final double PLAYGROUND_HEIGHT = SCENE_HEIGHT*0.7;
+	public static final double TEXTAREA_HEIGHT = SCENE_HEIGHT - PLAYGROUND_HEIGHT - 60;
+	public static final double TEXTAREA_WIDTH = LEFT_COLUMN_WIDTH*0.85;
+	public static final double RUN_BUTTON_HEIGHT = TEXTAREA_HEIGHT / 2;
+	public static final double RUN_BUTTON_WIDTH = LEFT_COLUMN_WIDTH - TEXTAREA_WIDTH;
+	public static final double CLEAR_BUTTON_HEIGHT = RUN_BUTTON_HEIGHT;
+	public static final double CLEAR_BUTTON_WIDTH = RUN_BUTTON_WIDTH;
+	
+	public static double RIGHT_COLUMN_WIDTH = SCENE_WIDTH - LEFT_COLUMN_WIDTH - 30;
+	public static final double RIGHT_COLUMN_ELEMENT_HEIGHT = SCENE_HEIGHT*0.2;
 
 	public static final int TURTLE_ELEMENT_WIDTH = 50;
 	public static final int TURTLE_ELEMENT_HEIGHT = TURTLE_ELEMENT_WIDTH;
 	public static final int TURTLE_PEN_WIDTH = 4;
 	public static final int MENU_BAR_HEIGHT = 50;
 	public static final int MENU_TURTLE_IMAGE_SIZE = 50;
-
-	public static final int TEXTAREA_HEIGHT = SCENE_HEIGHT - PLAYGROUND_HEIGHT - 30;
-	public static final int TEXTAREA_WIDTH = 600;
-	public static final int RUN_BUTTON_HEIGHT = TEXTAREA_HEIGHT / 2;
-	public static final int RUN_BUTTON_WIDTH = LEFT_COLUMN_WIDTH - TEXTAREA_WIDTH;
-	public static final double CLEAR_BUTTON_HEIGHT = RUN_BUTTON_HEIGHT;
-	public static final double CLEAR_BUTTON_WIDTH = RUN_BUTTON_WIDTH;
-
 	public static final int ANIMATION_SLIDER_MIN = 10;
 	public static final int ANIMATION_SLIDER_MAX = 50;
 	public static final int DEFAULT_ANIMATION_SPEED = 25;
