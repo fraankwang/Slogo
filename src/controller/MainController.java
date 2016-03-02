@@ -10,7 +10,7 @@ import javafx.animation.Timeline;
 import javafx.scene.paint.Color;
 import model.MainModel;
 import view.MainView;
-import view.PanelElement;
+import view.panelelements.PanelElement;
 
 public class MainController {
 
