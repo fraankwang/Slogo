@@ -2,7 +2,7 @@
  * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
  */
 
-package model;
+package model.turtle;
 
 import java.util.LinkedList;
 
@@ -83,6 +83,7 @@ public class TurtlePlayground {
 	}
 
 	public Double setTurtleHome() {
+		myTurtle.setOrientation(0.0);
 		return placeTurtle(0.0, 0.0);
 	}
 

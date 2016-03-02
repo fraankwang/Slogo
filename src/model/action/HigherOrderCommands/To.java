@@ -5,9 +5,9 @@ import java.util.*;
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils.Collections;
 
 import model.CommandParser;
-import model.TurtlePlayground;
 import model.UserCommands;
 import model.Variables;
+import model.turtle.TurtlePlayground;
 
 public class To extends HigherOrderCommands {
 

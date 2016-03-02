@@ -2,9 +2,9 @@ package model.action.TurtleCommandsTwoParams;
 
 import java.util.List;
 
-import model.TurtlePlayground;
 import model.Variables;
 import model.action.TurtleCommandsOneParam.TurtleCommandsOneParam;
+import model.turtle.TurtlePlayground;
 
 public abstract class TurtleCommandsTwoParams extends TurtleCommandsOneParam{
 	protected double param2;

@@ -1,4 +1,4 @@
-package model;
+package model.turtle;
 
 public class TurtleCoordinates {
 

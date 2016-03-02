@@ -2,8 +2,8 @@ package model.action.MathTwoParams;
 
 import java.util.List;
 
-import model.TurtlePlayground;
 import model.Variables;
+import model.turtle.TurtlePlayground;
 
 public class Product extends MathTwoParams{
 

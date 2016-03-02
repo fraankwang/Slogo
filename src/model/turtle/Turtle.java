@@ -2,7 +2,7 @@
  * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
  */
 
-package model;
+package model.turtle;
 
 import java.util.*;
 
@@ -13,28 +13,27 @@ public class Turtle {
 	private boolean showTurtle;
 	private Double Orientation;
 	private LinkedList<TurtleCoordinates> turtleCoordinates;
-	// other info like pen color and turtle image can be added later
-	// Turtle should have some sort of identifier functionality. My friend said 
-	// if we command turtle1 to move, then turtle2 to move, our code should be able to handle that.
+
 	public Turtle() {
-		this(0.0,0.0);
-		
+		this(0.0, 0.0);
+
 	}
-	
-	public Turtle(Double xCoord, Double yCoord){
+
+	public Turtle(Double xCoord, Double yCoord) {
 		penDown = false;
 		showTurtle = false;
 		Orientation = 0.0;
-		xCoordinate=xCoord;
-		yCoordinate=yCoord;
+		xCoordinate = xCoord;
+		yCoordinate = yCoord;
 		turtleCoordinates = new LinkedList<TurtleCoordinates>();
 	}
-	
-	public LinkedList<TurtleCoordinates> getCoordinates(){
+
+	public LinkedList<TurtleCoordinates> getCoordinates() {
 		return this.turtleCoordinates;
 	}
-	public void addCoordinates(Double xCoord, Double yCoord){
-		TurtleCoordinates coordinate=new TurtleCoordinates(xCoord, yCoord, penDown);
+
+	public void addCoordinates(Double xCoord, Double yCoord) {
+		TurtleCoordinates coordinate = new TurtleCoordinates(xCoord, yCoord, penDown);
 		turtleCoordinates.add(coordinate);
 	}
 
@@ -69,18 +68,17 @@ public class Turtle {
 	public void setyCoordinate(Double yCoordinate) {
 		this.yCoordinate = yCoordinate;
 	}
-	
-	public boolean isPenDown(){
+
+	public boolean isPenDown() {
 		return this.penDown;
 	}
-	
-	public boolean isVisible(){
+
+	public boolean isVisible() {
 		return this.showTurtle;
 	}
-	
+
 	public void clearTurtleCoordinates() {
 		turtleCoordinates = new LinkedList<TurtleCoordinates>();
 	}
-	
-	
+
 }

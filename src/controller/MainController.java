@@ -57,10 +57,33 @@ public class MainController {
 	public void refreshDisplay() {
 		myTransformer.transformOutputElement((Queue<String>) myModel.getMyOutputs());
 		myTransformer.transformHistoryElement((Queue<String>) myModel.getMyHistory());
-		myTransformer.transformTurtleGraphics(myModel.getMyPlayground().getTurtleCoordinates(),
-				myModel.getMyPlayground().getTurtleOrientation());
+		myTransformer.transformTurtleGraphics(myModel.getMyPlayground().getTurtle());
 		myTransformer.transformVariablesElement(myModel.getMyVariables());
 		myTransformer.transformCommandsElement(myModel.getMyUserCommands());
+
+	}
+
+	/**
+	 * Erases canvas but maintains Turtle position TODO: implement this for
+	 * extension
+	 */
+	public void clearTurtlePlayground() {
+		myView.getMyTurtleGraphics().clearRect(0, 0, Constants.PLAYGROUND_WIDTH, Constants.PLAYGROUND_HEIGHT);
+		myModel.getMyPlayground().getTurtle().clearTurtleCoordinates();
+		myModel.getMyPlayground().setTurtleHome();
+
+	}
+
+	/**
+	 * Deletes stored previously run commands and moves turtle position back to
+	 * start
+	 */
+	public void resetTurtlePosition() {
+		myView.getMyTurtleGraphics().clearRect(0, 0, Constants.PLAYGROUND_WIDTH, Constants.PLAYGROUND_HEIGHT);
+		myModel.getMyPlayground().getTurtle().clearTurtleCoordinates();
+		myModel.getMyPlayground().setTurtleHome();
+		myView.getMyTurtleElement().moveTurtleImage(0.0, 0.0);
+		myTransformer.transformTurtleGraphics(myModel.getMyPlayground().getTurtle());
 
 	}
 
@@ -82,13 +105,6 @@ public class MainController {
 
 	public void setTurtleElement(PanelElement turtleElement) {
 		myTransformer.setTurtleElement(turtleElement);
-	}
-	
-	public void clearTurtlePlayground() {
-		myView.getMyTurtleGraphics().clearRect(0, 0, Constants.PLAYGROUND_WIDTH, Constants.PLAYGROUND_HEIGHT);
-		myModel.getMyPlayground().getTurtle().clearTurtleCoordinates();
-		myModel.getMyPlayground().setTurtleHome();
-		
 	}
 
 	public void setBackgroundColor(Color color) {
