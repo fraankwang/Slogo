@@ -23,7 +23,6 @@ public class MainController {
 		myView = view;
 		myTransformer = new ModelTransformer(this);
 		myModel = new MainModel(myTransformer.getLanguage());
-
 	}
 
 	/**
