@@ -11,7 +11,7 @@ public class If extends ControlStructures{
 
 	public If(List<String> params, String language, TurtlePlayground playground, Variables variables, UserCommands usercommands) {
 		super(params, language, playground, variables, usercommands);
-	
+
 	}
 
 	@Override
@@ -24,9 +24,6 @@ public class If extends ControlStructures{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} 
-		}
-		else{
-			return 0;
 		}
 		return 0;
 	}

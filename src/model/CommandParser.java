@@ -31,11 +31,12 @@ public class CommandParser {
 	private Queue<String> parse(String input) {
 		Queue<String> queue = new LinkedList<String>();
 		List<String> firstParsed = Arrays.asList(input.split("\\n"));
-		firstParsed.removeIf(s -> s.contains("#"));
 		List<String> parsedInputList = new ArrayList<String>();
 
 		for (String s: firstParsed){
+			if(!s.contains("#")){
 			parsedInputList.addAll(Arrays.asList(s.split("\\s")));
+		}
 		}
 		
 		List<String> comandsList = new ArrayList<String>();

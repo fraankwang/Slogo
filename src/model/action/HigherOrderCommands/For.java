@@ -29,17 +29,20 @@ public class For extends ControlStructures{
 
 	@Override
 	public double rule() {
-		for(Double beg= start; beg<end; beg+=increment){
-			try {
+		double curr = 0.0;
+		try {
+			for(Double beg= start; beg<end; beg+=increment){
+
 				Double variableValue= myCommandParser.parseCommands(params.get(1));
 				myCommandParser.getVariableList().addVariable(variable, variableValue);
-				return variableValue;
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				curr =  variableValue;
+
 			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return 0;
+		return curr;
 	}
 
 }
