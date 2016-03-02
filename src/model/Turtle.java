@@ -24,7 +24,7 @@ public class Turtle {
 	public Turtle(Double xCoord, Double yCoord){
 		penDown = false;
 		showTurtle = false;
-		Orientation = 90.0;
+		Orientation = 0.0;
 		xCoordinate=xCoord;
 		yCoordinate=yCoord;
 		turtleCoordinates = new LinkedList<TurtleCoordinates>();

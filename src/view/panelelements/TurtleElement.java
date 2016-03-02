@@ -28,7 +28,7 @@ public class TurtleElement extends PanelElement {
 	 * @param degrees
 	 */
 	public void setTurtleOrientation(double degrees) {
-		myNode.setRotate(270 - degrees);
+		myNode.setRotate(degrees);
 	}
 	
 	
