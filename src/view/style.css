@@ -1,0 +1,37 @@
+.root{
+	-fx-background-color: #000000;
+}
+
+VBox {
+	-fx-background-color: #000000;
+	-fx-text-fill: #ffffff;
+}
+
+Label{
+	-fx-text-fill:white;
+}
+
+.turtle-vbox{
+	-fx-padding: 10 10 10 10;
+}
+
+.input-vbox{
+	-fx-padding: 0 10 10 10;
+}
+
+.variables-element{
+	-fx-padding: 10 10 0 0;
+}
+
+.commands-element{
+	-fx-padding: 10 10 0 0;
+}
+
+.history-element{
+	-fx-padding: 10 10 0 0;
+}
+
+.output-element{
+	-fx-padding: 10 10 0 0;
+}
+
