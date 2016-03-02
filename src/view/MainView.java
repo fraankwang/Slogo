@@ -72,6 +72,8 @@ public class MainView {
 		initializePrimaryRoot();
 		initializeHelpRoot();
 
+		myController.setTurtleElement(getMyTurtleElement());
+		
 		myPrimaryScene = new Scene(myPrimaryRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.WHITE);
 		myPrimaryScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
