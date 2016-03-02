@@ -10,7 +10,7 @@ import javafx.animation.Timeline;
 import javafx.scene.paint.Color;
 import model.MainModel;
 import view.MainView;
-import view.PanelElement;
+import view.panelelements.PanelElement;
 
 public class MainController {
 
@@ -23,7 +23,6 @@ public class MainController {
 		myView = view;
 		myTransformer = new ModelTransformer(this);
 		myModel = new MainModel(myTransformer.getLanguage());
-
 	}
 
 	/**
@@ -56,9 +55,11 @@ public class MainController {
 	public void refreshDisplay() {
 		myTransformer.transformOutputElement((Queue<String>) myModel.getMyOutputs());
 		myTransformer.transformHistoryElement((Queue<String>) myModel.getMyHistory());
-		myTransformer.transformTurtleGraphics(myModel.getMyPlayground().getTurtleCoordinates());
+		myTransformer.transformTurtleGraphics(myModel.getMyPlayground().getTurtleCoordinates(),
+				myModel.getMyPlayground().getTurtleOrientation());
 		myTransformer.transformVariablesElement(myModel.getMyVariables());
 		myTransformer.transformCommandsElement(myModel.getMyUserCommands());
+
 	}
 
 	// =========================================================================
@@ -77,6 +78,10 @@ public class MainController {
 		myView.setTurtleImage(image);
 	}
 
+	public void setTurtleElement(PanelElement turtleElement) {
+		myTransformer.setTurtleElement(turtleElement);
+	}
+
 	public void setBackgroundColor(Color color) {
 		myView.setTurtleBackgroundColor(color);
 	}
@@ -92,8 +97,8 @@ public class MainController {
 	public void replaceVariable(String oldVar, String newVar) {
 		myModel.replaceVariable(oldVar, newVar);
 	}
-	
-	public void replaceVariableValue(String name, String newVal){
+
+	public void replaceVariableValue(String name, String newVal) {
 		myModel.replaceVariableValue(name, newVal);
 	}
 

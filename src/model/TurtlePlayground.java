@@ -4,7 +4,7 @@
 
 package model;
 
-import java.util.Queue;
+import java.util.LinkedList;
 
 public class TurtlePlayground {
 	private Turtle myTurtle;
@@ -41,18 +41,12 @@ public class TurtlePlayground {
 	}
 
 	public boolean inBounds() {
-		if (myTurtle.getxCoordinate() < -myWidth / 2 || myTurtle.getxCoordinate() > myWidth / 2
-				|| myTurtle.getyCoordinate() < -myHeight / 2 || myTurtle.getyCoordinate() > myHeight / 2)
-			return false;
-		else
-			return true;
+		return inBounds(myTurtle.getxCoordinate(), myTurtle.getyCoordinate());
 	}
 
 	public boolean inBounds(Double xCoord, Double yCoord) {
-		if (xCoord < 0 || xCoord > myWidth || yCoord < 0 || yCoord > myHeight)
-			return false;
-		else
-			return true;
+		return !(xCoord < -myWidth / 2 || xCoord > myWidth / 2 || yCoord < -myHeight / 2 || yCoord > myHeight / 2);
+
 	}
 
 	public Double getDistance(Double xCoord1, Double yCoord1, Double xCoord2, Double yCoord2) {
@@ -75,15 +69,15 @@ public class TurtlePlayground {
 	}
 
 	public Double moveTurtle(Double pixels) {
-		Double xCoord = myTurtle.getxCoordinate() + (pixels * Math.cos(Math.toRadians(myTurtle.getOrientation())));
-		Double yCoord = myTurtle.getyCoordinate() + (pixels * Math.sin(Math.toRadians(myTurtle.getOrientation())));
+		Double xCoord = myTurtle.getxCoordinate() + (pixels * Math.sin(Math.toRadians(myTurtle.getOrientation())));
+		Double yCoord = myTurtle.getyCoordinate() + (pixels * Math.cos(Math.toRadians(myTurtle.getOrientation())));
 		System.out.println(xCoord + " , " + yCoord);
 		return setTurtleCoordinates(xCoord, yCoord, Math.abs(pixels));
 
 	}
 
 	public Double turnTurtle(Double degrees) {
-		Double newDegree = myTurtle.getOrientation() - degrees;
+		Double newDegree = myTurtle.getOrientation() + degrees;
 		myTurtle.setOrientation(newDegree);
 		return degrees;
 	}
@@ -92,9 +86,12 @@ public class TurtlePlayground {
 		return placeTurtle(0.0, 0.0);
 	}
 
-	public Queue<TurtleCoordinates> getTurtleCoordinates() {
-		return myTurtle.getCoordinates();
+	public LinkedList<TurtleCoordinates> getTurtleCoordinates() {
+		return (LinkedList<TurtleCoordinates>) myTurtle.getCoordinates();
 	}
 
+	public Double getTurtleOrientation() {
+		return myTurtle.getOrientation();
+	}
 
 }

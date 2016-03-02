@@ -28,6 +28,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
 
 import javafx.stage.Stage;
+import view.factories.HelpPageFactory;
+import view.factories.MenuBarFactory;
+import view.factories.PanelElementFactory;
+import view.panelelements.PanelElement;
+import view.panelelements.TurtleElement;
 
 public class MainView {
 
@@ -66,6 +71,9 @@ public class MainView {
 	public void init() {
 		initializePrimaryRoot();
 		initializeHelpRoot();
+
+		myController.setTurtleElement(getMyTurtleElement());
+		
 		myPrimaryScene = new Scene(myPrimaryRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.WHITE);
 		myPrimaryScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
@@ -134,6 +142,9 @@ public class MainView {
 		myPrimaryRoot = root;
 	}
 
+	/**
+	 * 
+	 */
 	private void initializeHelpRoot() {
 		Group helpRoot = new Group();
 		VBox wrapper = new VBox();
@@ -192,16 +203,13 @@ public class MainView {
 
 	}
 
-	public void setController(MainController controller) {
-		myController = controller;
-	}
-
 	public void setMyPrimaryStage(Stage myPrimaryStage) {
 		this.myPrimaryStage = myPrimaryStage;
 	}
 
-	public void setMyController(MainController myController) {
+	public void linkController(MainController myController) {
 		this.myController = myController;
+		myController.setTurtleElement(myTurtleElement);
 	}
 
 	public void setMyPrimaryRoot(Group myPrimaryRoot) {
@@ -240,9 +248,12 @@ public class MainView {
 		ImageView newImage = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(image + ".jpg")));
 		newImage.setFitWidth(Constants.TURTLE_ELEMENT_WIDTH);
 		newImage.setFitHeight(Constants.TURTLE_ELEMENT_HEIGHT);
+		Double oldX = myTurtleElement.getNode().getTranslateX();
+		Double oldY = myTurtleElement.getNode().getTranslateY();
 		((TurtleElement) myTurtleElement).setTurtleImage(newImage);
 		myTurtleWrapper.getChildren().clear();
 		myTurtleWrapper.getChildren().addAll(myTurtlePlayground, myTurtleElement.getNode());
+		((TurtleElement) myTurtleElement).moveTurtleImage(oldX, oldY);
 	}
 
 	public void setTurtleBackgroundColor(Color color) {

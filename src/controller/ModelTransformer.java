@@ -1,21 +1,21 @@
 package controller;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
-import java.util.Stack;
-import java.util.TreeMap;
-
 import constants.Constants;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
 import model.TurtleCoordinates;
-import view.CommandsElement;
-import view.HistoryElement;
-import view.OutputElement;
-import view.VariablesElement;
+import view.panelelements.CommandsElement;
+import view.panelelements.HistoryElement;
+import view.panelelements.OutputElement;
+import view.panelelements.PanelElement;
+import view.panelelements.TurtleElement;
+import view.panelelements.VariablesElement;
 
 public class ModelTransformer {
 
@@ -26,7 +26,7 @@ public class ModelTransformer {
 
 	private String myLanguage = Constants.getSpecification("DefaultLanguage");
 	private Color myPenColor;
-	private String myTurtleImage;
+	private TurtleElement myTurtleElement;
 
 	public ModelTransformer(MainController controller) {
 		myController = controller;
@@ -72,8 +72,8 @@ public class ModelTransformer {
 	 */
 	public void transformVariablesElement(Map<String, Double> variables) {
 		VariablesElement variablesElement = (VariablesElement) myController.getMyView().getMyVariablesElement();
-		ListView<String> variablesNames = variablesElement.getListView().get(0);
-		ListView<String> variablesValues = variablesElement.getListView().get(1);
+		ListView<String> variablesNames = variablesElement.getNamesListView();
+		ListView<String> variablesValues = variablesElement.getValuesListView();
 		variablesNames.getItems().clear();
 		variablesValues.getItems().clear();
 		for (String variablesItem : variables.keySet()) {
@@ -94,35 +94,50 @@ public class ModelTransformer {
 		commandsValues.getItems().clear();
 		for (String commandsItem : map.keySet()) {
 			String parameters = "";
-			for(String parameter : map.get(commandsItem)){
+			for (String parameter : map.get(commandsItem)) {
 				parameters += parameter + " ";
 			}
 			commandsValues.getItems().add(commandsItem + " (" + parameters.trim() + ")");
 		}
-		
+
 	}
-	
+
 	/**
 	 * Reads TurtleCoordinate from queue and draws new line
+	 * @param orientation 
+	 * 
 	 * @param queue
 	 */
-	public void transformTurtleGraphics(Queue<TurtleCoordinates> queue) {
-		GraphicsContext tb = myController.getMyView().getMyTurtleGraphics();
-		updateTurtleGraphics(tb);
+	public void transformTurtleGraphics(LinkedList<TurtleCoordinates> coordinates, Double orientation) {
+		GraphicsContext playground = myController.getMyView().getMyTurtleGraphics();
+		updateTurtleGraphics(playground, coordinates, orientation);
 
 	}
-
 
 	/**
 	 * Updates where the turtle (or turtles) has drawn
 	 */
-	private void updateTurtleGraphics(GraphicsContext gc) {
-
+	private void updateTurtleGraphics(GraphicsContext gc, LinkedList<TurtleCoordinates> coordinates, Double orientation) {
+		double currentX = CENTER_X_COORDINATE;
+		double currentY = CENTER_Y_COORDINATE;
 		gc.setFill(myPenColor);
 		gc.setStroke(myPenColor);
-		gc.setLineWidth(5);
+		gc.setLineWidth(Constants.TURTLE_PEN_WIDTH);
 
-		gc.strokeLine(CENTER_X_COORDINATE, CENTER_Y_COORDINATE, CENTER_X_COORDINATE + 100, CENTER_Y_COORDINATE + 100);
+		for (TurtleCoordinates coordinate : coordinates) {
+			double newX = CENTER_X_COORDINATE + coordinate.getXCoord();
+			double newY = CENTER_Y_COORDINATE + (-1 * coordinate.getYCoord());
+			gc.strokeLine(currentX, currentY, newX, newY);
+			
+			Double rounded = (double) Math.round(newX);
+			myTurtleElement.moveTurtleImage(rounded - CENTER_X_COORDINATE, -1 * coordinate.getYCoord());
+			myTurtleElement.setTurtleOrientation(orientation);
+			
+			currentX = newX;
+			currentY = newY;
+			
+		}
+
 	}
 
 	// =========================================================================
@@ -137,12 +152,13 @@ public class ModelTransformer {
 		myPenColor = color;
 	}
 
-	public void setTurtleImage(String image) {
-		myTurtleImage = image;
-	}
-
 	public String getLanguage() {
 		return myLanguage;
 	}
-	
+
+	public void setTurtleElement(PanelElement turtleElement) {
+		myTurtleElement = (TurtleElement) turtleElement;
+
+	}
+
 }

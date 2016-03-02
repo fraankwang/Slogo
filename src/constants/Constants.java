@@ -64,6 +64,7 @@ public class Constants {
 
 	public static final int TURTLE_ELEMENT_WIDTH = 50;
 	public static final int TURTLE_ELEMENT_HEIGHT = TURTLE_ELEMENT_WIDTH;
+	public static final int TURTLE_PEN_WIDTH = 4;
 	public static final int MENU_BAR_HEIGHT = 50;
 	public static final int MENU_TURTLE_IMAGE_SIZE = 50;
 	public static final int ANIMATION_SLIDER_MIN = 10;
@@ -82,6 +83,7 @@ public class Constants {
 		ResourceBundle COMMANDS = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_LANGUAGES + language);
 		for (String e : COMMANDS.keySet()) {
 			for (String f : COMMANDS.getString(e).split("\\|")) {
+				f = f.replace("\\", "");
 				if (f.equals(command)) {
 					return e;
 				}

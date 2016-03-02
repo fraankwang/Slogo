@@ -15,7 +15,7 @@ public class Main extends Application {
 	public void start(Stage s) throws Exception {
 		MainView view = new MainView(s);
 		MainController controller = new MainController(view);
-		view.setController(controller);
+		view.linkController(controller);
 		view.init();
 
 	}
