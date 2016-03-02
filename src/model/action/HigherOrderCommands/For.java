@@ -19,27 +19,36 @@ public class For extends ControlStructures{
 		super(params, language, playground, variables, usercommands);
 
 		String[] paramsArr=params.get(0).split(" ");
+
 		variable=paramsArr[0];
-		start=Double.parseDouble(paramsArr[1]);
-		end=Double.parseDouble(paramsArr[2]);
-		increment=Double.parseDouble(paramsArr[3]);
+		try{
+			start=myCommandParser.parseCommands(paramsArr[1]);
+			end=myCommandParser.parseCommands(paramsArr[2]);
+			increment=myCommandParser.parseCommands(paramsArr[3]);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
 
 		commands=params.get(1);
 	}
 
 	@Override
 	public double rule() {
-		for(Double beg= start; beg<end; beg+=increment){
-			try {
+		double curr = 0.0;
+		try {
+			for(Double beg= start; beg<end; beg+=increment){
+
 				Double variableValue= myCommandParser.parseCommands(params.get(1));
 				myCommandParser.getVariableList().addVariable(variable, variableValue);
-				return variableValue;
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				curr =  variableValue;
+
 			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		return 0;
+		return curr;
 	}
 
 }
