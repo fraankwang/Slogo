@@ -69,15 +69,15 @@ public class TurtlePlayground {
 	}
 
 	public Double moveTurtle(Double pixels) {
-		Double xCoord = myTurtle.getxCoordinate() + (pixels * Math.cos(Math.toRadians(myTurtle.getOrientation())));
-		Double yCoord = myTurtle.getyCoordinate() + (pixels * Math.sin(Math.toRadians(myTurtle.getOrientation())));
+		Double xCoord = myTurtle.getxCoordinate() + (pixels * Math.sin(Math.toRadians(myTurtle.getOrientation())));
+		Double yCoord = myTurtle.getyCoordinate() + (pixels * Math.cos(Math.toRadians(myTurtle.getOrientation())));
 		System.out.println(xCoord + " , " + yCoord);
 		return setTurtleCoordinates(xCoord, yCoord, Math.abs(pixels));
 
 	}
 
 	public Double turnTurtle(Double degrees) {
-		Double newDegree = myTurtle.getOrientation() - degrees;
+		Double newDegree = myTurtle.getOrientation() + degrees;
 		myTurtle.setOrientation(newDegree);
 		return degrees;
 	}
