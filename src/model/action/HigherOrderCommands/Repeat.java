@@ -31,7 +31,7 @@ public class Repeat extends ControlStructures {
 		try {
 			for (int repCount = 0; repCount < exp; repCount++) {
 
-				myCommandParser.getVariableList().addVariable("repCount", repCount);
+				myCommandParser.getVariableList().addVariable(":repcount", repCount);
 				curr = myCommandParser.parseCommands(params.get(1));
 			} 
 		}catch (Exception e) {

@@ -74,6 +74,9 @@ public class Constants {
 	public static final CornerRadii CORNER_RADIUS = new CornerRadii(10.0);
 	public static final double ELEMENT_INSET_HORIZONTAL = 5;
 	public static final double ELEMENT_INSET_VERTICAL = 0;
+	
+	
+	public static final double DEFAULT_VARIABLE_VALUE = 0;
 
 	public static String getSpecification(String name) {
 		return SPECIFICATIONS.getString(name);
