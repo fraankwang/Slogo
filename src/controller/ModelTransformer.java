@@ -124,12 +124,14 @@ public class ModelTransformer {
 		gc.setLineWidth(8);
 
 		for (TurtleCoordinates coordinate : coordinates) {
-			System.out.println("X COORD: " + Double.toString(coordinate.getXCoord()));
-			System.out.println("Y COORD: " + Double.toString(coordinate.getYCoord()));
+			System.out.println(coordinate.getXCoord() + ", " + coordinate.getYCoord());
 			double newX = CENTER_X_COORDINATE + coordinate.getXCoord();
 			double newY = CENTER_Y_COORDINATE + (-1 * coordinate.getYCoord());
 
 			gc.strokeLine(currentX, currentY, newX, newY);
+			myTurtleElement.getNode().setTranslateX(10.0);
+			myTurtleElement.getNode().setTranslateY(-1 * coordinate.getYCoord());
+			
 			currentX = newX;
 			currentY = newY;
 			
