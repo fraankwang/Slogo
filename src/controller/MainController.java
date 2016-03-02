@@ -88,6 +88,7 @@ public class MainController {
 		myView.getMyTurtleGraphics().clearRect(0, 0, Constants.PLAYGROUND_WIDTH, Constants.PLAYGROUND_HEIGHT);
 		myModel.getMyPlayground().getTurtle().clearTurtleCoordinates();
 		myModel.getMyPlayground().setTurtleHome();
+		
 	}
 
 	public void setBackgroundColor(Color color) {

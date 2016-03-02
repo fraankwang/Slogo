@@ -19,8 +19,8 @@ import view.panelelements.VariablesElement;
 
 public class ModelTransformer {
 
-	private static final int CENTER_X_COORDINATE = 350;
-	private static final int CENTER_Y_COORDINATE = 275;
+	private static final double CENTER_X_COORDINATE = Constants.CENTER_X_COORDINATE;
+	private static final double CENTER_Y_COORDINATE = Constants.CENTER_Y_COORDINATE;
 
 	private MainController myController;
 
