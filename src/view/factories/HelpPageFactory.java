@@ -2,7 +2,7 @@
  * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
  */
 
-package view;
+package view.factories;
 
 import java.net.URL;
 import constants.Constants;

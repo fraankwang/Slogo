@@ -2,7 +2,7 @@
  * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
  */
 
-package view;
+package view.factories;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,6 +21,10 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -30,6 +34,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import view.panelelements.CommandsElement;
+import view.panelelements.HistoryElement;
+import view.panelelements.OutputElement;
+import view.panelelements.PanelElement;
+import view.panelelements.TurtleBackground;
+import view.panelelements.TurtleElement;
+import view.panelelements.VariablesElement;
 
 public class PanelElementFactory {
 
@@ -144,12 +155,25 @@ public class PanelElementFactory {
 	private Button makeRunButton() {
 		Button runButton = new Button(Constants.getSpecification("RunButtonDefaultText"));
 		runButton.setPrefSize(Constants.RUN_BUTTON_WIDTH, Constants.RUN_BUTTON_HEIGHT);
+		
 		runButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				myController.executeCommand(textArea.getText());
 			}
 		});
+		
+		runButton.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent event) {
+				KeyCodeCombination hotkeyRun = new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN);
+				if (hotkeyRun.match(event)) {
+					myController.executeCommand(textArea.getText());
+				}
+				
+			}
+		});
+		
 		return runButton;
 
 	}
@@ -162,12 +186,25 @@ public class PanelElementFactory {
 	private Button makeClearButton() {
 		Button clearButton = new Button(Constants.getSpecification("ClearButtonDefaultText"));
 		clearButton.setPrefSize(Constants.CLEAR_BUTTON_WIDTH, Constants.CLEAR_BUTTON_HEIGHT);
+		
 		clearButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				textArea.clear();
 			}
 		});
+		
+		clearButton.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent event) {
+				KeyCodeCombination hotkeyClear = new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN);
+				if (hotkeyClear.match(event)) {
+					textArea.clear();
+				}
+				
+			}
+		});
+		
 		return clearButton;
 
 	}
@@ -196,6 +233,7 @@ public class PanelElementFactory {
 
 	/**
 	 * Formatted TurtleElement
+	 * 
 	 * @return
 	 */
 	private TurtleElement createTurtleElement() {
@@ -203,7 +241,7 @@ public class PanelElementFactory {
 				new Image(getClass().getClassLoader().getResourceAsStream(Constants.getDefaultTurtleImageFileName())));
 		turtleImage.setFitWidth(Constants.TURTLE_ELEMENT_WIDTH);
 		turtleImage.setFitHeight(Constants.TURTLE_ELEMENT_HEIGHT);
-		TurtleElement turtleElement = new TurtleElement(turtleImage, Constants.getSpecification("TurtleElementName")); 
+		TurtleElement turtleElement = new TurtleElement(turtleImage, Constants.getSpecification("TurtleElementName"));
 		return turtleElement;
 
 	}
@@ -214,24 +252,30 @@ public class PanelElementFactory {
 	public PanelElement createVariablesElement() {
 		VBox variablesWrapper = new VBox();
 		Text variablesLabel = new Text(Constants.getSpecification("VariablesLabel"));
-		
+
 		HBox variablesListViews = new HBox();
 		ListView<String> variablesNamesListView = createVariablesNamesListView();
 		ListView<String> variablesValuesListView = createVariablesValuesListView(variablesNamesListView);
 		variablesListViews.getChildren().addAll(variablesNamesListView, variablesValuesListView);
-		
+
 		variablesWrapper.getChildren().addAll(variablesLabel, variablesListViews);
 
 		variablesElement = new VariablesElement(variablesWrapper, Constants.getSpecification("VariablesElementName"));
-		variablesElement.addListView(variablesNamesListView);
-		variablesElement.addListView(variablesValuesListView);
+		variablesElement.setNamesListView(variablesNamesListView);
+		variablesElement.setValuesListView(variablesValuesListView);
 		return variablesElement;
 	}
-	
-	private ListView<String> createVariablesNamesListView(){
+
+	/**
+	 * Helper method to create an editable listview that links to variable keys
+	 * 
+	 * @param names
+	 * @return
+	 */
+	private ListView<String> createVariablesNamesListView() {
 		ListView<String> namesListView = new ListView<String>();
-		namesListView.setPrefSize(RIGHT_COLUMN_WIDTH/2.0, RIGHT_COLUMN_ELEMENT_HEIGHT);
-		
+		namesListView.setPrefSize(RIGHT_COLUMN_WIDTH / 2.0, RIGHT_COLUMN_ELEMENT_HEIGHT);
+
 		namesListView.setCellFactory(TextFieldListCell.forListView());
 		namesListView.setEditable(true);
 		namesListView.setCellFactory(TextFieldListCell.forListView());
@@ -240,18 +284,25 @@ public class PanelElementFactory {
 			public void handle(ListView.EditEvent<String> t) {
 				myController.replaceVariable(namesListView.getSelectionModel().getSelectedItem(), t.getNewValue());
 				myController.refreshDisplay();
-			}		
+			}
 		});
 		// For later
 		// variablesListView.setCellFactory(listview -> new SettingsCell());
-		
+
 		return namesListView;
 	}
-	
-	private ListView<String> createVariablesValuesListView(ListView<String> names){
+
+	/**
+	 * Helper method to create an editable listview that links to variable
+	 * values
+	 * 
+	 * @param names
+	 * @return
+	 */
+	private ListView<String> createVariablesValuesListView(ListView<String> names) {
 		ListView<String> valuesListView = new ListView<String>();
-		valuesListView.setPrefSize(RIGHT_COLUMN_WIDTH/2.0, RIGHT_COLUMN_ELEMENT_HEIGHT);
-		
+		valuesListView.setPrefSize(RIGHT_COLUMN_WIDTH / 2.0, RIGHT_COLUMN_ELEMENT_HEIGHT);
+
 		valuesListView.setCellFactory(TextFieldListCell.forListView());
 		valuesListView.setEditable(true);
 		valuesListView.setCellFactory(TextFieldListCell.forListView());
@@ -262,7 +313,7 @@ public class PanelElementFactory {
 				names.getSelectionModel().select(indexToChange);
 				myController.replaceVariableValue(names.getSelectionModel().getSelectedItem(), t.getNewValue());
 				myController.refreshDisplay();
-			}		
+			}
 		});
 		return valuesListView;
 	}
@@ -286,7 +337,7 @@ public class PanelElementFactory {
 			@Override
 			public void handle(MouseEvent event) {
 				textArea.setText(commandsListView.getSelectionModel().getSelectedItem());
-				myController.executeCommand(textArea.getText());
+				// myController.executeCommand(textArea.getText());
 			}
 		});
 
@@ -366,11 +417,11 @@ public class PanelElementFactory {
 	public TurtleElement getTurtleElement() {
 		return myTurtleElement;
 	}
-	
+
 	public StackPane getTurtleWrapper() {
 		return myTurtleWrapper;
 	}
-	
+
 	public Canvas getTurtlePlayground() {
 		return myTurtlePlayground;
 	}

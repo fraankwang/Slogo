@@ -5,7 +5,6 @@
 package model;
 
 import java.util.LinkedList;
-import java.util.Queue;
 
 public class TurtlePlayground {
 	private Turtle myTurtle;

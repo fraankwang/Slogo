@@ -1,4 +1,4 @@
-package view;
+package view.factories;
 
 import java.io.File;
 import java.util.List;
@@ -22,6 +22,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import view.panelelements.PanelElement;
 
 public class MenuBarFactory {
 
@@ -180,16 +181,7 @@ public class MenuBarFactory {
 		item.setText("Show " + element.getName());
 		item.selectedProperty().setValue(true);
 		element.getNode().visibleProperty().bindBidirectional(item.selectedProperty());
-		
-		if (element instanceof TurtleElement) {
-			item.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent e) {
-					element.toggleDisplay();
-				}
-			});
-		}
-		
+
 		return item;
 
 	}

@@ -10,12 +10,12 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
 import model.TurtleCoordinates;
-import view.CommandsElement;
-import view.HistoryElement;
-import view.OutputElement;
-import view.PanelElement;
-import view.TurtleElement;
-import view.VariablesElement;
+import view.panelelements.CommandsElement;
+import view.panelelements.HistoryElement;
+import view.panelelements.OutputElement;
+import view.panelelements.PanelElement;
+import view.panelelements.TurtleElement;
+import view.panelelements.VariablesElement;
 
 public class ModelTransformer {
 
@@ -72,8 +72,8 @@ public class ModelTransformer {
 	 */
 	public void transformVariablesElement(Map<String, Double> variables) {
 		VariablesElement variablesElement = (VariablesElement) myController.getMyView().getMyVariablesElement();
-		ListView<String> variablesNames = variablesElement.getListView().get(0);
-		ListView<String> variablesValues = variablesElement.getListView().get(1);
+		ListView<String> variablesNames = variablesElement.getNamesListView();
+		ListView<String> variablesValues = variablesElement.getValuesListView();
 		variablesNames.getItems().clear();
 		variablesValues.getItems().clear();
 		for (String variablesItem : variables.keySet()) {
