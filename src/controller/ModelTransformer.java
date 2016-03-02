@@ -1,3 +1,4 @@
+
 package controller;
 
 import java.util.LinkedList;
@@ -17,6 +18,10 @@ import view.panelelements.OutputElement;
 import view.panelelements.PanelElement;
 import view.panelelements.TurtleElement;
 import view.panelelements.VariablesElement;
+
+/**
+ * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
+ */
 
 public class ModelTransformer {
 

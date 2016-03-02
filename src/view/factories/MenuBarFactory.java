@@ -297,6 +297,7 @@ public class MenuBarFactory {
 						Constants.getSpecification("AllowedUploadedImageTypesFilter"));
 				fileChooser.getExtensionFilters().addAll(extFilter);
 				File chosenFile = fileChooser.showOpenDialog(myPrimaryStage);
+				System.out.println(chosenFile.getName());
 				// TODO: Extension work
 				// SAVE FILE (only JPG to src/images)
 				// call createTurtleImageMenuItem() and add it to turtleImages

@@ -5,7 +5,6 @@ import java.util.List;
 
 import model.UserCommands;
 import model.Variables;
-import model.action.Action;
 import model.turtle.TurtlePlayground;
 
 public class Dotimes extends ControlStructures {
@@ -22,7 +21,6 @@ public class Dotimes extends ControlStructures {
 		try {
 			limit = myCommandParser.parseCommands(params.get(0).replace(variable, ""));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		commands = params.get(1);
@@ -40,8 +38,7 @@ public class Dotimes extends ControlStructures {
 				Double variableValue = myCommandParser.parseCommands(commands);
 				curr = variableValue;
 
-			}
-			catch (Exception exception) {
+			} catch (Exception exception) {
 				exception.printStackTrace();
 			}
 		}

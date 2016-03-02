@@ -1,20 +1,19 @@
+/**
+ * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
+ */
+
 package model.action.TurtleCommandsNoParams;
 
-import java.util.List;
-
-import model.Variables;
-import model.action.Action;
 import model.turtle.TurtlePlayground;
 
-public class PenUp extends TurtleCommands{
+public class PenUp extends TurtleCommands {
 	boolean pen;
 
-
-	public PenUp (TurtlePlayground playground){
+	public PenUp(TurtlePlayground playground) {
 		super(playground);
-		pen=false;
+		pen = false;
 	}
-	
+
 	@Override
 	public double rule() {
 		playground.getTurtle().setPenDown(pen);

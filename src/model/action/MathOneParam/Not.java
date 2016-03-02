@@ -1,23 +1,22 @@
+/**
+ * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
+ */
+
 package model.action.MathOneParam;
 
 import java.util.List;
 
-import model.Variables;
-import model.action.Action;
-import model.turtle.TurtlePlayground;
-
 public class Not extends MathOneParam {
-	
-	public Not (List<Double> params){
+
+	public Not(List<Double> params) {
 		super(params);
 	}
-	
+
 	@Override
 	public double rule() {
-		if (a == 0 ) {
+		if (a == 0) {
 			return 1;
-		}
-		else {
+		} else {
 			return 0;
 		}
 	}

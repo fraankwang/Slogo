@@ -1,6 +1,8 @@
-package model.action.HigherOrderCommands;
+/**
+ * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
+ */
 
-import java.util.List;
+package model.action.HigherOrderCommands;
 
 import model.CommandParser;
 import model.UserCommands;
@@ -9,12 +11,12 @@ import model.action.Action;
 import model.turtle.TurtlePlayground;
 
 public abstract class HigherOrderCommands extends Action {
-protected CommandParser myCommandParser;
+	protected CommandParser myCommandParser;
 
-	public HigherOrderCommands(String language, TurtlePlayground playground, Variables variables, UserCommands usercommands) {
+	public HigherOrderCommands(String language, TurtlePlayground playground, Variables variables,
+			UserCommands usercommands) {
 		super();
 		myCommandParser = new CommandParser(language, playground, variables, usercommands);
 	}
-
 
 }

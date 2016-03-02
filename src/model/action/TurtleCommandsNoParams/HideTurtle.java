@@ -1,19 +1,19 @@
+/**
+ * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
+ */
+
 package model.action.TurtleCommandsNoParams;
 
-import java.util.List;
-
-import model.Variables;
-import model.action.Action;
 import model.turtle.TurtlePlayground;
 
-public class HideTurtle extends TurtleCommands{
+public class HideTurtle extends TurtleCommands {
 	boolean visible;
-	
-	public HideTurtle (TurtlePlayground playground){
+
+	public HideTurtle(TurtlePlayground playground) {
 		super(playground);
-		this.visible=false;
+		this.visible = false;
 	}
-	
+
 	@Override
 	public double rule() {
 		playground.getTurtle().setShowTurtle(visible);

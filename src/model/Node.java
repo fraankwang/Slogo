@@ -1,3 +1,7 @@
+/**
+ * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
+ */
+
 package model;
 
 import java.util.ArrayList;
