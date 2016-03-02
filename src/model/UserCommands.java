@@ -6,33 +6,51 @@ package model;
 
 import java.util.*;
 
+/**
+ * The UserCommands class is a custom object which holds user-defined commands
+ * The UserCommands class has an instance of a Map<String, String>
+ * myUserCommands The UserCommmands class has an instance of Map<String, List
+ * <String>> myCommandParams
+ * 
+ */
 public class UserCommands {
-	
+
 	Map<String, String> myUserCommands;
 	Map<String, List<String>> myCommandParams;
-	
-	public UserCommands(){
+
+	public UserCommands() {
 		myUserCommands = new HashMap<String, String>();
 		myCommandParams = new HashMap<String, List<String>>();
 	}
-	
-	public Collection<String> getCommands () {
-		return myUserCommands.keySet();
-	}
-	
-	public void addCommand (String name, List<String> paramvars, String commands) {
+
+	/**
+	 * The addCommands() method adds a command to the UserCommands class Given a
+	 * String name, a List<String> paramvars, and a String commands The
+	 * addCommands() method adds (name,commands) to myUserCommands The
+	 * addCommands() method adds (name,paramvars) to myCommandParams
+	 */
+	public void addCommand(String name, List<String> paramvars, String commands) {
 		myUserCommands.put(name, commands);
 		myCommandParams.put(name, paramvars);
 	}
-	
-	public String getCommand (String name) {
+
+	// =========================================================================
+	// Getters and Setters
+	// =========================================================================
+
+	public String getCommand(String name) {
 		return myUserCommands.get(name);
 	}
-	public List<String> getCommandParams (String name){
+
+	public List<String> getCommandParams(String name) {
 		return myCommandParams.get(name);
 	}
-	
-	public Map<String, List<String>> getUserCommandMap(){
+
+	public Map<String, List<String>> getUserCommandMap() {
 		return myCommandParams;
+	}
+
+	public Collection<String> getCommands() {
+		return myUserCommands.keySet();
 	}
 }

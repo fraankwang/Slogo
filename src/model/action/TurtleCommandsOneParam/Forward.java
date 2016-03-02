@@ -1,10 +1,12 @@
+/**
+ * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
+ */
+
 package model.action.TurtleCommandsOneParam;
 
 import java.util.List;
 
-import model.TurtlePlayground;
-import model.Variables;
-import model.action.Action;
+import model.turtle.TurtlePlayground;
 
 public class Forward extends TurtleCommandsOneParam {
 
@@ -12,7 +14,6 @@ public class Forward extends TurtleCommandsOneParam {
 		super(params, playground);
 		// TODO Auto-generated constructor stub
 	}
-
 
 	@Override
 	public double rule() {

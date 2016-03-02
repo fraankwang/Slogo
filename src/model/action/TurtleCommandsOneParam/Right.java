@@ -1,15 +1,16 @@
+/**
+ * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
+ */
+
 package model.action.TurtleCommandsOneParam;
 
 import java.util.List;
 
-import model.TurtlePlayground;
-import model.Variables;
-import model.action.Action;
+import model.turtle.TurtlePlayground;
 
-public class Right extends TurtleCommandsOneParam{
+public class Right extends TurtleCommandsOneParam {
 
-
-	public Right (List<Double> params, TurtlePlayground playground){
+	public Right(List<Double> params, TurtlePlayground playground) {
 		super(params, playground);
 	}
 

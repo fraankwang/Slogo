@@ -47,11 +47,15 @@ public class Constants {
 	public static final Color DEFAULT_PEN_COLOR = Color.BLACK;
 	public static final Color DEFAULT_BACKGROUND_COLOR = Color.WHITE;
 
+
 	public static final double SCENE_WIDTH = 1000;
 	public static final double SCENE_HEIGHT = SCENE_WIDTH*0.75;
 
 	public static final double LEFT_COLUMN_WIDTH = SCENE_WIDTH *0.65;
+	public static final double PLAYGROUND_WIDTH = LEFT_COLUMN_WIDTH;
 	public static final double PLAYGROUND_HEIGHT = SCENE_HEIGHT*0.7;
+	public static final double CENTER_X_COORDINATE = PLAYGROUND_WIDTH/2;
+	public static final double CENTER_Y_COORDINATE = PLAYGROUND_HEIGHT/2;
 	public static final double TEXTAREA_HEIGHT = SCENE_HEIGHT - PLAYGROUND_HEIGHT - 60;
 	public static final double TEXTAREA_WIDTH = LEFT_COLUMN_WIDTH*0.85;
 	public static final double RUN_BUTTON_HEIGHT = TEXTAREA_HEIGHT / 2;
@@ -59,7 +63,7 @@ public class Constants {
 	public static final double CLEAR_BUTTON_HEIGHT = RUN_BUTTON_HEIGHT;
 	public static final double CLEAR_BUTTON_WIDTH = RUN_BUTTON_WIDTH;
 	
-	public static double RIGHT_COLUMN_WIDTH = SCENE_WIDTH - LEFT_COLUMN_WIDTH - 30;
+	public static final double RIGHT_COLUMN_WIDTH = SCENE_WIDTH - LEFT_COLUMN_WIDTH - 30;
 	public static final double RIGHT_COLUMN_ELEMENT_HEIGHT = SCENE_HEIGHT*0.2;
 
 	public static final int TURTLE_ELEMENT_WIDTH = 50;
