@@ -36,9 +36,6 @@ public class CommandParser {
 			if (!isComment(string) && !string.isEmpty()) {
 				try {
 					String command = Constants.getCommand(myLanguage, string);
-					if(command.startsWith("\"")){
-						command = command.substring(1, command.length()-1);
-					}
 					comandsList.add(command);
 				} catch (Exception e) {
 					comandsList.add(string);

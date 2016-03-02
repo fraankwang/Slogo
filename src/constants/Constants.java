@@ -84,6 +84,7 @@ public class Constants {
 		ResourceBundle COMMANDS = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_LANGUAGES + language);
 		for (String e : COMMANDS.keySet()) {
 			for (String f : COMMANDS.getString(e).split("\\|")) {
+				f = f.replace("\\", "");
 				if (f.equals(command)) {
 					return e;
 				}
