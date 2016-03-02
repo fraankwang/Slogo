@@ -31,8 +31,8 @@ import javafx.stage.Stage;
 
 public class MainView {
 
-	private static final int SCENE_WIDTH = Constants.SCENE_WIDTH;
-	private static final int SCENE_HEIGHT = Constants.SCENE_HEIGHT;
+	private static final double SCENE_WIDTH = Constants.SCENE_WIDTH;
+	private static final double SCENE_HEIGHT = Constants.SCENE_HEIGHT;
 
 	private Stage myPrimaryStage;
 	private Scene myPrimaryScene;
@@ -105,6 +105,8 @@ public class MainView {
 	 */
 	private void initializePrimaryRoot() {
 		Group root = new Group();
+		root.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
+		
 		myPrimaryPane = new BorderPane();
 		root.getChildren().add(myPrimaryPane);
 
