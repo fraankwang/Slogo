@@ -16,7 +16,6 @@ import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-<<<<<<< HEAD:src/view/PanelElementFactory.java
 import javafx.scene.control.Cell;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ColorPicker;
@@ -28,9 +27,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.Slider;
-=======
 import javafx.scene.control.ListView;
->>>>>>> f760511be2f4a7f3efacc3ff0b0c16ab4f7382b1:src/view/factories/PanelElementFactory.java
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.image.Image;
@@ -59,18 +56,10 @@ import view.panelelements.VariablesElement;
 
 public class PanelElementFactory {
 
-<<<<<<< HEAD:src/view/PanelElementFactory.java
 	private static final double LEFT_COLUMN_WIDTH = Constants.LEFT_COLUMN_WIDTH;
 	private static final double PLAYGROUND_HEIGHT = Constants.PLAYGROUND_HEIGHT;
 	private static final double RIGHT_COLUMN_WIDTH = Constants.RIGHT_COLUMN_WIDTH;
 	private static final double RIGHT_COLUMN_ELEMENT_HEIGHT = Constants.RIGHT_COLUMN_ELEMENT_HEIGHT;
-=======
-	private static final int LEFT_COLUMN_WIDTH = Constants.LEFT_COLUMN_WIDTH;
-	private static final int PLAYGROUND_HEIGHT = Constants.PLAYGROUND_HEIGHT;
-	private static final int PLAYGROUND_WIDTH = Constants.PLAYGROUND_WIDTH;
-	private static final int RIGHT_COLUMN_WIDTH = Constants.RIGHT_COLUMN_WIDTH;
-	private static final int RIGHT_COLUMN_ELEMENT_HEIGHT = Constants.RIGHT_COLUMN_ELEMENT_HEIGHT;
->>>>>>> f760511be2f4a7f3efacc3ff0b0c16ab4f7382b1:src/view/factories/PanelElementFactory.java
 
 	private static final double ELEMENT_INSET_HORIZONTAL = Constants.ELEMENT_INSET_HORIZONTAL;
 	private static final double ELEMENT_INSET_VERTICAL = Constants.ELEMENT_INSET_VERTICAL;
@@ -112,7 +101,6 @@ public class PanelElementFactory {
 		leftColumn.getChildren().addAll(turtleVBox, inputVBox);
 
 		return leftColumn;
-
 	}
 
 	/**
@@ -249,7 +237,7 @@ public class PanelElementFactory {
 	public PanelElement createTurtleBackground() {
 		myTurtleWrapper = new StackPane();
 		myTurtleWrapper.setPrefHeight(PLAYGROUND_HEIGHT);
-		myTurtleWrapper.setPrefWidth(PLAYGROUND_WIDTH);
+		myTurtleWrapper.setPrefWidth(LEFT_COLUMN_WIDTH);
 		myTurtleWrapper.setBackground(
 				new Background(new BackgroundFill(Constants.DEFAULT_BACKGROUND_COLOR, Constants.CORNER_RADIUS, null)));
 		myTurtlePlayground = new Canvas(LEFT_COLUMN_WIDTH, PLAYGROUND_HEIGHT);
@@ -275,13 +263,9 @@ public class PanelElementFactory {
 				new Image(getClass().getClassLoader().getResourceAsStream(Constants.getDefaultTurtleImageFileName())));
 		turtleImage.setFitWidth(Constants.TURTLE_ELEMENT_WIDTH);
 		turtleImage.setFitHeight(Constants.TURTLE_ELEMENT_HEIGHT);
-<<<<<<< HEAD:src/view/PanelElementFactory.java
 		TurtleElement turtleElement = new TurtleElement(turtleImage, Constants.getSpecification("TurtleElementName")); 
 
 		turtleElement.getNode().getStyleClass().add("turtle-element");
-=======
-		TurtleElement turtleElement = new TurtleElement(turtleImage, Constants.getSpecification("TurtleElementName"));
->>>>>>> f760511be2f4a7f3efacc3ff0b0c16ab4f7382b1:src/view/factories/PanelElementFactory.java
 		return turtleElement;
 
 	}
@@ -291,7 +275,6 @@ public class PanelElementFactory {
 	 */
 	public PanelElement createVariablesElement() {
 		VBox variablesWrapper = new VBox();
-<<<<<<< HEAD:src/view/PanelElementFactory.java
 		Label variablesLabel = new Label(Constants.getSpecification("VariablesLabel"));
 		
 		HBox variablesListViews = new HBox();
@@ -299,15 +282,6 @@ public class PanelElementFactory {
 		ListView<String> variablesValuesListView = createVariablesValuesListView(variablesNamesListView);
 		
 		variablesListViews.getChildren().addAll(variablesNamesListView, variablesValuesListView);
-=======
-		Text variablesLabel = new Text(Constants.getSpecification("VariablesLabel"));
-
-		HBox variablesListViews = new HBox();
-		ListView<String> variablesNamesListView = createVariablesNamesListView();
-		ListView<String> variablesValuesListView = createVariablesValuesListView(variablesNamesListView);
-		variablesListViews.getChildren().addAll(variablesNamesListView, variablesValuesListView);
-
->>>>>>> f760511be2f4a7f3efacc3ff0b0c16ab4f7382b1:src/view/factories/PanelElementFactory.java
 		variablesWrapper.getChildren().addAll(variablesLabel, variablesListViews);
 
 		variablesElement = new VariablesElement(variablesWrapper, Constants.getSpecification("VariablesElementName"));
@@ -338,10 +312,6 @@ public class PanelElementFactory {
 		});
 		// For later
 		// variablesListView.setCellFactory(listview -> new SettingsCell());
-<<<<<<< HEAD:src/view/PanelElementFactory.java
-=======
-
->>>>>>> f760511be2f4a7f3efacc3ff0b0c16ab4f7382b1:src/view/factories/PanelElementFactory.java
 		return namesListView;
 	}
 
