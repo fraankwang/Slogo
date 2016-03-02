@@ -78,5 +78,9 @@ public class Turtle {
 		return this.showTurtle;
 	}
 	
+	public void clearTurtleCoordinates() {
+		turtleCoordinates = new LinkedList<TurtleCoordinates>();
+	}
+	
 	
 }

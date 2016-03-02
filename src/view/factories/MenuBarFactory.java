@@ -196,11 +196,14 @@ public class MenuBarFactory {
 		// pen color, image, add new image
 
 		CustomMenuItem penColor = makePenColorPicker(Constants.DEFAULT_PEN_COLOR);
+		MenuItem clearPlayground = new MenuItem();
+		clearPlayground.setText("clear playground");
+		clearPlayground.setOnAction(e -> myController.clearTurtlePlayground());
 		MenuItem turtleImages = makeTurtleImages();
 		MenuItem uploadNew = makeUploadNewOption();
-
+		
 		SeparatorMenuItem sep = new SeparatorMenuItem();
-		turtleMenu.getItems().addAll(penColor, sep, turtleImages, uploadNew);
+		turtleMenu.getItems().addAll(penColor, clearPlayground, sep, turtleImages, uploadNew);
 		return turtleMenu;
 		
 	}

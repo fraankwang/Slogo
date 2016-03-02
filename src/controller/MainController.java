@@ -6,6 +6,8 @@ package controller;
 
 import java.util.List;
 import java.util.Queue;
+
+import constants.Constants;
 import javafx.animation.Timeline;
 import javafx.scene.paint.Color;
 import model.MainModel;
@@ -81,6 +83,12 @@ public class MainController {
 	public void setTurtleElement(PanelElement turtleElement) {
 		myTransformer.setTurtleElement(turtleElement);
 	}
+	
+	public void clearTurtlePlayground() {
+		myView.getMyTurtleGraphics().clearRect(0, 0, Constants.PLAYGROUND_WIDTH, Constants.PLAYGROUND_HEIGHT);
+		myModel.getMyPlayground().getTurtle().clearTurtleCoordinates();
+		myModel.getMyPlayground().setTurtleHome();
+	}
 
 	public void setBackgroundColor(Color color) {
 		myView.setTurtleBackgroundColor(color);
@@ -91,7 +99,7 @@ public class MainController {
 	}
 
 	public void setLanguage(String language) {
-		myTransformer.setLanguage(language);
+		myModel.setLanguage(language);
 	}
 
 	public void replaceVariable(String oldVar, String newVar) {
