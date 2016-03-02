@@ -28,6 +28,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
 
 import javafx.stage.Stage;
+import view.factories.HelpPageFactory;
+import view.factories.MenuBarFactory;
+import view.factories.PanelElementFactory;
+import view.panelelements.PanelElement;
+import view.panelelements.TurtleElement;
 
 public class MainView {
 
@@ -133,6 +138,9 @@ public class MainView {
 		myPrimaryRoot = root;
 	}
 
+	/**
+	 * 
+	 */
 	private void initializeHelpRoot() {
 		Group helpRoot = new Group();
 		VBox wrapper = new VBox();
