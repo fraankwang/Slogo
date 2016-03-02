@@ -55,10 +55,11 @@ public class MainController {
 	public void refreshDisplay() {
 		myTransformer.transformOutputElement((Queue<String>) myModel.getMyOutputs());
 		myTransformer.transformHistoryElement((Queue<String>) myModel.getMyHistory());
-		myTransformer.transformTurtleGraphics(myModel.getMyPlayground().getTurtleCoordinates());
+		myTransformer.transformTurtleGraphics(myModel.getMyPlayground().getTurtleCoordinates(),
+				myModel.getMyPlayground().getTurtleOrientation());
 		myTransformer.transformVariablesElement(myModel.getMyVariables());
 		myTransformer.transformCommandsElement(myModel.getMyUserCommands());
-		
+
 	}
 
 	// =========================================================================
@@ -80,7 +81,7 @@ public class MainController {
 	public void setTurtleElement(PanelElement turtleElement) {
 		myTransformer.setTurtleElement(turtleElement);
 	}
-	
+
 	public void setBackgroundColor(Color color) {
 		myView.setTurtleBackgroundColor(color);
 	}
@@ -96,8 +97,8 @@ public class MainController {
 	public void replaceVariable(String oldVar, String newVar) {
 		myModel.replaceVariable(oldVar, newVar);
 	}
-	
-	public void replaceVariableValue(String name, String newVal){
+
+	public void replaceVariableValue(String name, String newVal) {
 		myModel.replaceVariableValue(name, newVal);
 	}
 
@@ -114,7 +115,5 @@ public class MainController {
 	public void setPrimaryPane() {
 		myView.showPrimaryScene();
 	}
-
-	
 
 }
