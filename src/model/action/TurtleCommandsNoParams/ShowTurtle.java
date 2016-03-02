@@ -6,6 +6,13 @@ package model.action.TurtleCommandsNoParams;
 
 import model.turtle.TurtlePlayground;
 
+/**
+ * The ShowTurtle class is the user-command which shows the Turtle by setting
+ * the showTurtle boolean to true and returns 1. The ShowTurtle class extends
+ * from the abstract TurtleCommands class, which contains an instance of the
+ * playground, and as a result, the turtle.
+ * 
+ */
 public class ShowTurtle extends TurtleCommands {
 	boolean visible;
 
@@ -14,6 +21,11 @@ public class ShowTurtle extends TurtleCommands {
 		this.visible = true;
 	}
 
+	/**
+	 * The rule() method shows the turtle in the playground, and returns the
+	 * boolean equivalent of true, 1. This method sets the Turtle's showTurtle
+	 * boolean to true and returns 1.
+	 */
 	@Override
 	public double rule() {
 		playground.getTurtle().setShowTurtle(visible);

@@ -10,6 +10,13 @@ import java.util.Queue;
 
 import constants.Constants;
 
+/**
+ * The Node class is a custom object which represents a Node in the tree which
+ * is constructed by the CommandParser class. The Node class has an instance of
+ * a String variable data and a List<Node> children. The data variable
+ * represents the node's value. The children variable represents a list of
+ * children nodes.
+ */
 public class Node {
 	String data;
 	List<Node> children;
@@ -25,6 +32,11 @@ public class Node {
 		children = new ArrayList<Node>();
 	}
 
+	/**
+	 * The makeCommandString() method sets a Node's value given a Queue
+	 * <String> containing the parsed user commands.
+	 *
+	 */
 	public Node makeCommandString(Queue<String> queue, Node tree) {
 		queue.poll();
 		StringBuilder commandstring = new StringBuilder();
@@ -48,7 +60,37 @@ public class Node {
 
 		tree.data = commandstring.toString().trim();
 		return tree;
+		
 	}
+
+
+	/**
+	 * The addChild() method adds a Node to the instnace of List<Node> children.
+	 *
+	 */
+	public void addChild(Node node) {
+		getChildren().add(node);
+	}
+
+	public boolean isOpenBracket(Queue<String> queue) {
+		return queue.peek().equals(Constants.OPEN_BRACKET);
+	}
+
+	public boolean isCloseBracket(Queue<String> queue) {
+		return queue.peek().equals(Constants.CLOSE_BRACKET);
+	}
+
+	public boolean areChildrenEmpty() {
+		return getChildren().isEmpty();
+	}
+
+	public boolean isVariable() {
+		System.out.println("  variable!");
+		return getData().startsWith(":");
+	}
+	// =========================================================================
+	// Getters and Setters
+	// =========================================================================
 
 	public String getData() {
 		return this.data;
@@ -66,24 +108,4 @@ public class Node {
 		this.children = children;
 	}
 
-	public boolean isOpenBracket(Queue<String> queue) {
-		return queue.peek().equals(Constants.OPEN_BRACKET);
-	}
-
-	public boolean isCloseBracket(Queue<String> queue) {
-		return queue.peek().equals(Constants.CLOSE_BRACKET);
-	}
-
-	public void addChild(Node node) {
-		getChildren().add(node);
-	}
-
-	public boolean areChildrenEmpty() {
-		return getChildren().isEmpty();
-	}
-
-	public boolean isVariable() {
-		System.out.println("  variable!");
-		return getData().startsWith(":");
-	}
 }
