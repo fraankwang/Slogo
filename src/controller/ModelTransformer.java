@@ -104,33 +104,34 @@ public class ModelTransformer {
 
 	/**
 	 * Reads TurtleCoordinate from queue and draws new line
+	 * @param orientation 
 	 * 
 	 * @param queue
 	 */
-	public void transformTurtleGraphics(LinkedList<TurtleCoordinates> coordinates) {
+	public void transformTurtleGraphics(LinkedList<TurtleCoordinates> coordinates, Double orientation) {
 		GraphicsContext playground = myController.getMyView().getMyTurtleGraphics();
-		updateTurtleGraphics(playground, coordinates);
+		updateTurtleGraphics(playground, coordinates, orientation);
 
 	}
 
 	/**
 	 * Updates where the turtle (or turtles) has drawn
 	 */
-	private void updateTurtleGraphics(GraphicsContext gc, LinkedList<TurtleCoordinates> coordinates) {
+	private void updateTurtleGraphics(GraphicsContext gc, LinkedList<TurtleCoordinates> coordinates, Double orientation) {
 		double currentX = CENTER_X_COORDINATE;
 		double currentY = CENTER_Y_COORDINATE;
 		gc.setFill(myPenColor);
 		gc.setStroke(myPenColor);
-		gc.setLineWidth(8);
+		gc.setLineWidth(Constants.TURTLE_PEN_WIDTH);
 
 		for (TurtleCoordinates coordinate : coordinates) {
-			System.out.println(coordinate.getXCoord() + ", " + coordinate.getYCoord());
 			double newX = CENTER_X_COORDINATE + coordinate.getXCoord();
 			double newY = CENTER_Y_COORDINATE + (-1 * coordinate.getYCoord());
-
 			gc.strokeLine(currentX, currentY, newX, newY);
-			myTurtleElement.getNode().setTranslateX(10.0);
-			myTurtleElement.getNode().setTranslateY(-1 * coordinate.getYCoord());
+			
+			Double rounded = (double) Math.round(newX);
+			myTurtleElement.moveTurtleImage(rounded - CENTER_X_COORDINATE, -1 * coordinate.getYCoord());
+			myTurtleElement.setTurtleOrientation(orientation);
 			
 			currentX = newX;
 			currentY = newY;

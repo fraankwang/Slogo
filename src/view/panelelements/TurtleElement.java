@@ -18,12 +18,17 @@ public class TurtleElement extends PanelElement {
 		myNode = imageView;
 	}
 	
-	public void rotateTurtleImage(double degrees) {
-		myNode.setRotate(myNode.getRotate() + degrees);
+	public void moveTurtleImage(double x, double y) {
+		myNode.setTranslateX(x);
+		myNode.setTranslateY(y);
 	}
 	
+	/**
+	 * Rotates Image of turtle, offset to adjust for model
+	 * @param degrees
+	 */
 	public void setTurtleOrientation(double degrees) {
-		myNode.setRotate(degrees);
+		myNode.setRotate(270 - degrees);
 	}
 	
 	
