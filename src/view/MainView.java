@@ -246,9 +246,12 @@ public class MainView {
 		ImageView newImage = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(image + ".jpg")));
 		newImage.setFitWidth(Constants.TURTLE_ELEMENT_WIDTH);
 		newImage.setFitHeight(Constants.TURTLE_ELEMENT_HEIGHT);
+		Double oldX = myTurtleElement.getNode().getTranslateX();
+		Double oldY = myTurtleElement.getNode().getTranslateY();
 		((TurtleElement) myTurtleElement).setTurtleImage(newImage);
 		myTurtleWrapper.getChildren().clear();
 		myTurtleWrapper.getChildren().addAll(myTurtlePlayground, myTurtleElement.getNode());
+		((TurtleElement) myTurtleElement).moveTurtleImage(oldX, oldY);
 	}
 
 	public void setTurtleBackgroundColor(Color color) {

@@ -41,12 +41,11 @@ public class TurtlePlayground {
 	}
 
 	public boolean inBounds() {
-		return inBounds(myTurtle.getxCoordinate(), myTurtle.getyCoordinate() );
+		return inBounds(myTurtle.getxCoordinate(), myTurtle.getyCoordinate());
 	}
 
 	public boolean inBounds(Double xCoord, Double yCoord) {
-		if (xCoord < -myWidth / 2 || xCoord  > myWidth / 2
-				|| yCoord < -myHeight / 2 || yCoord > myHeight / 2)
+		if (xCoord < -myWidth / 2 || xCoord > myWidth / 2 || yCoord < -myHeight / 2 || yCoord > myHeight / 2)
 			return false;
 		else
 			return true;
@@ -93,5 +92,8 @@ public class TurtlePlayground {
 		return (LinkedList<TurtleCoordinates>) myTurtle.getCoordinates();
 	}
 
+	public Double getTurtleOrientation() {
+		return myTurtle.getOrientation();
+	}
 
 }

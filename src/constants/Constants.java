@@ -58,6 +58,7 @@ public class Constants {
 
 	public static final int TURTLE_ELEMENT_WIDTH = 50;
 	public static final int TURTLE_ELEMENT_HEIGHT = TURTLE_ELEMENT_WIDTH;
+	public static final int TURTLE_PEN_WIDTH = 4;
 	public static final int MENU_BAR_HEIGHT = 50;
 	public static final int MENU_TURTLE_IMAGE_SIZE = 50;
 
