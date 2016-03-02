@@ -2,7 +2,7 @@
  * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
  */
 
-package view;
+package view.factories;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,6 +30,13 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import view.panelelements.CommandsElement;
+import view.panelelements.HistoryElement;
+import view.panelelements.OutputElement;
+import view.panelelements.PanelElement;
+import view.panelelements.TurtleBackground;
+import view.panelelements.TurtleElement;
+import view.panelelements.VariablesElement;
 
 public class PanelElementFactory {
 
@@ -228,6 +235,11 @@ public class PanelElementFactory {
 		return variablesElement;
 	}
 	
+	/**
+	 * Helper method to create an editable listview that links to variable keys
+	 * @param names
+	 * @return
+	 */
 	private ListView<String> createVariablesNamesListView(){
 		ListView<String> namesListView = new ListView<String>();
 		namesListView.setPrefSize(RIGHT_COLUMN_WIDTH/2.0, RIGHT_COLUMN_ELEMENT_HEIGHT);
@@ -248,6 +260,11 @@ public class PanelElementFactory {
 		return namesListView;
 	}
 	
+	/**
+	 * Helper method to create an editable listview that links to variable values
+	 * @param names
+	 * @return
+	 */
 	private ListView<String> createVariablesValuesListView(ListView<String> names){
 		ListView<String> valuesListView = new ListView<String>();
 		valuesListView.setPrefSize(RIGHT_COLUMN_WIDTH/2.0, RIGHT_COLUMN_ELEMENT_HEIGHT);
