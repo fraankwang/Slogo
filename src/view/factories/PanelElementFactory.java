@@ -4,7 +4,6 @@
 
 package view.factories;
 
-import java.util.Arrays;
 import java.util.List;
 import constants.Constants;
 import controller.MainController;
@@ -16,17 +15,7 @@ import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.control.Cell;
-import javafx.scene.control.CheckMenuItem;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollBar;
-import javafx.scene.control.Slider;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.TextFieldListCell;
@@ -37,14 +26,12 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import view.panelelements.CommandsElement;
 import view.panelelements.HistoryElement;
@@ -58,6 +45,7 @@ public class PanelElementFactory {
 
 	private static final double LEFT_COLUMN_WIDTH = Constants.LEFT_COLUMN_WIDTH;
 	private static final double PLAYGROUND_HEIGHT = Constants.PLAYGROUND_HEIGHT;
+	private static final double PLAYGROUND_WIDTH = Constants.PLAYGROUND_WIDTH;
 	private static final double RIGHT_COLUMN_WIDTH = Constants.RIGHT_COLUMN_WIDTH;
 	private static final double RIGHT_COLUMN_ELEMENT_HEIGHT = Constants.RIGHT_COLUMN_ELEMENT_HEIGHT;
 
@@ -87,17 +75,17 @@ public class PanelElementFactory {
 	 */
 	public VBox createLeftColumn() {
 		VBox leftColumn = new VBox();
-		
+
 		VBox turtleVBox = new VBox();
 		TurtleBackground turtleBackground = (TurtleBackground) createTurtleBackground();
 		turtleVBox.getChildren().add(turtleBackground.getNode());
 		turtleVBox.getStyleClass().add("turtle-vbox");
-		
+
 		VBox inputVBox = new VBox();
 		HBox inputBox = makeInputWrapper();
 		inputVBox.getChildren().add(inputBox);
 		inputVBox.getStyleClass().add("input-vbox");
-		
+
 		leftColumn.getChildren().addAll(turtleVBox, inputVBox);
 
 		return leftColumn;
@@ -115,15 +103,17 @@ public class PanelElementFactory {
 		HistoryElement history = (HistoryElement) createHistoryElement();
 		OutputElement outputArea = (OutputElement) createOutputElement();
 
-//		List<Node> allNodes = Arrays.asList(variables.getNode(), commands.getNode(), history.getNode(),
-//				outputArea.getNode());
-//		setMargins(allNodes);
+		// List<Node> allNodes = Arrays.asList(variables.getNode(),
+		// commands.getNode(), history.getNode(),
+		// outputArea.getNode());
+		// setMargins(allNodes);
 		variables.getNode().getStyleClass().add("variables-element");
 		commands.getNode().getStyleClass().add("commands-element");
 		history.getNode().getStyleClass().add("history-element");
 		outputArea.getNode().getStyleClass().add("output-element");
 
-		rightColumn.getChildren().addAll(variables.getNode(), commands.getNode(), history.getNode(), outputArea.getNode());
+		rightColumn.getChildren().addAll(variables.getNode(), commands.getNode(), history.getNode(),
+				outputArea.getNode());
 		return rightColumn;
 
 	}
@@ -177,14 +167,14 @@ public class PanelElementFactory {
 	private Button makeRunButton() {
 		Button runButton = new Button(Constants.getSpecification("RunButtonDefaultText"));
 		runButton.setPrefSize(Constants.RUN_BUTTON_WIDTH, Constants.RUN_BUTTON_HEIGHT);
-		
+
 		runButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				myController.executeCommand(textArea.getText());
 			}
 		});
-		
+
 		runButton.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent event) {
@@ -192,10 +182,10 @@ public class PanelElementFactory {
 				if (hotkeyRun.match(event)) {
 					myController.executeCommand(textArea.getText());
 				}
-				
+
 			}
 		});
-		
+
 		return runButton;
 
 	}
@@ -208,14 +198,14 @@ public class PanelElementFactory {
 	private Button makeClearButton() {
 		Button clearButton = new Button(Constants.getSpecification("ClearButtonDefaultText"));
 		clearButton.setPrefSize(Constants.CLEAR_BUTTON_WIDTH, Constants.CLEAR_BUTTON_HEIGHT);
-		
+
 		clearButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				textArea.clear();
 			}
 		});
-		
+
 		clearButton.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
 			public void handle(KeyEvent event) {
@@ -223,10 +213,10 @@ public class PanelElementFactory {
 				if (hotkeyClear.match(event)) {
 					textArea.clear();
 				}
-				
+
 			}
 		});
-		
+
 		return clearButton;
 
 	}
@@ -263,7 +253,8 @@ public class PanelElementFactory {
 				new Image(getClass().getClassLoader().getResourceAsStream(Constants.getDefaultTurtleImageFileName())));
 		turtleImage.setFitWidth(Constants.TURTLE_ELEMENT_WIDTH);
 		turtleImage.setFitHeight(Constants.TURTLE_ELEMENT_HEIGHT);
-		TurtleElement turtleElement = new TurtleElement(turtleImage, Constants.getSpecification("TurtleElementName")); 
+
+		TurtleElement turtleElement = new TurtleElement(turtleImage, Constants.getSpecification("TurtleElementName"));
 
 		turtleElement.getNode().getStyleClass().add("turtle-element");
 		return turtleElement;
@@ -276,12 +267,12 @@ public class PanelElementFactory {
 	public PanelElement createVariablesElement() {
 		VBox variablesWrapper = new VBox();
 		Label variablesLabel = new Label(Constants.getSpecification("VariablesLabel"));
-		
 		HBox variablesListViews = new HBox();
 		ListView<String> variablesNamesListView = createVariablesNamesListView();
 		ListView<String> variablesValuesListView = createVariablesValuesListView(variablesNamesListView);
-		
+
 		variablesListViews.getChildren().addAll(variablesNamesListView, variablesValuesListView);
+
 		variablesWrapper.getChildren().addAll(variablesLabel, variablesListViews);
 
 		variablesElement = new VariablesElement(variablesWrapper, Constants.getSpecification("VariablesElementName"));

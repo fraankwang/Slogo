@@ -193,14 +193,19 @@ public class MenuBarFactory {
 	 */
 	private Menu createTurtleMenu() {
 		Menu turtleMenu = new Menu(Constants.getSpecification("TurtleMenuOption"));
-		// pen color, image, add new image
-
+		
 		CustomMenuItem penColor = makePenColorPicker(Constants.DEFAULT_PEN_COLOR);
+//		MenuItem clearPlayground = new MenuItem(Constants.getSpecification("ClearPlaygroundOption"));
+//		clearPlayground.setOnAction(e -> myController.clearTurtlePlayground());
+		MenuItem resetTurtle = new MenuItem(Constants.getSpecification("ResetTurtleOption"));
+		resetTurtle.setOnAction(e -> myController.resetTurtlePosition());
 		MenuItem turtleImages = makeTurtleImages();
 		MenuItem uploadNew = makeUploadNewOption();
-
+		
 		SeparatorMenuItem sep = new SeparatorMenuItem();
-		turtleMenu.getItems().addAll(penColor, sep, turtleImages, uploadNew);
+		SeparatorMenuItem sep2 = new SeparatorMenuItem();
+		turtleMenu.getItems().addAll(penColor, sep, resetTurtle, sep2, turtleImages, uploadNew);
+//		turtleMenu.getItems().addAll(penColor, sep, clearPlayground, resetTurtle, sep2, turtleImages, uploadNew);
 		return turtleMenu;
 		
 	}
@@ -292,7 +297,8 @@ public class MenuBarFactory {
 						Constants.getSpecification("AllowedUploadedImageTypesFilter"));
 				fileChooser.getExtensionFilters().addAll(extFilter);
 				File chosenFile = fileChooser.showOpenDialog(myPrimaryStage);
-				// ON HOLD UNTIL EXTENSION
+				System.out.println(chosenFile.getName());
+				// TODO: Extension work
 				// SAVE FILE (only JPG to src/images)
 				// call createTurtleImageMenuItem() and add it to turtleImages
 			}

@@ -1,3 +1,7 @@
+/**
+ * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
+ */
+
 package model;
 
 import java.util.ArrayList;
@@ -6,32 +10,46 @@ import java.util.Queue;
 
 import constants.Constants;
 
+/**
+ * The Node class is a custom object which represents a Node in the tree which
+ * is constructed by the CommandParser class. The Node class has an instance of
+ * a String variable data and a List<Node> children. The data variable
+ * represents the node's value. The children variable represents a list of
+ * children nodes.
+ */
 public class Node {
 	String data;
 	List<Node> children;
-	public Node(String dataString, List<Node> childList){
+
+	public Node(String dataString, List<Node> childList) {
 		data = dataString;
 		children = childList;
 
 	}
-	public Node(){
-		data=new String();
-		children=new ArrayList<Node>();
+
+	public Node() {
+		data = new String();
+		children = new ArrayList<Node>();
 	}
 
-	public Node makeCommandString(Queue<String> queue, Node tree){
+	/**
+	 * The makeCommandString() method sets a Node's value given a Queue
+	 * <String> containing the parsed user commands.
+	 *
+	 */
+	public Node makeCommandString(Queue<String> queue, Node tree) {
 		queue.poll();
 		StringBuilder commandstring = new StringBuilder();
 		int opencount = 1;
 		int closecount = 0;
 		while (true) {
 
-			if(isOpenBracket(queue)){
+			if (isOpenBracket(queue)) {
 				opencount++;
 			}
-			if(isCloseBracket(queue)){
+			if (isCloseBracket(queue)) {
 				closecount++;
-				if(closecount==opencount){
+				if (closecount == opencount) {
 					break;
 				}
 			}
@@ -39,46 +57,55 @@ public class Node {
 			commandstring.append(action + " ");
 		}
 		queue.poll();
-		if(commandstring.length()!=0){
-			tree.data =commandstring.deleteCharAt(commandstring.length() - 1).toString();
-		}
+
+		tree.data = commandstring.toString().trim();
 		return tree;
+		
 	}
 
 
-	public String getData(){
-		return this.data;
-	}
-
-	public List<Node> getChildren(){
-		return this.children;
-	}
-
-	public void setData(String data){
-		this.data=data;
-	}
-
-	public void setChildren(List<Node> children){
-		this.children=children;
-	}
-
-	public  boolean isOpenBracket(Queue<String> queue){
-		return queue.peek().equals(Constants.OPEN_BRACKET);
-	}
-	public  boolean isCloseBracket(Queue<String> queue){
-		return queue.peek().equals(Constants.CLOSE_BRACKET);
-	}
-
-	public void addChild(Node node){
+	/**
+	 * The addChild() method adds a Node to the instnace of List<Node> children.
+	 *
+	 */
+	public void addChild(Node node) {
 		getChildren().add(node);
 	}
 
-	public boolean areChildrenEmpty(){
+	public boolean isOpenBracket(Queue<String> queue) {
+		return queue.peek().equals(Constants.OPEN_BRACKET);
+	}
+
+	public boolean isCloseBracket(Queue<String> queue) {
+		return queue.peek().equals(Constants.CLOSE_BRACKET);
+	}
+
+	public boolean areChildrenEmpty() {
 		return getChildren().isEmpty();
 	}
 
-	public boolean isVariable(){
+	public boolean isVariable() {
 		System.out.println("  variable!");
 		return getData().startsWith(":");
 	}
+	// =========================================================================
+	// Getters and Setters
+	// =========================================================================
+
+	public String getData() {
+		return this.data;
+	}
+
+	public List<Node> getChildren() {
+		return this.children;
+	}
+
+	public void setData(String data) {
+		this.data = data;
+	}
+
+	public void setChildren(List<Node> children) {
+		this.children = children;
+	}
+
 }
