@@ -21,7 +21,12 @@ public class Make extends ControlStructures {
 		this.var = params.get(0);
 		System.out.println(var);
 		System.out.println(params.get(1));
-		this.exp = Double.parseDouble(params.get(1));
+		try {
+			this.exp = myCommandParser.parseCommands(params.get(1));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	@Override

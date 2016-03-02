@@ -16,14 +16,19 @@ public class If extends ControlStructures{
 
 	@Override
 	public double rule() {
-		if( Double.parseDouble(params.get(0)) != 0 ){
-			System.out.println("run "+params.get(1));
-			try {
-				return myCommandParser.parseCommands(params.get(1));
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
+		try {
+			if( myCommandParser.parseCommands(params.get(0)) != 0 ){
+				System.out.println("run "+params.get(1));
+				try {
+					return myCommandParser.parseCommands(params.get(1));
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return 0;
 	}

@@ -14,21 +14,26 @@ public class Ifelse extends ControlStructures {
 
 	@Override
 	public double rule() {
-		if( Double.parseDouble(params.get(0)) != 0 ){
-			try {
-				return myCommandParser.parseCommands(params.get(1));
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
-		}
-		else{
-			try {
-				return myCommandParser.parseCommands(params.get(2));
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} 
+		try {
+			if( myCommandParser.parseCommands(params.get(0)) != 0 ){
+				try {
+					return myCommandParser.parseCommands(params.get(1));
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+			}
+			else{
+				try {
+					return myCommandParser.parseCommands(params.get(2));
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return 0;
 	}

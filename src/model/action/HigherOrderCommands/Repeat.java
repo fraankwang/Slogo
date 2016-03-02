@@ -17,7 +17,7 @@ public class Repeat extends ControlStructures {
 		super(params, language, playground, variables, usercommands);
 		//to discuss
 		try {
-			this.exp = Double.parseDouble(params.get(0));
+			this.exp = myCommandParser.parseCommands(params.get(0));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -31,7 +31,7 @@ public class Repeat extends ControlStructures {
 		try {
 			for (int repCount = 0; repCount < exp; repCount++) {
 
-				myCommandParser.getVariableList().addVariable("repCount", repCount);
+				myCommandParser.getVariableList().addVariable(":repcount", repCount);
 				curr = myCommandParser.parseCommands(params.get(1));
 			} 
 		}catch (Exception e) {

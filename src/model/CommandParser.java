@@ -128,7 +128,9 @@ public class CommandParser {
 				double variable = myVariables.getVariableValue(node.getData());
 				return variable;
 			} catch (Exception unreachableVariable) {
-				throw new Exception("can't get variable");
+//				throw new Exception("can't get variable");
+				myVariables.addVariable(node.getData(), Constants.DEFAULT_VARIABLE_VALUE);
+				return Constants.DEFAULT_VARIABLE_VALUE;
 			}
 
 		} else {
