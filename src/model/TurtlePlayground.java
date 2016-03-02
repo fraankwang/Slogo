@@ -8,8 +8,8 @@ import java.util.LinkedList;
 
 public class TurtlePlayground {
 	private Turtle myTurtle;
-	private int myWidth;
-	private int myHeight;
+	private double myWidth;
+	private double myHeight;
 	// private ArrayList<Turtle> turtleList;
 	// saved for later
 
@@ -17,7 +17,7 @@ public class TurtlePlayground {
 		myTurtle = new Turtle();
 	}
 
-	public TurtlePlayground(int width, int height) {
+	public TurtlePlayground(double width, double height) {
 		myTurtle = new Turtle();
 		myWidth = width;
 		myHeight = height;
