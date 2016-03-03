@@ -15,28 +15,34 @@ import java.util.*;
  * each coordinate object keeps track of whether the pen is down.
  */
 public class Turtle {
+	private int turtleID;
 	private TurtleCoordinates turtleCoordinate;
 	private boolean penDown;
 	private boolean showTurtle;
 	private Double Orientation;
 	private LinkedList<TurtleCoordinates> turtleCoordinates;
 
-	public Turtle() {
-		this(0.0, 0.0);
+	public Turtle(int turtleID) {
+		this(0.0, 0.0, turtleID);
 	}
 
-	public Turtle(Double xCoord, Double yCoord) {
+	public Turtle(Double xCoord, Double yCoord, int turtleID) {
 		penDown = true;
 		showTurtle = false;
 		Orientation = 0.0;
 		turtleCoordinate = new TurtleCoordinates(xCoord, yCoord, penDown);
 		turtleCoordinates = new LinkedList<TurtleCoordinates>();
+		this.turtleID=turtleID;
 	}
 
 	// =========================================================================
 	// Getters and Setters
 	// =========================================================================
 
+	public int getTurtleID(){
+		return this.turtleID;
+	}
+	
 	public void setPenDown(boolean down) {
 		this.penDown = down;
 	}

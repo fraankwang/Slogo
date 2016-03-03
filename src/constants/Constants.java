@@ -29,7 +29,7 @@ public class Constants {
 	public static final String TURTLE_TWOPARAMS= "model.action.TurtleCommandsTwoParams.TurtleCommandsTwoParams";
 	public static final String CONTROL_STRUCTURES= "model.action.HigherOrderCommands.ControlStructures";
 	public static final String HIGHER_ORDERSTRUCTURE = "model.action.HigherOrderCommands.HigherOrderCommands";
-	
+	public static final String TURTLE_ONESTRINGPARAM= "model.action.TurtleCommandsOneStringParam.TurtleCommandsOneStringParam";
 	private static final ResourceBundle SPECIFICATIONS = ResourceBundle
 			.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_RESOURCE_FILE);
 	private static final ResourceBundle ACTIONS = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_ACTIONS);

@@ -122,6 +122,7 @@ public class CommandParser {
 
 		try {
 			totalchildren = getNumberParams(tree.data);
+			System.out.println(totalchildren + " children number");
 
 		} catch (Exception e) {
 			try {
@@ -144,6 +145,7 @@ public class CommandParser {
 		int totalchildren;
 		String superclass = Class.forName(Constants.getAction(classname)).getSuperclass().getName();
 		totalchildren = Constants.getNumberParams(superclass);
+		System.out.println(totalchildren + "total children");
 		return totalchildren;
 	}
 
@@ -156,6 +158,7 @@ public class CommandParser {
 		System.out.println("at node: " + node.getData());
 		try {
 			Action action = makeAction(node);
+			System.out.println(action.getClass().getName());
 			return action.rule();
 		} catch (Exception exception) {
 			try {
@@ -244,6 +247,9 @@ public class CommandParser {
 			case Constants.HIGHER_ORDERSTRUCTURE:
 				finalaction = (Action) constructor.newInstance(addStringParams(node), myLanguage, myPlayground,
 						myVariables, myUserCommands);
+				break;
+			case Constants.TURTLE_ONESTRINGPARAM:
+				finalaction = (Action) constructor.newInstance(addStringParams(node), myPlayground);
 				break;
 			}
 
