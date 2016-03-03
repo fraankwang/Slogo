@@ -12,7 +12,7 @@ public abstract class TurtleCommandsOneStringParam extends TurtleCommands{
 	public TurtleCommandsOneStringParam( List<String> params,TurtlePlayground playground) {
 		super(playground);
 		command=params.get(0);
-		// TODO Auto-generated constructor stub
+		System.out.println(command);
 	}
 
 }
