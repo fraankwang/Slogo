@@ -4,6 +4,7 @@
 
 package model.action.TurtleCommandsNoParams;
 
+import model.turtle.TurtleCoordinates;
 import model.turtle.TurtlePlayground;
 
 /**
@@ -32,8 +33,8 @@ public class ClearScreen extends TurtleCommands {
 	 */
 	@Override
 	public double rule() {
-		Double difference = (double) playground.getDistance(playground.getCurrentTurtle().getxCoordinate(),
-				playground.getCurrentTurtle().getyCoordinate(), 0.0, 0.0);
+		TurtleCoordinates home=new TurtleCoordinates(0.0,0.0);
+		Double difference = (double) playground.getDistance(playground.getCurrentTurtle().getCoordinate(), home);
 		return difference;
 	}
 

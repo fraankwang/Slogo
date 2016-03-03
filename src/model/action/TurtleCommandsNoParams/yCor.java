@@ -25,7 +25,7 @@ public class yCor extends TurtleCommands {
 
 	@Override
 	public double rule() {
-		return playground.getCurrentTurtle().getyCoordinate();
+		return playground.getCurrentTurtle().getCoordinate().getYCoord();
 	}
 
 }
