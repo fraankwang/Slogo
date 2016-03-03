@@ -53,7 +53,7 @@ public class CommandParser {
 		List<String> parsedInputList = new ArrayList<String>();
 
 		for (String s : firstParsed) {
-			if (!s.contains("#")) {
+			if (!isComment(s)) {
 				parsedInputList.addAll(Arrays.asList(s.split("\\s")));
 			}
 		}
@@ -63,18 +63,14 @@ public class CommandParser {
 			if (!isComment(string) && !string.isEmpty()) {
 				try {
 					String command = Constants.getCommand(myLanguage, string);
-
-					if (command.startsWith("\"")) {
-						command = command.substring(1, command.length() - 1);
-					}
-
 					comandsList.add(command);
 				} catch (Exception e) {
 					comandsList.add(string);
 				}
-			} else {
-				System.out.println(string);
-			}
+			} 
+//			else {
+//				System.out.println(string);
+//			}
 		}
 		queue.addAll(comandsList);
 		return queue;
@@ -86,7 +82,7 @@ public class CommandParser {
 	 * a boolean for whether the string starts with a #
 	 */
 	private boolean isComment(String string) {
-		return string.startsWith("#");
+		return string.contains("#");
 	}
 
 	/**
@@ -197,19 +193,13 @@ public class CommandParser {
 	 */
 	private Double parseUserCommands(Node node) throws Exception {
 		Iterator<Node> iter = node.getChildren().iterator();
-		System.out.println(" size " + myUserCommands.getCommandParams(node.getData()).size());
 		for (String string : myUserCommands.getCommandParams(node.getData())) {
-			System.out.println(" param:" + string);
 			Node val = iter.next();
-			System.out.println(" value" + val.getData());
 			myVariables.addVariable(string, treeTraversal(val));
 			System.out.println("param:" + string + " , " + myVariables.getVariableValue(string));
 
 		}
-
-		String thiscommand = myUserCommands.getCommand(node.getData());
-
-		return parseCommands(thiscommand);
+		return parseCommands(myUserCommands.getCommand(node.getData()));
 	}
 
 	/**
@@ -268,7 +258,7 @@ public class CommandParser {
 	}
 
 	/**
-	 * The addDoubleParams() method returns an ArrayList<String> which contains
+	 * The addStringParams() method returns an ArrayList<String> which contains
 	 * the (children) parameters for a given node.
 	 *
 	 */
