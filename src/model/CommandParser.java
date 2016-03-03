@@ -295,7 +295,8 @@ public class CommandParser {
 	public Node makeUnlimitedParamCommand(Queue<String> queue, Node tree) throws Exception {
 		queue.poll();
 		String command = queue.poll();
-		if(getNumberParams(command)!= 2){
+		System.out.println(command);
+		if(getNumberParams(command) == 2){
 			//TODO: make this a constant
 			putUnlimitedParams(command, queue, tree);
 			return tree;

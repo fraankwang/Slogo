@@ -67,33 +67,7 @@ public class Node {
 		return tree;
 
 	}
-	/**
-	 * The makeUnlimitedParamCommand() method sets a Node's value and children given a Queue
-	 * <String> containing the parsed command with unlimited parameters.
-	 *
-	 */
-	public Node makeUnlimitedParamCommand(Queue<String> queue, Node tree) {
-		queue.poll();
-		String command = queue.poll();
-
-		putUnlimitedParams(command, queue, tree);
-
-		return tree;
-	}
-
-	private Node putUnlimitedParams(String command, Queue<String> queue, Node tree){
-		String curr = queue.poll();
-		if(isCloseParenthesis(queue)){
-			tree.setData(curr);
-		}
-		else{
-			tree.setData(command);
-			tree.addChild(new Node(curr));
-			tree.addChild(putUnlimitedParams(command, queue, new Node()));
-		}
-		return tree;
-
-	}
+	
 
 
 	/**
