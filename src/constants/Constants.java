@@ -7,7 +7,7 @@ package constants;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.ParseException;
+import exceptions.ParseException;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
