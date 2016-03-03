@@ -27,7 +27,7 @@ public class PenDown extends TurtleCommands {
 	 */
 	@Override
 	public double rule() {
-		playground.getTurtle().setPenDown(pen);
+		playground.getCurrentTurtle().setPenDown(pen);
 		return (double) ((pen) ? 1 : 0);
 	}
 

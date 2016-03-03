@@ -57,7 +57,7 @@ public class MainController {
 	public void refreshDisplay() {
 		myTransformer.transformOutputElement((Queue<String>) myModel.getMyOutputs());
 		myTransformer.transformHistoryElement((Queue<String>) myModel.getMyHistory());
-		myTransformer.transformTurtleGraphics(myModel.getMyPlayground().getTurtle());
+		myTransformer.transformTurtleGraphics(myModel.getMyPlayground().getCurrentTurtle());
 		myTransformer.transformVariablesElement(myModel.getMyVariables());
 		myTransformer.transformCommandsElement(myModel.getMyUserCommands());
 
@@ -69,7 +69,7 @@ public class MainController {
 	 */
 	public void clearTurtlePlayground() {
 		myView.getMyTurtleGraphics().clearRect(0, 0, Constants.PLAYGROUND_WIDTH, Constants.PLAYGROUND_HEIGHT);
-		myModel.getMyPlayground().getTurtle().clearTurtleCoordinates();
+		myModel.getMyPlayground().getCurrentTurtle().clearTurtleCoordinates();
 		myModel.getMyPlayground().setTurtleHome();
 
 	}
@@ -80,10 +80,10 @@ public class MainController {
 	 */
 	public void resetTurtlePosition() {
 		myView.getMyTurtleGraphics().clearRect(0, 0, Constants.PLAYGROUND_WIDTH, Constants.PLAYGROUND_HEIGHT);
-		myModel.getMyPlayground().getTurtle().clearTurtleCoordinates();
+		myModel.getMyPlayground().getCurrentTurtle().clearTurtleCoordinates();
 		myModel.getMyPlayground().setTurtleHome();
 		myView.getMyTurtleElement().moveTurtleImage(0.0, 0.0);
-		myTransformer.transformTurtleGraphics(myModel.getMyPlayground().getTurtle());
+		myTransformer.transformTurtleGraphics(myModel.getMyPlayground().getCurrentTurtle());
 
 	}
 

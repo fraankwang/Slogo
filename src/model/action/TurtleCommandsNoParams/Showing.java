@@ -27,7 +27,7 @@ public class Showing extends TurtleCommands {
 
 	@Override
 	public double rule() {
-		boolean visible = playground.getTurtle().isVisible();
+		boolean visible = playground.getCurrentTurtle().isVisible();
 		Double castedVisible = (double) ((visible) ? 1 : 0);
 		return castedVisible;
 	}
