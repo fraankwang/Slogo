@@ -31,7 +31,7 @@ public class HideTurtle extends TurtleCommands {
 
 	@Override
 	public double rule() {
-		playground.getTurtle().setShowTurtle(visible);
+		playground.getCurrentTurtle().setShowTurtle(visible);
 		return (double) ((visible) ? 1 : 0);
 	}
 

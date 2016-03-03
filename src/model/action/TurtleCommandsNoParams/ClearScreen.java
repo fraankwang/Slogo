@@ -32,8 +32,8 @@ public class ClearScreen extends TurtleCommands {
 	 */
 	@Override
 	public double rule() {
-		Double difference = (double) playground.getDistance(playground.getTurtle().getxCoordinate(),
-				playground.getTurtle().getyCoordinate(), 0.0, 0.0);
+		Double difference = (double) playground.getDistance(playground.getCurrentTurtle().getxCoordinate(),
+				playground.getCurrentTurtle().getyCoordinate(), 0.0, 0.0);
 		return difference;
 	}
 
