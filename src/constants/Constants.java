@@ -43,6 +43,8 @@ public class Constants {
 
 	public static final String OPEN_BRACKET = "[";
 	public static final String CLOSE_BRACKET = "]";
+	public static final String OPEN_PARENTHESIS = "(";
+	public static final String CLOSE_PARENTHESIS = ")";
 
 	public static final Color DEFAULT_PEN_COLOR = Color.BLACK;
 	public static final Color DEFAULT_BACKGROUND_COLOR = Color.WHITE;
@@ -82,6 +84,7 @@ public class Constants {
 	
 	public static final double DEFAULT_VARIABLE_VALUE = 0;
 
+	
 	public static String getSpecification(String name) {
 		return SPECIFICATIONS.getString(name);
 	}
