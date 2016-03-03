@@ -26,6 +26,11 @@ public class Node {
 		children = childList;
 
 	}
+	public Node(String dataString){
+		data = dataString;
+		children = new ArrayList<Node>();
+
+	}
 
 	public Node() {
 		data = new String();
@@ -60,7 +65,34 @@ public class Node {
 
 		tree.data = commandstring.toString().trim();
 		return tree;
-		
+
+	}
+	/**
+	 * The makeUnlimitedParamCommand() method sets a Node's value and children given a Queue
+	 * <String> containing the parsed command with unlimited parameters.
+	 *
+	 */
+	public Node makeUnlimitedParamCommand(Queue<String> queue, Node tree) {
+		queue.poll();
+		String command = queue.poll();
+
+		putUnlimitedParams(command, queue, tree);
+
+		return tree;
+	}
+
+	private Node putUnlimitedParams(String command, Queue<String> queue, Node tree){
+		String curr = queue.poll();
+		if(isCloseParenthesis(queue)){
+			tree.setData(curr);
+		}
+		else{
+			tree.setData(command);
+			tree.addChild(new Node(curr));
+			tree.addChild(putUnlimitedParams(command, queue, new Node()));
+		}
+		return tree;
+
 	}
 
 
@@ -79,7 +111,12 @@ public class Node {
 	public boolean isCloseBracket(Queue<String> queue) {
 		return queue.peek().equals(Constants.CLOSE_BRACKET);
 	}
-
+	public boolean isOpenParenthesis(Queue<String> queue) {
+		return queue.peek().equals(Constants.OPEN_PARENTHESIS);
+	}
+	public boolean isCloseParenthesis(Queue<String> queue) {
+		return queue.peek().equals(Constants.CLOSE_PARENTHESIS);
+	}
 	public boolean areChildrenEmpty() {
 		return getChildren().isEmpty();
 	}
@@ -107,5 +144,7 @@ public class Node {
 	public void setChildren(List<Node> children) {
 		this.children = children;
 	}
+
+
 
 }
