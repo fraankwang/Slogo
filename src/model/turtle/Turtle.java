@@ -7,7 +7,7 @@ package model.turtle;
 import java.util.*;
 
 /**
- * The Turtle class represents the turtle object within the turtle playground,.
+ * The Turtle class represents the turtle object within the turtle playground.
  * The Turtle class has an instance of xCoordinate and yCoordinate, a boolean
  * for whether the pen is down, a boolean for whether the turtle should show on
  * the playground, a Double representing its orientation, and a
@@ -15,8 +15,7 @@ import java.util.*;
  * each coordinate object keeps track of whether the pen is down.
  */
 public class Turtle {
-	private Double xCoordinate;
-	private Double yCoordinate;
+	private TurtleCoordinates turtleCoordinate;
 	private boolean penDown;
 	private boolean showTurtle;
 	private Double Orientation;
@@ -30,19 +29,8 @@ public class Turtle {
 		penDown = true;
 		showTurtle = false;
 		Orientation = 0.0;
-		xCoordinate = xCoord;
-		yCoordinate = yCoord;
+		turtleCoordinate = new TurtleCoordinates(xCoord, yCoord, penDown);
 		turtleCoordinates = new LinkedList<TurtleCoordinates>();
-	}
-
-	/**
-	 * The addCoordinates() method adds a coordinate object to the turtle's
-	 * turtleCoordinates instance variable, given an x and y coordinate.
-	 *
-	 */
-	public void addCoordinates(Double xCoord, Double yCoord) {
-		TurtleCoordinates coordinate = new TurtleCoordinates(xCoord, yCoord, penDown);
-		turtleCoordinates.add(coordinate);
 	}
 
 	// =========================================================================
@@ -51,6 +39,10 @@ public class Turtle {
 
 	public void setPenDown(boolean down) {
 		this.penDown = down;
+	}
+	
+	public boolean getPenDown(){
+		return this.penDown;
 	}
 
 	public void setShowTurtle(boolean show) {
@@ -65,20 +57,12 @@ public class Turtle {
 		return this.Orientation;
 	}
 
-	public Double getxCoordinate() {
-		return xCoordinate;
+	public TurtleCoordinates getCoordinate(){
+		return this.turtleCoordinate;
 	}
 
-	public void setxCoordinate(Double xCoordinate) {
-		this.xCoordinate = xCoordinate;
-	}
-
-	public Double getyCoordinate() {
-		return yCoordinate;
-	}
-
-	public void setyCoordinate(Double yCoordinate) {
-		this.yCoordinate = yCoordinate;
+	public void setCoordinate(TurtleCoordinates coordinate){
+		this.turtleCoordinate=coordinate;
 	}
 
 	public LinkedList<TurtleCoordinates> getCoordinates() {
@@ -95,6 +79,15 @@ public class Turtle {
 
 	public void clearTurtleCoordinates() {
 		turtleCoordinates = new LinkedList<TurtleCoordinates>();
+	}
+
+	/**
+	 * The addCoordinates() method adds a coordinate object to the turtle's
+	 * turtleCoordinates instance variable, given an x and y coordinate.
+	 *
+	 */
+	public void addCoordinates(TurtleCoordinates coordinate){
+		turtleCoordinates.add(coordinate);
 	}
 
 }
