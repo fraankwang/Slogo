@@ -56,6 +56,7 @@ public class MainView {
 	private PanelElement myVariablesElement;
 	private PanelElement myTurtleBackground;
 	private PanelElement myTurtleElement;
+	private PanelElement myColorsElement;
 	private StackPane myTurtleWrapper; 
 	private Canvas myTurtlePlayground;
 	private GraphicsContext myTurtleGraphics;
@@ -132,6 +133,7 @@ public class MainView {
 		setMyCommandsElement(myPanelElementFactory.getCommandsElement());
 		setMyHistoryElement(myPanelElementFactory.getHistoryElement());
 		setMyOutputElement(myPanelElementFactory.getOutputElement());
+		setMyColorsElement(myPanelElementFactory.getColorsElement());
 
 		MenuBar menuBar = myMenuBarFactory.createMenuBar();
 
@@ -275,6 +277,11 @@ public class MainView {
 	public void setMyVariablesElement(PanelElement variablesElement) {
 		this.myVariablesElement = variablesElement;
 	}
+	
+	public void setMyColorsElement(PanelElement colorsElement) {
+		this.myColorsElement = colorsElement;
+	}
+
 
 	public Group getMyPrimaryRoot() {
 		return myPrimaryRoot;

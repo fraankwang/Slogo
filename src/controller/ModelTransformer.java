@@ -55,6 +55,8 @@ public class ModelTransformer {
 		textArea.clear();
 		textArea.setText(newOutput);
 	}
+	
+	public void transformColorElement(){}
 
 	/**
 	 * Clears previous elements within the HistoryElement ListView and

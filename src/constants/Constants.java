@@ -7,7 +7,7 @@ package constants;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-import exceptions.ParseException;
+//import exceptions.ParseException;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
@@ -64,6 +64,10 @@ public class Constants {
 	public static final double RUN_BUTTON_WIDTH = LEFT_COLUMN_WIDTH - TEXTAREA_WIDTH;
 	public static final double CLEAR_BUTTON_HEIGHT = RUN_BUTTON_HEIGHT;
 	public static final double CLEAR_BUTTON_WIDTH = RUN_BUTTON_WIDTH;
+	public static final double SAVE_BUTTON_HEIGHT = 10;
+	public static final double SAVE_BUTTON_WIDTH =  30;
+	public static final double LOAD_BUTTON_HEIGHT = SAVE_BUTTON_HEIGHT;
+	public static final double LOAD_BUTTON_WIDTH = SAVE_BUTTON_WIDTH;
 	
 	public static final double RIGHT_COLUMN_WIDTH = SCENE_WIDTH - LEFT_COLUMN_WIDTH - 30;
 	public static final double RIGHT_COLUMN_ELEMENT_HEIGHT = SCENE_HEIGHT*0.2;
@@ -99,7 +103,7 @@ public class Constants {
 				}
 			}
 		}
-		throw new ParseException();
+		throw new Exception();
 	}
 
 	public static int getNumberParams(String superclass) {

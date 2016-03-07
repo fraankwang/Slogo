@@ -33,6 +33,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
+import view.panelelements.ColorsElement;
 import view.panelelements.CommandsElement;
 import view.panelelements.HistoryElement;
 import view.panelelements.OutputElement;
@@ -53,6 +54,7 @@ public class PanelElementFactory {
 	private static final double ELEMENT_INSET_VERTICAL = Constants.ELEMENT_INSET_VERTICAL;
 
 	private MainController myController;
+	private ButtonFactory myButtonFactory;
 
 	private TextArea textArea;
 	private GraphicsContext myTurtleGraphics;
@@ -64,6 +66,7 @@ public class PanelElementFactory {
 	private CommandsElement commandsElement;
 	private HistoryElement historyElement;
 	private OutputElement outputElement;
+	private ColorsElement colorsElement;
 
 	public PanelElementFactory(MainController controller) {
 		myController = controller;
@@ -102,6 +105,7 @@ public class PanelElementFactory {
 		CommandsElement commands = (CommandsElement) createCommandsElement();
 		HistoryElement history = (HistoryElement) createHistoryElement();
 		OutputElement outputArea = (OutputElement) createOutputElement();
+		ColorsElement colors = (ColorsElement) createColorsElement();
 
 		// List<Node> allNodes = Arrays.asList(variables.getNode(),
 		// commands.getNode(), history.getNode(),
@@ -111,9 +115,10 @@ public class PanelElementFactory {
 		commands.getNode().getStyleClass().add("commands-element");
 		history.getNode().getStyleClass().add("history-element");
 		outputArea.getNode().getStyleClass().add("output-element");
+		colors.getNode().getStyleClass().add("color-element");
 
 		rightColumn.getChildren().addAll(variables.getNode(), commands.getNode(), history.getNode(),
-				outputArea.getNode());
+				outputArea.getNode(), colors.getNode());
 		return rightColumn;
 
 	}
@@ -136,15 +141,18 @@ public class PanelElementFactory {
 	 * @return
 	 */
 	private HBox makeInputWrapper() {
+		myButtonFactory = new ButtonFactory(myController, this);
+		
 		HBox inputWrapper = new HBox();
 		TextArea textArea = makeTextArea();
 
 		VBox buttons = new VBox();
-		buttons.getChildren().addAll(makeRunButton(), makeClearButton());
+		Button runButton = myButtonFactory.getRunButton();
+		Button clearButton = myButtonFactory.getClearButton();
+		buttons.getChildren().addAll(runButton, clearButton);
 
 		inputWrapper.getChildren().addAll(textArea, buttons);
 		return inputWrapper;
-
 	}
 
 	/**
@@ -159,67 +167,6 @@ public class PanelElementFactory {
 
 	}
 
-	/**
-	 * Helper function to execute commands given in @param ta
-	 * 
-	 * @return button that is set on action to call MainController
-	 */
-	private Button makeRunButton() {
-		Button runButton = new Button(Constants.getSpecification("RunButtonDefaultText"));
-		runButton.setPrefSize(Constants.RUN_BUTTON_WIDTH, Constants.RUN_BUTTON_HEIGHT);
-
-		runButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				myController.executeCommand(textArea.getText());
-			}
-		});
-
-		runButton.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent event) {
-				KeyCodeCombination hotkeyRun = new KeyCodeCombination(KeyCode.R, KeyCombination.CONTROL_DOWN);
-				if (hotkeyRun.match(event)) {
-					myController.executeCommand(textArea.getText());
-				}
-
-			}
-		});
-
-		return runButton;
-
-	}
-
-	/**
-	 * Helper function to clear commands given in @param ta
-	 * 
-	 * @return button that is set on action to clear the input box
-	 */
-	private Button makeClearButton() {
-		Button clearButton = new Button(Constants.getSpecification("ClearButtonDefaultText"));
-		clearButton.setPrefSize(Constants.CLEAR_BUTTON_WIDTH, Constants.CLEAR_BUTTON_HEIGHT);
-
-		clearButton.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent event) {
-				textArea.clear();
-			}
-		});
-
-		clearButton.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			@Override
-			public void handle(KeyEvent event) {
-				KeyCodeCombination hotkeyClear = new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_DOWN);
-				if (hotkeyClear.match(event)) {
-					textArea.clear();
-				}
-
-			}
-		});
-
-		return clearButton;
-
-	}
 
 	/**
 	 * @return formatted TurtleBackground which initializes myTurtleGraphics
@@ -305,6 +252,7 @@ public class PanelElementFactory {
 		// variablesListView.setCellFactory(listview -> new SettingsCell());
 		return namesListView;
 	}
+	
 
 	/**
 	 * Helper method to create an editable listview that links to variable
@@ -330,6 +278,21 @@ public class PanelElementFactory {
 			}
 		});
 		return valuesListView;
+	}
+	
+	private PanelElement createColorsElement() {
+		VBox colorsWrapper = new VBox();
+		Label colorsLabel = new Label(Constants.getSpecification("ColorsLabel"));
+		ListView<String> colorsListView = new ListView<String>();
+		colorsListView.setPrefSize(RIGHT_COLUMN_WIDTH / 2.0, RIGHT_COLUMN_ELEMENT_HEIGHT);
+		colorsListView.setCellFactory(TextFieldListCell.forListView());
+		
+		colorsWrapper.getChildren().addAll(colorsLabel, colorsListView);
+		
+		colorsElement = new ColorsElement(colorsWrapper, Constants.getSpecification("ColorsElementName"));
+		colorsElement.setListView(colorsListView);
+		
+		return colorsElement;
 	}
 
 	/**
@@ -455,6 +418,14 @@ public class PanelElementFactory {
 
 	public OutputElement getOutputElement() {
 		return outputElement;
+	}
+	
+	public ColorsElement getColorsElement() {
+		return colorsElement;
+	}
+	
+	public TextArea getTextArea() {
+		return textArea;
 	}
 
 }
