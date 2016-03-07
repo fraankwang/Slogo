@@ -25,7 +25,7 @@ public class xCor extends TurtleCommands {
 	 */
 	@Override
 	public double rule() {
-		return playground.getTurtle().getxCoordinate();
+		return playground.getCurrentTurtle().getCoordinate().getXCoord();
 	}
 
 }

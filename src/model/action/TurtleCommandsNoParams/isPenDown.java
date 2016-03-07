@@ -26,7 +26,7 @@ public class isPenDown extends TurtleCommands {
 	 */
 	@Override
 	public double rule() {
-		boolean isPenDown = playground.getTurtle().isPenDown();
+		boolean isPenDown = playground.getCurrentTurtle().isPenDown();
 		Double castedIsPenDown = (double) ((isPenDown) ? 1 : 0);
 		return castedIsPenDown;
 

@@ -7,7 +7,7 @@ package constants;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-import com.sun.xml.internal.messaging.saaj.packaging.mime.internet.ParseException;
+import exceptions.ParseException;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
@@ -29,7 +29,7 @@ public class Constants {
 	public static final String TURTLE_TWOPARAMS= "model.action.TurtleCommandsTwoParams.TurtleCommandsTwoParams";
 	public static final String CONTROL_STRUCTURES= "model.action.HigherOrderCommands.ControlStructures";
 	public static final String HIGHER_ORDERSTRUCTURE = "model.action.HigherOrderCommands.HigherOrderCommands";
-	
+	public static final String TURTLE_ONESTRINGPARAM= "model.action.TurtleCommandsOneStringParam.TurtleCommandsOneStringParam";
 	private static final ResourceBundle SPECIFICATIONS = ResourceBundle
 			.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_RESOURCE_FILE);
 	private static final ResourceBundle ACTIONS = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_ACTIONS);
@@ -43,6 +43,8 @@ public class Constants {
 
 	public static final String OPEN_BRACKET = "[";
 	public static final String CLOSE_BRACKET = "]";
+	public static final String OPEN_PARENTHESIS = "(";
+	public static final String CLOSE_PARENTHESIS = ")";
 
 	public static final Color DEFAULT_PEN_COLOR = Color.BLACK;
 	public static final Color DEFAULT_BACKGROUND_COLOR = Color.WHITE;
@@ -82,6 +84,7 @@ public class Constants {
 	
 	public static final double DEFAULT_VARIABLE_VALUE = 0;
 
+	
 	public static String getSpecification(String name) {
 		return SPECIFICATIONS.getString(name);
 	}

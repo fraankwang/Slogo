@@ -23,6 +23,12 @@ public class TurtleCoordinates {
 		yCoord = yCoordinate;
 		penDown = p;
 	}
+	
+	public TurtleCoordinates(Double xCoordinate, Double yCoordinate) {
+		xCoord = xCoordinate;
+		yCoord = yCoordinate;
+	}
+	
 
 	// =========================================================================
 	// Getters and Setters
@@ -39,5 +45,21 @@ public class TurtleCoordinates {
 	public boolean isPenDown() {
 		return penDown;
 	}
-
+	
+	public void setXCoord(Double xCoordinate){
+		xCoord=xCoordinate;
+	}
+	
+	public void setYCoord(Double yCoordinate){
+		yCoord=yCoordinate;
+	}
+	
+	public void setPenDown(Boolean pen){
+		penDown=pen;
+	}
+	
+	public void setCoordinates(Double xCoordinate, Double yCoordinate){
+		setXCoord(xCoordinate);
+		setYCoord(yCoordinate);
+	}
 }

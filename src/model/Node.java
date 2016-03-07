@@ -26,6 +26,11 @@ public class Node {
 		children = childList;
 
 	}
+	public Node(String dataString){
+		data = dataString;
+		children = new ArrayList<Node>();
+
+	}
 
 	public Node() {
 		data = new String();
@@ -60,8 +65,9 @@ public class Node {
 
 		tree.data = commandstring.toString().trim();
 		return tree;
-		
+
 	}
+	
 
 
 	/**
@@ -79,7 +85,12 @@ public class Node {
 	public boolean isCloseBracket(Queue<String> queue) {
 		return queue.peek().equals(Constants.CLOSE_BRACKET);
 	}
-
+	public boolean isOpenParenthesis(Queue<String> queue) {
+		return queue.peek().equals(Constants.OPEN_PARENTHESIS);
+	}
+	public boolean isCloseParenthesis(Queue<String> queue) {
+		return queue.peek().equals(Constants.CLOSE_PARENTHESIS);
+	}
 	public boolean areChildrenEmpty() {
 		return getChildren().isEmpty();
 	}
@@ -107,5 +118,7 @@ public class Node {
 	public void setChildren(List<Node> children) {
 		this.children = children;
 	}
+
+
 
 }

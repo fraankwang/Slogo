@@ -24,7 +24,7 @@ public class Heading extends TurtleCommands {
 	 */
 	@Override
 	public double rule() {
-		return playground.getTurtle().getOrientation();
+		return playground.getCurrentTurtle().getOrientation();
 	}
 
 }
