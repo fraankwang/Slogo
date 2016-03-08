@@ -25,12 +25,20 @@ public class CommandParser {
 	private TurtlePlayground myPlayground;
 	private Variables myVariables;
 	private UserCommands myUserCommands;
+	private Palette myPalette;
+	private Configuration myConfiguration;
 
 	public CommandParser(String language, TurtlePlayground playground, Variables variables, UserCommands usercommands) {
 		myLanguage = language;
 		myPlayground = playground;
 		myVariables = variables;
 		myUserCommands = usercommands;
+
+	}
+	public CommandParser(String language, TurtlePlayground playground, Variables variables, UserCommands usercommands, Palette palette, Configuration configuration){
+		this(language, playground, variables,usercommands);
+		myPalette = palette;
+		myConfiguration = configuration;
 	}
 
 	// =========================================================================
@@ -256,8 +264,9 @@ public class CommandParser {
 				finalaction = (Action) constructor.newInstance(addStringParams(node), myPlayground);
 				break;
 			
-//			case Constants.TURTLEDISPLAY_NOPARAMS:
-//				finalaction = (Action) constructor.newInstance(myPalette);
+			case Constants.TURTLEDISPLAY_NOPARAMS:
+				finalaction = (Action) constructor.newInstance(myConfiguration, myPalette);
+				break;
 
 			}
 

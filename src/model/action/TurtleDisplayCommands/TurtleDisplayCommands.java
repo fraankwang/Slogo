@@ -1,17 +1,19 @@
 package model.action.TurtleDisplayCommands;
 
+import model.Configuration;
 import model.Palette;
 
 import model.action.Action;
 
-public abstract class TurtleDisplayCommands extends Action{
+public abstract class TurtleDisplayCommands extends Action {
 
 	protected Palette palette;
+	protected Configuration configuration;
 
-	public TurtleDisplayCommands( Palette newPalette){
+	public TurtleDisplayCommands(Configuration newConfiguration, Palette newPalette) {
 		super();
-		palette= newPalette;
+		configuration = newConfiguration;
+		palette = newPalette;
 	}
-	
-	
+
 }

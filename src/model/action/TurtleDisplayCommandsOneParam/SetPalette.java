@@ -3,6 +3,7 @@ package model.action.TurtleDisplayCommandsOneParam;
 import java.util.List;
 
 import javafx.scene.paint.Color;
+import model.Configuration;
 import model.Palette;
 
 public class SetPalette extends TurtleDisplayCommandsParams{
@@ -12,8 +13,8 @@ public class SetPalette extends TurtleDisplayCommandsParams{
 	int blue;
 	int index;
 	
-	public SetPalette(Palette newPalette, List<Double> newCommands) {
-		super(newPalette, newCommands);
+	public SetPalette(Configuration newConfiguration, Palette newPalette, List<Double> newCommands) {
+		super(newConfiguration, newPalette, newCommands);
 		index=newCommands.get(0).intValue();
 		red=newCommands.get(1).intValue();
 		green=newCommands.get(2).intValue();
