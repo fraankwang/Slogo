@@ -17,6 +17,7 @@ public class Tell extends TurtleCommandsOneStringParam {
 
 	@Override
 	public double rule() {
+		playground.clearActiveTurtles();
 		for (String s : commands) {
 			playground.getTurtle(Integer.parseInt(s));
 			playground.getActiveTurtles().add(playground.getTurtle(Integer.parseInt(s)));

@@ -109,7 +109,7 @@ public class Constants {
 		return SPECIFICATIONS.getString(name);
 	}
 
-	public static String getCommand(String language, String command) throws ParseException {
+	public static String getCommand(String language, String command) throws Exception {
 		ResourceBundle COMMANDS = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_LANGUAGES + language);
 		for (String e : COMMANDS.keySet()) {
 			for (String f : COMMANDS.getString(e).split("\\|")) {
@@ -119,7 +119,7 @@ public class Constants {
 				}
 			}
 		}
-		throw new ParseException();
+		throw new Exception("could not find command");
 	}
 
 	public static int getNumberParams(String superclass) {
