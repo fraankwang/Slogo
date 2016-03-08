@@ -72,6 +72,10 @@ public class TurtlePlayground {
 		return this.myCurrentTurtle;
 	}
 
+	public void clearActiveTurtles(){
+		myActiveTurtles.clear();
+	}
+	
 	public List<Turtle> getActiveTurtles() {
 		return this.myActiveTurtles;
 	}
