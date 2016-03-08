@@ -51,5 +51,8 @@ public class Configuration {
 	public String getTurtleShape(Integer index) {
 		return turtleShape.get(index).toString();
 	}
-
+	
+	public Shape returnTurtleShape(Integer index) {
+		return turtleShape.get(index);
+	}
 }
