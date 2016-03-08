@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import constants.Constants;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Shape;
 
 public class Configuration {
 
@@ -52,7 +51,7 @@ public class Configuration {
 		return turtleShape.get(index);
 	}
 	
-	public Shape returnTurtleShape(Integer index) {
+	public String returnTurtleShape(Integer index) {
 		return turtleShape.get(index);
 	}
 }
