@@ -7,7 +7,6 @@ package view.factories;
 import constants.Constants;
 import controller.MainController;
 import javafx.scene.control.Button;
-import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 
 public class HelpPageFactory {
