@@ -43,41 +43,61 @@ public class MenuBarFactory {
 	 */
 	public MenuBar createMenuBar() {
 		MenuBar menuBar = new MenuBar();
+		Menu fileMenu = createFileMenu();
 		Menu viewMenu = createViewMenu();
 		Menu turtleMenu = createTurtleMenu();
 		Menu configurationMenu = createConfigurationMenu();
 		Menu helpMenu = createHelpMenu();
-		Menu fileMenu = createFileMenu();
 
 		menuBar.getMenus().addAll(fileMenu, configurationMenu, viewMenu, turtleMenu, helpMenu);
 		return menuBar;
 
 	}
-	
-	private Menu createFileMenu(){
+
+	/**
+	 * Creates all configuration-altering capabilities that involve files
+	 * (saving and loading)
+	 * 
+	 * @return
+	 */
+	private Menu createFileMenu() {
 		Menu fileMenu = new Menu(Constants.getSpecification("FileMenuOption"));
 		MenuItem save = makeSaveButton();
 		MenuItem load = makeLoadButton();
 		fileMenu.getItems().addAll(save, load);
 		return fileMenu;
+		
 	}
-	
-	private MenuItem makeSaveButton(){
-		Label saveButton = new Label(Constants.getSpecification("SaveButtonDefaultText"));
-		CustomMenuItem save = new CustomMenuItem(saveButton);
-		save.setOnAction(new EventHandler<ActionEvent>(){
+
+	/**
+	 * Creates and links save configurations option to MainController
+	 * 
+	 * @return
+	 */
+	private MenuItem makeSaveButton() {
+		Label saveButtonLabel = new Label(Constants.getSpecification("SaveButtonDefaultText"));
+		saveButtonLabel.setTextFill(Color.BLACK);
+		CustomMenuItem save = new CustomMenuItem(saveButtonLabel);
+		save.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
-			public void handle(ActionEvent e){
+			public void handle(ActionEvent e) {
 				System.out.println("save pressed");
 			}
 		});
 		return save;
+		
 	}
-	
-	private MenuItem makeLoadButton(){
-		Label loadButton = new Label(Constants.getSpecification("LoadButtonDefaultText"));
-		CustomMenuItem load = new CustomMenuItem(loadButton);
+
+	/**
+	 * Creates and links load configurations option to MainController
+	 * 
+	 * @return
+	 */
+	private MenuItem makeLoadButton() {
+		Label loadButtonLabel = new Label(Constants.getSpecification("LoadButtonDefaultText"));
+		CustomMenuItem load = new CustomMenuItem(loadButtonLabel);
 		return load;
+		
 	}
 
 	/**
@@ -88,12 +108,13 @@ public class MenuBarFactory {
 	private Menu createConfigurationMenu() {
 		Menu configurationMenu = new Menu(Constants.getSpecification("ConfigurationMenuOption"));
 
+		Menu languageMenu = createLanguageMenu();
 		CustomMenuItem backgroundColor = makeBackgroundColorPicker(Constants.DEFAULT_BACKGROUND_COLOR);
 		CustomMenuItem animationSlider = makeAnimationRateSlider();
-		Menu languageMenu = createLanguageMenu();
 		configurationMenu.getItems().addAll(languageMenu, backgroundColor, animationSlider);
 
 		return configurationMenu;
+		
 	}
 
 	/**
@@ -129,6 +150,28 @@ public class MenuBarFactory {
 	}
 
 	/**
+	 * Creates and links background color selection to MainController
+	 * 
+	 * @param defaultBackgroundColor
+	 * @return
+	 */
+	private CustomMenuItem makeBackgroundColorPicker(Color defaultBackgroundColor) {
+		VBox BackgroundColorWrapper = new VBox();
+	
+		Label BackgroundColorlabel = new Label(Constants.getSpecification("BackgroundColorPickerLabel"));
+		BackgroundColorlabel.setTextFill(Color.BLACK);
+	
+		ColorPicker colorPicker = new ColorPicker(defaultBackgroundColor);
+		BackgroundColorWrapper.getChildren().addAll(BackgroundColorlabel, colorPicker);
+		CustomMenuItem penColor = new CustomMenuItem(BackgroundColorWrapper);
+		penColor.setHideOnClick(false);
+		penColor.setOnAction(e -> myController.setBackgroundColor(colorPicker.getValue()));
+	
+		return penColor;
+	
+	}
+
+	/**
 	 * Creates and links Animation speed to MainController
 	 * 
 	 * @return
@@ -150,29 +193,7 @@ public class MenuBarFactory {
 		CustomMenuItem sliderItem = new CustomMenuItem(sliderWrapper);
 		sliderItem.setHideOnClick(false);
 		return sliderItem;
-		
-	}
 
-	/**
-	 * Creates and links background color selection to MainController
-	 * 
-	 * @param defaultBackgroundColor
-	 * @return
-	 */
-	private CustomMenuItem makeBackgroundColorPicker(Color defaultBackgroundColor) {
-		VBox BackgroundColorWrapper = new VBox();
-
-		Label BackgroundColorlabel = new Label(Constants.getSpecification("BackgroundColorPickerLabel"));
-		BackgroundColorlabel.setTextFill(Color.BLACK);
-
-		ColorPicker colorPicker = new ColorPicker(defaultBackgroundColor);
-		BackgroundColorWrapper.getChildren().addAll(BackgroundColorlabel, colorPicker);
-		CustomMenuItem penColor = new CustomMenuItem(BackgroundColorWrapper);
-		penColor.setHideOnClick(false);
-		penColor.setOnAction(e -> myController.setBackgroundColor(colorPicker.getValue()));
-
-		return penColor;
-		
 	}
 
 	/**
@@ -190,7 +211,7 @@ public class MenuBarFactory {
 
 		}
 		return viewMenu;
-		
+
 	}
 
 	/**
@@ -216,21 +237,19 @@ public class MenuBarFactory {
 	 */
 	private Menu createTurtleMenu() {
 		Menu turtleMenu = new Menu(Constants.getSpecification("TurtleMenuOption"));
-		
+
 		CustomMenuItem penColor = makePenColorPicker(Constants.DEFAULT_PEN_COLOR);
-//		MenuItem clearPlayground = new MenuItem(Constants.getSpecification("ClearPlaygroundOption"));
-//		clearPlayground.setOnAction(e -> myController.clearTurtlePlayground());
+
 		MenuItem resetTurtle = new MenuItem(Constants.getSpecification("ResetTurtleOption"));
 		resetTurtle.setOnAction(e -> myController.resetTurtlePosition());
 		MenuItem turtleImages = makeTurtleImages();
 		MenuItem uploadNew = makeUploadNewOption();
-		
+
 		SeparatorMenuItem sep = new SeparatorMenuItem();
 		SeparatorMenuItem sep2 = new SeparatorMenuItem();
 		turtleMenu.getItems().addAll(penColor, sep, resetTurtle, sep2, turtleImages, uploadNew);
-//		turtleMenu.getItems().addAll(penColor, sep, clearPlayground, resetTurtle, sep2, turtleImages, uploadNew);
 		return turtleMenu;
-		
+
 	}
 
 	/**
@@ -240,17 +259,17 @@ public class MenuBarFactory {
 	 * @return
 	 */
 	private CustomMenuItem makePenColorPicker(Color defaultPenColor) {
-		Label label = new Label(Constants.getSpecification("PenColorPickerLabel"));
-		label.setTextFill(Color.BLACK);
+		Label colorPickerLabel = new Label(Constants.getSpecification("PenColorPickerLabel"));
+		colorPickerLabel.setTextFill(Color.BLACK);
 		ColorPicker colorPicker = new ColorPicker(defaultPenColor);
 		VBox wrapper = new VBox();
-		wrapper.getChildren().addAll(label, colorPicker);
+		wrapper.getChildren().addAll(colorPickerLabel, colorPicker);
 		CustomMenuItem penColor = new CustomMenuItem(wrapper);
 		penColor.setHideOnClick(false);
 		penColor.setOnAction(e -> myController.setPenColor(colorPicker.getValue()));
 
 		return penColor;
-		
+
 	}
 
 	/**

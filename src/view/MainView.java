@@ -57,7 +57,7 @@ public class MainView {
 	private PanelElement myTurtleBackground;
 	private PanelElement myTurtleElement;
 	private PanelElement myColorsElement;
-	private StackPane myTurtleWrapper; 
+	private StackPane myTurtleWrapper;
 	private Canvas myTurtlePlayground;
 	private GraphicsContext myTurtleGraphics;
 
@@ -74,7 +74,7 @@ public class MainView {
 		initializeHelpRoot();
 
 		myController.setTurtleElement(getMyTurtleElement());
-		
+
 		myPrimaryScene = new Scene(myPrimaryRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.WHITE);
 		myPrimaryScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
@@ -115,7 +115,7 @@ public class MainView {
 	private void initializePrimaryRoot() {
 		Group root = new Group();
 		root.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-		
+
 		myPrimaryPane = new BorderPane();
 		root.getChildren().add(myPrimaryPane);
 
@@ -124,18 +124,18 @@ public class MainView {
 
 		VBox leftColumn = myPanelElementFactory.createLeftColumn();
 		VBox rightColumn = myPanelElementFactory.createRightColumn();
-		
+
 		initializePanelElements();
-		
+
 		MenuBar menuBar = myMenuBarFactory.createMenuBar();
 		myPrimaryPane.setTop(menuBar);
 		myPrimaryPane.setLeft(leftColumn);
 		myPrimaryPane.setRight(rightColumn);
 
 		myPrimaryRoot = root;
-		
+
 	}
-	
+
 	/**
 	 * Utilizes factory to initialize PanelElements
 	 */
@@ -145,13 +145,13 @@ public class MainView {
 		myTurtleElement = myPanelElementFactory.getTurtleElement();
 		myTurtleWrapper = myPanelElementFactory.getTurtleWrapper();
 		myTurtlePlayground = myPanelElementFactory.getTurtlePlayground();
-		
+
 		myVariablesElement = myPanelElementFactory.getVariablesElement();
 		myCommandsElement = myPanelElementFactory.getCommandsElement();
 		myHistoryElement = myPanelElementFactory.getHistoryElement();
 		myOutputElement = myPanelElementFactory.getOutputElement();
 		myColorsElement = myPanelElementFactory.getColorsElement();
-		
+
 	}
 
 	/**
@@ -171,6 +171,11 @@ public class MainView {
 
 	}
 
+	public void linkController(MainController myController) {
+		this.myController = myController;
+		myController.setTurtleElement(myTurtleElement);
+	}
+
 	// =========================================================================
 	// Getters and Setters
 	// =========================================================================
@@ -178,9 +183,9 @@ public class MainView {
 	public GraphicsContext getMyTurtleGraphics() {
 		return myTurtleGraphics;
 	}
-	
-	public TurtleElement getMyTurtleElement() {
-		return (TurtleElement) myTurtleElement;
+
+	public PanelElement getMyTurtleElement() {
+		return myTurtleElement;
 	}
 
 	public PanelElement getMyOutputElement() {
@@ -211,6 +216,7 @@ public class MainView {
 		viewableElements.add(myOutputElement);
 		viewableElements.add(myTurtleBackground);
 		viewableElements.add(myTurtleElement);
+		viewableElements.add(myColorsElement);
 		return viewableElements;
 
 	}
@@ -219,43 +225,6 @@ public class MainView {
 		this.myPrimaryStage = myPrimaryStage;
 	}
 
-	public void linkController(MainController myController) {
-		this.myController = myController;
-		myController.setTurtleElement(myTurtleElement);
-	}
-
-//	public void setMyPrimaryRoot(Group myPrimaryRoot) {
-//		this.myPrimaryRoot = myPrimaryRoot;
-//	}
-//
-//	public void setMyPrimaryPane(BorderPane myPrimaryPane) {
-//		this.myPrimaryPane = myPrimaryPane;
-//	}
-//
-//	public void setMyPanelElementFactory(PanelElementFactory myPanelElementFactory) {
-//		this.myPanelElementFactory = myPanelElementFactory;
-//	}
-
-//	public void setMyTurtleGraphics(GraphicsContext gc) {
-//		myTurtleGraphics = gc;
-//	}
-//
-//	private void setMyTurtleBackground(PanelElement turtleBackground) {
-//		myTurtleBackground = turtleBackground;
-//	}
-//
-//	private void setMyTurtleElement(PanelElement turtleElement) {
-//		myTurtleElement = turtleElement;
-//	}
-//	
-//	private void setMyTurtleWrapper(StackPane wrapper) {
-//		myTurtleWrapper = wrapper;
-//	}
-//
-//	private void setMyTurtlePlayground(Canvas playground) {
-//		myTurtlePlayground = playground;
-//	}
-	
 	public void setTurtleImage(String image) {
 		ImageView newImage = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(image + ".jpg")));
 		newImage.setFitWidth(Constants.TURTLE_ELEMENT_WIDTH);
@@ -263,7 +232,7 @@ public class MainView {
 		Double oldX = myTurtleElement.getNode().getTranslateX();
 		Double oldY = myTurtleElement.getNode().getTranslateY();
 		((TurtleElement) myTurtleElement).setTurtleImage(newImage);
-		myTurtleWrapper.getChildren().clear();
+		myTurtleWrapper.getChildren().removeAll(myTurtlePlayground, myTurtleElement.getNode());
 		myTurtleWrapper.getChildren().addAll(myTurtlePlayground, myTurtleElement.getNode());
 		((TurtleElement) myTurtleElement).moveTurtleImage(oldX, oldY);
 	}

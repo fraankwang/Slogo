@@ -9,10 +9,14 @@ import java.util.Queue;
 
 import constants.Constants;
 import javafx.animation.Timeline;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import model.MainModel;
 import view.MainView;
 import view.panelelements.PanelElement;
+import view.panelelements.TurtleElement;
 
 public class MainController {
 
@@ -60,20 +64,27 @@ public class MainController {
 		myTransformer.transformTurtleGraphics(myModel.getMyPlayground().getCurrentTurtle());
 		myTransformer.transformVariablesElement(myModel.getMyVariables());
 		myTransformer.transformCommandsElement(myModel.getMyUserCommands());
-		//myTransformer.transformColorsElement(myModel.getMyColors());
+		// myTransformer.transformColorsElement(myModel.getMyColors());
 
 	}
 
-	/**
-	 * Erases canvas but maintains Turtle position TODO: implement this for
-	 * extension
-	 */
-	public void clearTurtlePlayground() {
-		myView.getMyTurtleGraphics().clearRect(0, 0, Constants.PLAYGROUND_WIDTH, Constants.PLAYGROUND_HEIGHT);
-		myModel.getMyPlayground().getCurrentTurtle().clearTurtleCoordinates();
-		myModel.getMyPlayground().setTurtleHome();
-
+	public void displayTurtleInfo(TextArea bigText) {
+		refreshDisplay();
+		bigText.setText("Language: " + myTransformer.getLanguage() + "\n" + "Turtle ID: "
+				+ Integer.toString(myModel.getMyPlayground().getCurrentTurtleID()) + "\n" + "Turtle other stuff: ");
 	}
+
+	// /**
+	// * Erases canvas but maintains Turtle position TODO: implement this for
+	// * extension
+	// */
+	// public void clearTurtlePlayground() {
+	// myView.getMyTurtleGraphics().clearRect(0, 0, Constants.PLAYGROUND_WIDTH,
+	// Constants.PLAYGROUND_HEIGHT);
+	// myModel.getMyPlayground().getCurrentTurtle().clearTurtleCoordinates();
+	// myModel.getMyPlayground().setTurtleHome();
+	//
+	// }
 
 	/**
 	 * Deletes stored previously run commands and moves turtle position back to
@@ -83,7 +94,8 @@ public class MainController {
 		myView.getMyTurtleGraphics().clearRect(0, 0, Constants.PLAYGROUND_WIDTH, Constants.PLAYGROUND_HEIGHT);
 		myModel.getMyPlayground().getCurrentTurtle().clearTurtleCoordinates();
 		myModel.getMyPlayground().setTurtleHome();
-		myView.getMyTurtleElement().moveTurtleImage(0.0, 0.0);
+		TurtleElement turtleElement = (TurtleElement) myView.getMyTurtleElement();
+		turtleElement.moveTurtleImage(0.0, 0.0);
 		myTransformer.transformTurtleGraphics(myModel.getMyPlayground().getCurrentTurtle());
 
 	}
@@ -118,6 +130,7 @@ public class MainController {
 
 	public void setLanguage(String language) {
 		myModel.setLanguage(language);
+		myTransformer.setLanguage(language);
 	}
 
 	public void replaceVariable(String oldVar, String newVar) {

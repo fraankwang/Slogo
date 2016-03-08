@@ -56,7 +56,6 @@ public class MainModel {
 
 		} catch (Exception e) {
 			myOutputs.add(e.getMessage());
-
 			e.printStackTrace();
 		}
 	}
@@ -68,7 +67,7 @@ public class MainModel {
 	public void setLanguage(String language) {
 		myParser = new CommandParser(language, myPlayground, myVariables, myUserCommands);
 	}
-	
+
 	public CommandParser getMyParser() {
 		return myParser;
 	}
@@ -100,6 +99,5 @@ public class MainModel {
 	public void replaceVariableValue(String name, String newVal) {
 		myVariables.replaceVariableValue(name, newVal);
 	}
-
 
 }

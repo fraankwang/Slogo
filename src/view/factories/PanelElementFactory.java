@@ -12,12 +12,18 @@ import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -25,10 +31,15 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import view.panelelements.ColorsElement;
 import view.panelelements.CommandsElement;
@@ -108,7 +119,7 @@ public class PanelElementFactory {
 		HBox inputWrapper = new HBox();
 		TextArea textArea = makeTextArea();
 		VBox buttons = new VBox();
-		
+
 		buttons.getChildren().addAll(makeRunButton(), makeClearButton());
 		inputWrapper.getChildren().addAll(textArea, buttons);
 		return inputWrapper;
@@ -153,7 +164,7 @@ public class PanelElementFactory {
 			}
 		});
 		return myRunButton;
-		
+
 	}
 
 	/**
@@ -184,7 +195,7 @@ public class PanelElementFactory {
 			}
 		});
 		return myClearButton;
-		
+
 	}
 
 	/**
@@ -199,8 +210,10 @@ public class PanelElementFactory {
 		myTurtlePlayground = new Canvas(Constants.PLAYGROUND_WIDTH, Constants.PLAYGROUND_HEIGHT);
 
 		myTurtleElement = createTurtleElement();
-		myTurtleWrapper.getChildren().addAll(myTurtlePlayground, myTurtleElement.getNode());
-
+		Button infoButton = createInfoButton();
+		myTurtleWrapper.getChildren().addAll(infoButton, myTurtlePlayground, myTurtleElement.getNode());
+		StackPane.setAlignment(infoButton, Pos.TOP_LEFT);
+		infoButton.toFront();
 		myTurtleBackground = new TurtleBackground(myTurtleWrapper,
 				Constants.getSpecification("TurtleBackgroundElementName"));
 		myTurtleBackground.setGraphics(myTurtlePlayground.getGraphicsContext2D());
@@ -222,9 +235,35 @@ public class PanelElementFactory {
 
 		TurtleElement turtleElement = new TurtleElement(turtleImage, Constants.getSpecification("TurtleElementName"));
 
-		turtleElement.getNode().getStyleClass().add("turtle-element");
+		// turtleElement.getNode().getStyleClass().add("turtle-element");
 		return turtleElement;
 
+	}
+
+	/**
+	 * Creates button that shows turtle information on click
+	 * 
+	 * @return
+	 */
+	private Button createInfoButton() {
+		Button infoButton = new Button();
+		
+		ImageView infoImage = new ImageView(new Image((getClass().getClassLoader().getResourceAsStream("icon.png"))));
+		infoImage.setFitHeight(Constants.TURTLE_INFO_BUTTON_SIZE);
+		infoImage.setFitWidth(Constants.TURTLE_INFO_BUTTON_SIZE);
+
+		infoButton.setGraphic(infoImage);
+		ContextMenu cm = new ContextMenu();
+		TextArea bigText = new TextArea();
+		bigText.setPrefWidth(Constants.PLAYGROUND_WIDTH/3);
+		
+		CustomMenuItem cmi = new CustomMenuItem(bigText);
+		cmi.setOnAction(e -> myController.displayTurtleInfo(bigText));
+		cm.getItems().add(cmi);
+		infoButton.setContextMenu(cm);
+		
+		return infoButton;
+		
 	}
 
 	/**
@@ -245,7 +284,7 @@ public class PanelElementFactory {
 		myVariablesElement.setNamesListView(variablesNamesListView);
 		myVariablesElement.setValuesListView(variablesValuesListView);
 		return myVariablesElement;
-		
+
 	}
 
 	/**
