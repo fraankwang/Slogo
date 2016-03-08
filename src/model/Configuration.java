@@ -11,13 +11,13 @@ public class Configuration {
 	private Color background;
 	private Map<Integer, Color> penColor;
 	private Map<Integer, Double> penSize;
-	private Map<Integer, Shape> turtleShape;
+	private Map<Integer, String> turtleShape;
 
 	public Configuration() {
 		background = Constants.DEFAULT_BACKGROUND_COLOR;
 		penColor = new HashMap<Integer, Color>();
 		penSize = new HashMap<Integer, Double>();
-		turtleShape = new HashMap<Integer, Shape>();
+		turtleShape = new HashMap<Integer, String>();
 	}
 
 	public void setBackgroundColor(Color backgroundColor) {
@@ -44,12 +44,15 @@ public class Configuration {
 		return penSize.get(index);
 	}
 
-	public void addTurtleShape(Integer index, Shape shape) {
+	public void addTurtleShape(Integer index, String shape) {
 		turtleShape.put(index, shape);
 	}
 
 	public String getTurtleShape(Integer index) {
-		return turtleShape.get(index).toString();
+		return turtleShape.get(index);
 	}
-
+	
+	public Shape returnTurtleShape(Integer index) {
+		return turtleShape.get(index);
+	}
 }
