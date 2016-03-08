@@ -7,6 +7,7 @@ import constants.Constants;
 import controller.MainController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.CustomMenuItem;
@@ -50,10 +51,37 @@ public class MenuBarFactory {
 		Menu turtleMenu = createTurtleMenu();
 		Menu configurationMenu = createConfigurationMenu();
 		Menu helpMenu = createHelpMenu();
+		Menu fileMenu = createFileMenu();
 
-		menuBar.getMenus().addAll(configurationMenu, viewMenu, turtleMenu, helpMenu);
+		menuBar.getMenus().addAll(fileMenu, configurationMenu, viewMenu, turtleMenu, helpMenu);
 		return menuBar;
 
+	}
+	
+	private Menu createFileMenu(){
+		Menu fileMenu = new Menu(Constants.getSpecification("FileMenuOption"));
+		MenuItem save = makeSaveButton();
+		MenuItem load = makeLoadButton();
+		fileMenu.getItems().addAll(save, load);
+		return fileMenu;
+	}
+	
+	private MenuItem makeSaveButton(){
+		Label saveButton = new Label(Constants.getSpecification("SaveButtonDefaultText"));
+		CustomMenuItem save = new CustomMenuItem(saveButton);
+		save.setOnAction(new EventHandler<ActionEvent>(){
+			@Override
+			public void handle(ActionEvent e){
+				System.out.println("save pressed");
+			}
+		});
+		return save;
+	}
+	
+	private MenuItem makeLoadButton(){
+		Label loadButton = new Label(Constants.getSpecification("LoadButtonDefaultText"));
+		CustomMenuItem load = new CustomMenuItem(loadButton);
+		return load;
 	}
 
 	/**
@@ -70,7 +98,6 @@ public class MenuBarFactory {
 		configurationMenu.getItems().addAll(languageMenu, backgroundColor, animationSlider);
 
 		return configurationMenu;
-		
 	}
 
 	/**

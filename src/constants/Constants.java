@@ -49,28 +49,40 @@ public class Constants {
 	public static final Color DEFAULT_PEN_COLOR = Color.BLACK;
 	public static final Color DEFAULT_BACKGROUND_COLOR = Color.WHITE;
 
-
-	public static final double SCENE_WIDTH = 1000;
+	public static final double SCENE_WIDTH = 1200;
 	public static final double SCENE_HEIGHT = SCENE_WIDTH*0.75;
 
-	public static final double LEFT_COLUMN_WIDTH = SCENE_WIDTH *0.65;
+	public static final double LEFT_COLUMN_WIDTH = SCENE_WIDTH*(6/12.0);
+	public static final double RIGHT_COLUMN_WIDTH = SCENE_WIDTH*(2/6.0);
+	
 	public static final double PLAYGROUND_WIDTH = LEFT_COLUMN_WIDTH;
-	public static final double PLAYGROUND_HEIGHT = SCENE_HEIGHT*0.7;
+	public static final double PLAYGROUND_HEIGHT = SCENE_HEIGHT*(7/12.0);
+	
 	public static final double CENTER_X_COORDINATE = PLAYGROUND_WIDTH/2;
 	public static final double CENTER_Y_COORDINATE = PLAYGROUND_HEIGHT/2;
-	public static final double TEXTAREA_HEIGHT = SCENE_HEIGHT - PLAYGROUND_HEIGHT - 60;
-	public static final double TEXTAREA_WIDTH = LEFT_COLUMN_WIDTH*0.85;
-	public static final double RUN_BUTTON_HEIGHT = TEXTAREA_HEIGHT / 2;
-	public static final double RUN_BUTTON_WIDTH = LEFT_COLUMN_WIDTH - TEXTAREA_WIDTH;
-	public static final double CLEAR_BUTTON_HEIGHT = RUN_BUTTON_HEIGHT;
-	public static final double CLEAR_BUTTON_WIDTH = RUN_BUTTON_WIDTH;
-	public static final double SAVE_BUTTON_HEIGHT = 10;
-	public static final double SAVE_BUTTON_WIDTH =  30;
-	public static final double LOAD_BUTTON_HEIGHT = SAVE_BUTTON_HEIGHT;
-	public static final double LOAD_BUTTON_WIDTH = SAVE_BUTTON_WIDTH;
 	
-	public static final double RIGHT_COLUMN_WIDTH = SCENE_WIDTH - LEFT_COLUMN_WIDTH - 30;
-	public static final double RIGHT_COLUMN_ELEMENT_HEIGHT = SCENE_HEIGHT*0.2;
+	public static final double TEXTAREA_WIDTH = PLAYGROUND_WIDTH*0.75;
+	public static final double TEXTAREA_HEIGHT = SCENE_HEIGHT*(3/12.0);
+	
+	public static final double RUN_BUTTON_WIDTH = PLAYGROUND_WIDTH*0.25;
+	public static final double RUN_BUTTON_HEIGHT = TEXTAREA_HEIGHT/2.0;
+	
+	public static final double CLEAR_BUTTON_WIDTH = SCENE_HEIGHT*(1/6.0);
+	public static final double CLEAR_BUTTON_HEIGHT = TEXTAREA_HEIGHT/2.0;
+	
+	public static final double VARIABLES_WIDTH = SCENE_WIDTH*(3/12.0) - 17;
+	public static final double VARIABLES_HEIGHT = SCENE_HEIGHT*(3/12.0) - 17;
+	public static final double COLORS_WIDTH = SCENE_WIDTH*(3/12.0) - 17;
+	public static final double COLORS_HEIGHT = SCENE_HEIGHT*(3/12.0) - 17;
+	public static final double COMMANDS_WIDTH = SCENE_WIDTH*(3/12.0) - 17;
+	public static final double COMMANDS_HEIGHT = SCENE_HEIGHT*(3/12.0) - 17;
+	public static final double HISTORY_WIDTH = SCENE_WIDTH*(3/12.0) - 17;
+	public static final double HISTORY_HEIGHT = SCENE_HEIGHT*(3/12.0) - 17;
+	
+	public static final double OUTPUT_WIDTH = SCENE_WIDTH*(2/6.0);
+	public static final double OUTPUT_HEIGHT = SCENE_HEIGHT*(2/6.0) - 10;
+	
+	//public static final double RIGHT_COLUMN_ELEMENT_HEIGHT = SCENE_HEIGHT*(3/12.0);
 
 	public static final int TURTLE_ELEMENT_WIDTH = 50;
 	public static final int TURTLE_ELEMENT_HEIGHT = TURTLE_ELEMENT_WIDTH;
