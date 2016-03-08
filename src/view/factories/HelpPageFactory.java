@@ -4,7 +4,6 @@
 
 package view.factories;
 
-import java.net.URL;
 import constants.Constants;
 import controller.MainController;
 import javafx.scene.control.Button;
@@ -21,22 +20,40 @@ public class HelpPageFactory {
 
 	public Button createBackButton() {
 		Button back = new Button(Constants.getSpecification("BackButton"));
-		back.setPrefSize(Constants.SCENE_WIDTH, Constants.MENU_BAR_HEIGHT);
+		back.setPrefSize(Constants.SCENE_WIDTH, Constants.MENU_BAR_HEIGHT/3);
 		back.setOnAction(e -> myController.setPrimaryPane());
 		return back;
-		
+
 	}
 
 	/**
 	 * @return WebView that loads help page
 	 */
-	public WebView createHTMLPage() {
-		WebView htmlPage = new WebView();
-		WebEngine webEngine = htmlPage.getEngine();
-		URL helpURL = getClass().getClassLoader().getResource(Constants.getSpecification("HelpURLName"));
-		webEngine.load(helpURL.toExternalForm());
-		return htmlPage;
-		
+	public WebView createBasicHelpPage() {
+		return createWebView(Constants.getSpecification("BasicHelpURL"));
+
+	}
+
+	/**
+	 * @return WebView that loads advanced help page
+	 */
+	public WebView createAdvancedHelpPage() {
+		return createWebView(Constants.getSpecification("AdvancedHelpURL"));
+
+	}
+
+	/**
+	 * Creates new formatted WebView (annoying JavaFX workaround with global
+	 * WebView variables)
+	 * 
+	 * @param url
+	 * @return
+	 */
+	private WebView createWebView(String url) {
+		WebView wv = new WebView();
+		wv.setPrefHeight(Constants.SCENE_HEIGHT - Constants.MENU_BAR_HEIGHT);
+		wv.getEngine().load(url);
+		return wv;
 	}
 
 }

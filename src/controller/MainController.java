@@ -147,8 +147,8 @@ public class MainController {
 		}
 	}
 
-	public void setHelpMenu() {
-		myView.showHelpScene();
+	public void setHelpMenu(boolean basic) {
+		myView.showHelpScene(basic);
 	}
 
 	public void setPrimaryPane() {

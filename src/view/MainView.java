@@ -25,6 +25,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.web.WebView;
 
 import javafx.stage.Stage;
@@ -44,7 +45,8 @@ public class MainView {
 	private Scene myHelpScene;
 	private MainController myController;
 	private Group myPrimaryRoot;
-	private Group myHelpRoot;
+	private Group myBasicHelpRoot;
+	private Group myAdvancedHelpRoot;
 	private BorderPane myPrimaryPane;
 
 	private PanelElementFactory myPanelElementFactory;
@@ -71,7 +73,7 @@ public class MainView {
 	 */
 	public void init() {
 		initializePrimaryRoot();
-		initializeHelpRoot();
+		initializeHelpRoots();
 
 		myController.setTurtleElement(getMyTurtleElement());
 
@@ -86,7 +88,6 @@ public class MainView {
 			}
 		});
 
-		myHelpScene = new Scene(myHelpRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.WHITE);
 		showPrimaryScene();
 
 	}
@@ -94,7 +95,13 @@ public class MainView {
 	/**
 	 * Shows Help Scene
 	 */
-	public void showHelpScene() {
+	public void showHelpScene(boolean basic) {
+		if (basic) {
+			myHelpScene.setRoot(myBasicHelpRoot);
+		} else {
+			myHelpScene.setRoot(myAdvancedHelpRoot);
+		}
+		
 		myPrimaryStage.setScene(myHelpScene);
 		myPrimaryStage.show();
 
@@ -157,18 +164,28 @@ public class MainView {
 	/**
 	 * 
 	 */
-	private void initializeHelpRoot() {
-		Group helpRoot = new Group();
-		VBox wrapper = new VBox();
+	private void initializeHelpRoots() {
 		myHelpPageFactory = new HelpPageFactory(myController);
-
 		Button backButton = myHelpPageFactory.createBackButton();
-		WebView htmlPage = myHelpPageFactory.createHTMLPage();
+		Button backButton2 = myHelpPageFactory.createBackButton();
+		
+		Group basicHelpRoot = new Group();
+		VBox basicWrapper = new VBox();
+		WebView bs = myHelpPageFactory.createBasicHelpPage();
+		WebView basicHelpPage = myHelpPageFactory.createBasicHelpPage();
+		basicWrapper.getChildren().addAll(backButton, bs);
+		basicHelpRoot.getChildren().add(basicWrapper);
+		
+		Group advancedHelpRoot = new Group();
+		VBox advancedWrapper = new VBox();
+		WebView advancedHelpPage = myHelpPageFactory.createAdvancedHelpPage();
+		advancedWrapper.getChildren().addAll(backButton2, advancedHelpPage);
+		advancedHelpRoot.getChildren().add(advancedWrapper);
 
-		wrapper.getChildren().addAll(backButton, htmlPage);
-		helpRoot.getChildren().add(wrapper);
-		myHelpRoot = helpRoot;
+		myBasicHelpRoot = basicHelpRoot;
+		myAdvancedHelpRoot = advancedHelpRoot;
 
+		myHelpScene = new Scene(advancedHelpRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.WHITE);
 	}
 
 	public void linkController(MainController myController) {
@@ -245,8 +262,12 @@ public class MainView {
 		return myPrimaryRoot;
 	}
 
-	public Group getMyHelpRoot() {
-		return myHelpRoot;
+	public Group getMyBasicHelpRoot() {
+		return myBasicHelpRoot;
+	}
+
+	public Group getMyAdvancedHelpRoot() {
+		return myAdvancedHelpRoot;
 	}
 
 }

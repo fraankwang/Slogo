@@ -357,10 +357,12 @@ public class MenuBarFactory {
 	 */
 	private Menu createHelpMenu() {
 		Menu helpMenu = new Menu(Constants.getSpecification("HelpMenuOption"));
-		MenuItem item = new MenuItem(Constants.getSpecification("HelpMenuOption"));
-		item.setOnAction(e -> myController.setHelpMenu());
+		MenuItem basicHelpItem = new MenuItem(Constants.getSpecification("BasicCommandsHelpOption"));
+		MenuItem advancedHelpItem = new MenuItem(Constants.getSpecification("AdvancedCommandsHelpOption"));
+		basicHelpItem.setOnAction(e -> myController.setHelpMenu(true));
+		advancedHelpItem.setOnAction(e -> myController.setHelpMenu(false));
 
-		helpMenu.getItems().add(item);
+		helpMenu.getItems().addAll(basicHelpItem, advancedHelpItem);
 		return helpMenu;
 
 	}
