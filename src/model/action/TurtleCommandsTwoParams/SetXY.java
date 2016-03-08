@@ -8,7 +8,6 @@ import java.util.List;
 import model.turtle.TurtlePlayground;
 
 public class SetXY extends TurtleCommandsTwoParams {
-
 	public SetXY(List<Double> params, TurtlePlayground playground) {
 		super(params, playground);
 	}

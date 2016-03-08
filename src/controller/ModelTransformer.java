@@ -25,6 +25,7 @@ import view.panelelements.VariablesElement;
 
 public class ModelTransformer {
 
+
 	private static final double CENTER_X_COORDINATE = Constants.CENTER_X_COORDINATE;
 	private static final double CENTER_Y_COORDINATE = Constants.CENTER_Y_COORDINATE;
 
@@ -54,6 +55,8 @@ public class ModelTransformer {
 		textArea.clear();
 		textArea.setText(newOutput);
 	}
+	
+	public void transformColorElement(){}
 
 	/**
 	 * Clears previous elements within the HistoryElement ListView and

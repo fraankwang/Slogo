@@ -15,8 +15,8 @@ public class SetHeading extends TurtleCommandsOneParam {
 
 	@Override
 	public double rule() {
-		Double difference = playground.getTurtle().getOrientation() - value;
-		playground.getTurtle().setOrientation(value);
+		Double difference = playground.getCurrentTurtle().getOrientation() - value;
+		playground.getCurrentTurtle().setOrientation(value);
 		return difference;
 	}
 }

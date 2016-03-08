@@ -35,3 +35,21 @@ Label{
 	-fx-padding: 10 10 0 0;
 }
 
+.left-column{
+	-fx-padding: 10 5 10 10;
+	-fx-spacing: 10;
+}
+
+.right-column{
+	-fx-padding: 10 10 10 5;
+	-fx-spacing: 10;
+}
+
+.top-boxes{
+	-fx-spacing: 10;
+}
+
+.middle-boxes{
+	-fx-spacing: 10;
+}
+

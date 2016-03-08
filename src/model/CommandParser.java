@@ -11,6 +11,14 @@ import model.action.*;
 import model.turtle.TurtlePlayground;
 import model.Node;
 
+/**
+ * The CommandParser class is a custom object which parses the user inputted
+ * string in order to call the correction Action from the Action hierarchy so
+ * the rules() method can be returned. The CommandParser object has an instance
+ * of String myLanguage, an instance of TurtlePlaygournd myPlayground, Variables
+ * myVariables, and UserCommands myUserCommands.
+ * 
+ */
 public class CommandParser {
 
 	private String myLanguage;
@@ -25,21 +33,31 @@ public class CommandParser {
 		myUserCommands = usercommands;
 	}
 
+	// =========================================================================
+	// Getters and Setters
+	// =========================================================================
+
 	public Variables getVariableList() {
 		return this.myVariables;
 	}
 
+	/**
+	 * The parse() method parses the user inputted string initially by splitting
+	 * it up by its white spaces and returns a list of commands stored as a
+	 * Queue<String>
+	 *
+	 */
 	private Queue<String> parse(String input) {
 		Queue<String> queue = new LinkedList<String>();
 		List<String> firstParsed = Arrays.asList(input.split("\\n"));
 		List<String> parsedInputList = new ArrayList<String>();
 
-		for (String s: firstParsed){
-			if(!s.contains("#")){
-			parsedInputList.addAll(Arrays.asList(s.split("\\s")));
+		for (String s : firstParsed) {
+			if (!isComment(s)) {
+				parsedInputList.addAll(Arrays.asList(s.split("\\s")));
+			}
 		}
-		}
-		
+
 		List<String> comandsList = new ArrayList<String>();
 		for (String string : parsedInputList) {
 			if (!isComment(string) && !string.isEmpty()) {
@@ -49,42 +67,62 @@ public class CommandParser {
 				} catch (Exception e) {
 					comandsList.add(string);
 				}
-			} else {
-				System.out.println(string);
-			}
+			} 
+			//			else {
+			//				System.out.println(string);
+			//			}
 		}
 		queue.addAll(comandsList);
 		return queue;
 
 	}
 
+	/**
+	 * The isComment() method checks whether a string is a comment by returning
+	 * a boolean for whether the string starts with a #
+	 */
 	private boolean isComment(String string) {
-		return string.startsWith("#");
+		return string.contains("#");
 	}
 
+	/**
+	 * The makeTree() method assembles a tree of nodes from the list of commands
+	 * stored as a Queue<String> which is returned by the parse() method.
+	 *
+	 */
 	private Node makeTree(Queue<String> queue) throws Exception {
 		Node tree = new Node();
+
 		if (tree.isOpenBracket(queue)) {
 			return tree.makeCommandString(queue, tree);
 		} else {
-			tree.setData(queue.poll());
-			System.out.println(tree.getData());
-			try {
-				addParamsToTree(tree, queue);
-				return tree;
-			} catch (Exception exception) {
-				throw exception;
+			if (tree.isOpenParenthesis(queue)){
+				return makeUnlimitedParamCommand(queue, tree);
+			}
+			else{
+				tree.setData(queue.poll());
+				System.out.println(tree.getData());
+				try {
+					return addParamsToTree(tree, queue);
+				} catch (Exception exception) {
+					throw exception;
+				}
 			}
 		}
 	}
 
-
+	/**
+	 * The addParamsToTree() method adds parameter children nodes to the Tree
+	 * while making it, while catching exceptions for whether there are too few
+	 * children.
+	 *
+	 */
 	private Node addParamsToTree(Node tree, Queue<String> queue) throws Exception {
 		int totalchildren = 0;
 
 		try {
-			String superclass = Class.forName(Constants.getAction(tree.data)).getSuperclass().getName();
-			totalchildren = Constants.getNumberParams(superclass);
+			totalchildren = getNumberParams(tree.data);
+			System.out.println(totalchildren + " children number");
 
 		} catch (Exception e) {
 			try {
@@ -103,10 +141,24 @@ public class CommandParser {
 		return tree;
 	}
 
+	private int getNumberParams(String classname) throws ClassNotFoundException {
+		int totalchildren;
+		String superclass = Class.forName(Constants.getAction(classname)).getSuperclass().getName();
+		totalchildren = Constants.getNumberParams(superclass);
+		System.out.println(totalchildren + "total children");
+		return totalchildren;
+	}
+
+	/**
+	 * The treeTraversal() method recursively traverses up the tree constructed
+	 * by makeTree() in order to parse it.
+	 *
+	 */
 	private double treeTraversal(Node node) throws Exception {
 		System.out.println("at node: " + node.getData());
 		try {
 			Action action = makeAction(node);
+			System.out.println(action.getClass().getName());
 			return action.rule();
 		} catch (Exception exception) {
 			try {
@@ -123,13 +175,17 @@ public class CommandParser {
 		}
 	}
 
+	/**
+	 * The parseValue() method returns the parsed value of a node.
+	 *
+	 */
 	private double parseValue(Node node) throws Exception {
 		if (node.isVariable()) {
 			try {
 				double variable = myVariables.getVariableValue(node.getData());
 				return variable;
 			} catch (Exception unreachableVariable) {
-//				throw new Exception("can't get variable");
+				// throw new Exception("can't get variable");
 				myVariables.addVariable(node.getData(), Constants.DEFAULT_VARIABLE_VALUE);
 				return Constants.DEFAULT_VARIABLE_VALUE;
 			}
@@ -144,23 +200,27 @@ public class CommandParser {
 		}
 	}
 
+	/**
+	 * The parseUserCommands() method returns the parsed value of a user
+	 * command.
+	 *
+	 */
 	private Double parseUserCommands(Node node) throws Exception {
 		Iterator<Node> iter = node.getChildren().iterator();
-		System.out.println(" size " + myUserCommands.getCommandParams(node.getData()).size());
 		for (String string : myUserCommands.getCommandParams(node.getData())) {
-			System.out.println(" param:" + string);
 			Node val = iter.next();
-			System.out.println(" value" + val.getData());
 			myVariables.addVariable(string, treeTraversal(val));
 			System.out.println("param:" + string + " , " + myVariables.getVariableValue(string));
 
 		}
-
-		String thiscommand = myUserCommands.getCommand(node.getData());
-
-		return parseCommands(thiscommand);
+		return parseCommands(myUserCommands.getCommand(node.getData()));
 	}
 
+	/**
+	 * The makeAction() method returns an action given a node by constructing a
+	 * new instance of it utilizing the parameters passed in.
+	 *
+	 */
 	private Action makeAction(Node node) throws Exception {
 		try {
 			Class action = Class.forName(Constants.getAction(node.data));
@@ -188,6 +248,9 @@ public class CommandParser {
 				finalaction = (Action) constructor.newInstance(addStringParams(node), myLanguage, myPlayground,
 						myVariables, myUserCommands);
 				break;
+			case Constants.TURTLE_ONESTRINGPARAM:
+				finalaction = (Action) constructor.newInstance(addStringParams(node), myPlayground);
+				break;
 			}
 
 			return finalaction;
@@ -196,6 +259,11 @@ public class CommandParser {
 		}
 	}
 
+	/**
+	 * The addDoubleParams() method returns an ArrayList<Double> which contains
+	 * the (children) parameters for a given node.
+	 *
+	 */
 	private ArrayList<Double> addDoubleParams(Node node) throws Exception {
 		ArrayList<Double> params = new ArrayList<Double>();
 		if (node.children.size() > 0) {
@@ -206,21 +274,66 @@ public class CommandParser {
 		return params;
 	}
 
+	/**
+	 * The addStringParams() method returns an ArrayList<String> which contains
+	 * the (children) parameters for a given node.
+	 *
+	 */
 	private ArrayList<String> addStringParams(Node node) throws Exception {
 		ArrayList<String> params = new ArrayList<String>();
 		if (node.children.size() > 0) {
 			for (Node child : node.children) {
-				if(child.areChildrenEmpty()){
+				if (child.areChildrenEmpty()) {
 					params.add(child.getData());
-				}
-				else{
-					params.add(""+treeTraversal(child));
+				} else {
+					params.add("" + treeTraversal(child));
 				}
 			}
 		}
 		return params;
 	}
+	/**
+	 * The makeUnlimitedParamCommand() method sets a Node's value and children given a Queue
+	 * <String> containing the parsed command with unlimited parameters.
+	 * @throws Exception 
+	 *
+	 */
+	public Node makeUnlimitedParamCommand(Queue<String> queue, Node tree) throws Exception {
+		queue.poll();
+		String command = queue.poll();
+		System.out.println(command);
+		if(getNumberParams(command) == 2){
+			//TODO: make this a constant
+			putUnlimitedParams(command, queue, tree);
+			return tree;
+		}
+		else{
+			throw new Exception("Too many parameters");
+		}
+	}
 
+	private Node putUnlimitedParams(String command, Queue<String> queue, Node tree){
+		String curr = queue.poll();
+		if(tree.isCloseParenthesis(queue)){
+			tree.setData(curr);
+			queue.poll();
+		}
+		else{
+			tree.setData(command);
+			tree.addChild(new Node(curr));
+			tree.addChild(putUnlimitedParams(command, queue, new Node()));
+		}
+		return tree;
+
+	}
+
+	/**
+	 * The parseCommands() method puts all of the other private helper methods
+	 * together in order to parse a user-inputted string into a Double output.
+	 * The method parses the string, constructs a tree, and traverses it in
+	 * order to return the output.
+	 * 
+	 */
 	public Double parseCommands(String s) throws Exception {
 		Queue<String> queue = parse(s);
 		Double output = 0.0;
