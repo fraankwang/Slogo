@@ -264,8 +264,11 @@ public class CommandParser {
 				finalaction = (Action) constructor.newInstance(addStringParams(node), myPlayground);
 				break;
 			
-			case Constants.TURTLEDISPLAY_NOPARAMS:
-				finalaction = (Action) constructor.newInstance(myConfiguration, myPalette);
+			case Constants.TURTLE_DISPLAY_NOPARAMS:
+				finalaction = (Action) constructor.newInstance(myPlayground, myConfiguration, myPalette);
+				break;
+			case Constants.TURTLE_DISPLAY_PARAMS:
+				finalaction = (Action) constructor.newInstance(addDoubleParams(node), myPlayground, myConfiguration, myPalette);
 				break;
 
 			}

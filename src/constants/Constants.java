@@ -30,7 +30,8 @@ public class Constants {
 	public static final String CONTROL_STRUCTURES= "model.action.HigherOrderCommands.ControlStructures";
 	public static final String HIGHER_ORDERSTRUCTURE = "model.action.HigherOrderCommands.HigherOrderCommands";
 	public static final String TURTLE_ONESTRINGPARAM= "model.action.TurtleCommandsOneStringParam.TurtleCommandsOneStringParam";
-	public static final String TURTLEDISPLAY_NOPARAMS = "model.action.TurtleDisplayCommands.TurtleDisplayCommands";
+	public static final String TURTLE_DISPLAY_NOPARAMS = "model.action.TurtleDisplayCommands.TurtleDisplayCommands";
+	public static final String TURTLE_DISPLAY_PARAMS = "model.action.TurtleDisplayCommandsOneParam.TurtleDisplayCommandsParams";
 
 	
 	
