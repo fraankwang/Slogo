@@ -206,6 +206,8 @@ public class CommandParser {
 	 *
 	 */
 	private Double parseUserCommands(Node node) throws Exception {
+		Variables variablesCopy = new Variables(myVariables.getVariableMap());
+
 		Iterator<Node> iter = node.getChildren().iterator();
 		for (String string : myUserCommands.getCommandParams(node.getData())) {
 			Node val = iter.next();
@@ -213,7 +215,9 @@ public class CommandParser {
 			System.out.println("param:" + string + " , " + myVariables.getVariableValue(string));
 
 		}
-		return parseCommands(myUserCommands.getCommand(node.getData()));
+		Double returnValue = parseCommands(myUserCommands.getCommand(node.getData()));
+		myVariables = variablesCopy;
+		return returnValue;
 	}
 
 	/**
@@ -251,6 +255,10 @@ public class CommandParser {
 			case Constants.TURTLE_ONESTRINGPARAM:
 				finalaction = (Action) constructor.newInstance(addStringParams(node), myPlayground);
 				break;
+			
+//			case Constants.TURTLEDISPLAY_NOPARAMS:
+//				finalaction = (Action) constructor.newInstance(myPalette);
+
 			}
 
 			return finalaction;
@@ -298,7 +306,7 @@ public class CommandParser {
 	 * @throws Exception 
 	 *
 	 */
-	public Node makeUnlimitedParamCommand(Queue<String> queue, Node tree) throws Exception {
+	private Node makeUnlimitedParamCommand(Queue<String> queue, Node tree) throws Exception {
 		queue.poll();
 		String command = queue.poll();
 		System.out.println(command);
