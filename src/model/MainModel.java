@@ -11,7 +11,7 @@ import model.turtle.TurtlePlayground;
 /**
  * The MainModel class represents the core-model of the project. It contains the
  * logic of the back-end of the project, and puts together all of the smaller
- * logical components of the logic behinds slogo. The MainModel class has
+ * logical components of the logic behind slogo. The MainModel class has
  * instances of a String myLanguage, a TurtlePlayground myPlayground, a
  * Variables object myVariables, a UserCommands object myUserCommands, a
  * CommandParser object myParser, and two History objects myHistory and

@@ -124,24 +124,34 @@ public class MainView {
 
 		VBox leftColumn = myPanelElementFactory.createLeftColumn();
 		VBox rightColumn = myPanelElementFactory.createRightColumn();
-		setMyTurtleGraphics(myPanelElementFactory.getTurtleGraphics());
-		setMyTurtleBackground(myPanelElementFactory.getTurtleBackground());
-		setMyTurtleElement(myPanelElementFactory.getTurtleElement());
-		setMyTurtleWrapper(myPanelElementFactory.getTurtleWrapper());
-		setMyTurtlePlayground(myPanelElementFactory.getTurtlePlayground());
-		setMyVariablesElement(myPanelElementFactory.getVariablesElement());
-		setMyCommandsElement(myPanelElementFactory.getCommandsElement());
-		setMyHistoryElement(myPanelElementFactory.getHistoryElement());
-		setMyOutputElement(myPanelElementFactory.getOutputElement());
-		setMyColorsElement(myPanelElementFactory.getColorsElement());
-
+		
+		initializePanelElements();
+		
 		MenuBar menuBar = myMenuBarFactory.createMenuBar();
-
 		myPrimaryPane.setTop(menuBar);
 		myPrimaryPane.setLeft(leftColumn);
 		myPrimaryPane.setRight(rightColumn);
 
 		myPrimaryRoot = root;
+		
+	}
+	
+	/**
+	 * Utilizes factory to initialize PanelElements
+	 */
+	private void initializePanelElements() {
+		myTurtleGraphics = myPanelElementFactory.getTurtleGraphics();
+		myTurtleBackground = myPanelElementFactory.getTurtleBackground();
+		myTurtleElement = myPanelElementFactory.getTurtleElement();
+		myTurtleWrapper = myPanelElementFactory.getTurtleWrapper();
+		myTurtlePlayground = myPanelElementFactory.getTurtlePlayground();
+		
+		myVariablesElement = myPanelElementFactory.getVariablesElement();
+		myCommandsElement = myPanelElementFactory.getCommandsElement();
+		myHistoryElement = myPanelElementFactory.getHistoryElement();
+		myOutputElement = myPanelElementFactory.getOutputElement();
+		myColorsElement = myPanelElementFactory.getColorsElement();
+		
 	}
 
 	/**
@@ -214,37 +224,37 @@ public class MainView {
 		myController.setTurtleElement(myTurtleElement);
 	}
 
-	public void setMyPrimaryRoot(Group myPrimaryRoot) {
-		this.myPrimaryRoot = myPrimaryRoot;
-	}
+//	public void setMyPrimaryRoot(Group myPrimaryRoot) {
+//		this.myPrimaryRoot = myPrimaryRoot;
+//	}
+//
+//	public void setMyPrimaryPane(BorderPane myPrimaryPane) {
+//		this.myPrimaryPane = myPrimaryPane;
+//	}
+//
+//	public void setMyPanelElementFactory(PanelElementFactory myPanelElementFactory) {
+//		this.myPanelElementFactory = myPanelElementFactory;
+//	}
 
-	public void setMyPrimaryPane(BorderPane myPrimaryPane) {
-		this.myPrimaryPane = myPrimaryPane;
-	}
-
-	public void setMyPanelElementFactory(PanelElementFactory myPanelElementFactory) {
-		this.myPanelElementFactory = myPanelElementFactory;
-	}
-
-	public void setMyTurtleGraphics(GraphicsContext gc) {
-		myTurtleGraphics = gc;
-	}
-
-	private void setMyTurtleBackground(PanelElement turtleBackground) {
-		myTurtleBackground = turtleBackground;
-	}
-
-	private void setMyTurtleElement(PanelElement turtleElement) {
-		myTurtleElement = turtleElement;
-	}
-	
-	private void setMyTurtleWrapper(StackPane wrapper) {
-		myTurtleWrapper = wrapper;
-	}
-
-	private void setMyTurtlePlayground(Canvas playground) {
-		myTurtlePlayground = playground;
-	}
+//	public void setMyTurtleGraphics(GraphicsContext gc) {
+//		myTurtleGraphics = gc;
+//	}
+//
+//	private void setMyTurtleBackground(PanelElement turtleBackground) {
+//		myTurtleBackground = turtleBackground;
+//	}
+//
+//	private void setMyTurtleElement(PanelElement turtleElement) {
+//		myTurtleElement = turtleElement;
+//	}
+//	
+//	private void setMyTurtleWrapper(StackPane wrapper) {
+//		myTurtleWrapper = wrapper;
+//	}
+//
+//	private void setMyTurtlePlayground(Canvas playground) {
+//		myTurtlePlayground = playground;
+//	}
 	
 	public void setTurtleImage(String image) {
 		ImageView newImage = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(image + ".jpg")));
@@ -261,27 +271,6 @@ public class MainView {
 	public void setTurtleBackgroundColor(Color color) {
 		myTurtleBackground.setBackground(new Background(new BackgroundFill(color, Constants.CORNER_RADIUS, null)));
 	}
-
-	public void setMyOutputElement(PanelElement outputElement) {
-		this.myOutputElement = outputElement;
-	}
-
-	public void setMyHistoryElement(PanelElement historyElement) {
-		this.myHistoryElement = historyElement;
-	}
-
-	public void setMyCommandsElement(PanelElement commandsElement) {
-		this.myCommandsElement = commandsElement;
-	}
-
-	public void setMyVariablesElement(PanelElement variablesElement) {
-		this.myVariablesElement = variablesElement;
-	}
-	
-	public void setMyColorsElement(PanelElement colorsElement) {
-		this.myColorsElement = colorsElement;
-	}
-
 
 	public Group getMyPrimaryRoot() {
 		return myPrimaryRoot;

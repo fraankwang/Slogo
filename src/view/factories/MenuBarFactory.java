@@ -2,12 +2,10 @@ package view.factories;
 
 import java.io.File;
 import java.util.List;
-
 import constants.Constants;
 import controller.MainController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.CustomMenuItem;
@@ -26,8 +24,6 @@ import javafx.stage.Stage;
 import view.panelelements.PanelElement;
 
 public class MenuBarFactory {
-
-	private static final int TOOLBAR_IMAGE_SIZE = Constants.MENU_TURTLE_IMAGE_SIZE;
 
 	private MainController myController;
 	private Stage myPrimaryStage;
@@ -302,8 +298,8 @@ public class MenuBarFactory {
 	private ImageView createTurtleMenuGraphic(String image) {
 		String path = image + Constants.getSpecification("AllowedUploadedImageTypes");
 		ImageView iv = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(path)));
-		iv.setFitHeight(TOOLBAR_IMAGE_SIZE);
-		iv.setFitWidth(TOOLBAR_IMAGE_SIZE);
+		iv.setFitHeight(Constants.MENU_TURTLE_IMAGE_SIZE);
+		iv.setFitWidth(Constants.MENU_TURTLE_IMAGE_SIZE);
 		return iv;
 
 	}
