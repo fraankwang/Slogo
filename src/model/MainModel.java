@@ -11,7 +11,7 @@ import model.turtle.TurtlePlayground;
 /**
  * The MainModel class represents the core-model of the project. It contains the
  * logic of the back-end of the project, and puts together all of the smaller
- * logical components of the logic behinds slogo. The MainModel class has
+ * logical components of the logic behind slogo. The MainModel class has
  * instances of a String myLanguage, a TurtlePlayground myPlayground, a
  * Variables object myVariables, a UserCommands object myUserCommands, a
  * CommandParser object myParser, and two History objects myHistory and
@@ -36,7 +36,7 @@ public class MainModel {
 	public MainModel(String language) {
 		myLanguage = language;
 		myVariables = new Variables();
-		myPlayground = new TurtlePlayground(Constants.PLAYGROUND_WIDTH, Constants.PLAYGROUND_HEIGHT);
+		myPlayground = new TurtlePlayground(Constants.LEFT_COLUMN_WIDTH, Constants.PLAYGROUND_HEIGHT);
 
 		myVariables = new Variables();
 		myUserCommands = new UserCommands();
@@ -65,7 +65,6 @@ public class MainModel {
 
 		} catch (Exception e) {
 			myOutputs.add(e.getMessage());
-
 			e.printStackTrace();
 		}
 	}
@@ -118,5 +117,4 @@ public class MainModel {
 	public Palette getPalette() {
 		return myPalette;
 	}
-
 }

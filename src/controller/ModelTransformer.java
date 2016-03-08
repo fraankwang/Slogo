@@ -32,6 +32,7 @@ public class ModelTransformer {
 
 	private String myLanguage = Constants.getSpecification("DefaultLanguage");
 	private Color myPenColor;
+	private Double myPenWidth = Constants.DEFAULT_TURTLE_PEN_WIDTH;
 	private TurtleElement myTurtleElement;
 
 	public ModelTransformer(MainController controller) {
@@ -53,6 +54,9 @@ public class ModelTransformer {
 		}
 		textArea.clear();
 		textArea.setText(newOutput);
+	}
+
+	public void transformColorElement() {
 	}
 
 	/**
@@ -131,7 +135,7 @@ public class ModelTransformer {
 		double currentY = CENTER_Y_COORDINATE;
 		gc.setFill(myPenColor);
 		gc.setStroke(myPenColor);
-		gc.setLineWidth(Constants.TURTLE_PEN_WIDTH);
+		gc.setLineWidth(myPenWidth);
 
 		for (TurtleCoordinates coordinate : coordinates) {
 			double newX = CENTER_X_COORDINATE + coordinate.getXCoord();
@@ -164,13 +168,16 @@ public class ModelTransformer {
 		myPenColor = color;
 	}
 
+	public void setPenWidth(double pixels) {
+		myPenWidth = pixels;
+	}
+
 	public String getLanguage() {
 		return myLanguage;
 	}
 
 	public void setTurtleElement(PanelElement turtleElement) {
 		myTurtleElement = (TurtleElement) turtleElement;
-
 	}
 
 }

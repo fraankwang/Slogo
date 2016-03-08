@@ -8,7 +8,6 @@ public class ClearStamps extends TurtleDisplayCommands {
 
 	public ClearStamps(TurtlePlayground newTurtlePlayground, Configuration newConfiguration, Palette newPalette) {
 		super(newTurtlePlayground, newConfiguration, newPalette);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
