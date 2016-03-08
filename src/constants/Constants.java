@@ -30,6 +30,9 @@ public class Constants {
 	public static final String CONTROL_STRUCTURES = "model.action.HigherOrderCommands.ControlStructures";
 	public static final String HIGHER_ORDERSTRUCTURE = "model.action.HigherOrderCommands.HigherOrderCommands";
 	public static final String TURTLE_ONESTRINGPARAM = "model.action.TurtleCommandsOneStringParam.TurtleCommandsOneStringParam";
+	public static final String TURTLE_DISPLAY_NOPARAMS = "model.action.TurtleDisplayCommands.TurtleDisplayCommands";
+	public static final String TURTLE_DISPLAY_PARAMS = "model.action.TurtleDisplayCommandsOneParam.TurtleDisplayCommandsParams";
+
 	private static final ResourceBundle SPECIFICATIONS = ResourceBundle
 			.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_RESOURCE_FILE);
 	private static final ResourceBundle ACTIONS = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_ACTIONS);
@@ -91,7 +94,7 @@ public class Constants {
 	public static final int MENU_BAR_HEIGHT = 50;
 	public static final int MENU_TURTLE_IMAGE_SIZE = 50;
 	public static final double TURTLE_INFO_BUTTON_SIZE = 23.0;
-	
+
 	public static final int ANIMATION_SLIDER_MIN = 10;
 	public static final int ANIMATION_SLIDER_MAX = 50;
 	public static final int DEFAULT_ANIMATION_SPEED = 25;
@@ -101,7 +104,6 @@ public class Constants {
 	public static final double ELEMENT_INSET_VERTICAL = 0;
 
 	public static final double DEFAULT_VARIABLE_VALUE = 0;
-
 
 	public static String getSpecification(String name) {
 		return SPECIFICATIONS.getString(name);

@@ -20,6 +20,9 @@ public class Variables {
 		myVariables = new HashMap<String, Double>();
 	}
 
+	public Variables(Map<String, Double> vars) {
+		myVariables = new HashMap<String, Double>(vars);
+	}
 	// =========================================================================
 	// Getters and Setters
 	// =========================================================================

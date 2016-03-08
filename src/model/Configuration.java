@@ -2,7 +2,6 @@ package model;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import constants.Constants;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
@@ -49,8 +48,8 @@ public class Configuration {
 		turtleShape.put(index, shape);
 	}
 
-	public Shape getTurtleShape(Integer index) {
-		return turtleShape.get(index);
+	public String getTurtleShape(Integer index) {
+		return turtleShape.get(index).toString();
 	}
 
 }

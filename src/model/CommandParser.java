@@ -25,12 +25,20 @@ public class CommandParser {
 	private TurtlePlayground myPlayground;
 	private Variables myVariables;
 	private UserCommands myUserCommands;
+	private Palette myPalette;
+	private Configuration myConfiguration;
 
 	public CommandParser(String language, TurtlePlayground playground, Variables variables, UserCommands usercommands) {
 		myLanguage = language;
 		myPlayground = playground;
 		myVariables = variables;
 		myUserCommands = usercommands;
+
+	}
+	public CommandParser(String language, TurtlePlayground playground, Variables variables, UserCommands usercommands, Palette palette, Configuration configuration){
+		this(language, playground, variables,usercommands);
+		myPalette = palette;
+		myConfiguration = configuration;
 	}
 
 	// =========================================================================
@@ -206,6 +214,8 @@ public class CommandParser {
 	 *
 	 */
 	private Double parseUserCommands(Node node) throws Exception {
+		Variables variablesCopy = new Variables(myVariables.getVariableMap());
+
 		Iterator<Node> iter = node.getChildren().iterator();
 		for (String string : myUserCommands.getCommandParams(node.getData())) {
 			Node val = iter.next();
@@ -213,7 +223,9 @@ public class CommandParser {
 			System.out.println("param:" + string + " , " + myVariables.getVariableValue(string));
 
 		}
-		return parseCommands(myUserCommands.getCommand(node.getData()));
+		Double returnValue = parseCommands(myUserCommands.getCommand(node.getData()));
+		myVariables = variablesCopy;
+		return returnValue;
 	}
 
 	/**
@@ -251,6 +263,14 @@ public class CommandParser {
 			case Constants.TURTLE_ONESTRINGPARAM:
 				finalaction = (Action) constructor.newInstance(addStringParams(node), myPlayground);
 				break;
+			
+			case Constants.TURTLE_DISPLAY_NOPARAMS:
+				finalaction = (Action) constructor.newInstance(myPlayground, myConfiguration, myPalette);
+				break;
+			case Constants.TURTLE_DISPLAY_PARAMS:
+				finalaction = (Action) constructor.newInstance(addDoubleParams(node), myPlayground, myConfiguration, myPalette);
+				break;
+
 			}
 
 			return finalaction;
@@ -298,7 +318,7 @@ public class CommandParser {
 	 * @throws Exception 
 	 *
 	 */
-	public Node makeUnlimitedParamCommand(Queue<String> queue, Node tree) throws Exception {
+	private Node makeUnlimitedParamCommand(Queue<String> queue, Node tree) throws Exception {
 		queue.poll();
 		String command = queue.poll();
 		System.out.println(command);
