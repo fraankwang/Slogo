@@ -17,6 +17,7 @@ public abstract class HigherOrderCommands extends Action {
 			UserCommands usercommands) {
 		super();
 		myCommandParser = new CommandParser(language, playground, variables, usercommands);
+
 	}
 
 }

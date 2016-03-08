@@ -30,7 +30,7 @@ public class To extends HigherOrderCommands {
 		}
 		commands = params.get(2);
 
-		this.variables = variables;
+		this.variables = myCommandParser.getVariableList();
 		this.usercommands = usercommands;
 	}
 
@@ -40,9 +40,6 @@ public class To extends HigherOrderCommands {
 			usercommands.addCommand(commandname, parametervariables, commands);
 			System.out.println("added command ." + commands + ". with params ." + String.join(",", parametervariables)
 					+ parametervariables.size());
-			for (String s : parametervariables) {
-				variables.addVariable(s, 0);
-			}
 
 			for (List<String> l : usercommands.getUserCommandMap().values()) {
 				for (String s : l) {

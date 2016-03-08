@@ -41,7 +41,10 @@ public class TurtlePlayground {
 	// =========================================================================
 	// Getters and Setters
 	// =========================================================================
-
+	public void addStampCoordinate(){
+		addStampCoordinate(myCurrentTurtle.getCoordinate());
+	}
+	
 	public void addStampCoordinate(TurtleCoordinates coordinate){
 		stampCoordinates.add(coordinate);
 	}

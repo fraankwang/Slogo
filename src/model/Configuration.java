@@ -11,13 +11,13 @@ public class Configuration {
 	Color background;
 	Map<Integer, Color> penColor;
 	Map<Integer, Double> penSize;
-	Map<Integer, Shape> turtleShape;
+	Map<Integer, String> turtleShape;
 	
 	public Configuration(){
 		background= Color.WHITE;
 		penColor=new HashMap<Integer, Color>();
 		penSize= new HashMap<Integer, Double>();
-		turtleShape=new HashMap<Integer, Shape>();
+		turtleShape=new HashMap<Integer, String>();
 	}
 	
 	public void setBackgroundColor(Color backgroundColor){
@@ -43,11 +43,11 @@ public class Configuration {
 		return penSize.get(index);
 	}
 	
-	public void addTurtleShape(Integer index, Shape shape){
-		turtleShape.put(index, shape);
+	public void addTurtleShape(Integer index, String image){
+		turtleShape.put(index, image);
 	}
 	
-	public Shape getTurtleShape(Integer index){
+	public String getTurtleShape(Integer index){
 		return turtleShape.get(index);
 	}
 	

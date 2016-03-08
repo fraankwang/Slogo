@@ -24,9 +24,14 @@ public class MainModel {
 	private TurtlePlayground myPlayground;
 	private Variables myVariables;
 	private UserCommands myUserCommands;
+	
+	private Palette myPalette;
+	private Configuration myConfiguration;
+	
 	private CommandParser myParser;
 	private History myHistory;
 	private History myOutputs;
+
 
 	public MainModel(String language) {
 		myLanguage = language;
@@ -35,10 +40,14 @@ public class MainModel {
 
 		myVariables = new Variables();
 		myUserCommands = new UserCommands();
+		
+		myPalette = new Palette();
+		myConfiguration = new Configuration();
 
-		myParser = new CommandParser(myLanguage, myPlayground, myVariables, myUserCommands);
+		myParser = new CommandParser(myLanguage, myPlayground, myVariables, myUserCommands, myPalette, myConfiguration);
 		myHistory = new History();
 		myOutputs = new History();
+
 
 	}
 
@@ -66,9 +75,10 @@ public class MainModel {
 	// =========================================================================
 
 	public void setLanguage(String language) {
-		myParser = new CommandParser(language, myPlayground, myVariables, myUserCommands);
+		myLanguage = language;
+		myParser = new CommandParser(myLanguage, myPlayground, myVariables, myUserCommands);
 	}
-	
+
 	public CommandParser getMyParser() {
 		return myParser;
 	}
@@ -101,5 +111,12 @@ public class MainModel {
 		myVariables.replaceVariableValue(name, newVal);
 	}
 
+	public Configuration getConfiguration() {
+		return myConfiguration;
+	}
+
+	public Palette getPalette() {
+		return myPalette;
+	}
 
 }
