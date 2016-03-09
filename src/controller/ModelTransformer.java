@@ -19,6 +19,7 @@ import view.panelelements.HistoryElement;
 import view.panelelements.OutputElement;
 import view.panelelements.PanelElement;
 import view.panelelements.TurtleElement;
+import view.panelelements.TurtleInfoElement;
 import view.panelelements.VariablesElement;
 
 /**
@@ -58,9 +59,6 @@ public class ModelTransformer {
 		textArea.setText(newOutput);
 	}
 
-	public void transformColorsElement() {
-	}
-
 	/**
 	 * Clears previous elements within the HistoryElement ListView and
 	 * repopulates it with updated Model information
@@ -95,6 +93,24 @@ public class ModelTransformer {
 	}
 
 	/**
+	 * Clears previous elements within the ColorsElement ListView and
+	 * repopulates it with updated Model information
+	 * 
+	 * @param variables
+	 */
+	public void transformColorsElement(Map<Integer, Color> colors) {
+		ColorsElement colorsElement = (ColorsElement) myController.getMyView().getColorsElement();
+		ListView<String> colorIntegers = colorsElement.getIntegersListView();
+		ListView<String> colorValues = colorsElement.getValuesListView();
+		colorIntegers.getItems().clear();
+		colorValues.getItems().clear();
+		for (Integer i : colors.keySet()) {
+			colorIntegers.getItems().add(Integer.toString(i));
+			colorValues.getItems().add(colors.get(i).toString());
+		}
+	}
+
+	/**
 	 * Clears previous elements within the HistoryElement ListView and
 	 * repopulates it with updated Model information
 	 * 
@@ -112,6 +128,20 @@ public class ModelTransformer {
 			commandsValues.getItems().add(commandsItem + " (" + parameters.trim() + ")");
 		}
 
+	}
+
+	public void transformTurtleInfoElement(List<Turtle> turtles) {
+		TurtleInfoElement turtleInfoElement = (TurtleInfoElement) myController.getMyView().getMyTurtleInfoElement();
+		ListView<String> turtleInfoValues = turtleInfoElement.getListView();
+
+		turtleInfoValues.getItems().clear();
+		for (Turtle t : turtles) {
+			turtleInfoValues.getItems()
+					.add(Integer.toString(t.getTurtleID()) + ": "
+							+ Double.toString(Math.round(t.getCoordinate().getXCoord())) + ","
+							+ Double.toString(Math.round(t.getCoordinate().getYCoord())) + ", "
+							+ Double.toString(t.getOrientation()) + ", " + t.getPenDown());
+		}
 	}
 
 	/**

@@ -1,9 +1,10 @@
-package model.action.TurtleDisplayCommandsOneParam;
+package model.action.TurtleDisplayCommandsFourParams;
 
 import java.util.List;
 
 import javafx.scene.paint.Color;
 import model.Palette;
+import model.action.TurtleDisplayCommandsOneParam.TurtleDisplayCommandsParams;
 import model.turtle.TurtlePlayground;
 
 public class SetPalette extends TurtleDisplayCommandsParams {

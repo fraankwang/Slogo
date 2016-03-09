@@ -342,16 +342,50 @@ public class PanelElementFactory {
 		VBox colorsWrapper = new VBox();
 		Label colorsLabel = new Label(Constants.getSpecification("ColorsLabel"));
 		colorsLabel.getStyleClass().add("element-label");
+		
+		HBox colorsListViews = new HBox();
+		ListView<String> colorIntegersListView = createColorIntegersListView();
+		ListView<String> colorValuesListView = createColorValuesListView(colorIntegersListView);
+		
+		colorsListViews.getChildren().addAll(colorIntegersListView, colorValuesListView);
+		colorsWrapper.getChildren().addAll(colorsLabel, colorsListViews);
+		
 		ListView<String> colorsListView = new ListView<String>();
 		colorsListView.setPrefSize(Constants.COLORS_WIDTH, Constants.COLORS_HEIGHT);
 		colorsListView.setCellFactory(TextFieldListCell.forListView());
 
-		colorsWrapper.getChildren().addAll(colorsLabel, colorsListView);
+
 
 		myColorsElement = new ColorsElement(colorsWrapper, Constants.getSpecification("ColorsElementName"));
-		myColorsElement.setListView(colorsListView);
+		myColorsElement.setIntegersListView(colorIntegersListView);
+		myColorsElement.setValuesListView(colorValuesListView);
 
 		return myColorsElement;
+	}
+	
+	/**
+	 * Helper method to create an editable listview that links to variable keys
+	 * 
+	 * @param names
+	 * @return
+	 */
+	private ListView<String> createColorIntegersListView() {
+		ListView<String> colorIntegersListView = new ListView<String>();
+		colorIntegersListView.setPrefSize(Constants.VARIABLES_WIDTH / 2.0, Constants.VARIABLES_HEIGHT);
+		return colorIntegersListView;
+	}
+
+	/**
+	 * Helper method to create an editable listview that links to variable
+	 * values
+	 * 
+	 * @param names
+	 * @return
+	 */
+	private ListView<String> createColorValuesListView(ListView<String> names) {
+		ListView<String> colorValuesListView = new ListView<String>();
+		colorValuesListView.setPrefSize(Constants.VARIABLES_WIDTH / 2.0, Constants.VARIABLES_HEIGHT);
+		return colorValuesListView;
 	}
 
 	/**
@@ -447,9 +481,8 @@ public class PanelElementFactory {
 		turtleInfoListView.setPrefSize(Constants.TURTLE_INFO_WIDTH, Constants.TURTLE_INFO_HEIGHT);
 		turtleInfoListView.setCellFactory(TextFieldListCell.forListView());
 		turtleInfoWrapper.getChildren().addAll(turtleInfoLabel, turtleInfoListView);
-
-		myTurtleInfoElement = new TurtleInfoElement(turtleInfoWrapper,
-				Constants.getSpecification("TurtleInfoElementName"));
+		
+		myTurtleInfoElement = new TurtleInfoElement(turtleInfoWrapper, Constants.getSpecification("TurtleInfoElementName"));
 		myTurtleInfoElement.setListView(turtleInfoListView);
 
 		return myTurtleInfoElement;
