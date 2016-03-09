@@ -7,6 +7,8 @@ package model.turtle;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+
+import constants.Constants;
 import javafx.scene.paint.Color;
 
 /**
@@ -23,7 +25,7 @@ public class TurtlePlayground {
 	private List<TurtleCoordinates> stampCoordinates;
 	private double myWidth;
 	private double myHeight;
-	private Color myBackgroundColor;
+	private Color myBackgroundColor = Constants.DEFAULT_BACKGROUND_COLOR;
 
 	public TurtlePlayground() {
 		myCurrentTurtle = new Turtle(1);

@@ -1,4 +1,4 @@
-package constants;
+package configuration;
 
 import javafx.scene.paint.Color;
 import model.UserCommands;
@@ -15,7 +15,7 @@ public class ConfigurationInfo {
 	
 	
 	public ConfigurationInfo() {
-		
+
 	}
 
 

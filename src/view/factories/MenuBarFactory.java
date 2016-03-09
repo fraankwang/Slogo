@@ -75,12 +75,14 @@ public class MenuBarFactory {
 	 * @return
 	 */
 	private MenuItem makeSaveButton() {
-		Label saveButtonLabel = new Label(Constants.getSpecification("SaveButtonDefaultText"));
-		saveButtonLabel.setTextFill(Color.BLACK);
-		CustomMenuItem save = new CustomMenuItem(saveButtonLabel);
+		MenuItem save = new MenuItem(Constants.getSpecification("SaveButtonDefaultText"));
 		save.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
+				// new generator
+				// myController.gatherallinfo
+				// gatherallinfo method: creates XMLgenerator and generates
+				// generate saved alert
 				System.out.println("save pressed");
 			}
 		});
@@ -94,8 +96,18 @@ public class MenuBarFactory {
 	 * @return
 	 */
 	private MenuItem makeLoadButton() {
-		Label loadButtonLabel = new Label(Constants.getSpecification("LoadButtonDefaultText"));
-		CustomMenuItem load = new CustomMenuItem(loadButtonLabel);
+		MenuItem load = new MenuItem(Constants.getSpecification("LoadButtonDefaultText"));
+		load.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent e) {
+				// new parser
+				// myController.readparsedinfo
+				// readparsedinfo method: updates all configurations
+				// myController.refreshdisplay
+				System.out.println("load pressed");
+			}
+		});
+		
 		return load;
 		
 	}
@@ -243,7 +255,6 @@ public class MenuBarFactory {
 		MenuItem resetTurtle = new MenuItem(Constants.getSpecification("ResetTurtleOption"));
 		resetTurtle.setOnAction(e -> myController.resetTurtlePosition());
 		MenuItem turtleImages = makeTurtleImages();
-//		MenuItem uploadNew = makeUploadNewOption();
 		CustomMenuItem penWidth = makePenWidthPicker();
 		SeparatorMenuItem sep = new SeparatorMenuItem();
 		SeparatorMenuItem sep2 = new SeparatorMenuItem();
@@ -272,6 +283,11 @@ public class MenuBarFactory {
 
 	}
 
+	/**
+	 * Creates and links pen width to MainController
+	 * 
+	 * @return
+	 */
 	private CustomMenuItem makePenWidthPicker() {
 		VBox sliderWrapper = new VBox();
 
@@ -341,33 +357,6 @@ public class MenuBarFactory {
 		return iv;
 
 	}
-
-//	/**
-//	 * Allows user to upload new image for Turtle to take
-//	 * 
-//	 * @return
-//	 */
-//	private MenuItem makeUploadNewOption() {
-//		MenuItem uploadNew = new MenuItem(Constants.getSpecification("UploadNewTurtleImageOption"));
-//		uploadNew.setOnAction(new EventHandler<ActionEvent>() {
-//			@Override
-//			public void handle(ActionEvent e) {
-//				FileChooser fileChooser = new FileChooser();
-//				FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
-//						Constants.getSpecification("AllowedUploadedImageTypesFilterDescription"),
-//						Constants.getSpecification("AllowedUploadedImageTypesFilter"));
-//				fileChooser.getExtensionFilters().addAll(extFilter);
-//				File chosenFile = fileChooser.showOpenDialog(myPrimaryStage);
-//				System.out.println(chosenFile.getName());
-//				// TODO: Extension work
-//				// SAVE FILE (only JPG to src/images)
-//				// call createTurtleImageMenuItem() and add it to turtleImages
-//			}
-//		});
-//
-//		return uploadNew;
-//
-//	}
 
 	/**
 	 * Creates help menu button

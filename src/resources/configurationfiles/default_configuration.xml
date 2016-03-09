@@ -1,0 +1,38 @@
+<root>	
+	<pencolor>000000ff</pencolor>
+	<backgroundcolor>0xffffffff</backgroundcolor>
+	<language>English</language>
+	<penwidth>4.0</penwidth>
+	<variables>
+		<var>
+			<key>:x</key>
+			<value>5</value>
+		</var>
+		<var>
+			<key>:y</key>
+			<value>3</value>
+		</var>
+		<var>
+			<key>:z</key>
+			<value>6</value>
+		</var>
+	</variables>
+	<usercommands>
+		<item>
+			<commandname> sum2 </commandname>
+			<command>sum :x :y</command>
+			<params>
+				<param>:x</param>
+				<param>:y</param>
+			</params>
+		</item>
+		<item>
+			<commandname> sum3 </commandname>
+			<command>sum :x :z</command>
+			<params>
+				<param>:x</param>
+				<param>:z</param>
+			</params>
+		</item>
+	</usercommands>
+</root>
