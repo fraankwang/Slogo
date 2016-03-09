@@ -25,15 +25,12 @@ public class Configuration {
 		myBackgroundColor = backgroundColor;
 	}
 
-	public Double getCurrentPenSize(TurtlePlayground playground) {
-		int turtleID = playground.getCurrentTurtleID();
-		Double currentSize;
-		if (myPenSize.keySet().contains(turtleID)) {
-			currentSize = myPenSize.get(turtleID);
-		} else {
-			currentSize = Constants.DEFAULT_TURTLE_PEN_WIDTH;
-		}
-		return currentSize;
+	public Double getCurrentPenSize() {
+		
+		return myCurrentPenSize;
+	}
+	public void setCurrentPenSize(Double value){
+		myCurrentPenSize = value;
 	}
 
 	public Color getBackgroundColor() {
