@@ -7,7 +7,7 @@ package constants;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-//import exceptions.ParseException;
+import exceptions.ParseException;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 
@@ -115,7 +115,7 @@ public class Constants {
 				}
 			}
 		}
-		throw new Exception();
+		throw new ParseException();
 	}
 
 	public static int getNumberParams(String superclass) {
