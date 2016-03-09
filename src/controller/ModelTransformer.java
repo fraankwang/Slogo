@@ -10,13 +10,16 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
+import model.Palette;
 import model.turtle.Turtle;
 import model.turtle.TurtleCoordinates;
+import view.panelelements.ColorsElement;
 import view.panelelements.CommandsElement;
 import view.panelelements.HistoryElement;
 import view.panelelements.OutputElement;
 import view.panelelements.PanelElement;
 import view.panelelements.TurtleElement;
+import view.panelelements.TurtleInfoElement;
 import view.panelelements.VariablesElement;
 
 /**
@@ -91,6 +94,19 @@ public class ModelTransformer {
 			variablesValues.getItems().add(variables.get(variablesItem).toString());
 		}
 	}
+	
+
+	public void transformColorsElement(Map<Integer, Color> colors){
+		ColorsElement colorsElement = (ColorsElement) myController.getMyView().getColorsElement();
+		ListView<String> colorIntegers = colorsElement.getIntegersListView();
+		ListView<String> colorValues = colorsElement.getValuesListView();
+		colorIntegers.getItems().clear();
+		colorValues.getItems().clear();
+		for(Integer i : colors.keySet()){
+			colorIntegers.getItems().add(Integer.toString(i));
+			colorValues.getItems().add(colors.get(i).toString());
+		}
+	}
 
 	/**
 	 * Clears previous elements within the HistoryElement ListView and
@@ -110,6 +126,20 @@ public class ModelTransformer {
 			commandsValues.getItems().add(commandsItem + " (" + parameters.trim() + ")");
 		}
 
+	}
+	
+	
+	public void transformTurtleInfoElement(List<Turtle> turtles){
+		TurtleInfoElement turtleInfoElement = (TurtleInfoElement) myController.getMyView().getMyTurtleInfoElement();
+		ListView<String> turtleInfoValues = turtleInfoElement.getListView();
+		
+		turtleInfoValues.getItems().clear();
+		for(Turtle t : turtles){
+			turtleInfoValues.getItems().add(Integer.toString(t.getTurtleID()) + ": " 
+					+ Double.toString(Math.round(t.getCoordinate().getXCoord())) + "," +  Double.toString(Math.round(t.getCoordinate().getYCoord())) + ", "
+					+ Double.toString(t.getOrientation()) + ", "
+					+ t.getPenDown());
+		}
 	}
 
 	/**

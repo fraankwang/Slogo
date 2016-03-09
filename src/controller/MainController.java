@@ -62,7 +62,8 @@ public class MainController {
 		myTransformer.transformTurtleGraphics(myModel.getMyPlayground().getCurrentTurtle());
 		myTransformer.transformVariablesElement(myModel.getMyVariables());
 		myTransformer.transformCommandsElement(myModel.getMyUserCommands());
-		// myTransformer.transformColorsElement(myModel.getMyColors());
+		myTransformer.transformColorsElement(myModel.getPaletteMap());
+		myTransformer.transformTurtleInfoElement(myModel.getMyPlayground().getTurtleList());
 
 	}
 

@@ -48,4 +48,8 @@ public class Palette {
 	    }
 	    return -1;
 	}
+	
+	public Map<Integer, Color> getPaletteMap(){
+		return paletteMap;
+	}
 }

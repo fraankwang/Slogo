@@ -274,4 +274,7 @@ public class MainView {
 		return myAdvancedHelpRoot;
 	}
 
+	public PanelElement getColorsElement(){
+		return myColorsElement;
+	}
 }
