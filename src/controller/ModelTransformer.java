@@ -132,6 +132,8 @@ public class ModelTransformer {
 	private void updateTurtleGraphics(GraphicsContext gc, Turtle turtle, Configuration configs) {
 		LinkedList<TurtleCoordinates> coordinates = turtle.getCoordinates();
 		Double orientation = turtle.getOrientation();
+		myTurtleElement.setTurtleOrientation(orientation);
+		
 		double currentX = CENTER_X_COORDINATE;
 		double currentY = CENTER_Y_COORDINATE;
 		gc.setFill(configs.getPenColor());
@@ -148,7 +150,7 @@ public class ModelTransformer {
 
 			Double rounded = (double) Math.round(newX);
 			myTurtleElement.moveTurtleImage(rounded - CENTER_X_COORDINATE, -1 * coordinate.getYCoord());
-			myTurtleElement.setTurtleOrientation(orientation);
+
 
 			currentX = newX;
 			currentY = newY;
