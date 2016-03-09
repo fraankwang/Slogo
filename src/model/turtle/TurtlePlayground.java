@@ -19,6 +19,7 @@ public class TurtlePlayground {
 	private List<Turtle> myTurtles;
 	private List<Turtle> myActiveTurtles;
 	private Turtle myCurrentTurtle;
+	private List<TurtleCoordinates> stampCoordinates;
 	private double myWidth;
 	private double myHeight;
 
@@ -26,6 +27,7 @@ public class TurtlePlayground {
 		myCurrentTurtle = new Turtle(1);
 		myTurtles = new ArrayList<Turtle>();
 		myActiveTurtles = new ArrayList<Turtle>();
+		stampCoordinates= new ArrayList<TurtleCoordinates>();
 		myTurtles.add(myCurrentTurtle);
 		myActiveTurtles.add(myCurrentTurtle);
 	}
@@ -39,7 +41,21 @@ public class TurtlePlayground {
 	// =========================================================================
 	// Getters and Setters
 	// =========================================================================
-
+	public void addStampCoordinate(){
+		addStampCoordinate(myCurrentTurtle.getCoordinate());
+	}
+	
+	public void addStampCoordinate(TurtleCoordinates coordinate){
+		stampCoordinates.add(coordinate);
+	}
+	
+	public void clearStampCoordinate(){
+		stampCoordinates=new ArrayList<TurtleCoordinates>();
+	}
+	
+	public List<TurtleCoordinates> getStampCoordinates(){
+		return this.stampCoordinates;
+	}
 	public void setWidth(int width) {
 		myWidth = width;
 	}
@@ -56,6 +72,10 @@ public class TurtlePlayground {
 		return this.myCurrentTurtle;
 	}
 
+	public void clearActiveTurtles(){
+		myActiveTurtles.clear();
+	}
+	
 	public List<Turtle> getActiveTurtles() {
 		return this.myActiveTurtles;
 	}

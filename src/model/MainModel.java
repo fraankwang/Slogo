@@ -11,7 +11,7 @@ import model.turtle.TurtlePlayground;
 /**
  * The MainModel class represents the core-model of the project. It contains the
  * logic of the back-end of the project, and puts together all of the smaller
- * logical components of the logic behinds slogo. The MainModel class has
+ * logical components of the logic behind slogo. The MainModel class has
  * instances of a String myLanguage, a TurtlePlayground myPlayground, a
  * Variables object myVariables, a UserCommands object myUserCommands, a
  * CommandParser object myParser, and two History objects myHistory and
@@ -24,9 +24,14 @@ public class MainModel {
 	private TurtlePlayground myPlayground;
 	private Variables myVariables;
 	private UserCommands myUserCommands;
+	
+	private Palette myPalette;
+	private Configuration myConfiguration;
+	
 	private CommandParser myParser;
 	private History myHistory;
 	private History myOutputs;
+
 
 	public MainModel(String language) {
 		myLanguage = language;
@@ -35,10 +40,14 @@ public class MainModel {
 
 		myVariables = new Variables();
 		myUserCommands = new UserCommands();
+		
+		myPalette = new Palette();
+		myConfiguration = new Configuration();
 
-		myParser = new CommandParser(myLanguage, myPlayground, myVariables, myUserCommands);
+		myParser = new CommandParser(myLanguage, myPlayground, myVariables, myUserCommands, myPalette, myConfiguration);
 		myHistory = new History();
 		myOutputs = new History();
+
 
 	}
 
@@ -56,7 +65,6 @@ public class MainModel {
 
 		} catch (Exception e) {
 			myOutputs.add(e.getMessage());
-
 			e.printStackTrace();
 		}
 	}
@@ -66,9 +74,10 @@ public class MainModel {
 	// =========================================================================
 
 	public void setLanguage(String language) {
-		myParser = new CommandParser(language, myPlayground, myVariables, myUserCommands);
+		myLanguage = language;
+		myParser = new CommandParser(myLanguage, myPlayground, myVariables, myUserCommands);
 	}
-	
+
 	public CommandParser getMyParser() {
 		return myParser;
 	}
@@ -101,5 +110,11 @@ public class MainModel {
 		myVariables.replaceVariableValue(name, newVal);
 	}
 
+	public Configuration getConfiguration() {
+		return myConfiguration;
+	}
 
+	public Palette getPalette() {
+		return myPalette;
+	}
 }

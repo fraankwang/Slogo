@@ -25,6 +25,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.web.WebView;
 
 import javafx.stage.Stage;
@@ -44,7 +45,8 @@ public class MainView {
 	private Scene myHelpScene;
 	private MainController myController;
 	private Group myPrimaryRoot;
-	private Group myHelpRoot;
+	private Group myBasicHelpRoot;
+	private Group myAdvancedHelpRoot;
 	private BorderPane myPrimaryPane;
 
 	private PanelElementFactory myPanelElementFactory;
@@ -57,7 +59,7 @@ public class MainView {
 	private PanelElement myTurtleBackground;
 	private PanelElement myTurtleElement;
 	private PanelElement myColorsElement;
-	private StackPane myTurtleWrapper; 
+	private StackPane myTurtleWrapper;
 	private Canvas myTurtlePlayground;
 	private GraphicsContext myTurtleGraphics;
 
@@ -71,10 +73,10 @@ public class MainView {
 	 */
 	public void init() {
 		initializePrimaryRoot();
-		initializeHelpRoot();
+		initializeHelpRoots();
 
 		myController.setTurtleElement(getMyTurtleElement());
-		
+
 		myPrimaryScene = new Scene(myPrimaryRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.WHITE);
 		myPrimaryScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
@@ -86,7 +88,6 @@ public class MainView {
 			}
 		});
 
-		myHelpScene = new Scene(myHelpRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.WHITE);
 		showPrimaryScene();
 
 	}
@@ -94,7 +95,13 @@ public class MainView {
 	/**
 	 * Shows Help Scene
 	 */
-	public void showHelpScene() {
+	public void showHelpScene(boolean basic) {
+		if (basic) {
+			myHelpScene.setRoot(myBasicHelpRoot);
+		} else {
+			myHelpScene.setRoot(myAdvancedHelpRoot);
+		}
+		
 		myPrimaryStage.setScene(myHelpScene);
 		myPrimaryStage.show();
 
@@ -115,7 +122,7 @@ public class MainView {
 	private void initializePrimaryRoot() {
 		Group root = new Group();
 		root.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
-		
+
 		myPrimaryPane = new BorderPane();
 		root.getChildren().add(myPrimaryPane);
 
@@ -124,41 +131,66 @@ public class MainView {
 
 		VBox leftColumn = myPanelElementFactory.createLeftColumn();
 		VBox rightColumn = myPanelElementFactory.createRightColumn();
-		setMyTurtleGraphics(myPanelElementFactory.getTurtleGraphics());
-		setMyTurtleBackground(myPanelElementFactory.getTurtleBackground());
-		setMyTurtleElement(myPanelElementFactory.getTurtleElement());
-		setMyTurtleWrapper(myPanelElementFactory.getTurtleWrapper());
-		setMyTurtlePlayground(myPanelElementFactory.getTurtlePlayground());
-		setMyVariablesElement(myPanelElementFactory.getVariablesElement());
-		setMyCommandsElement(myPanelElementFactory.getCommandsElement());
-		setMyHistoryElement(myPanelElementFactory.getHistoryElement());
-		setMyOutputElement(myPanelElementFactory.getOutputElement());
-		setMyColorsElement(myPanelElementFactory.getColorsElement());
+
+		initializePanelElements();
 
 		MenuBar menuBar = myMenuBarFactory.createMenuBar();
-
 		myPrimaryPane.setTop(menuBar);
 		myPrimaryPane.setLeft(leftColumn);
 		myPrimaryPane.setRight(rightColumn);
 
 		myPrimaryRoot = root;
+
+	}
+
+	/**
+	 * Utilizes factory to initialize PanelElements
+	 */
+	private void initializePanelElements() {
+		myTurtleGraphics = myPanelElementFactory.getTurtleGraphics();
+		myTurtleBackground = myPanelElementFactory.getTurtleBackground();
+		myTurtleElement = myPanelElementFactory.getTurtleElement();
+		myTurtleWrapper = myPanelElementFactory.getTurtleWrapper();
+		myTurtlePlayground = myPanelElementFactory.getTurtlePlayground();
+
+		myVariablesElement = myPanelElementFactory.getVariablesElement();
+		myCommandsElement = myPanelElementFactory.getCommandsElement();
+		myHistoryElement = myPanelElementFactory.getHistoryElement();
+		myOutputElement = myPanelElementFactory.getOutputElement();
+		myColorsElement = myPanelElementFactory.getColorsElement();
+
 	}
 
 	/**
 	 * 
 	 */
-	private void initializeHelpRoot() {
-		Group helpRoot = new Group();
-		VBox wrapper = new VBox();
+	private void initializeHelpRoots() {
 		myHelpPageFactory = new HelpPageFactory(myController);
-
 		Button backButton = myHelpPageFactory.createBackButton();
-		WebView htmlPage = myHelpPageFactory.createHTMLPage();
+		Button backButton2 = myHelpPageFactory.createBackButton();
+		
+		Group basicHelpRoot = new Group();
+		VBox basicWrapper = new VBox();
+		WebView bs = myHelpPageFactory.createBasicHelpPage();
+		WebView basicHelpPage = myHelpPageFactory.createBasicHelpPage();
+		basicWrapper.getChildren().addAll(backButton, bs);
+		basicHelpRoot.getChildren().add(basicWrapper);
+		
+		Group advancedHelpRoot = new Group();
+		VBox advancedWrapper = new VBox();
+		WebView advancedHelpPage = myHelpPageFactory.createAdvancedHelpPage();
+		advancedWrapper.getChildren().addAll(backButton2, advancedHelpPage);
+		advancedHelpRoot.getChildren().add(advancedWrapper);
 
-		wrapper.getChildren().addAll(backButton, htmlPage);
-		helpRoot.getChildren().add(wrapper);
-		myHelpRoot = helpRoot;
+		myBasicHelpRoot = basicHelpRoot;
+		myAdvancedHelpRoot = advancedHelpRoot;
 
+		myHelpScene = new Scene(advancedHelpRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.WHITE);
+	}
+
+	public void linkController(MainController myController) {
+		this.myController = myController;
+		myController.setTurtleElement(myTurtleElement);
 	}
 
 	// =========================================================================
@@ -168,9 +200,9 @@ public class MainView {
 	public GraphicsContext getMyTurtleGraphics() {
 		return myTurtleGraphics;
 	}
-	
-	public TurtleElement getMyTurtleElement() {
-		return (TurtleElement) myTurtleElement;
+
+	public PanelElement getMyTurtleElement() {
+		return myTurtleElement;
 	}
 
 	public PanelElement getMyOutputElement() {
@@ -201,6 +233,7 @@ public class MainView {
 		viewableElements.add(myOutputElement);
 		viewableElements.add(myTurtleBackground);
 		viewableElements.add(myTurtleElement);
+		viewableElements.add(myColorsElement);
 		return viewableElements;
 
 	}
@@ -209,43 +242,6 @@ public class MainView {
 		this.myPrimaryStage = myPrimaryStage;
 	}
 
-	public void linkController(MainController myController) {
-		this.myController = myController;
-		myController.setTurtleElement(myTurtleElement);
-	}
-
-	public void setMyPrimaryRoot(Group myPrimaryRoot) {
-		this.myPrimaryRoot = myPrimaryRoot;
-	}
-
-	public void setMyPrimaryPane(BorderPane myPrimaryPane) {
-		this.myPrimaryPane = myPrimaryPane;
-	}
-
-	public void setMyPanelElementFactory(PanelElementFactory myPanelElementFactory) {
-		this.myPanelElementFactory = myPanelElementFactory;
-	}
-
-	public void setMyTurtleGraphics(GraphicsContext gc) {
-		myTurtleGraphics = gc;
-	}
-
-	private void setMyTurtleBackground(PanelElement turtleBackground) {
-		myTurtleBackground = turtleBackground;
-	}
-
-	private void setMyTurtleElement(PanelElement turtleElement) {
-		myTurtleElement = turtleElement;
-	}
-	
-	private void setMyTurtleWrapper(StackPane wrapper) {
-		myTurtleWrapper = wrapper;
-	}
-
-	private void setMyTurtlePlayground(Canvas playground) {
-		myTurtlePlayground = playground;
-	}
-	
 	public void setTurtleImage(String image) {
 		ImageView newImage = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(image + ".jpg")));
 		newImage.setFitWidth(Constants.TURTLE_ELEMENT_WIDTH);
@@ -253,7 +249,7 @@ public class MainView {
 		Double oldX = myTurtleElement.getNode().getTranslateX();
 		Double oldY = myTurtleElement.getNode().getTranslateY();
 		((TurtleElement) myTurtleElement).setTurtleImage(newImage);
-		myTurtleWrapper.getChildren().clear();
+		myTurtleWrapper.getChildren().removeAll(myTurtlePlayground, myTurtleElement.getNode());
 		myTurtleWrapper.getChildren().addAll(myTurtlePlayground, myTurtleElement.getNode());
 		((TurtleElement) myTurtleElement).moveTurtleImage(oldX, oldY);
 	}
@@ -262,33 +258,16 @@ public class MainView {
 		myTurtleBackground.setBackground(new Background(new BackgroundFill(color, Constants.CORNER_RADIUS, null)));
 	}
 
-	public void setMyOutputElement(PanelElement outputElement) {
-		this.myOutputElement = outputElement;
-	}
-
-	public void setMyHistoryElement(PanelElement historyElement) {
-		this.myHistoryElement = historyElement;
-	}
-
-	public void setMyCommandsElement(PanelElement commandsElement) {
-		this.myCommandsElement = commandsElement;
-	}
-
-	public void setMyVariablesElement(PanelElement variablesElement) {
-		this.myVariablesElement = variablesElement;
-	}
-	
-	public void setMyColorsElement(PanelElement colorsElement) {
-		this.myColorsElement = colorsElement;
-	}
-
-
 	public Group getMyPrimaryRoot() {
 		return myPrimaryRoot;
 	}
 
-	public Group getMyHelpRoot() {
-		return myHelpRoot;
+	public Group getMyBasicHelpRoot() {
+		return myBasicHelpRoot;
+	}
+
+	public Group getMyAdvancedHelpRoot() {
+		return myAdvancedHelpRoot;
 	}
 
 }

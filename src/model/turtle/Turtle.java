@@ -32,22 +32,22 @@ public class Turtle {
 		Orientation = 0.0;
 		turtleCoordinate = new TurtleCoordinates(xCoord, yCoord, penDown);
 		turtleCoordinates = new LinkedList<TurtleCoordinates>();
-		this.turtleID=turtleID;
+		this.turtleID = turtleID;
 	}
 
 	// =========================================================================
 	// Getters and Setters
 	// =========================================================================
 
-	public int getTurtleID(){
+	public int getTurtleID() {
 		return this.turtleID;
 	}
-	
+
 	public void setPenDown(boolean down) {
 		this.penDown = down;
 	}
-	
-	public boolean getPenDown(){
+
+	public boolean getPenDown() {
 		return this.penDown;
 	}
 
@@ -63,12 +63,12 @@ public class Turtle {
 		return this.Orientation;
 	}
 
-	public TurtleCoordinates getCoordinate(){
+	public TurtleCoordinates getCoordinate() {
 		return this.turtleCoordinate;
 	}
 
-	public void setCoordinate(TurtleCoordinates coordinate){
-		this.turtleCoordinate=coordinate;
+	public void setCoordinate(TurtleCoordinates coordinate) {
+		this.turtleCoordinate = coordinate;
 	}
 
 	public LinkedList<TurtleCoordinates> getCoordinates() {
@@ -92,7 +92,7 @@ public class Turtle {
 	 * turtleCoordinates instance variable, given an x and y coordinate.
 	 *
 	 */
-	public void addCoordinates(TurtleCoordinates coordinate){
+	public void addCoordinates(TurtleCoordinates coordinate) {
 		turtleCoordinates.add(coordinate);
 	}
 

@@ -11,6 +11,10 @@ Label{
 	-fx-text-fill:white;
 }
 
+.label-menuitem{
+	-fx-text-fill:black;
+}
+
 .turtle-vbox{
 	-fx-padding: 10 10 10 10;
 }
