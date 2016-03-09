@@ -24,25 +24,26 @@ public class Configuration {
 	public void setBackgroundColor(Color backgroundColor) {
 		myBackgroundColor = backgroundColor;
 	}
-	
-	public Double getCurrentPenSize(TurtlePlayground playground){
-		int turtleID=playground.getCurrentTurtleID();
+
+	public Double getCurrentPenSize(TurtlePlayground playground) {
+		int turtleID = playground.getCurrentTurtleID();
 		Double currentSize;
-		if(myPenSize.keySet().contains(turtleID)){
-			 currentSize=myPenSize.get(turtleID);
-		}
-		else{
-			 currentSize=Constants.DEFAULT_TURTLE_PEN_WIDTH;
+		if (myPenSize.keySet().contains(turtleID)) {
+			currentSize = myPenSize.get(turtleID);
+		} else {
+			currentSize = Constants.DEFAULT_TURTLE_PEN_WIDTH;
 		}
 		return currentSize;
 	}
-	
+
 	public Color getBackgroundColor() {
 		return myBackgroundColor;
 	}
-	public void addPenSize(Integer index, Double size){
+
+	public void addPenSize(Integer index, Double size) {
 		myPenSize.put(index, size);
 	}
+
 	public void addPenColor(Integer index, Color color) {
 		myPenColors.put(index, color);
 	}
@@ -58,7 +59,7 @@ public class Configuration {
 	public String getTurtleShape(Integer index) {
 		return myTurtleShapes.get(index);
 	}
-	
+
 	public String returnTurtleShape(Integer index) {
 		return myTurtleShapes.get(index);
 	}
@@ -66,7 +67,7 @@ public class Configuration {
 	public void setPenColor(Color color) {
 		myPenColor = color;
 	}
-	
+
 	public Color getPenColor() {
 		return myPenColor;
 	}
