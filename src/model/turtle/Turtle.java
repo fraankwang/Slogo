@@ -6,6 +6,10 @@ package model.turtle;
 
 import java.util.*;
 
+import constants.Constants;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Shape;
+
 /**
  * The Turtle class represents the turtle object within the turtle playground.
  * The Turtle class has an instance of xCoordinate and yCoordinate, a boolean
@@ -20,6 +24,9 @@ public class Turtle {
 	private boolean penDown;
 	private boolean showTurtle;
 	private Double Orientation;
+	private Color myPenColor;
+	private Double myPenSize;
+	private String myTurtleShape;
 	private LinkedList<TurtleCoordinates> turtleCoordinates;
 
 	public Turtle(int turtleID) {
@@ -30,6 +37,8 @@ public class Turtle {
 		penDown = true;
 		showTurtle = false;
 		Orientation = 0.0;
+		myPenColor=Constants.DEFAULT_PEN_COLOR;
+		myPenSize=Constants.DEFAULT_TURTLE_PEN_WIDTH;
 		turtleCoordinate = new TurtleCoordinates(xCoord, yCoord, penDown);
 		turtleCoordinates = new LinkedList<TurtleCoordinates>();
 		this.turtleID = turtleID;
@@ -39,6 +48,27 @@ public class Turtle {
 	// Getters and Setters
 	// =========================================================================
 
+	public void setPenSize(Double size) {
+		myPenSize = size;
+	}
+
+	public Double getPenSize() {
+		return myPenSize;
+	}
+	public void setTurtleShape(String shape) {
+		myTurtleShape = shape;
+	}
+
+	public String getTurtleShape() {
+		return myTurtleShape;
+	}
+	public void setPenColor(Color color) {
+		myPenColor = color;
+	}
+
+	public Color getPenColor() {
+		return myPenColor;
+	}
 	public int getTurtleID() {
 		return this.turtleID;
 	}
