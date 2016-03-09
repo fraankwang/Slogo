@@ -10,7 +10,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
-import model.Configuration;
 import model.turtle.Turtle;
 import model.turtle.TurtleCoordinates;
 import view.panelelements.CommandsElement;
@@ -120,25 +119,25 @@ public class ModelTransformer {
 	 * 
 	 * @param queue
 	 */
-	public void transformTurtleGraphics(Turtle turtle, Configuration configs) {
+	public void transformTurtleGraphics(Turtle turtle) {
 		GraphicsContext playground = myController.getMyView().getMyTurtleGraphics();
-		updateTurtleGraphics(playground, turtle, configs);
+		updateTurtleGraphics(playground, turtle);
 
 	}
 
 	/**
 	 * Updates where the turtle (or turtles) has drawn
 	 */
-	private void updateTurtleGraphics(GraphicsContext gc, Turtle turtle, Configuration configs) {
+	private void updateTurtleGraphics(GraphicsContext gc, Turtle turtle) {
 		LinkedList<TurtleCoordinates> coordinates = turtle.getCoordinates();
 		Double orientation = turtle.getOrientation();
 		myTurtleElement.setTurtleOrientation(orientation);
 		
 		double currentX = CENTER_X_COORDINATE;
 		double currentY = CENTER_Y_COORDINATE;
-		gc.setFill(configs.getPenColor());
-		gc.setStroke(configs.getPenColor());
-		gc.setLineWidth(configs.getPenCurrentSize());
+		gc.setFill(turtle.getPenColor());
+		gc.setStroke(turtle.getPenColor());
+		gc.setLineWidth(turtle.getPenSize());
 
 		for (TurtleCoordinates coordinate : coordinates) {
 			double newX = CENTER_X_COORDINATE + coordinate.getXCoord();
