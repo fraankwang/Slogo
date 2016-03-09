@@ -19,7 +19,9 @@ public class Constants {
 
 	private static final String DEFAULT_ACTIONS = "possibleactions";
 	private static final String DEFAULT_PARAMS = "numberofparams";
+
 	private static final String DEFAULT_ACTIONSUPERCLASS="ActionSuperClass";
+
 	private static final ResourceBundle SPECIFICATIONS = ResourceBundle
 			.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_RESOURCE_FILE);
 	private static final ResourceBundle ACTIONS = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_ACTIONS);
@@ -61,16 +63,17 @@ public class Constants {
 	public static final double CLEAR_BUTTON_HEIGHT = TEXTAREA_HEIGHT / 2.0;
 
 	public static final double VARIABLES_WIDTH = SCENE_WIDTH * (3 / 12.0) - 17;
-	public static final double VARIABLES_HEIGHT = SCENE_HEIGHT * (3 / 12.0) - 17;
+	public static final double VARIABLES_HEIGHT = SCENE_HEIGHT * (3 / 12.0);
 	public static final double COLORS_WIDTH = SCENE_WIDTH * (3 / 12.0) - 17;
-	public static final double COLORS_HEIGHT = SCENE_HEIGHT * (3 / 12.0) - 17;
+	public static final double COLORS_HEIGHT = SCENE_HEIGHT * (3 / 12.0);
 	public static final double COMMANDS_WIDTH = SCENE_WIDTH * (3 / 12.0) - 17;
-	public static final double COMMANDS_HEIGHT = SCENE_HEIGHT * (3 / 12.0) - 17;
+	public static final double COMMANDS_HEIGHT = SCENE_HEIGHT * (3 / 12.0);
 	public static final double HISTORY_WIDTH = SCENE_WIDTH * (3 / 12.0) - 17;
-	public static final double HISTORY_HEIGHT = SCENE_HEIGHT * (3 / 12.0) - 17;
-
-	public static final double OUTPUT_WIDTH = SCENE_WIDTH * (2 / 6.0);
-	public static final double OUTPUT_HEIGHT = SCENE_HEIGHT * (2 / 6.0) - 10;
+	public static final double HISTORY_HEIGHT = SCENE_HEIGHT * (3 / 12.0);
+	public static final double OUTPUT_WIDTH = SCENE_WIDTH * (3 / 12.0) - 17;
+	public static final double OUTPUT_HEIGHT = SCENE_HEIGHT * (3 / 12.0);
+	public static final double TURTLE_INFO_WIDTH = SCENE_WIDTH * (3 / 12.0) - 17;
+	public static final double TURTLE_INFO_HEIGHT = SCENE_HEIGHT * (3 / 12.0);
 
 	// public static final double RIGHT_COLUMN_ELEMENT_HEIGHT =
 	// SCENE_HEIGHT*(3/12.0);
@@ -78,9 +81,14 @@ public class Constants {
 	public static final int TURTLE_ELEMENT_WIDTH = 50;
 	public static final int TURTLE_ELEMENT_HEIGHT = TURTLE_ELEMENT_WIDTH;
 	public static final Double DEFAULT_TURTLE_PEN_WIDTH = 4.0;
+	public static final Double PEN_WIDTH_MIN = 0.0;
+	public static final Double PEN_WIDTH_MAX = 10.0;
+	
 	public static final int MENU_BAR_HEIGHT = 50;
 	public static final int BACK_BUTTON_HEIGHT = MENU_BAR_HEIGHT/3;
 	public static final int MENU_TURTLE_IMAGE_SIZE = 50;
+	public static final int INFO_MENU_HEIGHT = 200;
+	public static final int INFO_MENU_WIDTH = 125;
 	public static final double TURTLE_INFO_BUTTON_SIZE = 23.0;
 
 	public static final int ANIMATION_SLIDER_MIN = 10;
@@ -107,7 +115,7 @@ public class Constants {
 				}
 			}
 		}
-		throw new Exception("could not find command");
+		throw new ParseException();
 	}
 
 	public static int getNumberParams(String superclass) {

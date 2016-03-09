@@ -26,7 +26,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
-
 import javafx.stage.Stage;
 import view.factories.HelpPageFactory;
 import view.factories.MenuBarFactory;
@@ -58,6 +57,7 @@ public class MainView {
 	private PanelElement myTurtleBackground;
 	private PanelElement myTurtleElement;
 	private PanelElement myColorsElement;
+	private PanelElement myTurtleInfoElement;
 	private StackPane myTurtleWrapper;
 	private Canvas myTurtlePlayground;
 	private GraphicsContext myTurtleGraphics;
@@ -157,7 +157,7 @@ public class MainView {
 		myHistoryElement = myPanelElementFactory.getHistoryElement();
 		myOutputElement = myPanelElementFactory.getOutputElement();
 		myColorsElement = myPanelElementFactory.getColorsElement();
-
+		myTurtleInfoElement = myPanelElementFactory.getTurtleInfoElement();
 	}
 
 	/**
@@ -218,6 +218,10 @@ public class MainView {
 	public PanelElement getMyVariablesElement() {
 		return myVariablesElement;
 	}
+	
+	public PanelElement getMyTurtleInfoElement(){
+		return myTurtleInfoElement;
+	}
 
 	public PanelElement getTurtleBackground() {
 		return myTurtleBackground;
@@ -232,6 +236,7 @@ public class MainView {
 		viewableElements.add(myTurtleBackground);
 		viewableElements.add(myTurtleElement);
 		viewableElements.add(myColorsElement);
+		viewableElements.add(myTurtleInfoElement);
 		return viewableElements;
 
 	}
