@@ -261,13 +261,12 @@ public class CommandParser {
 			case "TURTLE_ONESTRINGPARAM":
 				finalaction = (Action) constructor.newInstance(addStringParams(node), myPlayground);
 				break;
-			
 
-			case Constants.TURTLE_DISPLAY_NOPARAMS:
+			case "TURTLE_DISPLAY_NOPARAMS":
 				finalaction = (Action) constructor.newInstance(myPlayground, myPalette);
-				break;
+						break;
 			case "TURTLE_DISPLAY_PARAMS":
-				finalaction = (Action) constructor.newInstance(addDoubleParams(node), myPlayground, myConfiguration, myPalette);
+				finalaction = (Action) constructor.newInstance(addDoubleParams(node), myPlayground, myPalette);
 				break;
 
 			}
