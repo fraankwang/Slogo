@@ -26,7 +26,6 @@ public class MainModel {
 	private UserCommands myUserCommands;
 	
 	private Palette myPalette;
-	private Configuration myConfiguration;
 	
 	private CommandParser myParser;
 	private History myHistory;
@@ -42,9 +41,8 @@ public class MainModel {
 		myUserCommands = new UserCommands();
 		
 		myPalette = new Palette();
-		myConfiguration = new Configuration();
 
-		myParser = new CommandParser(myLanguage, myPlayground, myVariables, myUserCommands, myPalette, myConfiguration);
+		myParser = new CommandParser(myLanguage, myPlayground, myVariables, myUserCommands, myPalette);
 		myHistory = new History();
 		myOutputs = new History();
 
@@ -112,10 +110,6 @@ public class MainModel {
 
 	public void replaceVariableValue(String name, String newVal) {
 		myVariables.replaceVariableValue(name, newVal);
-	}
-
-	public Configuration getConfiguration() {
-		return myConfiguration;
 	}
 
 	public Palette getPalette() {

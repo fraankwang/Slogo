@@ -251,9 +251,8 @@ public class PanelElementFactory {
 		TextArea bigText = new TextArea(Constants.getSpecification("InfoButtonDefaultMessage"));
 		bigText.setPrefWidth(Constants.INFO_MENU_HEIGHT);
 		bigText.setPrefHeight(Constants.INFO_MENU_WIDTH);
-		CustomMenuItem cmi = new CustomMenuItem(bigText);
 		
-//		cmi.setOnAction(e -> myController.displayTurtleInfo(bigText));
+		CustomMenuItem cmi = new CustomMenuItem(bigText);
 		cmi.setHideOnClick(false);
 		cm.getItems().add(cmi);
 		cm.setOnShown(e -> myController.displayTurtleInfo(bigText));
@@ -425,11 +424,6 @@ public class PanelElementFactory {
 		VBox outputWrapper = new VBox();
 		Label outputLabel = new Label(Constants.getSpecification("OutputLabel"));
 		outputLabel.getStyleClass().add("element-label");
-		// outputLabel.setTextAlignment(TextAlignment.CENTER);
-		// outputWrapper.setPrefSize(Constants.OUTPUT_WIDTH,
-		// Constants.OUTPUT_HEIGHT);
-		// outputWrapper.setBackground(new Background(new
-		// BackgroundFill(Color.WHITE, Constants.CORNER_RADIUS, null)));
 
 		TextArea outputArea = new TextArea();
 		outputArea.setPrefSize(Constants.OUTPUT_WIDTH, Constants.OUTPUT_HEIGHT);

@@ -10,10 +10,10 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
-import model.Configuration;
 import model.turtle.Turtle;
 import model.turtle.TurtleCoordinates;
 import model.turtle.TurtlePlayground;
+import view.panelelements.ColorsElement;
 import view.panelelements.CommandsElement;
 import view.panelelements.HistoryElement;
 import view.panelelements.OutputElement;
@@ -33,7 +33,7 @@ public class ModelTransformer {
 	private MainController myController;
 
 	private String myLanguage = Constants.getSpecification("DefaultLanguage");
-	private Color myPenColor;
+	private Color myPenColor = Constants.DEFAULT_PEN_COLOR;
 	private Double myPenWidth = Constants.DEFAULT_TURTLE_PEN_WIDTH;
 	private TurtleElement myTurtleElement;
 
@@ -58,7 +58,7 @@ public class ModelTransformer {
 		textArea.setText(newOutput);
 	}
 
-	public void transformColorElement() {
+	public void transformColorsElement() {
 	}
 
 	/**
@@ -121,25 +121,30 @@ public class ModelTransformer {
 	 * 
 	 * @param queue
 	 */
-	public void transformTurtleGraphics(TurtlePlayground playground, Turtle turtle, Configuration configs) {
-		GraphicsContext gc = myController.getMyView().getMyTurtleGraphics();
-		updateTurtleGraphics(gc, playground, turtle, configs);
+
+	public void transformTurtleGraphics(TurtlePlayground turtlePlayground) {
+		GraphicsContext playground = myController.getMyView().getMyTurtleGraphics();
+		myController.setBackgroundColor(turtlePlayground.getMyBackgroundColor());
+		Turtle turtle = turtlePlayground.getCurrentTurtle();
+		updateTurtleGraphics(playground, turtle);
 
 	}
 
 	/**
 	 * Updates where the turtle (or turtles) has drawn
 	 */
-	private void updateTurtleGraphics(GraphicsContext gc, TurtlePlayground playground, Turtle turtle, Configuration configs) {
+
+	private void updateTurtleGraphics(GraphicsContext gc, Turtle turtle) {
 		LinkedList<TurtleCoordinates> coordinates = turtle.getCoordinates();
 		Double orientation = turtle.getOrientation();
 		myTurtleElement.setTurtleOrientation(orientation);
-		
+
 		double currentX = CENTER_X_COORDINATE;
 		double currentY = CENTER_Y_COORDINATE;
-		gc.setFill(configs.getPenColor());
-		gc.setStroke(configs.getPenColor());
-		gc.setLineWidth(configs.getCurrentPenSize(playground));
+
+		gc.setFill(turtle.getPenColor());
+		gc.setStroke(turtle.getPenColor());
+		gc.setLineWidth(turtle.getPenSize());
 
 		for (TurtleCoordinates coordinate : coordinates) {
 			double newX = CENTER_X_COORDINATE + coordinate.getXCoord();
@@ -151,7 +156,6 @@ public class ModelTransformer {
 
 			Double rounded = (double) Math.round(newX);
 			myTurtleElement.moveTurtleImage(rounded - CENTER_X_COORDINATE, -1 * coordinate.getYCoord());
-
 
 			currentX = newX;
 			currentY = newY;
