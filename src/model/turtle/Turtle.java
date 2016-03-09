@@ -5,10 +5,8 @@
 package model.turtle;
 
 import java.util.*;
-
 import constants.Constants;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Shape;
 
 /**
  * The Turtle class represents the turtle object within the turtle playground.

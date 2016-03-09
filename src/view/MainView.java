@@ -226,6 +226,10 @@ public class MainView {
 	public PanelElement getTurtleBackground() {
 		return myTurtleBackground;
 	}
+	
+	public PanelElement getColorsElement() {
+		return myColorsElement;
+	}
 
 	public List<PanelElement> getViewableElements() {
 		List<PanelElement> viewableElements = new ArrayList<PanelElement>();

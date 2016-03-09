@@ -59,39 +59,42 @@ public class MainController {
 	public void refreshDisplay() {
 		myTransformer.transformOutputElement((Queue<String>) myModel.getMyOutputs());
 		myTransformer.transformHistoryElement((Queue<String>) myModel.getMyHistory());
-		myTransformer.transformTurtleGraphics(myModel.getMyPlayground().getCurrentTurtle());
+		myTransformer.transformTurtleGraphics(myModel.getMyPlayground());
 		myTransformer.transformVariablesElement(myModel.getMyVariables());
 		myTransformer.transformCommandsElement(myModel.getMyUserCommands());
-		// myTransformer.transformColorsElement(myModel.getMyColors());
+		myTransformer.transformColorsElement(myModel.getPaletteMap());
+		myTransformer.transformTurtleInfoElement(myModel.getMyPlayground().getTurtleList());
+
 
 	}
 
 	/**
-	 * Grabs current turtle information and displays it in given TextArea 
+	 * Grabs current turtle information and displays it in given TextArea
+	 * 
 	 * @param textArea
 	 */
 	public void displayTurtleInfo(TextArea textArea) {
-		refreshDisplay();
 		String language = "Language: " + myModel.getLanguage() + "\n";
 		String ID = "Turtle ID: " + Integer.toString(myModel.getMyPlayground().getCurrentTurtleID()) + "\n";
-		String orientation = "Orientation: " + myModel.getMyPlayground().getCurrentTurtle().getOrientation() + "\n";
+		String orientation = "Orientation: " + myModel.getMyPlayground().getCurrentTurtle().getOrientation() % 360
+				+ "\n";
 		String penUp;
 		if (myModel.getMyPlayground().getCurrentTurtle().getPenDown()) {
-			penUp = "Pen is: down" + "\n";	
+			penUp = "Pen is: down" + "\n";
 		} else {
 			penUp = "Pen is: up" + "\n";
 		}
-		
+
 		String penColor = "Pen color: " + myModel.getMyPlayground().getCurrentPenColor() + "\n";
 		Double xCoord = myView.getMyTurtleElement().getNode().getTranslateX();
 		Double yCoord = myView.getMyTurtleElement().getNode().getTranslateY();
 		if (yCoord != 0.0) {
 			yCoord *= -1;
 		}
-		String coordinates = "Coordinates: " + Double.toString(xCoord)
-				+ ", " +  Double.toString(yCoord);
-				
-		textArea.setText(language + ID + orientation + penUp + penColor + coordinates);
+		String x = "X Coordinate: " + Double.toString(xCoord) + "\n";
+		String y = "Y Coordinate: " + Double.toString(yCoord);
+		textArea.setText(language + ID + orientation + penUp + penColor + x + y);
+
 	}
 
 	/**
@@ -104,7 +107,7 @@ public class MainController {
 		myModel.getMyPlayground().setTurtleHome();
 		TurtleElement turtleElement = (TurtleElement) myView.getMyTurtleElement();
 		turtleElement.moveTurtleImage(0.0, 0.0);
-		myTransformer.transformTurtleGraphics(myModel.getMyPlayground().getCurrentTurtle());
+		myTransformer.transformTurtleGraphics(myModel.getMyPlayground());
 
 	}
 
@@ -115,10 +118,11 @@ public class MainController {
 	public MainView getMyView() {
 		return myView;
 	}
-	
-	public MainModel getMainModel(){
+
+	public MainModel getMainModel() {
 		return myModel;
 	}
+
 	public List<PanelElement> getViewableElements() {
 		return myView.getViewableElements();
 	}
@@ -130,8 +134,7 @@ public class MainController {
 	public void setTurtleElement(PanelElement turtleElement) {
 		myTransformer.setTurtleElement(turtleElement);
 	}
-	
-	
+
 	public void setBackgroundColor(Color color) {
 		myView.setTurtleBackgroundColor(color);
 		myModel.getMyPlayground().setBackgroundColor(color);

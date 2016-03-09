@@ -9,19 +9,29 @@ import javafx.scene.control.ListView;
 
 public class ColorsElement extends PanelElement {
 
-	private ListView<String> myListView;
+	private ListView<String> myIntegersListView;
+	private ListView<String> myValuesListView;
 	
 	public ColorsElement(Node node, String name) {
 		super(node, name);
 	}
 
-	public void setListView(ListView<String> commandsListView) {
-		myListView = commandsListView;
+	public void setIntegersListView(ListView<String> integersListView) {
+		myIntegersListView = integersListView;
 		
 	}
 	
-	public ListView<String> getListView(){
-		return myListView;
+	public ListView<String> getIntegersListView(){
+		return myIntegersListView;
+	}
+	
+	public void setValuesListView(ListView<String> valuesListView) {
+		myValuesListView = valuesListView;
+		
+	}
+	
+	public ListView<String> getValuesListView(){
+		return myValuesListView;
 	}
 
 }

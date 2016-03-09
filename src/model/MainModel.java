@@ -6,6 +6,7 @@ package model;
 
 import java.util.*;
 import constants.Constants;
+import javafx.scene.paint.Color;
 import model.turtle.TurtlePlayground;
 
 /**
@@ -112,12 +113,11 @@ public class MainModel {
 		myVariables.replaceVariableValue(name, newVal);
 	}
 
-
-
 	public Palette getPalette() {
 		return myPalette;
 	}
-
-
-
+	
+	public Map<Integer, Color> getPaletteMap(){
+		return myPalette.getPaletteMap();
+	}
 }

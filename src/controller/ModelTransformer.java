@@ -12,11 +12,14 @@ import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
 import model.turtle.Turtle;
 import model.turtle.TurtleCoordinates;
+import model.turtle.TurtlePlayground;
+import view.panelelements.ColorsElement;
 import view.panelelements.CommandsElement;
 import view.panelelements.HistoryElement;
 import view.panelelements.OutputElement;
 import view.panelelements.PanelElement;
 import view.panelelements.TurtleElement;
+import view.panelelements.TurtleInfoElement;
 import view.panelelements.VariablesElement;
 
 /**
@@ -31,7 +34,7 @@ public class ModelTransformer {
 	private MainController myController;
 
 	private String myLanguage = Constants.getSpecification("DefaultLanguage");
-	private Color myPenColor;
+	private Color myPenColor = Constants.DEFAULT_PEN_COLOR;
 	private Double myPenWidth = Constants.DEFAULT_TURTLE_PEN_WIDTH;
 	private TurtleElement myTurtleElement;
 
@@ -54,9 +57,6 @@ public class ModelTransformer {
 		}
 		textArea.clear();
 		textArea.setText(newOutput);
-	}
-
-	public void transformColorElement() {
 	}
 
 	/**
@@ -93,6 +93,24 @@ public class ModelTransformer {
 	}
 
 	/**
+	 * Clears previous elements within the ColorsElement ListView and
+	 * repopulates it with updated Model information
+	 * 
+	 * @param variables
+	 */
+	public void transformColorsElement(Map<Integer, Color> colors) {
+		ColorsElement colorsElement = (ColorsElement) myController.getMyView().getColorsElement();
+		ListView<String> colorIntegers = colorsElement.getIntegersListView();
+		ListView<String> colorValues = colorsElement.getValuesListView();
+		colorIntegers.getItems().clear();
+		colorValues.getItems().clear();
+		for (Integer i : colors.keySet()) {
+			colorIntegers.getItems().add(Integer.toString(i));
+			colorValues.getItems().add(colors.get(i).toString());
+		}
+	}
+
+	/**
 	 * Clears previous elements within the HistoryElement ListView and
 	 * repopulates it with updated Model information
 	 * 
@@ -112,6 +130,20 @@ public class ModelTransformer {
 
 	}
 
+	public void transformTurtleInfoElement(List<Turtle> turtles) {
+		TurtleInfoElement turtleInfoElement = (TurtleInfoElement) myController.getMyView().getMyTurtleInfoElement();
+		ListView<String> turtleInfoValues = turtleInfoElement.getListView();
+
+		turtleInfoValues.getItems().clear();
+		for (Turtle t : turtles) {
+			turtleInfoValues.getItems()
+					.add(Integer.toString(t.getTurtleID()) + ": "
+							+ Double.toString(Math.round(t.getCoordinate().getXCoord())) + ","
+							+ Double.toString(Math.round(t.getCoordinate().getYCoord())) + ", "
+							+ Double.toString(t.getOrientation()) + ", " + t.getPenDown());
+		}
+	}
+
 	/**
 	 * Reads TurtleCoordinate from queue and draws new line
 	 * 
@@ -119,8 +151,11 @@ public class ModelTransformer {
 	 * 
 	 * @param queue
 	 */
-	public void transformTurtleGraphics(Turtle turtle) {
+
+	public void transformTurtleGraphics(TurtlePlayground turtlePlayground) {
 		GraphicsContext playground = myController.getMyView().getMyTurtleGraphics();
+		myController.setBackgroundColor(turtlePlayground.getMyBackgroundColor());
+		Turtle turtle = turtlePlayground.getCurrentTurtle();
 		updateTurtleGraphics(playground, turtle);
 
 	}
@@ -128,13 +163,15 @@ public class ModelTransformer {
 	/**
 	 * Updates where the turtle (or turtles) has drawn
 	 */
+
 	private void updateTurtleGraphics(GraphicsContext gc, Turtle turtle) {
 		LinkedList<TurtleCoordinates> coordinates = turtle.getCoordinates();
 		Double orientation = turtle.getOrientation();
 		myTurtleElement.setTurtleOrientation(orientation);
-		
+
 		double currentX = CENTER_X_COORDINATE;
 		double currentY = CENTER_Y_COORDINATE;
+
 		gc.setFill(turtle.getPenColor());
 		gc.setStroke(turtle.getPenColor());
 		gc.setLineWidth(turtle.getPenSize());
@@ -149,7 +186,6 @@ public class ModelTransformer {
 
 			Double rounded = (double) Math.round(newX);
 			myTurtleElement.moveTurtleImage(rounded - CENTER_X_COORDINATE, -1 * coordinate.getYCoord());
-
 
 			currentX = newX;
 			currentY = newY;

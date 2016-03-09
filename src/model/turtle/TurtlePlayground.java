@@ -31,7 +31,7 @@ public class TurtlePlayground {
 		myCurrentTurtle = new Turtle(1);
 		myTurtles = new ArrayList<Turtle>();
 		myActiveTurtles = new ArrayList<Turtle>();
-		stampCoordinates= new ArrayList<TurtleCoordinates>();
+		stampCoordinates = new ArrayList<TurtleCoordinates>();
 		myTurtles.add(myCurrentTurtle);
 		myActiveTurtles.add(myCurrentTurtle);
 	}
@@ -45,21 +45,22 @@ public class TurtlePlayground {
 	// =========================================================================
 	// Getters and Setters
 	// =========================================================================
-	public void addStampCoordinate(){
+	public void addStampCoordinate() {
 		addStampCoordinate(myCurrentTurtle.getCoordinate());
 	}
-	
-	public void addStampCoordinate(TurtleCoordinates coordinate){
+
+	public void addStampCoordinate(TurtleCoordinates coordinate) {
 		stampCoordinates.add(coordinate);
 	}
-	
-	public void clearStampCoordinate(){
-		stampCoordinates=new ArrayList<TurtleCoordinates>();
+
+	public void clearStampCoordinate() {
+		stampCoordinates = new ArrayList<TurtleCoordinates>();
 	}
-	
-	public List<TurtleCoordinates> getStampCoordinates(){
+
+	public List<TurtleCoordinates> getStampCoordinates() {
 		return this.stampCoordinates;
 	}
+
 	public void setWidth(int width) {
 		myWidth = width;
 	}
@@ -76,10 +77,10 @@ public class TurtlePlayground {
 		return this.myCurrentTurtle;
 	}
 
-	public void clearActiveTurtles(){
+	public void clearActiveTurtles() {
 		myActiveTurtles.clear();
 	}
-	
+
 	public List<Turtle> getActiveTurtles() {
 		return this.myActiveTurtles;
 	}
@@ -96,7 +97,7 @@ public class TurtlePlayground {
 			}
 		}
 		return addTurtle(index);
-		
+
 	}
 
 	public int getCurrentTurtleID() {
@@ -110,36 +111,29 @@ public class TurtlePlayground {
 		return turtle;
 	}
 
-	public void setBackgroundColor(Color backgroundColor) {
-		myBackgroundColor = backgroundColor;
-	}
-
 	public Double getCurrentPenSize() {
 		return myCurrentTurtle.getPenSize();
 	}
-	
-	public void setCurrentPenSize(Double size){
+
+	public void setCurrentPenSize(Double size) {
 		myCurrentTurtle.setPenSize(size);
 	}
-	
-	public String getCurrentTurtleShape(){
+
+	public String getCurrentTurtleShape() {
 		return myCurrentTurtle.getTurtleShape();
 	}
-	
-	public void setCurrentTurtleShape(String shape){
+
+	public void setCurrentTurtleShape(String shape) {
 		myCurrentTurtle.setTurtleShape(shape);
 	}
-	public Color getCurrentPenColor(){
+
+	public Color getCurrentPenColor() {
 		return myCurrentTurtle.getPenColor();
 	}
 
-	public void setCurrentPenColor(Color color){
+	public void setCurrentPenColor(Color color) {
 		myCurrentTurtle.setPenColor(color);
 	}
-	public Color getBackgroundColor() {
-		return myBackgroundColor;
-	}
-	
 
 	/**
 	 * The inBounds() method returns a boolean of whether the current turtle is
@@ -267,6 +261,14 @@ public class TurtlePlayground {
 
 	public Double getTurtleOrientation() {
 		return myCurrentTurtle.getOrientation();
+	}
+
+	public Color getMyBackgroundColor() {
+		return myBackgroundColor;
+	}
+
+	public void setBackgroundColor(Color backgroundColor) {
+		this.myBackgroundColor = backgroundColor;
 	}
 
 }

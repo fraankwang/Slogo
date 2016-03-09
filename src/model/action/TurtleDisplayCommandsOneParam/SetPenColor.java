@@ -7,7 +7,7 @@ import model.Palette;
 import model.turtle.TurtlePlayground;
 
 public class SetPenColor extends TurtleDisplayCommandsParams {
-	Double index;
+	private Double index;
 
 	public SetPenColor(List<Double> newCommands, TurtlePlayground newTurtlePlayground, Palette newPalette) {
 		super(newCommands, newTurtlePlayground, newPalette);
