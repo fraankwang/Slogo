@@ -2,6 +2,9 @@ package view.factories;
 
 import java.io.File;
 import java.util.List;
+
+import configuration.ConfigurationInfo;
+import configuration.XMLParser;
 import constants.Constants;
 import controller.MainController;
 import javafx.event.ActionEvent;
@@ -100,10 +103,17 @@ public class MenuBarFactory {
 		load.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				// new parser
-				// myController.readparsedinfo
+				XMLParser parser = new XMLParser();
+				FileChooser chooser = new FileChooser();
+				FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
+						Constants.getSpecification("XMLfileExtensionFilterDescription"),
+						Constants.getSpecification("XMLfileExtensionFilter"));
+				chooser.getExtensionFilters().addAll(extFilter);
+				File chosenFile = chooser.showOpenDialog(myPrimaryStage);
+				ConfigurationInfo configInfo = parser.parse(chosenFile);
 				// readparsedinfo method: updates all configurations
-				// myController.refreshdisplay
+				System.out.println(configInfo.getMyVariables().getVariableMap());
+				myController.refreshDisplay();
 				System.out.println("load pressed");
 			}
 		});
