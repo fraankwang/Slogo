@@ -16,14 +16,10 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
@@ -31,16 +27,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import view.panelelements.ColorsElement;
 import view.panelelements.CommandsElement;
 import view.panelelements.HistoryElement;
@@ -252,7 +241,7 @@ public class PanelElementFactory {
 	 */
 	private Button createInfoButton() {
 		Button infoButton = new Button();
-		
+
 		ImageView infoImage = new ImageView(new Image((getClass().getClassLoader().getResourceAsStream("icon.png"))));
 		infoImage.setFitHeight(Constants.TURTLE_INFO_BUTTON_SIZE);
 		infoImage.setFitWidth(Constants.TURTLE_INFO_BUTTON_SIZE);
@@ -260,15 +249,15 @@ public class PanelElementFactory {
 		infoButton.setGraphic(infoImage);
 		ContextMenu cm = new ContextMenu();
 		TextArea bigText = new TextArea();
-		bigText.setPrefWidth(Constants.PLAYGROUND_WIDTH/3);
-		
+		bigText.setPrefWidth(Constants.PLAYGROUND_WIDTH / 3);
+
 		CustomMenuItem cmi = new CustomMenuItem(bigText);
 		cmi.setOnAction(e -> myController.displayTurtleInfo(bigText));
 		cm.getItems().add(cmi);
 		infoButton.setContextMenu(cm);
-		
+
 		return infoButton;
-		
+
 	}
 
 	/**
@@ -433,9 +422,11 @@ public class PanelElementFactory {
 		VBox outputWrapper = new VBox();
 		Label outputLabel = new Label(Constants.getSpecification("OutputLabel"));
 		outputLabel.getStyleClass().add("element-label");
-		//outputLabel.setTextAlignment(TextAlignment.CENTER);
-		//outputWrapper.setPrefSize(Constants.OUTPUT_WIDTH, Constants.OUTPUT_HEIGHT);
-		//outputWrapper.setBackground(new Background(new BackgroundFill(Color.WHITE, Constants.CORNER_RADIUS, null)));
+		// outputLabel.setTextAlignment(TextAlignment.CENTER);
+		// outputWrapper.setPrefSize(Constants.OUTPUT_WIDTH,
+		// Constants.OUTPUT_HEIGHT);
+		// outputWrapper.setBackground(new Background(new
+		// BackgroundFill(Color.WHITE, Constants.CORNER_RADIUS, null)));
 
 		TextArea outputArea = new TextArea();
 		outputArea.setPrefSize(Constants.OUTPUT_WIDTH, Constants.OUTPUT_HEIGHT);
@@ -449,23 +440,23 @@ public class PanelElementFactory {
 		return myOutputElement;
 
 	}
-	
-	private PanelElement createTurtleInfoElement(){
+
+	private PanelElement createTurtleInfoElement() {
 		VBox turtleInfoWrapper = new VBox();
 		Label turtleInfoLabel = new Label(Constants.getSpecification("TurtleInfoLabel"));
 		turtleInfoLabel.getStyleClass().add("element-label");
-		
+
 		ListView<String> turtleInfoListView = new ListView<String>();
 		turtleInfoListView.setPrefSize(Constants.TURTLE_INFO_WIDTH, Constants.TURTLE_INFO_HEIGHT);
 		turtleInfoListView.setCellFactory(TextFieldListCell.forListView());
 		turtleInfoWrapper.getChildren().addAll(turtleInfoLabel, turtleInfoListView);
 
-		myTurtleInfoElement = new TurtleInfoElement(turtleInfoWrapper, Constants.getSpecification("TurtleInfoElementName"));
+		myTurtleInfoElement = new TurtleInfoElement(turtleInfoWrapper,
+				Constants.getSpecification("TurtleInfoElementName"));
 		myTurtleInfoElement.setListView(turtleInfoListView);
 
 		return myTurtleInfoElement;
 	}
-	
 
 	// =========================================================================
 	// Getters and Setters
@@ -511,10 +502,10 @@ public class PanelElementFactory {
 		return myColorsElement;
 	}
 
-	public TurtleInfoElement getTurtleInfoElement(){
+	public TurtleInfoElement getTurtleInfoElement() {
 		return myTurtleInfoElement;
 	}
-	
+
 	public TextArea getTextArea() {
 		return myTextArea;
 	}
