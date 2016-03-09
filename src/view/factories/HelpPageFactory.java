@@ -19,7 +19,7 @@ public class HelpPageFactory {
 
 	public Button createBackButton() {
 		Button back = new Button(Constants.getSpecification("BackButton"));
-		back.setPrefSize(Constants.SCENE_WIDTH, Constants.MENU_BAR_HEIGHT/3);
+		back.setPrefSize(Constants.SCENE_WIDTH, Constants.BACK_BUTTON_HEIGHT);
 		back.setOnAction(e -> myController.setPrimaryPane());
 		return back;
 
