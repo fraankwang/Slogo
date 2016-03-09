@@ -54,23 +54,24 @@ public class XMLParser {
 //				}
 //
 //				else if (elem.getNodeType() != Node.ELEMENT_NODE) {
-					if (elem.getNodeName().equalsIgnoreCase("variables")) {
-						Variables myVariables = new Variables();
-						// 	start working here
-						for (int varIndex = 0; varIndex < ((NodeList) elem).getLength(); varIndex++) {
-							Node var = ((NodeList) elem).item(varIndex);
-							String key = ((NodeList) var).item(0).getTextContent();
-							Double value = Double.parseDouble(((NodeList) var).item(1).getTextContent());
-							myVariables.addVariable(key, value);
-
-						}
-						configInfo.setMyVariables(myVariables);
-
-					}
+//					if (elem.getNodeName().equalsIgnoreCase("variables")) {
+//						Variables myVariables = new Variables();
+//						// 	start working here
+//						for (int varIndex = 0; varIndex < ((NodeList) elem).getLength(); varIndex++) {
+//							Node var = ((NodeList) elem).item(varIndex);
+//							String key = ((NodeList) var).item(0).getTextContent();
+//							Double value = Double.parseDouble(((NodeList) var).item(1).getTextContent());
+//							myVariables.addVariable(key, value);
+//
+//						}
+//						configInfo.setMyVariables(myVariables);
+//
+//					}
 
 					else if (elem.getNodeName().equalsIgnoreCase("usercommands")) {
 						System.out.println("commands");
 						UserCommands userCommands = new UserCommands();
+						System.out.println(((NodeList) elem).getLength());
 						for (int itemIndex = 0; itemIndex < ((NodeList) elem).getLength(); itemIndex++) {
 							Node item = ((NodeList) elem).item(itemIndex);
 							String commandName = ((NodeList) item).item(0).getTextContent();

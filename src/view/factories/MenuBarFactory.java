@@ -112,7 +112,7 @@ public class MenuBarFactory {
 				File chosenFile = chooser.showOpenDialog(myPrimaryStage);
 				ConfigurationInfo configInfo = parser.parse(chosenFile);
 				// readparsedinfo method: updates all configurations
-				System.out.println(configInfo.getMyVariables().getVariableMap());
+				System.out.println(configInfo.getMyCommands().getUserCommandMap());
 				myController.refreshDisplay();
 				System.out.println("load pressed");
 			}
