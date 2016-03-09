@@ -78,7 +78,11 @@ public class MainModel {
 		myLanguage = language;
 		myParser = new CommandParser(myLanguage, myPlayground, myVariables, myUserCommands);
 	}
-
+	
+	public String getLanguage() {
+		return myLanguage;
+	}
+	
 	public CommandParser getMyParser() {
 		return myParser;
 	}

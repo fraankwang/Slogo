@@ -11,6 +11,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
 import model.Palette;
+import model.Configuration;
 import model.turtle.Turtle;
 import model.turtle.TurtleCoordinates;
 import view.panelelements.ColorsElement;
@@ -149,23 +150,25 @@ public class ModelTransformer {
 	 * 
 	 * @param queue
 	 */
-	public void transformTurtleGraphics(Turtle turtle) {
+	public void transformTurtleGraphics(Turtle turtle, Configuration configs) {
 		GraphicsContext playground = myController.getMyView().getMyTurtleGraphics();
-		updateTurtleGraphics(playground, turtle);
+		updateTurtleGraphics(playground, turtle, configs);
 
 	}
 
 	/**
 	 * Updates where the turtle (or turtles) has drawn
 	 */
-	private void updateTurtleGraphics(GraphicsContext gc, Turtle turtle) {
+	private void updateTurtleGraphics(GraphicsContext gc, Turtle turtle, Configuration configs) {
 		LinkedList<TurtleCoordinates> coordinates = turtle.getCoordinates();
 		Double orientation = turtle.getOrientation();
+		myTurtleElement.setTurtleOrientation(orientation);
+		
 		double currentX = CENTER_X_COORDINATE;
 		double currentY = CENTER_Y_COORDINATE;
-		gc.setFill(myPenColor);
-		gc.setStroke(myPenColor);
-		gc.setLineWidth(myPenWidth);
+		gc.setFill(configs.getPenColor());
+		gc.setStroke(configs.getPenColor());
+		gc.setLineWidth(configs.getPenCurrentSize());
 
 		for (TurtleCoordinates coordinate : coordinates) {
 			double newX = CENTER_X_COORDINATE + coordinate.getXCoord();
@@ -177,7 +180,7 @@ public class ModelTransformer {
 
 			Double rounded = (double) Math.round(newX);
 			myTurtleElement.moveTurtleImage(rounded - CENTER_X_COORDINATE, -1 * coordinate.getYCoord());
-			myTurtleElement.setTurtleOrientation(orientation);
+
 
 			currentX = newX;
 			currentY = newY;
