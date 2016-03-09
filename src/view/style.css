@@ -2,14 +2,16 @@
 	-fx-background-color: #000000;
 }
 
-VBox {
+/*VBox {
 	-fx-background-color: #000000;
 	-fx-text-fill: #ffffff;
 }
 
 Label{
 	-fx-text-fill:white;
-}
+}*/
+
+
 
 .label-menuitem{
 	-fx-text-fill:black;
@@ -42,11 +44,17 @@ Label{
 .left-column{
 	-fx-padding: 10 5 10 10;
 	-fx-spacing: 10;
+	-fx-background-color: #000000;
 }
 
 .right-column{
 	-fx-padding: 10 10 10 5;
 	-fx-spacing: 10;
+	-fx-background-color: #000000;
+}
+
+.element-label{
+	-fx-text-fill: #ffffff;
 }
 
 .top-boxes{
@@ -54,6 +62,10 @@ Label{
 }
 
 .middle-boxes{
+	-fx-spacing: 10;
+}
+
+.bottom-boxes{
 	-fx-spacing: 10;
 }
 

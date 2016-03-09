@@ -74,16 +74,17 @@ public class Constants {
 	public static final double CLEAR_BUTTON_HEIGHT = TEXTAREA_HEIGHT / 2.0;
 
 	public static final double VARIABLES_WIDTH = SCENE_WIDTH * (3 / 12.0) - 17;
-	public static final double VARIABLES_HEIGHT = SCENE_HEIGHT * (3 / 12.0) - 17;
+	public static final double VARIABLES_HEIGHT = SCENE_HEIGHT * (3 / 12.0);
 	public static final double COLORS_WIDTH = SCENE_WIDTH * (3 / 12.0) - 17;
-	public static final double COLORS_HEIGHT = SCENE_HEIGHT * (3 / 12.0) - 17;
+	public static final double COLORS_HEIGHT = SCENE_HEIGHT * (3 / 12.0);
 	public static final double COMMANDS_WIDTH = SCENE_WIDTH * (3 / 12.0) - 17;
-	public static final double COMMANDS_HEIGHT = SCENE_HEIGHT * (3 / 12.0) - 17;
+	public static final double COMMANDS_HEIGHT = SCENE_HEIGHT * (3 / 12.0);
 	public static final double HISTORY_WIDTH = SCENE_WIDTH * (3 / 12.0) - 17;
-	public static final double HISTORY_HEIGHT = SCENE_HEIGHT * (3 / 12.0) - 17;
-
-	public static final double OUTPUT_WIDTH = SCENE_WIDTH * (2 / 6.0);
-	public static final double OUTPUT_HEIGHT = SCENE_HEIGHT * (2 / 6.0) - 10;
+	public static final double HISTORY_HEIGHT = SCENE_HEIGHT * (3 / 12.0);
+	public static final double OUTPUT_WIDTH = SCENE_WIDTH * (3 / 12.0) - 17;
+	public static final double OUTPUT_HEIGHT = SCENE_HEIGHT * (3 / 12.0);
+	public static final double TURTLE_INFO_WIDTH = SCENE_WIDTH * (3 / 12.0) - 17;
+	public static final double TURTLE_INFO_HEIGHT = SCENE_HEIGHT * (3 / 12.0);
 
 	// public static final double RIGHT_COLUMN_ELEMENT_HEIGHT =
 	// SCENE_HEIGHT*(3/12.0);
