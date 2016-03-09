@@ -1,21 +1,21 @@
-package model.action.TurtleDisplayCommandsOneParam;
+package model.action.TurtleDisplayCommandsFourParams;
 
 import java.util.List;
 
 import javafx.scene.paint.Color;
-import model.Configuration;
 import model.Palette;
+import model.action.TurtleDisplayCommandsOneParam.TurtleDisplayCommandsParams;
 import model.turtle.TurtlePlayground;
 
-public class SetPalette extends TurtleDisplayCommandsParams{
+public class SetPalette extends TurtleDisplayCommandsFourParams{
 
 	int red;
 	int green;
 	int blue;
 	int index;
 	
-	public SetPalette(List<Double> newCommands, TurtlePlayground newTurtlePlayground, Configuration newConfiguration, Palette newPalette) {
-		super(newCommands, newTurtlePlayground, newConfiguration, newPalette);
+	public SetPalette(List<Double> newCommands, TurtlePlayground newTurtlePlayground, Palette newPalette) {
+		super(newCommands, newTurtlePlayground, newPalette);
 		index=newCommands.get(0).intValue();
 		red=newCommands.get(1).intValue();
 		green=newCommands.get(2).intValue();

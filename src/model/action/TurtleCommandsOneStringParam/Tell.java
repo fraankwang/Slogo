@@ -11,7 +11,7 @@ public class Tell extends TurtleCommandsOneStringParam {
 
 	public Tell(List<String> params, TurtlePlayground playground) {
 		super(params, playground);
-		commands = Arrays.asList(command.split(" "));
+		commands = Arrays.asList(turtles.split(" "));
 		System.out.println(commands.size() + "command size");
 	}
 
