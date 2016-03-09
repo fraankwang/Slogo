@@ -25,7 +25,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.web.WebView;
 
 import javafx.stage.Stage;
@@ -172,9 +171,8 @@ public class MainView {
 		
 		Group basicHelpRoot = new Group();
 		VBox basicWrapper = new VBox();
-		WebView bs = myHelpPageFactory.createBasicHelpPage();
 		WebView basicHelpPage = myHelpPageFactory.createBasicHelpPage();
-		basicWrapper.getChildren().addAll(backButton, bs);
+		basicWrapper.getChildren().addAll(backButton, basicHelpPage);
 		basicHelpRoot.getChildren().add(basicWrapper);
 		
 		Group advancedHelpRoot = new Group();
