@@ -71,10 +71,9 @@ public class MainController {
 	 * @param textArea
 	 */
 	public void displayTurtleInfo(TextArea textArea) {
-		refreshDisplay();
 		String language = "Language: " + myModel.getLanguage() + "\n";
 		String ID = "Turtle ID: " + Integer.toString(myModel.getMyPlayground().getCurrentTurtleID()) + "\n";
-		String orientation = "Orientation: " + myModel.getMyPlayground().getCurrentTurtle().getOrientation() + "\n";
+		String orientation = "Orientation: " + myModel.getMyPlayground().getCurrentTurtle().getOrientation() % 360 + "\n";
 		String penUp;
 		if (myModel.getMyPlayground().getCurrentTurtle().getPenDown()) {
 			penUp = "Pen is: down" + "\n";	
@@ -83,15 +82,16 @@ public class MainController {
 		}
 		
 		String penColor = "Pen color: " + myModel.getConfiguration().getPenColor() + "\n";
-		Double xCoord = myView.getMyTurtleElement().getNode().getTranslateX();
-		Double yCoord = myView.getMyTurtleElement().getNode().getTranslateY();
-		if (yCoord != 0.0) {
+		Double xCoord = (double) Math.round(myView.getMyTurtleElement().getNode().getTranslateX());
+		Double yCoord = (double) Math.round(myView.getMyTurtleElement().getNode().getTranslateY());
+		if (yCoord != 0) {
 			yCoord *= -1;
 		}
 		String coordinates = "Coordinates: " + Double.toString(xCoord)
 				+ ", " +  Double.toString(yCoord);
 				
 		textArea.setText(language + ID + orientation + penUp + penColor + coordinates);
+		
 	}
 
 	/**
