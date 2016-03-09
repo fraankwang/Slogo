@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import constants.Constants;
+import javafx.scene.paint.Color;
+
 /**
  * The TurtlePlayground class represents the playground in which the turtle
  * moves around in Slogo. The TurtlePlayground class has an instance of a
@@ -22,6 +25,7 @@ public class TurtlePlayground {
 	private List<TurtleCoordinates> stampCoordinates;
 	private double myWidth;
 	private double myHeight;
+	private Color myBackgroundColor = Constants.DEFAULT_BACKGROUND_COLOR;
 
 	public TurtlePlayground() {
 		myCurrentTurtle = new Turtle(1);
@@ -105,6 +109,37 @@ public class TurtlePlayground {
 		setCurrentTurtle(turtle);
 		return turtle;
 	}
+
+	public void setBackgroundColor(Color backgroundColor) {
+		myBackgroundColor = backgroundColor;
+	}
+
+	public Double getCurrentPenSize() {
+		return myCurrentTurtle.getPenSize();
+	}
+	
+	public void setCurrentPenSize(Double size){
+		myCurrentTurtle.setPenSize(size);
+	}
+	
+	public String getCurrentTurtleShape(){
+		return myCurrentTurtle.getTurtleShape();
+	}
+	
+	public void setCurrentTurtleShape(String shape){
+		myCurrentTurtle.setTurtleShape(shape);
+	}
+	public Color getCurrentPenColor(){
+		return myCurrentTurtle.getPenColor();
+	}
+
+	public void setCurrentPenColor(Color color){
+		myCurrentTurtle.setPenColor(color);
+	}
+	public Color getBackgroundColor() {
+		return myBackgroundColor;
+	}
+	
 
 	/**
 	 * The inBounds() method returns a boolean of whether the current turtle is
