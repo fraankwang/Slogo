@@ -138,7 +138,7 @@ public class ModelTransformer {
 		double currentY = CENTER_Y_COORDINATE;
 		gc.setFill(configs.getPenColor());
 		gc.setStroke(configs.getPenColor());
-		gc.setLineWidth(configs.getPenWidth());
+		gc.setLineWidth(configs.getPenCurrentSize());
 
 		for (TurtleCoordinates coordinate : coordinates) {
 			double newX = CENTER_X_COORDINATE + coordinate.getXCoord();
