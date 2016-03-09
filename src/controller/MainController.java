@@ -139,7 +139,7 @@ public class MainController {
 	}
 
 	public void setPenWidth(double value) {
-		myModel.getConfiguration().setPenWidth(value);
+		myModel.getConfiguration().setCurrentPenSize(value);
 		myTransformer.setPenWidth(value);
 	}
 

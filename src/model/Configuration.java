@@ -4,17 +4,19 @@ import java.util.HashMap;
 import java.util.Map;
 import constants.Constants;
 import javafx.scene.paint.Color;
+import model.turtle.TurtlePlayground;
 
 public class Configuration {
 
 	private Color myBackgroundColor = Constants.DEFAULT_BACKGROUND_COLOR;
 	private Color myPenColor = Constants.DEFAULT_PEN_COLOR;
 	private Map<Integer, Color> myPenColors;
-	private Double myPenWidth;
+	private Map<Integer, Double> myPenSize;
+	private Double myCurrentPenSize;
 	private Map<Integer, String> myTurtleShapes;
 
 	public Configuration() {
-		myPenWidth = Constants.DEFAULT_TURTLE_PEN_WIDTH;
+		myCurrentPenSize = Constants.DEFAULT_TURTLE_PEN_WIDTH;
 		myPenColors = new HashMap<Integer, Color>();
 		myTurtleShapes = new HashMap<Integer, String>();
 	}
@@ -22,25 +24,31 @@ public class Configuration {
 	public void setBackgroundColor(Color backgroundColor) {
 		myBackgroundColor = backgroundColor;
 	}
-
+	
+	public Double getCurrentPenSize(TurtlePlayground playground){
+		int turtleID=playground.getCurrentTurtleID();
+		Double currentSize;
+		if(myPenSize.keySet().contains(turtleID)){
+			 currentSize=myPenSize.get(turtleID);
+		}
+		else{
+			 currentSize=Constants.DEFAULT_TURTLE_PEN_WIDTH;
+		}
+		return currentSize;
+	}
+	
 	public Color getBackgroundColor() {
 		return myBackgroundColor;
 	}
-
+	public void addPenSize(Integer index, Double size){
+		myPenSize.put(index, size);
+	}
 	public void addPenColor(Integer index, Color color) {
 		myPenColors.put(index, color);
 	}
 
 	public Color getPenColor(Integer index) {
 		return myPenColors.get(index);
-	}
-
-	public void setPenWidth(Double size) {
-		myPenWidth = size;
-	}
-
-	public Double getPenWidth() {
-		return myPenWidth;
 	}
 
 	public void addTurtleShape(Integer index, String shape) {
