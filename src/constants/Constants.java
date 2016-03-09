@@ -19,20 +19,7 @@ public class Constants {
 
 	private static final String DEFAULT_ACTIONS = "possibleactions";
 	private static final String DEFAULT_PARAMS = "numberofparams";
-
-	public static final String MATH_NOPARAMS = "model.action.MathNoParams.MathNoParams";
-
-	public static final String MATH_ONEPARAM = "model.action.MathOneParam.MathOneParam";
-	public static final String MATH_TWOPARAMS = "model.action.MathTwoParams.MathTwoParams";
-	public static final String TURTLE_NOCOMMANDS = "model.action.TurtleCommandsNoParams.TurtleCommands";
-	public static final String TURTLE_ONEPARAM = "model.action.TurtleCommandsOneParam.TurtleCommandsOneParam";
-	public static final String TURTLE_TWOPARAMS = "model.action.TurtleCommandsTwoParams.TurtleCommandsTwoParams";
-	public static final String CONTROL_STRUCTURES = "model.action.HigherOrderCommands.ControlStructures";
-	public static final String HIGHER_ORDERSTRUCTURE = "model.action.HigherOrderCommands.HigherOrderCommands";
-	public static final String TURTLE_ONESTRINGPARAM = "model.action.TurtleCommandsOneStringParam.TurtleCommandsOneStringParam";
-	public static final String TURTLE_DISPLAY_NOPARAMS = "model.action.TurtleDisplayCommands.TurtleDisplayCommands";
-	public static final String TURTLE_DISPLAY_PARAMS = "model.action.TurtleDisplayCommandsOneParam.TurtleDisplayCommandsParams";
-
+	private static final String DEFAULT_ACTIONSUPERCLASS="ActionSuperClass";
 	private static final ResourceBundle SPECIFICATIONS = ResourceBundle
 			.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_RESOURCE_FILE);
 	private static final ResourceBundle ACTIONS = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_ACTIONS);
@@ -141,5 +128,10 @@ public class Constants {
 
 	public static String getDefaultTurtleImageFileName() {
 		return DEFAULT_TURTLE_IMAGES.get(0) + ".jpg";
+	}
+	
+	public static String getActionSuperClass(String key){
+		ResourceBundle COMMANDS = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_ACTIONSUPERCLASS);
+		return COMMANDS.getString(key);
 	}
 }
