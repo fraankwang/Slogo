@@ -244,10 +244,10 @@ public class MenuBarFactory {
 		resetTurtle.setOnAction(e -> myController.resetTurtlePosition());
 		MenuItem turtleImages = makeTurtleImages();
 //		MenuItem uploadNew = makeUploadNewOption();
-
+		CustomMenuItem penWidth = makePenWidthPicker();
 		SeparatorMenuItem sep = new SeparatorMenuItem();
 		SeparatorMenuItem sep2 = new SeparatorMenuItem();
-		turtleMenu.getItems().addAll(penColor, sep, resetTurtle, sep2, turtleImages);
+		turtleMenu.getItems().addAll(penColor, penWidth, sep, resetTurtle, sep2, turtleImages);
 		return turtleMenu;
 
 	}
