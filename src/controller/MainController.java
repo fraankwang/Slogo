@@ -59,30 +59,40 @@ public class MainController {
 	public void refreshDisplay() {
 		myTransformer.transformOutputElement((Queue<String>) myModel.getMyOutputs());
 		myTransformer.transformHistoryElement((Queue<String>) myModel.getMyHistory());
-		myTransformer.transformTurtleGraphics(myModel.getMyPlayground().getCurrentTurtle());
+		myTransformer.transformTurtleGraphics(myModel.getMyPlayground().getCurrentTurtle(), myModel.getConfiguration());
 		myTransformer.transformVariablesElement(myModel.getMyVariables());
 		myTransformer.transformCommandsElement(myModel.getMyUserCommands());
 		// myTransformer.transformColorsElement(myModel.getMyColors());
 
 	}
 
-	public void displayTurtleInfo(TextArea bigText) {
+	/**
+	 * Grabs current turtle information and displays it in given TextArea 
+	 * @param textArea
+	 */
+	public void displayTurtleInfo(TextArea textArea) {
 		refreshDisplay();
-		bigText.setText("Language: " + myTransformer.getLanguage() + "\n" + "Turtle ID: "
-				+ Integer.toString(myModel.getMyPlayground().getCurrentTurtleID()) + "\n" + "Turtle other stuff: ");
+		String language = "Language: " + myModel.getLanguage() + "\n";
+		String ID = "Turtle ID: " + Integer.toString(myModel.getMyPlayground().getCurrentTurtleID()) + "\n";
+		String orientation = "Orientation: " + myModel.getMyPlayground().getCurrentTurtle().getOrientation() + "\n";
+		String penUp;
+		if (myModel.getMyPlayground().getCurrentTurtle().getPenDown()) {
+			penUp = "Pen is: down" + "\n";	
+		} else {
+			penUp = "Pen is: up" + "\n";
+		}
+		
+		String penColor = "Pen color: " + myModel.getConfiguration().getPenColor() + "\n";
+		Double xCoord = myView.getMyTurtleElement().getNode().getTranslateX();
+		Double yCoord = myView.getMyTurtleElement().getNode().getTranslateY();
+		if (yCoord != 0.0) {
+			yCoord *= -1;
+		}
+		String coordinates = "Coordinates: " + Double.toString(xCoord)
+				+ ", " +  Double.toString(yCoord);
+				
+		textArea.setText(language + ID + orientation + penUp + penColor + coordinates);
 	}
-
-	// /**
-	// * Erases canvas but maintains Turtle position TODO: implement this for
-	// * extension
-	// */
-	// public void clearTurtlePlayground() {
-	// myView.getMyTurtleGraphics().clearRect(0, 0, Constants.PLAYGROUND_WIDTH,
-	// Constants.PLAYGROUND_HEIGHT);
-	// myModel.getMyPlayground().getCurrentTurtle().clearTurtleCoordinates();
-	// myModel.getMyPlayground().setTurtleHome();
-	//
-	// }
 
 	/**
 	 * Deletes stored previously run commands and moves turtle position back to
@@ -94,7 +104,7 @@ public class MainController {
 		myModel.getMyPlayground().setTurtleHome();
 		TurtleElement turtleElement = (TurtleElement) myView.getMyTurtleElement();
 		turtleElement.moveTurtleImage(0.0, 0.0);
-		myTransformer.transformTurtleGraphics(myModel.getMyPlayground().getCurrentTurtle());
+		myTransformer.transformTurtleGraphics(myModel.getMyPlayground().getCurrentTurtle(), myModel.getConfiguration());
 
 	}
 
@@ -120,10 +130,17 @@ public class MainController {
 
 	public void setBackgroundColor(Color color) {
 		myView.setTurtleBackgroundColor(color);
+		myModel.getConfiguration().setBackgroundColor(color);
 	}
 
 	public void setPenColor(Color color) {
 		myTransformer.setPenColor(color);
+		myModel.getConfiguration().setPenColor(color);
+	}
+
+	public void setPenWidth(double value) {
+		myModel.getConfiguration().setPenWidth(value);
+		myTransformer.setPenWidth(value);
 	}
 
 	public void setLanguage(String language) {

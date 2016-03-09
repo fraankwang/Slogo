@@ -21,7 +21,6 @@ public class Constants {
 	private static final String DEFAULT_PARAMS = "numberofparams";
 
 	public static final String MATH_NOPARAMS = "model.action.MathNoParams.MathNoParams";
-
 	public static final String MATH_ONEPARAM = "model.action.MathOneParam.MathOneParam";
 	public static final String MATH_TWOPARAMS = "model.action.MathTwoParams.MathTwoParams";
 	public static final String TURTLE_NOCOMMANDS = "model.action.TurtleCommandsNoParams.TurtleCommands";
@@ -92,9 +91,14 @@ public class Constants {
 	public static final int TURTLE_ELEMENT_WIDTH = 50;
 	public static final int TURTLE_ELEMENT_HEIGHT = TURTLE_ELEMENT_WIDTH;
 	public static final Double DEFAULT_TURTLE_PEN_WIDTH = 4.0;
+	public static final Double PEN_WIDTH_MIN = 0.0;
+	public static final Double PEN_WIDTH_MAX = 10.0;
+	
 	public static final int MENU_BAR_HEIGHT = 50;
 	public static final int BACK_BUTTON_HEIGHT = MENU_BAR_HEIGHT/3;
 	public static final int MENU_TURTLE_IMAGE_SIZE = 50;
+	public static final int INFO_MENU_HEIGHT = 200;
+	public static final int INFO_MENU_WIDTH = 125;
 	public static final double TURTLE_INFO_BUTTON_SIZE = 23.0;
 
 	public static final int ANIMATION_SLIDER_MIN = 10;
