@@ -239,15 +239,15 @@ public class MenuBarFactory {
 		Menu turtleMenu = new Menu(Constants.getSpecification("TurtleMenuOption"));
 
 		CustomMenuItem penColor = makePenColorPicker(Constants.DEFAULT_PEN_COLOR);
-
+		
 		MenuItem resetTurtle = new MenuItem(Constants.getSpecification("ResetTurtleOption"));
 		resetTurtle.setOnAction(e -> myController.resetTurtlePosition());
 		MenuItem turtleImages = makeTurtleImages();
-		MenuItem uploadNew = makeUploadNewOption();
+//		MenuItem uploadNew = makeUploadNewOption();
 
 		SeparatorMenuItem sep = new SeparatorMenuItem();
 		SeparatorMenuItem sep2 = new SeparatorMenuItem();
-		turtleMenu.getItems().addAll(penColor, sep, resetTurtle, sep2, turtleImages, uploadNew);
+		turtleMenu.getItems().addAll(penColor, sep, resetTurtle, sep2, turtleImages);
 		return turtleMenu;
 
 	}
@@ -272,6 +272,25 @@ public class MenuBarFactory {
 
 	}
 
+	private CustomMenuItem makePenWidthPicker() {
+		VBox sliderWrapper = new VBox();
+
+		Label sliderLabel = new Label(Constants.getSpecification("PenWidthLabel"));
+		sliderLabel.setTextFill(Color.BLACK);
+
+		Slider slider = new Slider(Constants.PEN_WIDTH_MIN, Constants.PEN_WIDTH_MAX,
+				Constants.DEFAULT_TURTLE_PEN_WIDTH);
+		slider.setShowTickLabels(true);
+		slider.setShowTickMarks(true);
+		slider.setStyle("-fx-stroke: black;");
+		slider.valueProperty().addListener(e -> myController.setPenWidth(slider.getValue()));
+
+		sliderWrapper.getChildren().addAll(sliderLabel, slider);
+		CustomMenuItem sliderItem = new CustomMenuItem(sliderWrapper);
+		sliderItem.setHideOnClick(false);
+		return sliderItem;
+	}
+	
 	/**
 	 * @return selection of names of images for turtle
 	 */
@@ -323,32 +342,32 @@ public class MenuBarFactory {
 
 	}
 
-	/**
-	 * Allows user to upload new image for Turtle to take
-	 * 
-	 * @return
-	 */
-	private MenuItem makeUploadNewOption() {
-		MenuItem uploadNew = new MenuItem(Constants.getSpecification("UploadNewTurtleImageOption"));
-		uploadNew.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent e) {
-				FileChooser fileChooser = new FileChooser();
-				FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
-						Constants.getSpecification("AllowedUploadedImageTypesFilterDescription"),
-						Constants.getSpecification("AllowedUploadedImageTypesFilter"));
-				fileChooser.getExtensionFilters().addAll(extFilter);
-				File chosenFile = fileChooser.showOpenDialog(myPrimaryStage);
-				System.out.println(chosenFile.getName());
-				// TODO: Extension work
-				// SAVE FILE (only JPG to src/images)
-				// call createTurtleImageMenuItem() and add it to turtleImages
-			}
-		});
-
-		return uploadNew;
-
-	}
+//	/**
+//	 * Allows user to upload new image for Turtle to take
+//	 * 
+//	 * @return
+//	 */
+//	private MenuItem makeUploadNewOption() {
+//		MenuItem uploadNew = new MenuItem(Constants.getSpecification("UploadNewTurtleImageOption"));
+//		uploadNew.setOnAction(new EventHandler<ActionEvent>() {
+//			@Override
+//			public void handle(ActionEvent e) {
+//				FileChooser fileChooser = new FileChooser();
+//				FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter(
+//						Constants.getSpecification("AllowedUploadedImageTypesFilterDescription"),
+//						Constants.getSpecification("AllowedUploadedImageTypesFilter"));
+//				fileChooser.getExtensionFilters().addAll(extFilter);
+//				File chosenFile = fileChooser.showOpenDialog(myPrimaryStage);
+//				System.out.println(chosenFile.getName());
+//				// TODO: Extension work
+//				// SAVE FILE (only JPG to src/images)
+//				// call createTurtleImageMenuItem() and add it to turtleImages
+//			}
+//		});
+//
+//		return uploadNew;
+//
+//	}
 
 	/**
 	 * Creates help menu button

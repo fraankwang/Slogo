@@ -77,7 +77,7 @@ public class MainModel {
 		myLanguage = language;
 		myParser = new CommandParser(myLanguage, myPlayground, myVariables, myUserCommands);
 	}
-
+	
 	public CommandParser getMyParser() {
 		return myParser;
 	}
@@ -117,4 +117,5 @@ public class MainModel {
 	public Palette getPalette() {
 		return myPalette;
 	}
+
 }
