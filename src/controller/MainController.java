@@ -67,13 +67,31 @@ public class MainController {
 	}
 
 	/**
-	 * 
+	 * Grabs current turtle information and displays it in given TextArea 
 	 * @param textArea
 	 */
 	public void displayTurtleInfo(TextArea textArea) {
 		refreshDisplay();
-		textArea.setText("Language: " + myTransformer.getLanguage() + "\n" + "Turtle ID: "
-				+ Integer.toString(myModel.getMyPlayground().getCurrentTurtleID()) + "\n" + "Turtle other stuff: ");
+		String language = "Language: " + myModel.getLanguage() + "\n";
+		String ID = "Turtle ID: " + Integer.toString(myModel.getMyPlayground().getCurrentTurtleID()) + "\n";
+		String orientation = "Orientation: " + myModel.getMyPlayground().getCurrentTurtle().getOrientation() + "\n";
+		String penUp;
+		if (myModel.getMyPlayground().getCurrentTurtle().getPenDown()) {
+			penUp = "Pen is: down" + "\n";	
+		} else {
+			penUp = "Pen is: up" + "\n";
+		}
+		
+		String penColor = "Pen color: " + myModel.getConfiguration().getPenColor() + "\n";
+		Double xCoord = myView.getMyTurtleElement().getNode().getTranslateX();
+		Double yCoord = myView.getMyTurtleElement().getNode().getTranslateY();
+		if (yCoord != 0.0) {
+			yCoord *= -1;
+		}
+		String coordinates = "Coordinates: " + Double.toString(xCoord)
+				+ ", " +  Double.toString(yCoord);
+				
+		textArea.setText(language + ID + orientation + penUp + penColor + coordinates);
 	}
 
 	/**
@@ -129,7 +147,7 @@ public class MainController {
 		myModel.setLanguage(language);
 		myTransformer.setLanguage(language);
 	}
-	
+
 	public void replaceVariable(String oldVar, String newVar) {
 		myModel.replaceVariable(oldVar, newVar);
 	}
@@ -151,7 +169,5 @@ public class MainController {
 	public void setPrimaryPane() {
 		myView.showPrimaryScene();
 	}
-
-
 
 }

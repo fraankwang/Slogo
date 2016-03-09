@@ -248,12 +248,15 @@ public class PanelElementFactory {
 
 		infoButton.setGraphic(infoImage);
 		ContextMenu cm = new ContextMenu();
-		TextArea bigText = new TextArea();
-		bigText.setPrefWidth(Constants.PLAYGROUND_WIDTH / 3);
-
+		TextArea bigText = new TextArea(Constants.getSpecification("InfoButtonDefaultMessage"));
+		bigText.setPrefWidth(Constants.INFO_MENU_HEIGHT);
+		bigText.setPrefHeight(Constants.INFO_MENU_WIDTH);
 		CustomMenuItem cmi = new CustomMenuItem(bigText);
-		cmi.setOnAction(e -> myController.displayTurtleInfo(bigText));
+		
+//		cmi.setOnAction(e -> myController.displayTurtleInfo(bigText));
+		cmi.setHideOnClick(false);
 		cm.getItems().add(cmi);
+		cm.setOnShown(e -> myController.displayTurtleInfo(bigText));
 		infoButton.setContextMenu(cm);
 
 		return infoButton;

@@ -7,14 +7,13 @@ import javafx.scene.paint.Color;
 
 public class Configuration {
 
-	private Color myBackgroundColor;
-	private Color myPenColor;
+	private Color myBackgroundColor = Constants.DEFAULT_BACKGROUND_COLOR;
+	private Color myPenColor = Constants.DEFAULT_PEN_COLOR;
 	private Map<Integer, Color> myPenColors;
 	private Double myPenWidth;
 	private Map<Integer, String> myTurtleShapes;
 
 	public Configuration() {
-		myBackgroundColor = Constants.DEFAULT_BACKGROUND_COLOR;
 		myPenWidth = Constants.DEFAULT_TURTLE_PEN_WIDTH;
 		myPenColors = new HashMap<Integer, Color>();
 		myTurtleShapes = new HashMap<Integer, String>();
