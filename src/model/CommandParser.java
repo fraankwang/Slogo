@@ -34,8 +34,10 @@ public class CommandParser {
 		myUserCommands = usercommands;
 
 	}
-	public CommandParser(String language, TurtlePlayground playground, Variables variables, UserCommands usercommands, Palette palette){
-		this(language, playground, variables,usercommands);
+
+	public CommandParser(String language, TurtlePlayground playground, Variables variables, UserCommands usercommands,
+			Palette palette) {
+		this(language, playground, variables, usercommands);
 		myPalette = palette;
 	}
 
@@ -73,10 +75,10 @@ public class CommandParser {
 				} catch (Exception e) {
 					comandsList.add(string);
 				}
-			} 
-			//			else {
-			//				System.out.println(string);
-			//			}
+			}
+			// else {
+			// System.out.println(string);
+			// }
 		}
 		queue.addAll(comandsList);
 		return queue;
@@ -102,10 +104,9 @@ public class CommandParser {
 		if (tree.isOpenBracket(queue)) {
 			return tree.makeCommandString(queue, tree);
 		} else {
-			if (tree.isOpenParenthesis(queue)){
+			if (tree.isOpenParenthesis(queue)) {
 				return makeUnlimitedParamCommand(queue, tree);
-			}
-			else{
+			} else {
 				tree.setData(queue.poll());
 				System.out.println(tree.getData());
 				try {
@@ -259,13 +260,14 @@ public class CommandParser {
 						myVariables, myUserCommands);
 				break;
 			case "TURTLE_ONESTRINGPARAM":
+			case "TURTLE_TWOSTRINGPARAMS":
 				finalaction = (Action) constructor.newInstance(addStringParams(node), myPlayground);
 				break;
-
 			case "TURTLE_DISPLAY_NOPARAMS":
 				finalaction = (Action) constructor.newInstance(myPlayground, myPalette);
-						break;
+				break;
 			case "TURTLE_DISPLAY_PARAMS":
+			case "TURTLE_DISPLAY_FOURPARAMS":
 				finalaction = (Action) constructor.newInstance(addDoubleParams(node), myPlayground, myPalette);
 				break;
 
@@ -310,33 +312,34 @@ public class CommandParser {
 		}
 		return params;
 	}
+
 	/**
-	 * The makeUnlimitedParamCommand() method sets a Node's value and children given a Queue
-	 * <String> containing the parsed command with unlimited parameters.
-	 * @throws Exception 
+	 * The makeUnlimitedParamCommand() method sets a Node's value and children
+	 * given a Queue <String> containing the parsed command with unlimited
+	 * parameters.
+	 * 
+	 * @throws Exception
 	 *
 	 */
 	private Node makeUnlimitedParamCommand(Queue<String> queue, Node tree) throws Exception {
 		queue.poll();
 		String command = queue.poll();
 		System.out.println(command);
-		if(getNumberParams(command) == 2){
-			//TODO: make this a constant
+		if (getNumberParams(command) == 2) {
+			// TODO: make this a constant
 			putUnlimitedParams(command, queue, tree);
 			return tree;
-		}
-		else{
+		} else {
 			throw new Exception("Too many parameters");
 		}
 	}
 
-	private Node putUnlimitedParams(String command, Queue<String> queue, Node tree){
+	private Node putUnlimitedParams(String command, Queue<String> queue, Node tree) {
 		String curr = queue.poll();
-		if(tree.isCloseParenthesis(queue)){
+		if (tree.isCloseParenthesis(queue)) {
 			tree.setData(curr);
 			queue.poll();
-		}
-		else{
+		} else {
 			tree.setData(command);
 			tree.addChild(new Node(curr));
 			tree.addChild(putUnlimitedParams(command, queue, new Node()));
