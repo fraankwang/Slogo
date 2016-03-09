@@ -59,7 +59,7 @@ public class MainController {
 	public void refreshDisplay() {
 		myTransformer.transformOutputElement((Queue<String>) myModel.getMyOutputs());
 		myTransformer.transformHistoryElement((Queue<String>) myModel.getMyHistory());
-		myTransformer.transformTurtleGraphics(myModel.getMyPlayground().getCurrentTurtle(), myModel.getConfiguration());
+		myTransformer.transformTurtleGraphics(myModel.getMyPlayground().getCurrentTurtle());
 		myTransformer.transformVariablesElement(myModel.getMyVariables());
 		myTransformer.transformCommandsElement(myModel.getMyUserCommands());
 		// myTransformer.transformColorsElement(myModel.getMyColors());
@@ -82,7 +82,7 @@ public class MainController {
 			penUp = "Pen is: up" + "\n";
 		}
 		
-		String penColor = "Pen color: " + myModel.getConfiguration().getPenColor() + "\n";
+		String penColor = "Pen color: " + myModel.getMyPlayground().getCurrentPenColor() + "\n";
 		Double xCoord = myView.getMyTurtleElement().getNode().getTranslateX();
 		Double yCoord = myView.getMyTurtleElement().getNode().getTranslateY();
 		if (yCoord != 0.0) {
@@ -104,7 +104,7 @@ public class MainController {
 		myModel.getMyPlayground().setTurtleHome();
 		TurtleElement turtleElement = (TurtleElement) myView.getMyTurtleElement();
 		turtleElement.moveTurtleImage(0.0, 0.0);
-		myTransformer.transformTurtleGraphics(myModel.getMyPlayground().getCurrentTurtle(), myModel.getConfiguration());
+		myTransformer.transformTurtleGraphics(myModel.getMyPlayground().getCurrentTurtle());
 
 	}
 
@@ -115,7 +115,10 @@ public class MainController {
 	public MainView getMyView() {
 		return myView;
 	}
-
+	
+	public MainModel getMainModel(){
+		return myModel;
+	}
 	public List<PanelElement> getViewableElements() {
 		return myView.getViewableElements();
 	}
@@ -127,19 +130,20 @@ public class MainController {
 	public void setTurtleElement(PanelElement turtleElement) {
 		myTransformer.setTurtleElement(turtleElement);
 	}
-
+	
+	
 	public void setBackgroundColor(Color color) {
 		myView.setTurtleBackgroundColor(color);
-		myModel.getConfiguration().setBackgroundColor(color);
+		myModel.getMyPlayground().setBackgroundColor(color);
 	}
 
 	public void setPenColor(Color color) {
 		myTransformer.setPenColor(color);
-		myModel.getConfiguration().setPenColor(color);
+		myModel.getMyPlayground().setCurrentPenColor(color);
 	}
 
 	public void setPenWidth(double value) {
-		myModel.getConfiguration().setCurrentPenSize(value);
+		myModel.getMyPlayground().setCurrentPenSize(value);
 		myTransformer.setPenWidth(value);
 	}
 
