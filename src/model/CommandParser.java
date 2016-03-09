@@ -240,34 +240,34 @@ public class CommandParser {
 			Action finalaction = null;
 			System.out.println(action.getSuperclass().getName());
 
-			switch (action.getSuperclass().getName()) {
-			case Constants.MATH_NOPARAMS:
+			switch (Constants.getActionSuperClass(action.getSuperclass().getName())) {
+			case "MATH_NOPARAMS":
 				finalaction = (Action) constructor.newInstance();
 				break;
-			case Constants.MATH_ONEPARAM:
-			case Constants.MATH_TWOPARAMS:
+			case "MATH_ONEPARAM":
+			case "MATH_TWOPARAMS":
 				finalaction = (Action) constructor.newInstance(addDoubleParams(node));
 				break;
-			case Constants.TURTLE_NOCOMMANDS:
+			case "TURTLE_NOCOMMANDS":
 				finalaction = (Action) constructor.newInstance(myPlayground);
 				break;
-			case Constants.TURTLE_ONEPARAM:
-			case Constants.TURTLE_TWOPARAMS:
+			case "TURTLE_ONEPARAM":
+			case "TURTLE_TWOPARAMS":
 				finalaction = (Action) constructor.newInstance(addDoubleParams(node), myPlayground);
 				break;
-			case Constants.CONTROL_STRUCTURES:
-			case Constants.HIGHER_ORDERSTRUCTURE:
+			case "CONTROL_STRUCTURES":
+			case "HIGHER_ORDERSTRUCTURE":
 				finalaction = (Action) constructor.newInstance(addStringParams(node), myLanguage, myPlayground,
 						myVariables, myUserCommands);
 				break;
-			case Constants.TURTLE_ONESTRINGPARAM:
+			case "TURTLE_ONESTRINGPARAM":
 				finalaction = (Action) constructor.newInstance(addStringParams(node), myPlayground);
 				break;
 			
-			case Constants.TURTLE_DISPLAY_NOPARAMS:
+			case "TURTLE_DISPLAY_NOPARAMS":
 				finalaction = (Action) constructor.newInstance(myPlayground, myConfiguration, myPalette);
 				break;
-			case Constants.TURTLE_DISPLAY_PARAMS:
+			case "TURTLE_DISPLAY_PARAMS":
 				finalaction = (Action) constructor.newInstance(addDoubleParams(node), myPlayground, myConfiguration, myPalette);
 				break;
 
