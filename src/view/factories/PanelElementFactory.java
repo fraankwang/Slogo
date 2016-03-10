@@ -16,6 +16,7 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.image.Image;
@@ -448,8 +449,8 @@ public class PanelElementFactory {
 		myHistoryElement = new HistoryElement(historyWrapper, Constants.getSpecification("HistoryElementName"));
 		myHistoryElement.setListView(historyListView);
 		return myHistoryElement;
-
 	}
+	
 
 	/**
 	 * @return formatted OutputElement which has a set TextArea

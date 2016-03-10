@@ -10,6 +10,7 @@ import java.util.Queue;
 import configuration.ConfigurationInfo;
 import constants.Constants;
 import javafx.animation.Timeline;
+import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
 import model.MainModel;
@@ -210,6 +211,14 @@ public class MainController {
 
 	public void setPrimaryPane() {
 		myView.showPrimaryScene();
+	}
+
+	public Tab makeNewWorkspace(int newTabIndex) {
+		Tab test = new Tab();
+		test.setText(Integer.toString(newTabIndex));
+		myView.getMyTabPane().getTabs().add(test);
+		myView.getMyTabPane().getSelectionModel().select(test);
+		return test;
 	}
 
 }
