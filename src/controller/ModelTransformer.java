@@ -10,6 +10,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
+import model.UserCommands;
+import model.Variables;
 import model.turtle.Turtle;
 import model.turtle.TurtleCoordinates;
 import model.turtle.TurtlePlayground;
@@ -34,8 +36,6 @@ public class ModelTransformer {
 	private MainController myController;
 
 	private String myLanguage = Constants.getSpecification("DefaultLanguage");
-	private Color myPenColor = Constants.DEFAULT_PEN_COLOR;
-	private Double myPenWidth = Constants.DEFAULT_TURTLE_PEN_WIDTH;
 	private TurtleElement myTurtleElement;
 
 	public ModelTransformer(MainController controller) {
@@ -80,7 +80,8 @@ public class ModelTransformer {
 	 * 
 	 * @param variables
 	 */
-	public void transformVariablesElement(Map<String, Double> variables) {
+	public void transformVariablesElement(Variables myVariables) {
+		Map<String, Double> variables = myVariables.getVariableMap();
 		VariablesElement variablesElement = (VariablesElement) myController.getMyView().getMyVariablesElement();
 		ListView<String> variablesNames = variablesElement.getNamesListView();
 		ListView<String> variablesValues = variablesElement.getValuesListView();
@@ -116,7 +117,8 @@ public class ModelTransformer {
 	 * 
 	 * @param map
 	 */
-	public void transformCommandsElement(Map<String, List<String>> map) {
+	public void transformCommandsElement(UserCommands commands) {
+		Map<String, List<String>> map = commands.getUserCommandMap();
 		CommandsElement commandsElement = (CommandsElement) myController.getMyView().getMyCommandsElement();
 		ListView<String> commandsValues = commandsElement.getListView();
 		commandsValues.getItems().clear();
@@ -125,11 +127,17 @@ public class ModelTransformer {
 			for (String parameter : map.get(commandsItem)) {
 				parameters += parameter + " ";
 			}
-			commandsValues.getItems().add(commandsItem + " (" + parameters.trim() + ")");
+			commandsValues.getItems().add(commandsItem + " " + parameters.trim());
 		}
 
 	}
 
+	/**
+	 * Clears previous elements within the TurtleInfoElement ListView and
+	 * repopulates it with updated Model information
+	 * 
+	 * @param map
+	 */
 	public void transformTurtleInfoElement(List<Turtle> turtles) {
 		TurtleInfoElement turtleInfoElement = (TurtleInfoElement) myController.getMyView().getMyTurtleInfoElement();
 		ListView<String> turtleInfoValues = turtleInfoElement.getListView();
@@ -145,26 +153,29 @@ public class ModelTransformer {
 	}
 
 	/**
-	 * Reads TurtleCoordinate from queue and draws new line
+	 * Reads all turtle-related information and updates relevant graphics
 	 * 
 	 * @param orientation
-	 * 
 	 * @param queue
 	 */
-
 	public void transformTurtleGraphics(TurtlePlayground turtlePlayground) {
-		GraphicsContext playground = myController.getMyView().getMyTurtleGraphics();
 		myController.setBackgroundColor(turtlePlayground.getMyBackgroundColor());
 		Turtle turtle = turtlePlayground.getCurrentTurtle();
-		updateTurtleGraphics(playground, turtle);
+
+		GraphicsContext turtlegraphics = myController.getMyView().getMyTurtleGraphics();
+		turtlegraphics.setFill(turtle.getPenColor());
+		turtlegraphics.setStroke(turtle.getPenColor());
+		turtlegraphics.setLineWidth(turtle.getPenWidth());
+
+		updateTurtleGraphicsPosition(turtlegraphics, turtle);
 
 	}
 
 	/**
-	 * Updates where the turtle (or turtles) has drawn
+	 * Updates where the turtle (or turtles) has drawn and corresponding
+	 * PanelElement
 	 */
-
-	private void updateTurtleGraphics(GraphicsContext gc, Turtle turtle) {
+	private void updateTurtleGraphicsPosition(GraphicsContext gc, Turtle turtle) {
 		LinkedList<TurtleCoordinates> coordinates = turtle.getCoordinates();
 		Double orientation = turtle.getOrientation();
 		myTurtleElement.setTurtleOrientation(orientation);
@@ -172,16 +183,12 @@ public class ModelTransformer {
 		double currentX = CENTER_X_COORDINATE;
 		double currentY = CENTER_Y_COORDINATE;
 
-		gc.setFill(turtle.getPenColor());
-		gc.setStroke(turtle.getPenColor());
-		gc.setLineWidth(turtle.getPenSize());
-
 		for (TurtleCoordinates coordinate : coordinates) {
 			double newX = CENTER_X_COORDINATE + coordinate.getXCoord();
 			double newY = CENTER_Y_COORDINATE + (-1 * coordinate.getYCoord());
+
 			if (turtle.isPenDown()) {
 				gc.strokeLine(currentX, currentY, newX, newY);
-
 			}
 
 			Double rounded = (double) Math.round(newX);
@@ -200,14 +207,6 @@ public class ModelTransformer {
 
 	public void setLanguage(String language) {
 		myLanguage = language;
-	}
-
-	public void setPenColor(Color color) {
-		myPenColor = color;
-	}
-
-	public void setPenWidth(double pixels) {
-		myPenWidth = pixels;
 	}
 
 	public String getLanguage() {

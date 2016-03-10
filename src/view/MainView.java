@@ -161,7 +161,7 @@ public class MainView {
 	}
 
 	/**
-	 * 
+	 * Initializes basic and advanced help roots
 	 */
 	private void initializeHelpRoots() {
 		myHelpPageFactory = new HelpPageFactory(myController);

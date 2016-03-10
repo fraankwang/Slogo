@@ -4,11 +4,14 @@ import java.io.File;
 import java.util.List;
 
 import configuration.ConfigurationInfo;
+import configuration.XMLGenerator;
 import configuration.XMLParser;
 import constants.Constants;
 import controller.MainController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.CustomMenuItem;
@@ -18,6 +21,7 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.Slider;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -69,7 +73,7 @@ public class MenuBarFactory {
 		MenuItem load = makeLoadButton();
 		fileMenu.getItems().addAll(save, load);
 		return fileMenu;
-		
+
 	}
 
 	/**
@@ -82,15 +86,17 @@ public class MenuBarFactory {
 		save.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
-				// new generator
-				// myController.gatherallinfo
-				// gatherallinfo method: creates XMLgenerator and generates
-				// generate saved alert
-				System.out.println("save pressed");
+				XMLGenerator generator = new XMLGenerator();
+				ConfigurationInfo configInfo = myController.gatherConfigurationInfo();
+				generator.writeXML(configInfo);
+
+				String confirmation = Constants.getSpecification("XMLSavedConfirmation");
+				Alert savedAlert = new Alert(AlertType.INFORMATION, confirmation, new ButtonType("OK"));
+				savedAlert.showAndWait();
 			}
 		});
 		return save;
-		
+
 	}
 
 	/**
@@ -110,16 +116,15 @@ public class MenuBarFactory {
 						Constants.getSpecification("XMLfileExtensionFilter"));
 				chooser.getExtensionFilters().addAll(extFilter);
 				File chosenFile = chooser.showOpenDialog(myPrimaryStage);
+
 				ConfigurationInfo configInfo = parser.parse(chosenFile);
-				// readparsedinfo method: updates all configurations
-				System.out.println(configInfo.getMyCommands().getUserCommandMap());
+				myController.updateConfiguration(configInfo);
 				myController.refreshDisplay();
-				System.out.println("load pressed");
 			}
 		});
-		
+
 		return load;
-		
+
 	}
 
 	/**
@@ -136,7 +141,7 @@ public class MenuBarFactory {
 		configurationMenu.getItems().addAll(languageMenu, backgroundColor, animationSlider);
 
 		return configurationMenu;
-		
+
 	}
 
 	/**
@@ -179,18 +184,18 @@ public class MenuBarFactory {
 	 */
 	private CustomMenuItem makeBackgroundColorPicker(Color defaultBackgroundColor) {
 		VBox BackgroundColorWrapper = new VBox();
-	
+
 		Label BackgroundColorlabel = new Label(Constants.getSpecification("BackgroundColorPickerLabel"));
 		BackgroundColorlabel.setTextFill(Color.BLACK);
-	
+
 		ColorPicker colorPicker = new ColorPicker(defaultBackgroundColor);
 		BackgroundColorWrapper.getChildren().addAll(BackgroundColorlabel, colorPicker);
 		CustomMenuItem penColor = new CustomMenuItem(BackgroundColorWrapper);
 		penColor.setHideOnClick(false);
 		penColor.setOnAction(e -> myController.setBackgroundColor(colorPicker.getValue()));
-	
+
 		return penColor;
-	
+
 	}
 
 	/**
@@ -261,7 +266,7 @@ public class MenuBarFactory {
 		Menu turtleMenu = new Menu(Constants.getSpecification("TurtleMenuOption"));
 
 		CustomMenuItem penColor = makePenColorPicker(Constants.DEFAULT_PEN_COLOR);
-		
+
 		MenuItem resetTurtle = new MenuItem(Constants.getSpecification("ResetTurtleOption"));
 		resetTurtle.setOnAction(e -> myController.resetTurtlePosition());
 		MenuItem turtleImages = makeTurtleImages();
@@ -316,7 +321,7 @@ public class MenuBarFactory {
 		sliderItem.setHideOnClick(false);
 		return sliderItem;
 	}
-	
+
 	/**
 	 * @return selection of names of images for turtle
 	 */
