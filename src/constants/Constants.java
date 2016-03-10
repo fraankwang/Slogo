@@ -21,6 +21,7 @@ public class Constants {
 	private static final String DEFAULT_PARAMS = "numberofparams";
 
 	private static final String DEFAULT_ACTIONSUPERCLASS="ActionSuperClass";
+	private static final String DEFAULT_SHAPEMAP="shapemap";
 
 	private static final ResourceBundle SPECIFICATIONS = ResourceBundle
 			.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_RESOURCE_FILE);
@@ -141,5 +142,9 @@ public class Constants {
 	public static String getActionSuperClass(String key){
 		ResourceBundle COMMANDS = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_ACTIONSUPERCLASS);
 		return COMMANDS.getString(key);
+	}
+	public static String getShapeMap(int key){
+		ResourceBundle COMMANDS = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_SHAPEMAP);
+		return COMMANDS.getString(Integer.toString(key));
 	}
 }

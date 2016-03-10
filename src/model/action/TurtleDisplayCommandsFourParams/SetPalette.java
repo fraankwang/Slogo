@@ -7,7 +7,7 @@ import model.Palette;
 import model.action.TurtleDisplayCommandsOneParam.TurtleDisplayCommandsParams;
 import model.turtle.TurtlePlayground;
 
-public class SetPalette extends TurtleDisplayCommandsParams {
+public class SetPalette extends TurtleDisplayCommandsFourParams {
 
 	private int red;
 	private int green;
