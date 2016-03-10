@@ -3,6 +3,8 @@ package model;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import constants.Constants;
 import javafx.scene.paint.Color;
 
 public class Palette {
@@ -13,6 +15,14 @@ public class Palette {
 	public Palette() {
 		paletteMap = new HashMap<Integer, Color>();
 		shapeMap = new HashMap<Integer, String>();
+		initShapeMap();
+	}
+
+	private void initShapeMap() {
+		for (int i=1; i<4;i++){
+			addShape(i, Constants.getShapeMap(i));
+		}
+		
 	}
 
 	public void addColor(int index, Color color) {
