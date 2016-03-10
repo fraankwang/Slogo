@@ -38,6 +38,14 @@ public class Constants {
 	public static final String CLOSE_BRACKET = "]";
 	public static final String OPEN_PARENTHESIS = "(";
 	public static final String CLOSE_PARENTHESIS = ")";
+	public static final String TOO_FEW_PARAMETERS_ERROR = "Too few parameters";
+	public static final String HASHTAG = "#";
+	public static final String NEWLINE = "\\s";
+	public static final String WHITESPACE = "\\n";
+	public static final String SPACE = " ";
+	public static final String TOO_MANY_PARAMETERS_ERROR = "Too many parameters";
+	public static final String SYNTAX_ERROR = "Incorrect command syntax";
+	
 
 	public static final Color DEFAULT_PEN_COLOR = Color.BLACK;
 	public static final Color DEFAULT_BACKGROUND_COLOR = Color.WHITE;
@@ -101,6 +109,7 @@ public class Constants {
 	public static final double ELEMENT_INSET_VERTICAL = 0;
 
 	public static final double DEFAULT_VARIABLE_VALUE = 0;
+
 
 	public static String getSpecification(String name) {
 		return SPECIFICATIONS.getString(name);

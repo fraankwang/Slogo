@@ -21,6 +21,7 @@ import model.Node;
  */
 public class CommandParser {
 
+
 	private String myLanguage;
 	private TurtlePlayground myPlayground;
 	private Variables myVariables;
@@ -57,12 +58,12 @@ public class CommandParser {
 	 */
 	private Queue<String> parse(String input) {
 		Queue<String> queue = new LinkedList<String>();
-		List<String> firstParsed = Arrays.asList(input.split("\\n"));
+		List<String> firstParsed = Arrays.asList(input.split(Constants.WHITESPACE));
 		List<String> parsedInputList = new ArrayList<String>();
 
 		for (String s : firstParsed) {
 			if (!isComment(s)) {
-				parsedInputList.addAll(Arrays.asList(s.split("\\s")));
+				parsedInputList.addAll(Arrays.asList(s.split(Constants.NEWLINE)));
 			}
 		}
 
@@ -90,7 +91,7 @@ public class CommandParser {
 	 * a boolean for whether the string starts with a #
 	 */
 	private boolean isComment(String string) {
-		return string.contains("#");
+		return string.contains(Constants.HASHTAG);
 	}
 
 	/**
@@ -101,10 +102,10 @@ public class CommandParser {
 	private Node makeTree(Queue<String> queue) throws Exception {
 		Node tree = new Node();
 
-		if (tree.isOpenBracket(queue)) {
+		if (tree.isNext(queue, Constants.OPEN_BRACKET)) {
 			return tree.makeCommandString(queue, tree);
 		} else {
-			if (tree.isOpenParenthesis(queue)) {
+			if (tree.isNext(queue, Constants.OPEN_PARENTHESIS)) {
 				return makeUnlimitedParamCommand(queue, tree);
 			} else {
 				tree.setData(queue.poll());
@@ -139,7 +140,7 @@ public class CommandParser {
 		}
 		for (int i = 0; i < totalchildren; i++) {
 			if (queue.isEmpty()) {
-				throw new Exception("Too few parameters");
+				throw new Exception(Constants.TOO_FEW_PARAMETERS_ERROR);
 			}
 			tree.addChild(makeTree(queue));
 			System.out.println("child" + tree.getChildren().get(i).getData());
@@ -276,7 +277,7 @@ public class CommandParser {
 
 			return finalaction;
 		} catch (Exception e) {
-			throw new Exception("Incorrect command syntax");
+			throw new Exception(Constants.SYNTAX_ERROR);
 		}
 	}
 
@@ -307,7 +308,7 @@ public class CommandParser {
 				if (child.areChildrenEmpty()) {
 					params.add(child.getData());
 				} else {
-					params.add("" + treeTraversal(child));
+					params.add(Double.toString(treeTraversal(child)));
 				}
 			}
 		}
@@ -331,13 +332,13 @@ public class CommandParser {
 			putUnlimitedParams(command, queue, tree);
 			return tree;
 		} else {
-			throw new Exception("Too many parameters");
+			throw new Exception(Constants.TOO_MANY_PARAMETERS_ERROR);
 		}
 	}
 
 	private Node putUnlimitedParams(String command, Queue<String> queue, Node tree) {
 		String curr = queue.poll();
-		if (tree.isCloseParenthesis(queue)) {
+		if (tree.isNext(queue, Constants.CLOSE_PARENTHESIS)) {
 			tree.setData(curr);
 			queue.poll();
 		} else {
