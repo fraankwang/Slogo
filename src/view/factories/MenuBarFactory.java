@@ -73,7 +73,7 @@ public class MenuBarFactory {
 		MenuItem load = makeLoadButton();
 		fileMenu.getItems().addAll(save, load);
 		return fileMenu;
-		
+
 	}
 
 	/**
@@ -90,13 +90,13 @@ public class MenuBarFactory {
 				ConfigurationInfo configInfo = myController.gatherConfigurationInfo();
 				generator.writeXML(configInfo);
 
-		        String confirmation = Constants.getSpecification("XMLSavedConfirmation");
-		        Alert savedAlert = new Alert(AlertType.INFORMATION, confirmation, new ButtonType("OK"));
-		        savedAlert.showAndWait();
+				String confirmation = Constants.getSpecification("XMLSavedConfirmation");
+				Alert savedAlert = new Alert(AlertType.INFORMATION, confirmation, new ButtonType("OK"));
+				savedAlert.showAndWait();
 			}
 		});
 		return save;
-		
+
 	}
 
 	/**
@@ -116,15 +116,15 @@ public class MenuBarFactory {
 						Constants.getSpecification("XMLfileExtensionFilter"));
 				chooser.getExtensionFilters().addAll(extFilter);
 				File chosenFile = chooser.showOpenDialog(myPrimaryStage);
-				
+
 				ConfigurationInfo configInfo = parser.parse(chosenFile);
 				myController.updateConfiguration(configInfo);
 				myController.refreshDisplay();
 			}
 		});
-		
+
 		return load;
-		
+
 	}
 
 	/**
@@ -141,7 +141,7 @@ public class MenuBarFactory {
 		configurationMenu.getItems().addAll(languageMenu, backgroundColor, animationSlider);
 
 		return configurationMenu;
-		
+
 	}
 
 	/**
@@ -184,18 +184,18 @@ public class MenuBarFactory {
 	 */
 	private CustomMenuItem makeBackgroundColorPicker(Color defaultBackgroundColor) {
 		VBox BackgroundColorWrapper = new VBox();
-	
+
 		Label BackgroundColorlabel = new Label(Constants.getSpecification("BackgroundColorPickerLabel"));
 		BackgroundColorlabel.setTextFill(Color.BLACK);
-	
+
 		ColorPicker colorPicker = new ColorPicker(defaultBackgroundColor);
 		BackgroundColorWrapper.getChildren().addAll(BackgroundColorlabel, colorPicker);
 		CustomMenuItem penColor = new CustomMenuItem(BackgroundColorWrapper);
 		penColor.setHideOnClick(false);
 		penColor.setOnAction(e -> myController.setBackgroundColor(colorPicker.getValue()));
-	
+
 		return penColor;
-	
+
 	}
 
 	/**
@@ -266,7 +266,7 @@ public class MenuBarFactory {
 		Menu turtleMenu = new Menu(Constants.getSpecification("TurtleMenuOption"));
 
 		CustomMenuItem penColor = makePenColorPicker(Constants.DEFAULT_PEN_COLOR);
-		
+
 		MenuItem resetTurtle = new MenuItem(Constants.getSpecification("ResetTurtleOption"));
 		resetTurtle.setOnAction(e -> myController.resetTurtlePosition());
 		MenuItem turtleImages = makeTurtleImages();
@@ -321,7 +321,7 @@ public class MenuBarFactory {
 		sliderItem.setHideOnClick(false);
 		return sliderItem;
 	}
-	
+
 	/**
 	 * @return selection of names of images for turtle
 	 */

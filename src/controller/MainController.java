@@ -78,7 +78,7 @@ public class MainController {
 		String ID = "Turtle ID: " + Integer.toString(myModel.getMyPlayground().getCurrentTurtleID()) + "\n";
 		String orientation = "Orientation: " + myModel.getMyPlayground().getCurrentTurtle().getOrientation() % 360
 				+ "\n";
-		
+
 		String penUp;
 		if (myModel.getMyPlayground().getCurrentTurtle().getPenDown()) {
 			penUp = "Pen is: down" + "\n";
@@ -87,7 +87,7 @@ public class MainController {
 		}
 
 		String penColor = "Pen color: " + myModel.getMyPlayground().getCurrentPenColor() + "\n";
-		
+
 		Double xCoord = myView.getMyTurtleElement().getNode().getTranslateX();
 		Double yCoord = myView.getMyTurtleElement().getNode().getTranslateY();
 		if (yCoord != 0) {
@@ -98,9 +98,10 @@ public class MainController {
 		textArea.setText(language + ID + orientation + penUp + penColor + x + y);
 
 	}
-	
+
 	/**
 	 * Updates all model information given packaged configuration info
+	 * 
 	 * @param configInfo
 	 */
 	public void updateConfiguration(ConfigurationInfo configInfo) {
@@ -111,11 +112,12 @@ public class MainController {
 		myModel.getMyPlayground().getCurrentTurtle().setPenWidth(configInfo.getMyPenWidth());
 		myModel.setMyVariables(configInfo.getMyVariables());
 		myModel.setMyUserCommands(configInfo.getMyCommands());
-		
+
 	}
-	
+
 	/**
 	 * Gathers all necessary information to be passed to XML generator
+	 * 
 	 * @return
 	 */
 	public ConfigurationInfo gatherConfigurationInfo() {
@@ -127,8 +129,8 @@ public class MainController {
 		configInfo.setMyPenColor(myModel.getMyPlayground().getCurrentPenColor());
 		configInfo.setMyPenWidth(myModel.getMyPlayground().getCurrentTurtle().getPenWidth());
 		return configInfo;
+		
 	}
-
 
 	/**
 	 * Deletes stored previously run commands and moves turtle position back to
@@ -208,7 +210,4 @@ public class MainController {
 		myView.showPrimaryScene();
 	}
 
-
-
 }
-

@@ -52,7 +52,6 @@ public class XMLGenerator {
 			root.appendChild(language);
 			root.appendChild(translateVariables(doc, configInfo.getMyVariables()));
 			root.appendChild(translateCommands(doc, configInfo.getMyCommands()));
-			
 
 			TransformerFactory transfac = TransformerFactory.newInstance();
 			Transformer trans = transfac.newTransformer();
@@ -94,20 +93,20 @@ public class XMLGenerator {
 		Map<String, Double> map = variables.getVariableMap();
 		for (String entry : map.keySet()) {
 			Element var = doc.createElement("var");
-			
+
 			Element key = doc.createElement("key");
 			Node keyValue = doc.createTextNode(entry);
 			key.appendChild(keyValue);
 			var.appendChild(key);
-			
+
 			Element value = doc.createElement("value");
 			Node valueValue = doc.createTextNode(Double.toString(map.get(entry)));
 			value.appendChild(valueValue);
 			var.appendChild(value);
-			
+
 			myVariables.appendChild(var);
 		}
-	
+
 		return myVariables;
 	}
 
@@ -120,22 +119,22 @@ public class XMLGenerator {
 	 */
 	private Element translateCommands(Document doc, UserCommands commands) {
 		Element myCommands = doc.createElement("usercommands");
-		
+
 		Map<String, List<String>> paramMap = commands.getUserCommandMap();
-		
-		for (String key : paramMap.keySet()) { 
+
+		for (String key : paramMap.keySet()) {
 			Element item = doc.createElement("item");
-			
+
 			Element commandName = doc.createElement("commandname");
 			Node commandNameValue = doc.createTextNode(key);
 			commandName.appendChild(commandNameValue);
 			item.appendChild(commandName);
-			
-			Element commandCode= doc.createElement("command");
+
+			Element commandCode = doc.createElement("command");
 			Node commandCodeValue = doc.createTextNode(commands.getCommand(key));
 			commandCode.appendChild(commandCodeValue);
 			item.appendChild(commandCode);
-			
+
 			Element params = doc.createElement("params");
 			for (int i = 0; i < paramMap.get(key).size(); i++) {
 				Element param = doc.createElement("param");
@@ -143,13 +142,12 @@ public class XMLGenerator {
 				param.appendChild(paramValue);
 				params.appendChild(param);
 			}
-			
+
 			item.appendChild(params);
 			myCommands.appendChild(item);
 		}
 
 		return myCommands;
 	}
-
 
 }

@@ -20,8 +20,8 @@ public class Constants {
 	private static final String DEFAULT_ACTIONS = "possibleactions";
 	private static final String DEFAULT_PARAMS = "numberofparams";
 
-	private static final String DEFAULT_ACTIONSUPERCLASS="ActionSuperClass";
-	private static final String DEFAULT_SHAPEMAP="shapemap";
+	private static final String DEFAULT_ACTIONSUPERCLASS = "ActionSuperClass";
+	private static final String DEFAULT_SHAPEMAP = "shapemap";
 
 	private static final ResourceBundle SPECIFICATIONS = ResourceBundle
 			.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_RESOURCE_FILE);
@@ -84,9 +84,9 @@ public class Constants {
 	public static final Double DEFAULT_TURTLE_PEN_WIDTH = 4.0;
 	public static final Double PEN_WIDTH_MIN = 0.0;
 	public static final Double PEN_WIDTH_MAX = 10.0;
-	
+
 	public static final int MENU_BAR_HEIGHT = 50;
-	public static final int BACK_BUTTON_HEIGHT = MENU_BAR_HEIGHT/3;
+	public static final int BACK_BUTTON_HEIGHT = MENU_BAR_HEIGHT / 3;
 	public static final int MENU_TURTLE_IMAGE_SIZE = 50;
 	public static final int INFO_MENU_HEIGHT = 200;
 	public static final int INFO_MENU_WIDTH = 130;
@@ -138,12 +138,13 @@ public class Constants {
 	public static String getDefaultTurtleImageFileName() {
 		return DEFAULT_TURTLE_IMAGES.get(0) + ".jpg";
 	}
-	
-	public static String getActionSuperClass(String key){
+
+	public static String getActionSuperClass(String key) {
 		ResourceBundle COMMANDS = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_ACTIONSUPERCLASS);
 		return COMMANDS.getString(key);
 	}
-	public static String getShapeMap(int key){
+
+	public static String getShapeMap(int key) {
 		ResourceBundle COMMANDS = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_SHAPEMAP);
 		return COMMANDS.getString(Integer.toString(key));
 	}
