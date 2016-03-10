@@ -25,13 +25,12 @@ public class MainModel {
 	private TurtlePlayground myPlayground;
 	private Variables myVariables;
 	private UserCommands myUserCommands;
-	
+
 	private Palette myPalette;
-	
+
 	private CommandParser myParser;
 	private History myHistory;
 	private History myOutputs;
-
 
 	public MainModel(String language) {
 		myLanguage = language;
@@ -40,13 +39,12 @@ public class MainModel {
 
 		myVariables = new Variables();
 		myUserCommands = new UserCommands();
-		
+
 		myPalette = new Palette();
 
 		myParser = new CommandParser(myLanguage, myPlayground, myVariables, myUserCommands, myPalette);
 		myHistory = new History();
 		myOutputs = new History();
-
 
 	}
 
@@ -76,11 +74,11 @@ public class MainModel {
 		myLanguage = language;
 		myParser = new CommandParser(myLanguage, myPlayground, myVariables, myUserCommands);
 	}
-	
+
 	public String getLanguage() {
 		return myLanguage;
 	}
-	
+
 	public CommandParser getMyParser() {
 		return myParser;
 	}
@@ -100,9 +98,17 @@ public class MainModel {
 	public Map<String, Double> getMyVariables() {
 		return myVariables.getVariableMap();
 	}
+	
+	public void setMyVariables(Variables variables) {
+		myVariables = variables;
+	}
 
-	public Map<String, List<String>> getMyUserCommands() {
-		return myUserCommands.getUserCommandMap();
+	public UserCommands getMyUserCommands() {
+		return myUserCommands;
+	}
+	
+	public void setMyUserCommands(UserCommands commands) {
+		myUserCommands = commands;
 	}
 
 	public void replaceVariable(String oldVar, String newVar) {
@@ -116,8 +122,10 @@ public class MainModel {
 	public Palette getPalette() {
 		return myPalette;
 	}
-	
-	public Map<Integer, Color> getPaletteMap(){
+
+	public Map<Integer, Color> getPaletteMap() {
 		return myPalette.getPaletteMap();
 	}
+
+
 }

@@ -110,11 +110,10 @@ public class MenuBarFactory {
 						Constants.getSpecification("XMLfileExtensionFilter"));
 				chooser.getExtensionFilters().addAll(extFilter);
 				File chosenFile = chooser.showOpenDialog(myPrimaryStage);
+				
 				ConfigurationInfo configInfo = parser.parse(chosenFile);
-				// readparsedinfo method: updates all configurations
-				System.out.println(configInfo.getMyCommands().getUserCommandMap());
+//				myController.updateConfiguration(configInfo);
 				myController.refreshDisplay();
-				System.out.println("load pressed");
 			}
 		});
 		

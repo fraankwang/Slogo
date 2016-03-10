@@ -62,6 +62,7 @@ public class Variables {
 	 * 
 	 */
 	public void replaceVariableValue(String name, String newVal) {
+		myVariables.remove(name);
 		myVariables.put(name, Double.parseDouble(newVal));
 	}
 

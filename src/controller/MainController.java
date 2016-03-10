@@ -7,6 +7,7 @@ package controller;
 import java.util.List;
 import java.util.Queue;
 
+import configuration.ConfigurationInfo;
 import constants.Constants;
 import javafx.animation.Timeline;
 import javafx.scene.control.TextArea;
@@ -65,7 +66,6 @@ public class MainController {
 		myTransformer.transformColorsElement(myModel.getPaletteMap());
 		myTransformer.transformTurtleInfoElement(myModel.getMyPlayground().getTurtleList());
 
-
 	}
 
 	/**
@@ -78,6 +78,7 @@ public class MainController {
 		String ID = "Turtle ID: " + Integer.toString(myModel.getMyPlayground().getCurrentTurtleID()) + "\n";
 		String orientation = "Orientation: " + myModel.getMyPlayground().getCurrentTurtle().getOrientation() % 360
 				+ "\n";
+		
 		String penUp;
 		if (myModel.getMyPlayground().getCurrentTurtle().getPenDown()) {
 			penUp = "Pen is: down" + "\n";
@@ -86,15 +87,31 @@ public class MainController {
 		}
 
 		String penColor = "Pen color: " + myModel.getMyPlayground().getCurrentPenColor() + "\n";
+		
 		Double xCoord = myView.getMyTurtleElement().getNode().getTranslateX();
 		Double yCoord = myView.getMyTurtleElement().getNode().getTranslateY();
-		if (yCoord != 0.0) {
+		if (yCoord != 0) {
 			yCoord *= -1;
 		}
 		String x = "X Coordinate: " + Double.toString(xCoord) + "\n";
 		String y = "Y Coordinate: " + Double.toString(yCoord);
 		textArea.setText(language + ID + orientation + penUp + penColor + x + y);
 
+	}
+	
+	/**
+	 * Updates all model information given packaged configuration info
+	 * @param configInfo
+	 */
+	public void updateConfiguration(ConfigurationInfo configInfo) {
+		myModel.setLanguage(configInfo.getMyLanguage());
+		myTransformer.setLanguage(configInfo.getMyLanguage());
+		myModel.getMyPlayground().setCurrentPenColor(configInfo.getMyPenColor());
+		myModel.getMyPlayground().setBackgroundColor(configInfo.getMyBackgroundColor());
+		myModel.getMyPlayground().getCurrentTurtle().setPenSize(configInfo.getMyPenWidth());
+		myModel.setMyVariables(configInfo.getMyVariables());
+		myModel.setMyUserCommands(configInfo.getMyCommands());
+		
 	}
 
 	/**
@@ -141,13 +158,11 @@ public class MainController {
 	}
 
 	public void setPenColor(Color color) {
-		myTransformer.setPenColor(color);
 		myModel.getMyPlayground().setCurrentPenColor(color);
 	}
 
 	public void setPenWidth(double value) {
 		myModel.getMyPlayground().setCurrentPenSize(value);
-		myTransformer.setPenWidth(value);
 	}
 
 	public void setLanguage(String language) {
@@ -177,4 +192,6 @@ public class MainController {
 		myView.showPrimaryScene();
 	}
 
+
 }
+

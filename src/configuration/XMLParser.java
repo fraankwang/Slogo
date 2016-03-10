@@ -51,44 +51,67 @@ public class XMLParser {
 					else if (elem.getNodeName().equalsIgnoreCase("penwidth")) {
 						configInfo.setMyPenWidth(Double.parseDouble(elem.getTextContent()));
 					}
-//				}
-//
-//				else if (elem.getNodeType() != Node.ELEMENT_NODE) {
-//					if (elem.getNodeName().equalsIgnoreCase("variables")) {
-//						Variables myVariables = new Variables();
-//						// 	start working here
-//						for (int varIndex = 0; varIndex < ((NodeList) elem).getLength(); varIndex++) {
-//							Node var = ((NodeList) elem).item(varIndex);
-//							String key = ((NodeList) var).item(0).getTextContent();
-//							Double value = Double.parseDouble(((NodeList) var).item(1).getTextContent());
-//							myVariables.addVariable(key, value);
-//
-//						}
-//						configInfo.setMyVariables(myVariables);
-//
-//					}
+	
+					else if (elem.getNodeName().equalsIgnoreCase("variables")) {
+						Variables myVariables = new Variables();
 
-					else if (elem.getNodeName().equalsIgnoreCase("usercommands")) {
-						System.out.println("commands");
-						UserCommands userCommands = new UserCommands();
-						System.out.println(((NodeList) elem).getLength());
-						for (int itemIndex = 0; itemIndex < ((NodeList) elem).getLength(); itemIndex++) {
-							Node item = ((NodeList) elem).item(itemIndex);
-							String commandName = ((NodeList) item).item(0).getTextContent();
-							String commandCode = ((NodeList) item).item(1).getTextContent();
-							Node params = ((NodeList) item).item(2);
-							List<String> parametersList = new ArrayList<String>();
-							for (int paramIndex = 0; paramIndex < ((NodeList) params).getLength(); paramIndex++) {
-								Node param = ((NodeList) params).item(paramIndex);
-								String paramValue = param.getTextContent();
-								parametersList.add(paramValue);
+						NodeList variables = elem.getChildNodes();
+						
+						System.out.println("length: " + variables.getLength());
+
+						for (int varIndex = 0; varIndex < variables.getLength(); varIndex++) {
+							Node n = variables.item(varIndex);
+							
+							if (n.getNodeType() == Node.ELEMENT_NODE) {
+								System.out.println(n.getNodeName());
+								NodeList nl = n.getChildNodes();
+								
+								Node n1 = nl.item(0);
+								Node n2 = nl.item(1);
+								System.out.println(n1.getTextContent().trim());
+								System.out.println(n2.getTextContent().trim());
 							}
-							userCommands.addCommand(commandName, parametersList, commandCode);
-
+						
 						}
-						configInfo.setMyCommands(userCommands);
+						
+						
+						
+						for (int varIndex = 0; varIndex < variables.getLength(); varIndex++) {
+							
+							System.out.println(varIndex);
+							
+							NodeList keysAndValues = (NodeList) variables.item(varIndex).getChildNodes();
+							String key = keysAndValues.item(0).getTextContent();
+							Double value = Double.parseDouble(keysAndValues.item(1).getTextContent());
+							myVariables.addVariable(key, value);
+							System.out.println(key + " " + value);
+						}
+						configInfo.setMyVariables(myVariables);
+						System.out.println(configInfo.getMyVariables().getVariableMap());
 
 					}
+
+//					else if (elem.getNodeName().equalsIgnoreCase("usercommands")) {
+//						System.out.println("commands");
+//						UserCommands userCommands = new UserCommands();
+//						System.out.println(((NodeList) elem).getLength());
+//						for (int itemIndex = 0; itemIndex < ((NodeList) elem).getLength(); itemIndex++) {
+//							Node item = ((NodeList) elem).item(itemIndex);
+//							String commandName = ((NodeList) item).item(0).getTextContent();
+//							String commandCode = ((NodeList) item).item(1).getTextContent();
+//							Node params = ((NodeList) item).item(2);
+//							List<String> parametersList = new ArrayList<String>();
+//							for (int paramIndex = 0; paramIndex < ((NodeList) params).getLength(); paramIndex++) {
+//								Node param = ((NodeList) params).item(paramIndex);
+//								String paramValue = param.getTextContent();
+//								parametersList.add(paramValue);
+//							}
+//							userCommands.addCommand(commandName, parametersList, commandCode);
+//
+//						}
+//						configInfo.setMyCommands(userCommands);
+//
+//					}
 				}
 
 			}
