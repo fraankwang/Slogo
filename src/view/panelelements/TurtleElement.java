@@ -4,10 +4,16 @@
 
 package view.panelelements;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class TurtleElement extends PanelElement {
+	
+	List<ImageView> stamps = new ArrayList<ImageView>();
 	
 	public TurtleElement(Node node, String name) {
 		super(node, name);
@@ -21,6 +27,22 @@ public class TurtleElement extends PanelElement {
 	public void moveTurtleImage(double x, double y) {
 		myNode.setTranslateX(x);
 		myNode.setTranslateY(y);
+	}
+	
+	public void stamp(double x, double y) {
+		Double currentWidth = ((ImageView) myNode).getFitWidth();
+		Double currentHeight = ((ImageView) myNode).getFitHeight();
+		Image currentImage = ((ImageView) myNode).getImage();
+		ImageView stampNode = new ImageView(currentImage);
+		stampNode.setFitWidth(currentWidth);
+		stampNode.setFitHeight(currentHeight);
+		stampNode.setTranslateX(x);
+		stampNode.setTranslateY(y);
+		stamps.add(stampNode);
+	}
+	
+	public void clearStamps() {
+		stamps.clear();
 	}
 	
 	/**

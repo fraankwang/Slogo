@@ -161,13 +161,13 @@ public class ModelTransformer {
 	public void transformTurtleGraphics(TurtlePlayground turtlePlayground) {
 		myController.setBackgroundColor(turtlePlayground.getMyBackgroundColor());
 		Turtle turtle = turtlePlayground.getCurrentTurtle();
-
+		
 		GraphicsContext turtlegraphics = myController.getMyView().getMyTurtleGraphics();
 		turtlegraphics.setFill(turtle.getPenColor());
 		turtlegraphics.setStroke(turtle.getPenColor());
 		turtlegraphics.setLineWidth(turtle.getPenWidth());
 
-		updateTurtleGraphicsPosition(turtlegraphics, turtle);
+		updateTurtleGraphicsPosition(turtlegraphics, turtlePlayground);
 
 	}
 
@@ -175,8 +175,11 @@ public class ModelTransformer {
 	 * Updates where the turtle (or turtles) has drawn and corresponding
 	 * PanelElement
 	 */
-	private void updateTurtleGraphicsPosition(GraphicsContext gc, Turtle turtle) {
+	private void updateTurtleGraphicsPosition(GraphicsContext gc, TurtlePlayground playground) {
+		
+		Turtle turtle = playground.getCurrentTurtle();
 		LinkedList<TurtleCoordinates> coordinates = turtle.getCoordinates();
+		List<TurtleCoordinates> stampCoordinates = playground.getStampCoordinates();
 		Double orientation = turtle.getOrientation();
 		myTurtleElement.setTurtleOrientation(orientation);
 
@@ -187,6 +190,12 @@ public class ModelTransformer {
 			double newX = CENTER_X_COORDINATE + coordinate.getXCoord();
 			double newY = CENTER_Y_COORDINATE + (-1 * coordinate.getYCoord());
 
+			if (stampCoordinates.contains(coordinate)) {
+				double stampX = CENTER_X_COORDINATE + coordinate.getXCoord();
+				double stampY = CENTER_Y_COORDINATE + (-1 * coordinate.getYCoord());
+				myTurtleElement.stamp(stampX, stampY);
+			}
+			
 			if (turtle.isPenDown()) {
 				gc.strokeLine(currentX, currentY, newX, newY);
 			}
@@ -198,6 +207,11 @@ public class ModelTransformer {
 			currentY = newY;
 
 		}
+		
+		if (playground.getStampCoordinates().isEmpty()) {
+			myTurtleElement.clearStamps();
+		}
+		
 
 	}
 
