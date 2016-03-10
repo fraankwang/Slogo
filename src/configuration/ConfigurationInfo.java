@@ -5,6 +5,7 @@
 package configuration;
 
 import javafx.scene.paint.Color;
+import model.Palette;
 import model.UserCommands;
 import model.Variables;
 
@@ -16,6 +17,7 @@ public class ConfigurationInfo {
 	private String myLanguage;
 	private Variables myVariables;
 	private UserCommands myCommands;
+	private Palette myPalette;
 
 	/**
 	 * This class solely exists to hold the necessary configuration information
@@ -72,4 +74,11 @@ public class ConfigurationInfo {
 		this.myCommands = commands;
 	}
 
+	public void setMyPalette(Palette palette) {
+		myPalette = palette;
+	}
+	
+	public Palette getMyPalette() {
+		return myPalette;
+	}
 }

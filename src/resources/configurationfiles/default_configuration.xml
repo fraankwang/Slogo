@@ -3,6 +3,24 @@
 	<backgroundcolor>0xffffffff</backgroundcolor>
 	<language>English</language>
 	<penwidth>4.0</penwidth>
+	<palette>
+		<color>
+			<index>0</index>
+			<colorvalue>0xffffffff</colorvalue>
+		</color>
+		<color>
+			<index>1</index>
+			<colorvalue>000000ff</colorvalue>
+		</color>
+		<shape>
+			<index>0</index>
+			<shape>basic</shape>
+		</shape>
+		<shape>
+			<index>1</index>
+			<shape>duvall</shape>
+		</shape>
+	</palette>
 	<variables>
 		<var>
 			<key>:x</key>

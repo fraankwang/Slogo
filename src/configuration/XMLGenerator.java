@@ -15,6 +15,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import constants.Constants;
+import javafx.scene.paint.Color;
+import model.Palette;
 import model.UserCommands;
 import model.Variables;
 
@@ -31,27 +33,13 @@ public class XMLGenerator {
 			Element root = doc.createElement("root");
 			doc.appendChild(root);
 
-			Element penColor = doc.createElement("pencolor");
-			Node penColorNode = doc.createTextNode(configInfo.getMyPenColor().toString());
-			penColor.appendChild(penColorNode);
-			root.appendChild(penColor);
-
-			Element backgroundColor = doc.createElement("backgroundcolor");
-			Node backgroundColorNode = doc.createTextNode(configInfo.getMyBackgroundColor().toString());
-			backgroundColor.appendChild(backgroundColorNode);
-			root.appendChild(backgroundColor);
-
-			Element penWidth = doc.createElement("penwidth");
-			Node penWidthNode = doc.createTextNode(Double.toString(configInfo.getMyPenWidth()));
-			penWidth.appendChild(penWidthNode);
-			root.appendChild(penWidth);
-
-			Element language = doc.createElement("language");
-			Node languageNode = doc.createTextNode(configInfo.getMyLanguage());
-			language.appendChild(languageNode);
-			root.appendChild(language);
+			root.appendChild(translatePenColor(doc, configInfo.getMyPenColor().toString()));
+			root.appendChild(translateBackgroundColor(doc, configInfo.getMyBackgroundColor().toString()));
+			root.appendChild(translatePenWidth(doc, Double.toString(configInfo.getMyPenWidth())));
+			root.appendChild(translateLanguage(doc, configInfo.getMyLanguage()));
 			root.appendChild(translateVariables(doc, configInfo.getMyVariables()));
 			root.appendChild(translateCommands(doc, configInfo.getMyCommands()));
+			root.appendChild(translatePalette(doc, configInfo.getMyPalette()));
 
 			TransformerFactory transfac = TransformerFactory.newInstance();
 			Transformer trans = transfac.newTransformer();
@@ -81,7 +69,63 @@ public class XMLGenerator {
 	}
 
 	/**
-	 * Helper method to convert Variables object to XML
+	 * Helper method to translate pen color to XML Element
+	 * 
+	 * @param doc
+	 * @param penColor
+	 * @return
+	 */
+	private Element translatePenColor(Document doc, String penColor) {
+		Element penColorElement = doc.createElement("pencolor");
+		Node penColorNode = doc.createTextNode(penColor);
+		penColorElement.appendChild(penColorNode);
+		return penColorElement;
+	}
+
+	/**
+	 * Helper method to translate background color to XML Element
+	 * 
+	 * @param doc
+	 * @param penColor
+	 * @return
+	 */
+	private Node translateBackgroundColor(Document doc, String backgroundColor) {
+		Element backgroundColorElement = doc.createElement("backgroundcolor");
+		Node backgroundColorNode = doc.createTextNode(backgroundColor);
+		backgroundColorElement.appendChild(backgroundColorNode);
+		return backgroundColorElement;
+	}
+
+	/**
+	 * Helper method to translate pen width to XML Element
+	 * 
+	 * @param doc
+	 * @param penColor
+	 * @return
+	 */
+	private Element translatePenWidth(Document doc, String penWidth) {
+		Element penWidthElement = doc.createElement("penwidth");
+		Node penWidthNode = doc.createTextNode(penWidth);
+		penWidthElement.appendChild(penWidthNode);
+		return penWidthElement;
+	}
+
+	/**
+	 * Helper method to translate language to XML Element
+	 * 
+	 * @param doc
+	 * @param penColor
+	 * @return
+	 */
+	private Node translateLanguage(Document doc, String language) {
+		Element languageElement = doc.createElement("language");
+		Node languageNode = doc.createTextNode(language);
+		languageElement.appendChild(languageNode);
+		return languageElement;
+	}
+
+	/**
+	 * Helper method to convert Variables object to XML Element
 	 * 
 	 * @param doc
 	 * @param variables
@@ -111,7 +155,7 @@ public class XMLGenerator {
 	}
 
 	/**
-	 * Helper method to convert UserCommands object to XML
+	 * Helper method to convert UserCommands object to XML Element
 	 * 
 	 * @param doc
 	 * @param variables
@@ -148,6 +192,55 @@ public class XMLGenerator {
 		}
 
 		return myCommands;
+	}
+
+	/**
+	 * Helper method to convert Palette object to XML Element
+	 * 
+	 * @param doc
+	 * @param variables
+	 * @return
+	 */
+	private Element translatePalette(Document doc, Palette myPalette) {
+		Element paletteElement = doc.createElement("palette");
+		Map<Integer, String> shapeMap = myPalette.getPaletteShapeMap();
+		Map<Integer, Color> colorMap = myPalette.getPaletteColorMap();
+
+		for (Integer i : colorMap.keySet()) {
+			Element colorElem = doc.createElement("shap");
+
+			Element colorIndex = doc.createElement("index");
+			Node indexValue = doc.createTextNode(Integer.toString(i));
+			colorIndex.appendChild(indexValue);
+
+			Element colorValue = doc.createElement("colorvalue");
+			Node colorValueValue = doc.createTextNode(colorMap.get(i).toString());
+			colorValue.appendChild(colorValueValue);
+
+			colorElem.appendChild(colorIndex);
+			colorElem.appendChild(colorValue);
+			paletteElement.appendChild(colorElem);
+
+		}
+
+		for (Integer i : shapeMap.keySet()) {
+			Element shapeElem = doc.createElement("shape");
+
+			Element shapeIndex = doc.createElement("index");
+			Node indexValue = doc.createTextNode(Integer.toString(i));
+			shapeIndex.appendChild(indexValue);
+
+			Element shapeValue = doc.createElement("shape");
+			Node shapeValueValue = doc.createTextNode(colorMap.get(i).toString());
+			shapeValue.appendChild(shapeValueValue);
+
+			shapeElem.appendChild(shapeIndex);
+			shapeElem.appendChild(shapeValue);
+			paletteElement.appendChild(shapeElem);
+
+		}
+
+		return paletteElement;
 	}
 
 }

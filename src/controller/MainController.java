@@ -112,7 +112,8 @@ public class MainController {
 		myModel.getMyPlayground().getCurrentTurtle().setPenWidth(configInfo.getMyPenWidth());
 		myModel.setMyVariables(configInfo.getMyVariables());
 		myModel.setMyUserCommands(configInfo.getMyCommands());
-
+		myModel.setMyPalette(configInfo.getMyPalette());
+		System.out.println(myModel.getPaletteMap());
 	}
 
 	/**
@@ -128,6 +129,7 @@ public class MainController {
 		configInfo.setMyBackgroundColor(myModel.getMyPlayground().getMyBackgroundColor());
 		configInfo.setMyPenColor(myModel.getMyPlayground().getCurrentPenColor());
 		configInfo.setMyPenWidth(myModel.getMyPlayground().getCurrentTurtle().getPenWidth());
+		configInfo.setMyPalette(myModel.getPalette());
 		return configInfo;
 		
 	}

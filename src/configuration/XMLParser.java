@@ -13,6 +13,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import javafx.scene.paint.Color;
+import model.Palette;
 import model.UserCommands;
 import model.Variables;
 
@@ -60,6 +61,10 @@ public class XMLParser {
 					else if (elem.getNodeName().equalsIgnoreCase("usercommands")) {
 						configInfo.setMyCommands(parseCommands(elem));
 					}
+					
+					else if (elem.getNodeName().equalsIgnoreCase("palette")) {
+						configInfo.setMyPalette(parsePaletteColors(elem));
+					}
 				}
 			}
 
@@ -70,6 +75,7 @@ public class XMLParser {
 		return configInfo;
 
 	}
+
 
 	/**
 	 * Helper method to parse Variables (nested elements)
@@ -155,5 +161,55 @@ public class XMLParser {
 
 		return userCommands;
 	}
+	
+	private Palette parsePaletteColors(Node elem) {
+		Palette palette = new Palette();
+		NodeList paletteElems = elem.getChildNodes();
+		
+		for (int i = 0; i < paletteElems.getLength(); i++) {
+			Node item = paletteElems.item(i);
+			if (item.getNodeType() == Node.ELEMENT_NODE) {
+				
+				if (item.getNodeName().equalsIgnoreCase("color")) {
+					int index = 0;
+					Color color = null;
+					for (int j = 0; j < item.getChildNodes().getLength(); j++) {
+						Node colorItem = item.getChildNodes().item(j);
+								
+						if (colorItem.getNodeType() == Node.ELEMENT_NODE) {
+							if (colorItem.getNodeName().equalsIgnoreCase("index")) {
+								index = Integer.parseInt(colorItem.getTextContent().trim());
+							}
+							if (colorItem.getNodeName().equalsIgnoreCase("colorvalue")) {
+								color = Color.valueOf(colorItem.getTextContent().trim());
+							}
+						}
+					}
+					palette.addColor(index, color);
+				}
+				
+				else if (item.getNodeName().equalsIgnoreCase("shape")) {
+					int index = 0;
+					String shape = "";
+					for (int j = 0; j < item.getChildNodes().getLength(); j++) {
+						Node shapeItem = item.getChildNodes().item(j);
+								
+						if (shapeItem.getNodeType() == Node.ELEMENT_NODE) {
+							if (shapeItem.getNodeName().equalsIgnoreCase("index")) {
+								index = Integer.parseInt(shapeItem.getTextContent().trim());
+							}
+							if (shapeItem.getNodeName().equalsIgnoreCase("shape")) {
+								shape = shapeItem.getTextContent().trim();
+							}
+						}
+					}
+					palette.addShape(index, shape);
+				}
+			}
+		}
+		
+		return palette;
+	}
+
 
 }
