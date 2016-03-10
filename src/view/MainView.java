@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import constants.Constants;
 import controller.MainController;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -15,13 +16,17 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -42,10 +47,11 @@ public class MainView {
 	private Scene myPrimaryScene;
 	private Scene myHelpScene;
 	private MainController myController;
-	private Group myPrimaryRoot;
+	private AnchorPane myPrimaryRoot;
 	private Group myBasicHelpRoot;
 	private Group myAdvancedHelpRoot;
 	private BorderPane myPrimaryPane;
+	private TabPane myTabPane;
 
 	private PanelElementFactory myPanelElementFactory;
 	private MenuBarFactory myMenuBarFactory;
@@ -119,11 +125,30 @@ public class MainView {
 	 * displayed. PanelElements are created once using the factory
 	 */
 	private void initializePrimaryRoot() {
-		Group root = new Group();
+		AnchorPane root = new AnchorPane();
 		root.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
 		myPrimaryPane = new BorderPane();
-		root.getChildren().add(myPrimaryPane);
+		
+		Button newTabButton = new Button("+");
+		AnchorPane.setRightAnchor(newTabButton, 5.0);
+		
+		
+		TabPane workspaces = new TabPane();
+		Tab tab = new Tab();
+		tab.setText("Main Workspace");
+		tab.setContent(myPrimaryPane);
+		workspaces.getTabs().add(tab);
+		
+		newTabButton.setOnAction(new EventHandler<ActionEvent>(){
+			@Override
+			public void handle(ActionEvent event){
+				int newTabIndex = workspaces.getTabs().size() + 1;
+				myController.makeNewWorkspace(newTabIndex);
+			}
+		});
+		
+		root.getChildren().addAll(workspaces, newTabButton);
 
 		myPanelElementFactory = new PanelElementFactory(myController);
 		myMenuBarFactory = new MenuBarFactory(myController, myPrimaryStage);
@@ -132,15 +157,18 @@ public class MainView {
 		VBox rightColumn = myPanelElementFactory.createRightColumn();
 
 		initializePanelElements();
+		
 
 		MenuBar menuBar = myMenuBarFactory.createMenuBar();
 		myPrimaryPane.setTop(menuBar);
 		myPrimaryPane.setLeft(leftColumn);
 		myPrimaryPane.setRight(rightColumn);
 
+		myTabPane = workspaces;
 		myPrimaryRoot = root;
 
 	}
+
 
 	/**
 	 * Utilizes factory to initialize PanelElements
@@ -242,7 +270,6 @@ public class MainView {
 		viewableElements.add(myColorsElement);
 		viewableElements.add(myTurtleInfoElement);
 		return viewableElements;
-
 	}
 
 	public void setMyPrimaryStage(Stage myPrimaryStage) {
@@ -265,7 +292,7 @@ public class MainView {
 		myTurtleBackground.setBackground(new Background(new BackgroundFill(color, Constants.CORNER_RADIUS, null)));
 	}
 
-	public Group getMyPrimaryRoot() {
+	public AnchorPane getMyPrimaryRoot() {
 		return myPrimaryRoot;
 	}
 
@@ -275,6 +302,10 @@ public class MainView {
 
 	public Group getMyAdvancedHelpRoot() {
 		return myAdvancedHelpRoot;
+	}
+
+	public TabPane getMyTabPane() {
+		return myTabPane;
 	}
 
 }
