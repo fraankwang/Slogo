@@ -108,11 +108,27 @@ public class MainController {
 		myTransformer.setLanguage(configInfo.getMyLanguage());
 		myModel.getMyPlayground().setCurrentPenColor(configInfo.getMyPenColor());
 		myModel.getMyPlayground().setBackgroundColor(configInfo.getMyBackgroundColor());
-		myModel.getMyPlayground().getCurrentTurtle().setPenSize(configInfo.getMyPenWidth());
+		myModel.getMyPlayground().getCurrentTurtle().setPenWidth(configInfo.getMyPenWidth());
 		myModel.setMyVariables(configInfo.getMyVariables());
 		myModel.setMyUserCommands(configInfo.getMyCommands());
 		
 	}
+	
+	/**
+	 * Gathers all necessary information to be passed to XML generator
+	 * @return
+	 */
+	public ConfigurationInfo gatherConfigurationInfo() {
+		ConfigurationInfo configInfo = new ConfigurationInfo();
+		configInfo.setMyVariables(myModel.getMyVariables());
+		configInfo.setMyCommands(myModel.getMyUserCommands());
+		configInfo.setMyLanguage(myModel.getLanguage());
+		configInfo.setMyBackgroundColor(myModel.getMyPlayground().getMyBackgroundColor());
+		configInfo.setMyPenColor(myModel.getMyPlayground().getCurrentPenColor());
+		configInfo.setMyPenWidth(myModel.getMyPlayground().getCurrentTurtle().getPenWidth());
+		return configInfo;
+	}
+
 
 	/**
 	 * Deletes stored previously run commands and moves turtle position back to
@@ -191,6 +207,7 @@ public class MainController {
 	public void setPrimaryPane() {
 		myView.showPrimaryScene();
 	}
+
 
 
 }

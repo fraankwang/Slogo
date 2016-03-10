@@ -47,11 +47,11 @@ public class Turtle {
 	// Getters and Setters
 	// =========================================================================
 
-	public void setPenSize(Double size) {
+	public void setPenWidth(Double size) {
 		myPenSize = size;
 	}
 
-	public Double getPenSize() {
+	public Double getPenWidth() {
 		return myPenSize;
 	}
 	public void setTurtleShape(String shape) {

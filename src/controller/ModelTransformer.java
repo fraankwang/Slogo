@@ -11,6 +11,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.paint.Color;
 import model.UserCommands;
+import model.Variables;
 import model.turtle.Turtle;
 import model.turtle.TurtleCoordinates;
 import model.turtle.TurtlePlayground;
@@ -79,7 +80,8 @@ public class ModelTransformer {
 	 * 
 	 * @param variables
 	 */
-	public void transformVariablesElement(Map<String, Double> variables) {
+	public void transformVariablesElement(Variables myVariables) {
+		Map<String, Double> variables = myVariables.getVariableMap();
 		VariablesElement variablesElement = (VariablesElement) myController.getMyView().getMyVariablesElement();
 		ListView<String> variablesNames = variablesElement.getNamesListView();
 		ListView<String> variablesValues = variablesElement.getValuesListView();
@@ -163,7 +165,7 @@ public class ModelTransformer {
 		GraphicsContext turtlegraphics = myController.getMyView().getMyTurtleGraphics();
 		turtlegraphics.setFill(turtle.getPenColor());
 		turtlegraphics.setStroke(turtle.getPenColor());
-		turtlegraphics.setLineWidth(turtle.getPenSize());
+		turtlegraphics.setLineWidth(turtle.getPenWidth());
 
 		updateTurtleGraphicsPosition(turtlegraphics, turtle);
 

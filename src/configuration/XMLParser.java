@@ -1,3 +1,7 @@
+/**
+ * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
+ */
+
 package configuration;
 
 import java.io.File;

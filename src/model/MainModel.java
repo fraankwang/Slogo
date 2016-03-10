@@ -95,8 +95,8 @@ public class MainModel {
 		return myHistory.getHistory();
 	}
 
-	public Map<String, Double> getMyVariables() {
-		return myVariables.getVariableMap();
+	public Variables getMyVariables() {
+		return myVariables;
 	}
 	
 	public void setMyVariables(Variables variables) {
