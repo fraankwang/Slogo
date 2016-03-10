@@ -211,7 +211,7 @@ public class PanelElementFactory {
 		myTurtleBackground = new TurtleBackground(myTurtleWrapper,
 				Constants.getSpecification("TurtleBackgroundElementName"));
 		myTurtleBackground.setGraphics(myTurtlePlayground.getGraphicsContext2D());
-
+		
 		return myTurtleBackground;
 
 	}
@@ -226,10 +226,8 @@ public class PanelElementFactory {
 				new Image(getClass().getClassLoader().getResourceAsStream(Constants.getDefaultTurtleImageFileName())));
 		turtleImage.setFitWidth(Constants.TURTLE_ELEMENT_WIDTH);
 		turtleImage.setFitHeight(Constants.TURTLE_ELEMENT_HEIGHT);
-
 		TurtleElement turtleElement = new TurtleElement(turtleImage, Constants.getSpecification("TurtleElementName"));
 
-		// turtleElement.getNode().getStyleClass().add("turtle-element");
 		return turtleElement;
 
 	}

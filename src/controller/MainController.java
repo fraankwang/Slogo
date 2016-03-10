@@ -113,7 +113,7 @@ public class MainController {
 		myModel.setMyVariables(configInfo.getMyVariables());
 		myModel.setMyUserCommands(configInfo.getMyCommands());
 		myModel.setMyPalette(configInfo.getMyPalette());
-		System.out.println(myModel.getPaletteMap());
+
 	}
 
 	/**

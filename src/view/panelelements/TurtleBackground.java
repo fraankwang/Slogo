@@ -25,12 +25,4 @@ public class TurtleBackground extends PanelElement {
 		return myTurtleGraphics;
 	}
 
-//	public void setTurtleElement(TurtleElement turtleElement) {
-//		myTurtleElement = turtleElement;
-//		
-//	}
-//
-//	public TurtleElement getTurtleElement() {
-//		return myTurtleElement;
-//	}
 }
