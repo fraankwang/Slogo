@@ -112,7 +112,7 @@ public class MenuBarFactory {
 				File chosenFile = chooser.showOpenDialog(myPrimaryStage);
 				
 				ConfigurationInfo configInfo = parser.parse(chosenFile);
-//				myController.updateConfiguration(configInfo);
+				myController.updateConfiguration(configInfo);
 				myController.refreshDisplay();
 			}
 		});
