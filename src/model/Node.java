@@ -49,10 +49,10 @@ public class Node {
 		int closecount = 0;
 		while (true) {
 
-			if (isNext(queue, Constants.OPEN_BRACKET)) {
+			if (nextIs(queue, Constants.OPEN_BRACKET)) {
 				opencount++;
 			}
-			if (isNext(queue, Constants.CLOSE_BRACKET)) {
+			if (nextIs(queue, Constants.CLOSE_BRACKET)) {
 				closecount++;
 				if (closecount == opencount) {
 					break;
@@ -78,7 +78,7 @@ public class Node {
 		getChildren().add(node);
 	}
 
-	public boolean isNext(Queue<String> queue, String string) {
+	public boolean nextIs(Queue<String> queue, String string) {
 		return queue.peek().equals(string);
 	}
 

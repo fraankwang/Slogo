@@ -44,7 +44,11 @@ public class Constants {
 	public static final String WHITESPACE = "\\n";
 	public static final String SPACE = " ";
 	public static final String TOO_MANY_PARAMETERS_ERROR = "Too many parameters";
-	public static final String SYNTAX_ERROR = "Incorrect command syntax";
+	public static final String SYNTAX_ERROR = "Incorrect command syntax";	
+	public static final String USER_PARAM_ERROR = "Couldn't make user command";
+	public static String parsingError(String s){
+		return String.format("Could not parse command %s", s);
+	}
 	
 
 	public static final Color DEFAULT_PEN_COLOR = Color.BLACK;
@@ -109,6 +113,8 @@ public class Constants {
 	public static final double ELEMENT_INSET_VERTICAL = 0;
 
 	public static final double DEFAULT_VARIABLE_VALUE = 0;
+
+
 
 
 	public static String getSpecification(String name) {

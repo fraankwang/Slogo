@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import constants.Constants;
 import model.UserCommands;
 import model.Variables;
 import model.turtle.Turtle;
@@ -18,9 +19,9 @@ public class Ask extends TurtleCommandsTwoStringParams {
 	}
 
 	@Override
-	public double rule() {
-		List<Turtle> activeTurtles = new ArrayList<Turtle>( playground.getActiveTurtles());
-		
+	public double rule() throws Exception {
+		List<Turtle> activeTurtles = new ArrayList<Turtle>(playground.getActiveTurtles());
+
 		playground.clearActiveTurtles();
 		double returnvalue = 0;
 		for (String s : Arrays.asList(params.split(" "))) {
@@ -28,11 +29,11 @@ public class Ask extends TurtleCommandsTwoStringParams {
 			playground.getActiveTurtles().add(playground.getTurtle(Integer.parseInt(s)));
 		}
 		try {
-			 returnvalue = myCommandParser.parseCommands(commands);
-			
+			returnvalue = myCommandParser.parseCommands(commands);
+
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new Exception(Constants.parsingError(commands));
+
 		}
 		playground.clearActiveTurtles();
 		playground.getActiveTurtles().addAll(activeTurtles);

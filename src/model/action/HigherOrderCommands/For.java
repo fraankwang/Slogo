@@ -28,7 +28,7 @@ public class For extends ControlStructures {
 			end = myCommandParser.parseCommands(paramsArr[2]);
 			increment = myCommandParser.parseCommands(paramsArr[3]);
 		} catch (Exception e) {
-			e.printStackTrace();
+
 		}
 
 		commands = params.get(1);
@@ -46,8 +46,7 @@ public class For extends ControlStructures {
 
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		
 		}
 		return curr;
 	}

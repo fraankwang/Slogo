@@ -6,6 +6,7 @@ package model.action.HigherOrderCommands;
 
 import java.util.List;
 
+import constants.Constants;
 import model.UserCommands;
 import model.Variables;
 import model.turtle.TurtlePlayground;
@@ -24,29 +25,25 @@ public class Ifelse extends HigherOrderCommands {
 	}
 
 	@Override
-	public double rule() {
-
+	public double rule() throws Exception {
 		try {
 			if (myCommandParser.parseCommands(expr).intValue() != 0) {
 				try {
 					return myCommandParser.parseCommands(command1);
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					throw new Exception(Constants.parsingError(command1));
 				}
 			} else {
 				try {
 					return myCommandParser.parseCommands(command2);
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					throw new Exception(Constants.parsingError(command2));
 				}
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new Exception(Constants.parsingError(expr));
 		}
-		return 0;
 	}
 
 }
