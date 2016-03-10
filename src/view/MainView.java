@@ -273,17 +273,7 @@ public class MainView {
 	}
 
 	public List<PanelElement> getViewableElements() {
-		
-		List<PanelElement> viewableElements = new ArrayList<PanelElement>();
-		viewableElements.add(myVariablesElement);
-		viewableElements.add(myCommandsElement);
-		viewableElements.add(myHistoryElement);
-		viewableElements.add(myOutputElement);
-		viewableElements.add(myTurtleBackground);
-		viewableElements.add(myTurtleElement);
-		viewableElements.add(myColorsElement);
-		viewableElements.add(myTurtleInfoElement);
-		return viewableElements;
+		return myActiveWorkspace.getViewableElements();
 	}
 
 	public void setMyPrimaryStage(Stage myPrimaryStage) {
