@@ -72,7 +72,11 @@ public class MainModel {
 
 	public void setLanguage(String language) {
 		myLanguage = language;
-		myParser = new CommandParser(myLanguage, myPlayground, myVariables, myUserCommands);
+		updateParser();
+	}
+
+	private void updateParser() {
+		myParser = new CommandParser(myLanguage, myPlayground, myVariables, myUserCommands, myPalette);
 	}
 
 	public String getLanguage() {
@@ -98,25 +102,29 @@ public class MainModel {
 	public Variables getMyVariables() {
 		return myVariables;
 	}
-	
+
 	public void setMyVariables(Variables variables) {
 		myVariables = variables;
+		updateParser();
 	}
 
 	public UserCommands getMyUserCommands() {
 		return myUserCommands;
 	}
-	
+
 	public void setMyUserCommands(UserCommands commands) {
 		myUserCommands = commands;
+		updateParser();
 	}
 
 	public void replaceVariable(String oldVar, String newVar) {
 		myVariables.replaceVariable(oldVar, newVar);
+		updateParser();
 	}
 
 	public void replaceVariableValue(String name, String newVal) {
 		myVariables.replaceVariableValue(name, newVal);
+		updateParser();
 	}
 
 	public Palette getPalette() {
@@ -129,7 +137,7 @@ public class MainModel {
 
 	public void setMyPalette(Palette palette) {
 		myPalette = palette;
+		updateParser();
 	}
-
 
 }
