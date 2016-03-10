@@ -407,8 +407,10 @@ public class PanelElementFactory {
 		commandsListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				myTextArea.setText(commandsListView.getSelectionModel().getSelectedItem());
-				// myController.executeCommand(myTextArea.getText());
+				if (commandsListView.getSelectionModel().getSelectedItem().length() != 0) {
+					myTextArea.setText(commandsListView.getSelectionModel().getSelectedItem());
+					// myController.executeCommand(myTextArea.getText());					
+				}
 			}
 		});
 
