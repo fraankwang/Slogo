@@ -56,8 +56,6 @@ public class MainModel {
 	 */
 	public void readCommand(String input) {
 		System.out.println("command read: " + input);
-		System.out.println(myVariables.getVariableMap());
-		System.out.println(myParser.getVariableList().getVariableMap());
 		try {
 			myOutputs.add(myParser.parseCommands(input).toString());
 			myHistory.add(input);
