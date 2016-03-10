@@ -23,7 +23,7 @@ public class AskWith extends TurtleCommandsTwoStringParams {
 		double returnvalue = 0;
 		for (Turtle turtle : playground.getTurtleList()) {
 			playground.clearActiveTurtles();
-			playground.getActiveTurtles().add(turtle);
+			playground.setCurrentTurtle(turtle);
 			try {
 				if (myCommandParser.parseCommands(params).intValue() != 0) {
 					turtleList.add(turtle);

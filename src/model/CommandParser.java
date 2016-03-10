@@ -256,11 +256,12 @@ public class CommandParser {
 				break;
 			case "CONTROL_STRUCTURES":
 			case "HIGHER_ORDERSTRUCTURE":
+			case "TURTLE_TWOSTRINGPARAMS":
 				finalaction = (Action) constructor.newInstance(addStringParams(node), myLanguage, myPlayground,
 						myVariables, myUserCommands);
 				break;
 			case "TURTLE_ONESTRINGPARAM":
-			case "TURTLE_TWOSTRINGPARAMS":
+			
 				finalaction = (Action) constructor.newInstance(addStringParams(node), myPlayground);
 				break;
 			case "TURTLE_DISPLAY_NOPARAMS":
