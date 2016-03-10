@@ -38,7 +38,7 @@ public class Turtle {
 		myPenColor=Constants.DEFAULT_PEN_COLOR;
 		myPenSize=Constants.DEFAULT_TURTLE_PEN_WIDTH;
 		myTurtleShape="basic";
-		turtleCoordinate = new TurtleCoordinates(xCoord, yCoord, penDown);
+		turtleCoordinate = new TurtleCoordinates(xCoord, yCoord, penDown, myPenColor, myPenSize);
 		turtleCoordinates = new LinkedList<TurtleCoordinates>();
 		this.turtleID = turtleID;
 	}

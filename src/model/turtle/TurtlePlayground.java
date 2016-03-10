@@ -196,7 +196,7 @@ public class TurtlePlayground {
 	public Double placeTurtle(Double xCoordinate, Double yCoordinate) {
 		Double returnVal = 0.0;
 		for (Turtle turtle : getActiveTurtles()) {
-			TurtleCoordinates coordinate = new TurtleCoordinates(xCoordinate, yCoordinate, turtle.getPenDown());
+			TurtleCoordinates coordinate = new TurtleCoordinates(xCoordinate, yCoordinate, turtle.getPenDown(), turtle.getPenColor(), turtle.getPenSize());
 			setCurrentTurtle(turtle);
 			Double distance = getDistance(myCurrentTurtle.getCoordinate(), coordinate);
 			returnVal = distance;
@@ -220,7 +220,7 @@ public class TurtlePlayground {
 					+ (pixels * Math.sin(Math.toRadians(myCurrentTurtle.getOrientation())));
 			Double yCoord = myCurrentTurtle.getCoordinate().getYCoord()
 					+ (pixels * Math.cos(Math.toRadians(myCurrentTurtle.getOrientation())));
-			TurtleCoordinates coordinate = new TurtleCoordinates(xCoord, yCoord, turtle.getPenDown());
+			TurtleCoordinates coordinate = new TurtleCoordinates(xCoord, yCoord, turtle.getPenDown(), turtle.getPenColor(), turtle.getPenSize());
 
 			setTurtleCoordinates(coordinate, Math.abs(pixels));
 		}
@@ -249,7 +249,7 @@ public class TurtlePlayground {
 		for (Turtle turtle : getActiveTurtles()) {
 			setCurrentTurtle(turtle);
 			myCurrentTurtle.setOrientation(0.0);
-			TurtleCoordinates coordinate = new TurtleCoordinates(0.0, 0.0, turtle.getPenDown());
+			TurtleCoordinates coordinate = new TurtleCoordinates(0.0, 0.0, turtle.getPenDown(), turtle.getPenColor(), turtle.getPenSize());
 			returnVal = placeTurtle(coordinate);
 
 		}
