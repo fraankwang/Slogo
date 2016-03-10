@@ -213,7 +213,7 @@ public class CommandParser {
 	 *
 	 */
 	private Double parseUserCommands(Node node) throws Exception {
-		Variables variablesCopy = new Variables(myVariables.getVariableMap());
+		Map<String, Double> variablesCopy = new HashMap<String,Double>(myVariables.getVariableMap());
 
 		Iterator<Node> iter = node.getChildren().iterator();
 		for (String string : myUserCommands.getCommandParams(node.getData())) {
@@ -223,7 +223,7 @@ public class CommandParser {
 
 		}
 		Double returnValue = parseCommands(myUserCommands.getCommand(node.getData()));
-		myVariables = variablesCopy;
+		myVariables.setVariableMap(variablesCopy);
 		return returnValue;
 	}
 
@@ -261,7 +261,7 @@ public class CommandParser {
 						myVariables, myUserCommands);
 				break;
 			case "TURTLE_ONESTRINGPARAM":
-			
+
 				finalaction = (Action) constructor.newInstance(addStringParams(node), myPlayground);
 				break;
 			case "TURTLE_DISPLAY_NOPARAMS":
