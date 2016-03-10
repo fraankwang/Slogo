@@ -19,10 +19,10 @@ public class Palette {
 	}
 
 	private void initShapeMap() {
-		for (int i=1; i<4;i++){
+		for (int i = 1; i < 4; i++) {
 			addShape(i, Constants.getShapeMap(i));
 		}
-		
+
 	}
 
 	public void addColor(int index, Color color) {
@@ -50,16 +50,20 @@ public class Palette {
 		return shapeMap.get(index);
 	}
 
-	public int getShapeIndex(String shape){
+	public int getShapeIndex(String shape) {
 		for (Entry<Integer, String> entry : shapeMap.entrySet()) {
-	        if (entry.getValue().equals(shape)) {
-	            return entry.getKey();
-	        }
-	    }
-	    return -1;
+			if (entry.getValue().equals(shape)) {
+				return entry.getKey();
+			}
+		}
+		return -1;
 	}
-	
-	public Map<Integer, Color> getPaletteMap(){
+
+	public Map<Integer, Color> getPaletteColorMap() {
 		return paletteMap;
+	}
+
+	public Map<Integer, String> getPaletteShapeMap() {
+		return shapeMap;
 	}
 }

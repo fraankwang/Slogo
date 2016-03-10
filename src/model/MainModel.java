@@ -124,7 +124,11 @@ public class MainModel {
 	}
 
 	public Map<Integer, Color> getPaletteMap() {
-		return myPalette.getPaletteMap();
+		return myPalette.getPaletteColorMap();
+	}
+
+	public void setMyPalette(Palette palette) {
+		myPalette = palette;
 	}
 
 
