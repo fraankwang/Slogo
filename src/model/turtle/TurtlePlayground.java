@@ -26,7 +26,8 @@ public class TurtlePlayground {
 	private double myWidth;
 	private double myHeight;
 	private Color myBackgroundColor = Constants.DEFAULT_BACKGROUND_COLOR;
-
+	
+	
 	public TurtlePlayground() {
 		myCurrentTurtle = new Turtle(1);
 		myTurtles = new ArrayList<Turtle>();

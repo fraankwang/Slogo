@@ -24,7 +24,6 @@ public class ClearScreen extends TurtleCommands {
 	 */
 	public ClearScreen(TurtlePlayground playground) {
 		super(playground);
-		playground = new TurtlePlayground();
 	}
 
 	/**
@@ -35,6 +34,7 @@ public class ClearScreen extends TurtleCommands {
 	public double rule() {
 		TurtleCoordinates home=new TurtleCoordinates(0.0,0.0);
 		Double difference = (double) playground.getDistance(playground.getCurrentTurtle().getCoordinate(), home);
+		playground = new TurtlePlayground();
 		return difference;
 	}
 
