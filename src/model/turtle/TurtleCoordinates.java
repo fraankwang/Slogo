@@ -4,6 +4,8 @@
 
 package model.turtle;
 
+import javafx.scene.paint.Color;
+
 /**
  * The TurtleCoordinates class represents a TurtleCoordinate object, which is
  * contained in the Turtle's LinkedList<TurtleCoordinates> turtleCoordinates. It
@@ -17,23 +19,43 @@ public class TurtleCoordinates {
 	private Double xCoord;
 	private Double yCoord;
 	private boolean penDown;
+	private Color color;
+	private Double penSize;
 
-	public TurtleCoordinates(Double xCoordinate, Double yCoordinate, boolean p) {
-		xCoord = xCoordinate;
-		yCoord = yCoordinate;
-		penDown = p;
-	}
+
 	
 	public TurtleCoordinates(Double xCoordinate, Double yCoordinate) {
 		xCoord = xCoordinate;
 		yCoord = yCoordinate;
 	}
 	
-
+	public TurtleCoordinates(Double xCoordinate, Double yCoordinate, boolean pen, Color newColor, Double newPenSize) {
+		this(xCoordinate,yCoordinate);
+		penDown = pen;
+		color=newColor;
+		penSize= newPenSize;
+	}
+	
 	// =========================================================================
 	// Getters and Setters
 	// =========================================================================
-
+	
+	public Color getColor(){
+		return color;
+	}
+	
+	public void setColor(Color newColor){
+		color=newColor;
+	}
+	
+	public Double getPenSize(){
+		return penSize;
+	}
+	
+	public void setPenSize(Double size){
+		penSize = size;
+	}
+	
 	public Double getXCoord() {
 		return xCoord;
 	}
