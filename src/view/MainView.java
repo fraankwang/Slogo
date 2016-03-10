@@ -5,7 +5,10 @@
 package view;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import constants.Constants;
 import controller.MainController;
 import javafx.event.ActionEvent;
@@ -50,6 +53,10 @@ public class MainView {
 	private AnchorPane myPrimaryRoot;
 	private Group myBasicHelpRoot;
 	private Group myAdvancedHelpRoot;
+	
+	private Workspace myActiveWorkspace;
+	private Map<Integer, Workspace> myWorkspaces;
+	
 	private BorderPane myPrimaryPane;
 	private TabPane myTabPane;
 
@@ -81,7 +88,7 @@ public class MainView {
 		initializeHelpRoots();
 
 		myController.setTurtleElement(getMyTurtleElement());
-
+//		myActiveWorkspace.setTurtleElement()
 		myPrimaryScene = new Scene(myPrimaryRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.WHITE);
 		myPrimaryScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
@@ -128,45 +135,51 @@ public class MainView {
 		AnchorPane root = new AnchorPane();
 		root.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
-		myPrimaryPane = new BorderPane();
+		myTabPane = new TabPane();
+		Tab initialTab = new Tab();
+		initialTab.setText("1");
+		myTabPane.getTabs().add(initialTab);
+		int tabIndex = myTabPane.getTabs().size();
+
+		//
+		myWorkspaces = new HashMap<Integer, Workspace>();
+		myActiveWorkspace = new Workspace(tabIndex, myController, myPrimaryStage);
+
+		initialTab.setContent(myActiveWorkspace.getPrimaryPane());
+//		tab.setContent(myPrimaryPane);
+
+//		myPanelElementFactory = new PanelElementFactory(myController);
+//		myMenuBarFactory = new MenuBarFactory(myController, myPrimaryStage);
+
+//		VBox leftColumn = myPanelElementFactory.createLeftColumn();
+//		VBox rightColumn = myPanelElementFactory.createRightColumn();
+//
+//		initializePanelElements();
 		
-		Button newTabButton = new Button("+");
+
+//		MenuBar menuBar = myMenuBarFactory.createMenuBar();
+//		myPrimaryPane.setTop(menuBar);
+//		myPrimaryPane.setLeft(leftColumn);
+//		myPrimaryPane.setRight(rightColumn);
+		
+		Button newTabButton = createNewTabButton();
 		AnchorPane.setRightAnchor(newTabButton, 5.0);
 		
-		
-		TabPane workspaces = new TabPane();
-		Tab tab = new Tab();
-		tab.setText("Main Workspace");
-		tab.setContent(myPrimaryPane);
-		workspaces.getTabs().add(tab);
-		
+		root.getChildren().addAll(myTabPane, newTabButton);
+		myPrimaryRoot = root;
+
+	}
+
+	private Button createNewTabButton() {
+		Button newTabButton = new Button("+");
 		newTabButton.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent event){
-				int newTabIndex = workspaces.getTabs().size() + 1;
+				int newTabIndex = myTabPane.getTabs().size() + 1;
 				myController.makeNewWorkspace(newTabIndex);
 			}
 		});
-		
-		root.getChildren().addAll(workspaces, newTabButton);
-
-		myPanelElementFactory = new PanelElementFactory(myController);
-		myMenuBarFactory = new MenuBarFactory(myController, myPrimaryStage);
-
-		VBox leftColumn = myPanelElementFactory.createLeftColumn();
-		VBox rightColumn = myPanelElementFactory.createRightColumn();
-
-		initializePanelElements();
-		
-
-		MenuBar menuBar = myMenuBarFactory.createMenuBar();
-		myPrimaryPane.setTop(menuBar);
-		myPrimaryPane.setLeft(leftColumn);
-		myPrimaryPane.setRight(rightColumn);
-
-		myTabPane = workspaces;
-		myPrimaryRoot = root;
-
+		return newTabButton;
 	}
 
 
@@ -260,6 +273,7 @@ public class MainView {
 	}
 
 	public List<PanelElement> getViewableElements() {
+		
 		List<PanelElement> viewableElements = new ArrayList<PanelElement>();
 		viewableElements.add(myVariablesElement);
 		viewableElements.add(myCommandsElement);
