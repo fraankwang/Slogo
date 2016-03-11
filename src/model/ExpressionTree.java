@@ -14,13 +14,6 @@ public class ExpressionTree {
 	}
 
 	/**
-	 * The parse() method parses the user inputted string initially by splitting
-	 * it up by its white spaces and returns a list of commands stored as a
-	 * Queue<String>
-	 *
-	 */
-
-	/**
 	 * The makeTree() method assembles a tree of nodes from the list of commands
 	 * stored as a Queue<String> which is returned by the parse() method.
 	 *

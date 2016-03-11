@@ -3,6 +3,7 @@ package model;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import constants.Constants;
 import model.action.Action;
@@ -30,7 +31,7 @@ public class ActionFactory {
 	 * 
 	 */
 
-	public Action makeAction(Node node, List<String> stringparams, List<Double> doubleparams) throws Exception {
+	public Action makeAction(Node node, List<String> stringparams) throws Exception {
 		try {
 			Class action = Class.forName(Constants.getAction(node.data));
 			Constructor constructor = action.getConstructors()[0];
@@ -43,14 +44,14 @@ public class ActionFactory {
 				break;
 			case "MATH_ONEPARAM":
 			case "MATH_TWOPARAMS":
-				finalaction = (Action) constructor.newInstance(doubleparams);
+				finalaction = (Action) constructor.newInstance(stringToDoubleParams(stringparams));
 				break;
 			case "TURTLE_NOCOMMANDS":
 				finalaction = (Action) constructor.newInstance(myPlayground);
 				break;
 			case "TURTLE_ONEPARAM":
 			case "TURTLE_TWOPARAMS":
-				finalaction = (Action) constructor.newInstance(doubleparams, myPlayground);
+				finalaction = (Action) constructor.newInstance(stringToDoubleParams(stringparams), myPlayground);
 				break;
 			case "CONTROL_STRUCTURES":
 			case "HIGHER_ORDERSTRUCTURE":
@@ -67,7 +68,8 @@ public class ActionFactory {
 				break;
 			case "TURTLE_DISPLAY_PARAMS":
 			case "TURTLE_DISPLAY_FOURPARAMS":
-				finalaction = (Action) constructor.newInstance(doubleparams, myPlayground, myPalette);
+				finalaction = (Action) constructor.newInstance(stringToDoubleParams(stringparams), myPlayground,
+						myPalette);
 				break;
 
 			}
@@ -76,6 +78,11 @@ public class ActionFactory {
 		} catch (Exception e) {
 			throw new Exception(Constants.SYNTAX_ERROR);
 		}
+	}
+
+	private List<Double> stringToDoubleParams(List<String> stringparams) {
+		return stringparams.stream().map(s -> Double.parseDouble(s)).collect(Collectors.toList());
+
 	}
 
 }
