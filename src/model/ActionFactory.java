@@ -16,11 +16,13 @@ public class ActionFactory {
 	public UserCommands myUserCommands;
 	public Palette myPalette;
 
-	public ActionFactory(String language, TurtlePlayground playground, Variables variables, UserCommands usercommands) {
+	public ActionFactory(String language, TurtlePlayground playground, Variables variables, UserCommands usercommands, Palette palette) {
 		myLanguage = language;
 		myPlayground = playground;
 		myVariables = variables;
 		myUserCommands = usercommands;
+		myPalette = palette;
+
 	}
 
 	/**

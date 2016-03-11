@@ -7,6 +7,7 @@ package model.action.HigherOrderCommands;
 import java.util.List;
 
 import constants.Constants;
+import model.Palette;
 import model.UserCommands;
 import model.Variables;
 import model.turtle.TurtlePlayground;
@@ -16,8 +17,8 @@ public class Repeat extends ControlStructures {
 	private double exp;
 
 	public Repeat(List<String> params, String language, TurtlePlayground playground, Variables variables,
-			UserCommands usercommands) {
-		super(params, language, playground, variables, usercommands);
+			UserCommands usercommands, Palette palette) {
+		super(params, language, playground, variables, usercommands, palette);
 		//to discuss
 		try {
 			this.exp = myCommandParser.parseCommands(params.get(0));
