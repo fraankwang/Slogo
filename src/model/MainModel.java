@@ -57,8 +57,11 @@ public class MainModel {
 	public void readCommand(String input) {
 		System.out.println("command read: " + input);
 		try {
+			System.out.println("turtle list size"+myPlayground.getTurtleCoordinates().size());
 			myOutputs.add(myParser.parseCommands(input).toString());
 			myHistory.add(input);
+			System.out.println("turtle list size"+myPlayground.getTurtleCoordinates().size());
+
 
 		} catch (Exception e) {
 			myOutputs.add(e.getMessage());
@@ -88,6 +91,7 @@ public class MainModel {
 	}
 
 	public TurtlePlayground getMyPlayground() {
+		System.out.println("     more"+ myPlayground.getTurtleCoordinates().size());
 		return myPlayground;
 	}
 

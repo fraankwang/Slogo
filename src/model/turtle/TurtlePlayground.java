@@ -29,18 +29,22 @@ public class TurtlePlayground {
 	
 	
 	public TurtlePlayground() {
-		myCurrentTurtle = new Turtle(1);
-		myTurtles = new ArrayList<Turtle>();
-		myActiveTurtles = new ArrayList<Turtle>();
-		stampCoordinates = new ArrayList<TurtleCoordinates>();
-		myTurtles.add(myCurrentTurtle);
-		myActiveTurtles.add(myCurrentTurtle);
+		resetPlayground();
 	}
 
 	public TurtlePlayground(double width, double height) {
 		this();
 		myWidth = width;
 		myHeight = height;
+	}
+	
+	public void resetPlayground(){
+		myCurrentTurtle = new Turtle(1);
+		myTurtles = new ArrayList<Turtle>();
+		myActiveTurtles = new ArrayList<Turtle>();
+		stampCoordinates = new ArrayList<TurtleCoordinates>();
+		myTurtles.add(myCurrentTurtle);
+		myActiveTurtles.add(myCurrentTurtle);
 	}
 
 	// =========================================================================
@@ -271,5 +275,7 @@ public class TurtlePlayground {
 	public void setBackgroundColor(Color backgroundColor) {
 		this.myBackgroundColor = backgroundColor;
 	}
+	
+
 
 }

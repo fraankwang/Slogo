@@ -5,6 +5,7 @@
 package model.action.HigherOrderCommands;
 
 import model.CommandParser;
+import model.Palette;
 import model.UserCommands;
 import model.Variables;
 import model.action.Action;
@@ -14,9 +15,9 @@ public abstract class HigherOrderCommands extends Action {
 	protected CommandParser myCommandParser;
 
 	public HigherOrderCommands(String language, TurtlePlayground playground, Variables variables,
-			UserCommands usercommands) {
+			UserCommands usercommands, Palette palette) {
 		super();
-		myCommandParser = new CommandParser(language, playground, variables, usercommands);
+		myCommandParser = new CommandParser(language, playground, variables, usercommands, palette);
 
 	}
 

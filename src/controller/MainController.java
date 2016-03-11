@@ -167,6 +167,7 @@ public class MainController {
 
 	public void setTurtleImage(String image) {
 		myView.setTurtleImage(image);
+		myModel.getMyPlayground().setCurrentTurtleShape(image);
 	}
 
 	public void setTurtleElement(PanelElement turtleElement) {

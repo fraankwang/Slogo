@@ -32,9 +32,11 @@ public class ClearScreen extends TurtleCommands {
 	 */
 	@Override
 	public double rule() {
-		TurtleCoordinates home=new TurtleCoordinates(0.0,0.0);
-		Double difference = (double) playground.getDistance(playground.getCurrentTurtle().getCoordinate(), home);
-		playground = new TurtlePlayground();
+		Double difference = playground.setTurtleHome();
+		System.out.println("old turtle playground coordlist size" + playground.getTurtleCoordinates().size());
+
+		playground.resetPlayground();
+		System.out.println("new turtle playground coordlist size" + playground.getTurtleCoordinates().size());
 		return difference;
 	}
 

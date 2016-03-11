@@ -49,17 +49,17 @@ public class Node {
 		int closecount = 0;
 		while (true) {
 
-			if (isOpenBracket(queue)) {
+			if (nextIs(queue, Constants.OPEN_BRACKET)) {
 				opencount++;
 			}
-			if (isCloseBracket(queue)) {
+			if (nextIs(queue, Constants.CLOSE_BRACKET)) {
 				closecount++;
 				if (closecount == opencount) {
 					break;
 				}
 			}
 			String action = queue.poll();
-			commandstring.append(action + " ");
+			commandstring.append(action + Constants.SPACE);
 		}
 		queue.poll();
 
@@ -78,19 +78,10 @@ public class Node {
 		getChildren().add(node);
 	}
 
-	public boolean isOpenBracket(Queue<String> queue) {
-		return queue.peek().equals(Constants.OPEN_BRACKET);
+	public boolean nextIs(Queue<String> queue, String string) {
+		return queue.peek().equals(string);
 	}
 
-	public boolean isCloseBracket(Queue<String> queue) {
-		return queue.peek().equals(Constants.CLOSE_BRACKET);
-	}
-	public boolean isOpenParenthesis(Queue<String> queue) {
-		return queue.peek().equals(Constants.OPEN_PARENTHESIS);
-	}
-	public boolean isCloseParenthesis(Queue<String> queue) {
-		return queue.peek().equals(Constants.CLOSE_PARENTHESIS);
-	}
 	public boolean areChildrenEmpty() {
 		return getChildren().isEmpty();
 	}
