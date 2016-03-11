@@ -133,6 +133,11 @@ public class Constants {
 		}
 		throw new ParseException();
 	}
+	
+	public static boolean isCommand(String command){
+		ResourceBundle COMMANDS = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_LANGUAGES + LANGUAGES.get(0));
+		return COMMANDS.containsKey(command);
+	}
 
 	public static int getNumberParams(String superclass) {
 		return Integer.parseInt(NUMBER_OF_PARAMS.getString(superclass));

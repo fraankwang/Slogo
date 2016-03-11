@@ -131,7 +131,7 @@ public class CommandParser {
 	private ArrayList<String> addStringParams(Node node) throws Exception {
 		ArrayList<String> params = new ArrayList<String>();
 		for (Node child : node.children) {
-			if (child.areChildrenEmpty()) {
+			if (child.areChildrenEmpty()&&!Constants.isCommand(child.data)) {
 				params.add(child.getData());
 			} else {
 				params.add(Double.toString(treeTraversal(child)));

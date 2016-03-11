@@ -59,7 +59,7 @@ public class ActionFactory {
 			case "HIGHER_ORDERSTRUCTURE":
 			case "TURTLE_TWOSTRINGPARAMS":
 				finalaction = (Action) constructor.newInstance(stringparams, myLanguage, myPlayground, myVariables,
-						myUserCommands);
+						myUserCommands, myPalette);
 				break;
 			case "TURTLE_ONESTRINGPARAM":
 
