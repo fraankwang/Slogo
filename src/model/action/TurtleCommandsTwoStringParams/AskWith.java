@@ -2,6 +2,8 @@ package model.action.TurtleCommandsTwoStringParams;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import constants.Constants;
 import model.UserCommands;
 import model.Variables;
 import model.turtle.Turtle;
@@ -15,7 +17,7 @@ public class AskWith extends TurtleCommandsTwoStringParams {
 	}
 
 	@Override
-	public double rule() {
+	public double rule() throws Exception {
 
 		List<Turtle> prevActiveTurtles = new ArrayList<Turtle>(playground.getActiveTurtles());
 		List<Turtle> turtleList = new ArrayList<Turtle>();
@@ -29,7 +31,7 @@ public class AskWith extends TurtleCommandsTwoStringParams {
 					turtleList.add(turtle);
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				throw new Exception(Constants.parsingError(params));
 			}
 		}
 		playground.clearActiveTurtles();
@@ -39,7 +41,7 @@ public class AskWith extends TurtleCommandsTwoStringParams {
 			returnvalue = myCommandParser.parseCommands(commands);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw new Exception(Constants.parsingError(commands));
 		}
 		playground.clearActiveTurtles();
 		playground.getActiveTurtles().addAll(prevActiveTurtles);

@@ -23,9 +23,13 @@ public class Variables {
 	public Variables(Map<String, Double> vars) {
 		myVariables = new HashMap<String, Double>(vars);
 	}
+
 	// =========================================================================
 	// Getters and Setters
 	// =========================================================================
+	public void setVariableMap(Map<String, Double> newVariables) {
+		myVariables = newVariables;
+	}
 
 	public Map<String, Double> getVariableMap() {
 		return myVariables;
@@ -40,16 +44,17 @@ public class Variables {
 	}
 
 	/**
-	 * The addVariables() method adds a variable to the myVariables map
-	 * The addVariables() method puts a string and a double into the map.
+	 * The addVariables() method adds a variable to the myVariables map The
+	 * addVariables() method puts a string and a double into the map.
 	 */
 	public void addVariable(String name, double value) {
 		myVariables.put(name, value);
 	}
 
 	/**
-	 * The replaceVariable method replaces an old variable with a new variable name
-	 * The method puts a new string value pair, utilizing the new variable name as the string and still using the old variable value as the value.
+	 * The replaceVariable method replaces an old variable with a new variable
+	 * name The method puts a new string value pair, utilizing the new variable
+	 * name as the string and still using the old variable value as the value.
 	 * The method then removes the old variable from the map.
 	 */
 	public void replaceVariable(String oldVar, String newVar) {
@@ -58,7 +63,8 @@ public class Variables {
 	}
 
 	/**
-	 * The replaceVariableValue() method updates a variable value in the myVariable map.
+	 * The replaceVariableValue() method updates a variable value in the
+	 * myVariable map.
 	 * 
 	 */
 	public void replaceVariableValue(String name, String newVal) {

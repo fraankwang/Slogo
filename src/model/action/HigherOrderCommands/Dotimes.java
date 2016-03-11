@@ -3,6 +3,7 @@ package model.action.HigherOrderCommands;
 
 import java.util.List;
 
+import constants.Constants;
 import model.UserCommands;
 import model.Variables;
 import model.turtle.TurtlePlayground;
@@ -21,14 +22,14 @@ public class Dotimes extends ControlStructures {
 		try {
 			limit = myCommandParser.parseCommands(params.get(0).replace(variable, ""));
 		} catch (Exception e) {
-			e.printStackTrace();
+
 		}
 		commands = params.get(1);
 
 	}
 
 	@Override
-	public double rule() {
+	public double rule() throws Exception {
 		double curr = 0.0;
 
 		for (int i = 0; i < limit; i++) {
@@ -39,7 +40,7 @@ public class Dotimes extends ControlStructures {
 				curr = variableValue;
 
 			} catch (Exception exception) {
-				exception.printStackTrace();
+				throw new Exception(Constants.parsingError(commands));
 			}
 		}
 		return curr;

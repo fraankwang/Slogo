@@ -17,6 +17,6 @@ public abstract class Action {
 	 * changes the back-end of the slogo program For example, the rules() method
 	 * for forward is the method which actually moves the turtle forward.
 	 */
-	public abstract double rule();
+	public abstract double rule() throws Exception;
 
 }
