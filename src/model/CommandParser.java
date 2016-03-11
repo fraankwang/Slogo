@@ -26,14 +26,16 @@ public class CommandParser {
 	private Variables myVariables;
 	private UserCommands myUserCommands;
 	private Palette myPalette;
-	private ActionFactory myActionFactory = new ActionFactory(myLanguage, myPlayground, myVariables, myUserCommands);
-	private ExpressionTree myExpressionTree = new ExpressionTree(myUserCommands);
+	private ActionFactory myActionFactory ;
+	private ExpressionTree myExpressionTree;
 
 	public CommandParser(String language, TurtlePlayground playground, Variables variables, UserCommands usercommands) {
 		myLanguage = language;
 		myPlayground = playground;
 		myVariables = variables;
 		myUserCommands = usercommands;
+		myActionFactory = new ActionFactory(myLanguage, myPlayground, myVariables, myUserCommands);
+		myExpressionTree = new ExpressionTree(myUserCommands);
 	}
 
 	public CommandParser(String language, TurtlePlayground playground, Variables variables, UserCommands usercommands,
@@ -50,6 +52,12 @@ public class CommandParser {
 		return this.myVariables;
 	}
 
+	/**
+	 * The parse() method parses the user inputted string initially by splitting
+	 * it up by its white spaces and returns a list of commands stored as a
+	 * Queue<String>
+	 *
+	 */
 	private Queue<String> parse(String input) {
 		Queue<String> queue = new LinkedList<String>();
 		List<String> firstParsed = Arrays.asList(input.split(Constants.WHITESPACE));
@@ -97,13 +105,11 @@ public class CommandParser {
 		System.out.println("at node: " + node.getData());
 		try {
 			List<String> stringparams = new ArrayList<String>();
-			List<Double> doubleparams = new ArrayList<Double>();
 			if (node.children.size() > 0) {
 				stringparams = addStringParams(node);
-				doubleparams = addDoubleParams(node);
 			}
 
-			Action action = myActionFactory.makeAction(node, stringparams, doubleparams);
+			Action action = myActionFactory.makeAction(node, stringparams);
 			System.out.println(action.getClass().getName());
 			return action.rule();
 		} catch (Exception exception) {
@@ -119,20 +125,6 @@ public class CommandParser {
 			}
 
 		}
-	}
-
-	/**
-	 * The addDoubleParams() method returns an ArrayList<Double> which contains
-	 * the (children) parameters for a given node.
-	 *
-	 */
-	private ArrayList<Double> addDoubleParams(Node node) throws Exception {
-		ArrayList<Double> params = new ArrayList<Double>();
-		for (Node child : node.children) {
-			params.add(treeTraversal(child));
-		}
-
-		return params;
 	}
 
 	/**
