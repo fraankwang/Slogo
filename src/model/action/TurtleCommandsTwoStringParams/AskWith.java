@@ -32,7 +32,8 @@ public class AskWith extends TurtleCommandsTwoStringParams {
 					turtleList.add(turtle);
 				}
 			} catch (Exception e) {
-				throw new Exception(Constants.parsingError(params));
+				throw e;
+//				throw new Exception(Constants.parsingError(params));
 			}
 		}
 		playground.clearActiveTurtles();
@@ -42,7 +43,8 @@ public class AskWith extends TurtleCommandsTwoStringParams {
 			returnvalue = myCommandParser.parseCommands(commands);
 
 		} catch (Exception e) {
-			throw new Exception(Constants.parsingError(commands));
+			throw e;
+//			throw new Exception(Constants.parsingError(commands));
 		}
 		playground.clearActiveTurtles();
 		playground.getActiveTurtles().addAll(prevActiveTurtles);
