@@ -7,6 +7,7 @@ package model.action.HigherOrderCommands;
 import java.util.List;
 
 import constants.Constants;
+import model.Palette;
 import model.UserCommands;
 import model.Variables;
 import model.turtle.TurtlePlayground;
@@ -17,8 +18,8 @@ public class Make extends ControlStructures {
 	private Double exp;
 
 	public Make(List<String> params, String language, TurtlePlayground playground, Variables variables,
-			UserCommands usercommands) throws Exception {
-		super(params, language, playground, variables, usercommands);
+			UserCommands usercommands, Palette palette) throws Exception {
+		super(params, language, playground, variables, usercommands,palette);
 		this.var = params.get(0);
 		System.out.println(var);
 		System.out.println(params.get(1));

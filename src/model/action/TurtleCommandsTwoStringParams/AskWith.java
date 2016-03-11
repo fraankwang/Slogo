@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import constants.Constants;
+import model.Palette;
 import model.UserCommands;
 import model.Variables;
 import model.turtle.Turtle;
@@ -12,8 +13,8 @@ import model.turtle.TurtlePlayground;
 public class AskWith extends TurtleCommandsTwoStringParams {
 
 	public AskWith(List<String> params, String language, TurtlePlayground playground, Variables variables,
-			UserCommands usercommands) {
-		super(params, language, playground, variables, usercommands);
+			UserCommands usercommands, Palette palette) {
+		super(params, language, playground, variables, usercommands, palette);
 	}
 
 	@Override

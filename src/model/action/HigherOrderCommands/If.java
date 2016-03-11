@@ -7,6 +7,7 @@ package model.action.HigherOrderCommands;
 import java.util.List;
 
 import constants.Constants;
+import model.Palette;
 import model.UserCommands;
 import model.Variables;
 import model.turtle.TurtlePlayground;
@@ -14,8 +15,8 @@ import model.turtle.TurtlePlayground;
 public class If extends ControlStructures {
 
 	public If(List<String> params, String language, TurtlePlayground playground, Variables variables,
-			UserCommands usercommands) {
-		super(params, language, playground, variables, usercommands);
+			UserCommands usercommands, Palette palette) {
+		super(params, language, playground, variables, usercommands,palette);
 
 	}
 

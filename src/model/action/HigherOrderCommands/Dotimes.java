@@ -4,6 +4,7 @@ package model.action.HigherOrderCommands;
 import java.util.List;
 
 import constants.Constants;
+import model.Palette;
 import model.UserCommands;
 import model.Variables;
 import model.turtle.TurtlePlayground;
@@ -15,8 +16,8 @@ public class Dotimes extends ControlStructures {
 	String commands;
 
 	public Dotimes(List<String> params, String language, TurtlePlayground playground, Variables variables,
-			UserCommands usercommands) {
-		super(params, language, playground, variables, usercommands);
+			UserCommands usercommands, Palette palette) {
+		super(params, language, playground, variables, usercommands,palette);
 		String[] arr = params.get(0).split(" ");
 		variable = arr[0];
 		try {

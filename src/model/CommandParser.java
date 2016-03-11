@@ -26,22 +26,18 @@ public class CommandParser {
 	private Variables myVariables;
 	private UserCommands myUserCommands;
 	private Palette myPalette;
-	private ActionFactory myActionFactory ;
+	private ActionFactory myActionFactory;
 	private ExpressionTree myExpressionTree;
 
-	public CommandParser(String language, TurtlePlayground playground, Variables variables, UserCommands usercommands) {
+	public CommandParser(String language, TurtlePlayground playground, Variables variables, UserCommands usercommands,
+			Palette palette) {
 		myLanguage = language;
 		myPlayground = playground;
 		myVariables = variables;
 		myUserCommands = usercommands;
-		myActionFactory = new ActionFactory(myLanguage, myPlayground, myVariables, myUserCommands);
-		myExpressionTree = new ExpressionTree(myUserCommands);
-	}
-
-	public CommandParser(String language, TurtlePlayground playground, Variables variables, UserCommands usercommands,
-			Palette palette) {
-		this(language, playground, variables, usercommands);
 		myPalette = palette;
+		myActionFactory = new ActionFactory(myLanguage, myPlayground, myVariables, myUserCommands, myPalette);
+		myExpressionTree = new ExpressionTree(myUserCommands);
 	}
 
 	// =========================================================================
