@@ -4,7 +4,6 @@
 
 package model.action.TurtleCommandsNoParams;
 
-import model.turtle.TurtleCoordinates;
 import model.turtle.TurtlePlayground;
 
 /**
