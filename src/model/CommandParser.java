@@ -4,7 +4,6 @@
 
 package model;
 
-import java.lang.reflect.*;
 import java.util.*;
 import constants.Constants;
 import model.action.*;
@@ -55,9 +54,9 @@ public class CommandParser {
 	 *
 	 */
 	private Queue<String> parse(String input) {
-		Queue<String> queue = new LinkedList<String>();
+		Queue<String> queue = new LinkedList<>();
 		List<String> firstParsed = Arrays.asList(input.split(Constants.WHITESPACE));
-		List<String> parsedInputList = new ArrayList<String>();
+		List<String> parsedInputList = new ArrayList<>();
 
 		for (String s : firstParsed) {
 			if (!isComment(s)) {
@@ -65,7 +64,7 @@ public class CommandParser {
 			}
 		}
 
-		List<String> comandsList = new ArrayList<String>();
+		List<String> comandsList = new ArrayList<>();
 		for (String string : parsedInputList) {
 			if (!isComment(string) && !string.isEmpty()) {
 				try {
@@ -100,7 +99,7 @@ public class CommandParser {
 	private double treeTraversal(Node node) throws Exception {
 		System.out.println("at node: " + node.getData());
 		try {
-			List<String> stringparams = new ArrayList<String>();
+			List<String> stringparams = new ArrayList<>();
 			if (node.children.size() > 0) {
 				stringparams = addStringParams(node);
 			}
@@ -129,7 +128,7 @@ public class CommandParser {
 	 *
 	 */
 	private ArrayList<String> addStringParams(Node node) throws Exception {
-		ArrayList<String> params = new ArrayList<String>();
+		ArrayList<String> params = new ArrayList<>();
 		for (Node child : node.children) {
 			if (child.areChildrenEmpty()&&!Constants.isCommand(child.data)) {
 				params.add(child.getData());
@@ -172,7 +171,7 @@ public class CommandParser {
 	 *
 	 */
 	private Double parseUserCommands(Node node) throws Exception {
-		Map<String, Double> variablesCopy = new HashMap<String, Double>(myVariables.getVariableMap());
+		Map<String, Double> variablesCopy = new HashMap<>(myVariables.getVariableMap());
 
 		Iterator<Node> iter = node.getChildren().iterator();
 		for (String string : myUserCommands.getCommandParams(node.getData())) {
