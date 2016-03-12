@@ -20,7 +20,6 @@ import view.panelelements.PanelElement;
 
 public class Workspace {
 
-	private AnchorPane myWorkspaceRoot;
 	private BorderPane myPrimaryPane;
 	private TabPane myTabPane;
 
@@ -46,18 +45,23 @@ public class Workspace {
 		myTabIndex = tabIndex;
 		myPanelElementFactory = new PanelElementFactory(controller);
 		myMenuBarFactory = new MenuBarFactory(controller, stage);
-		
+		myPrimaryPane = new BorderPane();
+	}
+	
+	public void initialize() {
 		initializePrimaryPane();
 	}
 	
 	private void initializePrimaryPane() {
 		VBox leftColumn = myPanelElementFactory.createLeftColumn();
 		VBox rightColumn = myPanelElementFactory.createRightColumn();
+		initializePanelElements();
+
 		MenuBar menuBar = myMenuBarFactory.createMenuBar();
 		myPrimaryPane.setTop(menuBar);
 		myPrimaryPane.setLeft(leftColumn);
 		myPrimaryPane.setRight(rightColumn);
-		initializePanelElements();
+
 	}
 	
 	/**
@@ -79,6 +83,7 @@ public class Workspace {
 	}
 	
 	public List<PanelElement> getViewableElements() {
+
 		List<PanelElement> viewableElements = new ArrayList<PanelElement>();
 		viewableElements.add(myVariablesElement);
 		viewableElements.add(myCommandsElement);
@@ -90,17 +95,9 @@ public class Workspace {
 		viewableElements.add(myTurtleInfoElement);
 		return viewableElements;
 	}
-	
-	public AnchorPane getWorkspaceRoot() {
-		return myWorkspaceRoot;
-	}
-	
+		
 	public BorderPane getPrimaryPane() {
 		return myPrimaryPane;
-	}
-
-	public AnchorPane getMyWorkspaceRoot() {
-		return myWorkspaceRoot;
 	}
 
 	public BorderPane getMyPrimaryPane() {

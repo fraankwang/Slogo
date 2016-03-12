@@ -1,3 +1,6 @@
+/**
+ * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
+ */
 
 package controller;
 
@@ -24,9 +27,6 @@ import view.panelelements.TurtleElement;
 import view.panelelements.TurtleInfoElement;
 import view.panelelements.VariablesElement;
 
-/**
- * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
- */
 
 public class ModelTransformer {
 
@@ -38,8 +38,8 @@ public class ModelTransformer {
 	private String myLanguage = Constants.getSpecification("DefaultLanguage");
 	private TurtleElement myTurtleElement;
 
-	public ModelTransformer(MainController controller) {
-		myController = controller;
+	public ModelTransformer(MainController mainController) {
+		myController = mainController;
 	}
 
 	/**
@@ -49,7 +49,7 @@ public class ModelTransformer {
 	 * @param output
 	 */
 	public void transformOutputElement(Queue<String> output) {
-		OutputElement outputElement = (OutputElement) myController.getMyView().getMyOutputElement();
+		OutputElement outputElement = (OutputElement) myController.getMyView().getMyActiveWorkspace().getMyOutputElement();
 		TextArea textArea = outputElement.getText();
 		String newOutput = "";
 		for (String outputItem : output) {
@@ -66,7 +66,8 @@ public class ModelTransformer {
 	 * @param history
 	 */
 	public void transformHistoryElement(Queue<String> history) {
-		HistoryElement historyElement = (HistoryElement) myController.getMyView().getMyHistoryElement();
+//		HistoryElement historyElement = (HistoryElement) myController.getMyView().getMyHistoryElement();
+		HistoryElement historyElement = (HistoryElement) myController.getMyView().getMyActiveWorkspace().getMyHistoryElement();
 		ListView<String> historyValues = historyElement.getListView();
 		historyValues.getItems().clear();
 		for (String historyItem : history) {
@@ -82,7 +83,8 @@ public class ModelTransformer {
 	 */
 	public void transformVariablesElement(Variables myVariables) {
 		Map<String, Double> variables = myVariables.getVariableMap();
-		VariablesElement variablesElement = (VariablesElement) myController.getMyView().getMyVariablesElement();
+//		VariablesElement variablesElement = (VariablesElement) myController.getMyView().getMyVariablesElement();
+		VariablesElement variablesElement = (VariablesElement) myController.getMyView().getMyActiveWorkspace().getMyVariablesElement();
 		ListView<String> variablesNames = variablesElement.getNamesListView();
 		ListView<String> variablesValues = variablesElement.getValuesListView();
 		variablesNames.getItems().clear();
@@ -100,7 +102,8 @@ public class ModelTransformer {
 	 * @param variables
 	 */
 	public void transformColorsElement(Map<Integer, Color> colors) {
-		ColorsElement colorsElement = (ColorsElement) myController.getMyView().getColorsElement();
+//		ColorsElement colorsElement = (ColorsElement) myController.getMyView().getColorsElement();
+		ColorsElement colorsElement = (ColorsElement) myController.getMyView().getMyActiveWorkspace().getMyColorsElement();
 		ListView<String> colorIntegers = colorsElement.getIntegersListView();
 		ListView<String> colorValues = colorsElement.getValuesListView();
 		colorIntegers.getItems().clear();
@@ -119,7 +122,8 @@ public class ModelTransformer {
 	 */
 	public void transformCommandsElement(UserCommands commands) {
 		Map<String, List<String>> map = commands.getUserCommandMap();
-		CommandsElement commandsElement = (CommandsElement) myController.getMyView().getMyCommandsElement();
+//		CommandsElement commandsElement = (CommandsElement) myController.getMyView().getMyCommandsElement();
+		CommandsElement commandsElement = (CommandsElement) myController.getMyView().getMyActiveWorkspace().getMyCommandsElement();
 		ListView<String> commandsValues = commandsElement.getListView();
 		commandsValues.getItems().clear();
 		for (String commandsItem : map.keySet()) {
@@ -139,7 +143,8 @@ public class ModelTransformer {
 	 * @param map
 	 */
 	public void transformTurtleInfoElement(List<Turtle> turtles) {
-		TurtleInfoElement turtleInfoElement = (TurtleInfoElement) myController.getMyView().getMyTurtleInfoElement();
+//		TurtleInfoElement turtleInfoElement = (TurtleInfoElement) myController.getMyView().getMyTurtleInfoElement();
+		TurtleInfoElement turtleInfoElement = (TurtleInfoElement) myController.getMyView().getMyActiveWorkspace().getMyTurtleInfoElement();
 		ListView<String> turtleInfoValues = turtleInfoElement.getListView();
 
 		turtleInfoValues.getItems().clear();
@@ -162,12 +167,13 @@ public class ModelTransformer {
 		myController.setBackgroundColor(turtlePlayground.getMyBackgroundColor());
 		Turtle turtle = turtlePlayground.getCurrentTurtle();
 		
-		GraphicsContext turtlegraphics = myController.getMyView().getMyTurtleGraphics();
-		turtlegraphics.setFill(turtle.getPenColor());
-		turtlegraphics.setStroke(turtle.getPenColor());
-		turtlegraphics.setLineWidth(turtle.getPenWidth());
+//		GraphicsContext turtlegraphics = myController.getMyView().getMyTurtleGraphics();
+		GraphicsContext turtleGraphics = myController.getMyView().getMyActiveWorkspace().getMyTurtleGraphics();
+		turtleGraphics.setFill(turtle.getPenColor());
+		turtleGraphics.setStroke(turtle.getPenColor());
+		turtleGraphics.setLineWidth(turtle.getPenWidth());
 
-		updateTurtleGraphicsPosition(turtlegraphics, turtlePlayground);
+		updateTurtleGraphicsPosition(turtleGraphics, turtlePlayground);
 
 	}
 

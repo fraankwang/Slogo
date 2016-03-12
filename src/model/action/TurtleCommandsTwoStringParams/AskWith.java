@@ -2,6 +2,7 @@ package model.action.TurtleCommandsTwoStringParams;
 
 import java.util.ArrayList;
 import java.util.List;
+import model.Palette;
 import model.UserCommands;
 import model.Variables;
 import model.turtle.Turtle;
@@ -10,12 +11,12 @@ import model.turtle.TurtlePlayground;
 public class AskWith extends TurtleCommandsTwoStringParams {
 
 	public AskWith(List<String> params, String language, TurtlePlayground playground, Variables variables,
-			UserCommands usercommands) {
-		super(params, language, playground, variables, usercommands);
+			UserCommands usercommands, Palette palette) {
+		super(params, language, playground, variables, usercommands, palette);
 	}
 
 	@Override
-	public double rule() {
+	public double rule() throws Exception {
 
 		List<Turtle> prevActiveTurtles = new ArrayList<Turtle>(playground.getActiveTurtles());
 		List<Turtle> turtleList = new ArrayList<Turtle>();
@@ -29,7 +30,8 @@ public class AskWith extends TurtleCommandsTwoStringParams {
 					turtleList.add(turtle);
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				throw e;
+				// throw new Exception(Constants.parsingError(params));
 			}
 		}
 		playground.clearActiveTurtles();
@@ -39,7 +41,8 @@ public class AskWith extends TurtleCommandsTwoStringParams {
 			returnvalue = myCommandParser.parseCommands(commands);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			throw e;
+			// throw new Exception(Constants.parsingError(commands));
 		}
 		playground.clearActiveTurtles();
 		playground.getActiveTurtles().addAll(prevActiveTurtles);
