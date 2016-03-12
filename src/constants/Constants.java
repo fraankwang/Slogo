@@ -113,6 +113,7 @@ public class Constants {
 	public static final double ELEMENT_INSET_VERTICAL = 0;
 
 	public static final double DEFAULT_VARIABLE_VALUE = 0;
+	public static final int INITIAL_TAB_INDEX = 1;
 
 
 
