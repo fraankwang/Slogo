@@ -44,18 +44,21 @@ public class Constants {
 	public static final String WHITESPACE = "\\n";
 	public static final String SPACE = " ";
 	public static final String TOO_MANY_PARAMETERS_ERROR = "Too many parameters";
-	public static final String SYNTAX_ERROR = "Incorrect command syntax";	
+	public static final String SYNTAX_ERROR = "Incorrect command syntax";
 	public static final String USER_PARAM_ERROR = "Couldn't make user command";
-	public static String parsingError(String s){
+
+	public static String parsingError(String s) {
 		return String.format("Could not parse command %s", s);
 	}
-	
 
 	public static final Color DEFAULT_PEN_COLOR = Color.BLACK;
 	public static final Color DEFAULT_BACKGROUND_COLOR = Color.WHITE;
 
 	public static final double SCENE_WIDTH = 1200;
 	public static final double SCENE_HEIGHT = SCENE_WIDTH * 0.75;
+
+	public static final double PANEL_ELEMENT_WIDTH = SCENE_WIDTH * 0.5 / 2 - 10;
+	public static final double PANEL_ELEMENT_HEIGHT = SCENE_HEIGHT / 3 - 60;
 
 	public static final double LEFT_COLUMN_WIDTH = SCENE_WIDTH * (6 / 12.0);
 	public static final double RIGHT_COLUMN_WIDTH = SCENE_WIDTH * (2 / 6.0);
@@ -67,7 +70,7 @@ public class Constants {
 	public static final double CENTER_Y_COORDINATE = PLAYGROUND_HEIGHT / 2;
 
 	public static final double TEXTAREA_WIDTH = PLAYGROUND_WIDTH * 0.75;
-	public static final double TEXTAREA_HEIGHT = SCENE_HEIGHT * (3 / 12.0);
+	public static final double TEXTAREA_HEIGHT = SCENE_HEIGHT * (3 / 12.0) - 26;
 
 	public static final double RUN_BUTTON_WIDTH = PLAYGROUND_WIDTH - TEXTAREA_WIDTH;
 	public static final double RUN_BUTTON_HEIGHT = TEXTAREA_HEIGHT / 2.0;
@@ -75,18 +78,22 @@ public class Constants {
 	public static final double CLEAR_BUTTON_WIDTH = SCENE_HEIGHT * (1 / 6.0);
 	public static final double CLEAR_BUTTON_HEIGHT = TEXTAREA_HEIGHT / 2.0;
 
-	public static final double VARIABLES_WIDTH = SCENE_WIDTH * (3 / 12.0) - 17;
-	public static final double VARIABLES_HEIGHT = SCENE_HEIGHT * (3 / 12.0);
-	public static final double COLORS_WIDTH = SCENE_WIDTH * (3 / 12.0) - 17;
-	public static final double COLORS_HEIGHT = SCENE_HEIGHT * (3 / 12.0);
-	public static final double COMMANDS_WIDTH = SCENE_WIDTH * (3 / 12.0) - 17;
-	public static final double COMMANDS_HEIGHT = SCENE_HEIGHT * (3 / 12.0);
-	public static final double HISTORY_WIDTH = SCENE_WIDTH * (3 / 12.0) - 17;
-	public static final double HISTORY_HEIGHT = SCENE_HEIGHT * (3 / 12.0);
-	public static final double OUTPUT_WIDTH = SCENE_WIDTH * (3 / 12.0) - 17;
-	public static final double OUTPUT_HEIGHT = SCENE_HEIGHT * (3 / 12.0);
-	public static final double TURTLE_INFO_WIDTH = SCENE_WIDTH * (3 / 12.0) - 17;
-	public static final double TURTLE_INFO_HEIGHT = SCENE_HEIGHT * (3 / 12.0);
+	// public static final double VARIABLES_WIDTH = SCENE_WIDTH * (3 / 12.0) -
+	// 17;
+	// public static final double VARIABLES_HEIGHT = SCENE_HEIGHT * (3 / 12.0);
+	// public static final double COLORS_WIDTH = SCENE_WIDTH * (3 / 12.0) - 17;
+	// public static final double COLORS_HEIGHT = SCENE_HEIGHT * (3 / 12.0);
+	// public static final double COMMANDS_WIDTH = SCENE_WIDTH * (3 / 12.0) -
+	// 17;
+	// public static final double COMMANDS_HEIGHT = SCENE_HEIGHT * (3 / 12.0);
+	// public static final double HISTORY_WIDTH = SCENE_WIDTH * (3 / 12.0) - 17;
+	// public static final double HISTORY_HEIGHT = SCENE_HEIGHT * (3 / 12.0);
+	// public static final double OUTPUT_WIDTH = SCENE_WIDTH * (3 / 12.0) - 17;
+	// public static final double OUTPUT_HEIGHT = SCENE_HEIGHT * (3 / 12.0);
+	// public static final double TURTLE_INFO_WIDTH = SCENE_WIDTH * (3 / 12.0) -
+	// 17;
+	// public static final double TURTLE_INFO_HEIGHT = SCENE_HEIGHT * (3 /
+	// 12.0);
 
 	// public static final double RIGHT_COLUMN_ELEMENT_HEIGHT =
 	// SCENE_HEIGHT*(3/12.0);
@@ -115,9 +122,6 @@ public class Constants {
 	public static final double DEFAULT_VARIABLE_VALUE = 0;
 	public static final int INITIAL_TAB_INDEX = 0;
 
-
-
-
 	public static String getSpecification(String name) {
 		return SPECIFICATIONS.getString(name);
 	}
@@ -134,9 +138,10 @@ public class Constants {
 		}
 		throw new ParseException();
 	}
-	
-	public static boolean isCommand(String command){
-		ResourceBundle COMMANDS = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_LANGUAGES + LANGUAGES.get(0));
+
+	public static boolean isCommand(String command) {
+		ResourceBundle COMMANDS = ResourceBundle
+				.getBundle(DEFAULT_RESOURCE_PACKAGE + DEFAULT_LANGUAGES + LANGUAGES.get(0));
 		return COMMANDS.containsKey(command);
 	}
 

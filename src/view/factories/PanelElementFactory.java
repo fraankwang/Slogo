@@ -8,6 +8,8 @@ import constants.Constants;
 import controller.MainController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.HPos;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -16,7 +18,6 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.image.Image;
@@ -28,8 +29,11 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.ColumnConstraints;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import view.panelelements.ColorsElement;
 import view.panelelements.CommandsElement;
@@ -59,6 +63,8 @@ public class PanelElementFactory {
 	private OutputElement myOutputElement;
 	private ColorsElement myColorsElement;
 	private TurtleInfoElement myTurtleInfoElement;
+	private GridPane myGridPane;
+	private TilePane myTilePane;
 
 	public PanelElementFactory(MainController controller) {
 		myController = controller;
@@ -72,37 +78,59 @@ public class PanelElementFactory {
 	}
 
 	/**
-	 * @return fully formatted and populated left column which includes
-	 *         TurtleBackground PanelElement and input area
+	 * Public factory method that returns filled GridPane
+	 * 
+	 * @return
 	 */
-	public VBox createLeftColumn() {
-		VBox leftColumn = new VBox();
-		HBox inputBox = makeInputWrapper();
-		leftColumn.getChildren().addAll(myTurtleBackground.getNode(), inputBox);
-		leftColumn.getStyleClass().add("left-column");
-		return leftColumn;
+	public GridPane createGridPane() {
+		initializeGridPane();
+		fillGridPane();
+		return myGridPane;
 	}
 
 	/**
-	 * @return fully formatted and populated right column which includes
-	 *         PanelElements Variables, Commands, History, and output area
+	 * Initializes myGridPane with proper formatting
 	 */
-	public VBox createRightColumn() {
-		VBox rightColumn = new VBox();
-		HBox topBoxes = new HBox();
-		HBox middleBoxes = new HBox();
-		HBox bottomBoxes = new HBox();
+	private void initializeGridPane() {
+		myGridPane = new GridPane();
+		myGridPane.setPadding(new Insets(5, 5, 5, 5));
+		myGridPane.setHgap(5.0);
+		myGridPane.setVgap(5.0);
+		myGridPane.setPrefSize(Constants.SCENE_WIDTH, Constants.SCENE_HEIGHT);
 
-		topBoxes.getChildren().addAll(myVariablesElement.getNode(), myColorsElement.getNode());
-		topBoxes.getStyleClass().add("top-boxes");
-		middleBoxes.getChildren().addAll(myCommandsElement.getNode(), myHistoryElement.getNode());
-		middleBoxes.getStyleClass().add("middle-boxes");
-		bottomBoxes.getChildren().addAll(myTurtleInfoElement.getNode(), myOutputElement.getNode());
-		bottomBoxes.getStyleClass().add("bottom-boxes");
-		rightColumn.getChildren().addAll(topBoxes, middleBoxes, bottomBoxes);
-		rightColumn.getStyleClass().add("right-column");
-		return rightColumn;
+		ColumnConstraints column0 = new ColumnConstraints();
+		column0.setPercentWidth(50);
+		ColumnConstraints column1 = new ColumnConstraints();
+		column1.setPercentWidth(50);
+		myGridPane.getColumnConstraints().addAll(column0, column1);
+	}
 
+	/**
+	 * Adds PanelElements to GridPane
+	 */
+	private void fillGridPane() {
+		myGridPane.add(myTurtleBackground.getNode(), 0, 0);
+		myGridPane.add(myTurtleElement.getNode(), 0, 0);
+		GridPane.setHalignment(myTurtleElement.getNode(), HPos.CENTER);
+		myGridPane.add(makeInputWrapper(), 0, 1);
+		initializeElementsTilePane();
+		myGridPane.add(myTilePane, 1, 0, 1, 2);
+	}
+
+	/**
+	 * Adds PanelElements to TilePane
+	 */
+	private void initializeElementsTilePane() {
+		myTilePane = new TilePane();
+		myTilePane.setPrefColumns(2);
+		myTilePane.setPrefRows(3);
+		myTilePane.setPrefTileWidth(Constants.PANEL_ELEMENT_WIDTH);
+		myTilePane.setPrefTileHeight(Constants.PANEL_ELEMENT_HEIGHT);
+		myTilePane.setHgap(5.0);
+		myTilePane.setVgap(5.0);
+		myTilePane.getChildren().addAll(myVariablesElement.getNode(), myColorsElement.getNode(),
+				myCommandsElement.getNode(), myHistoryElement.getNode(), myTurtleInfoElement.getNode(),
+				myOutputElement.getNode());
 	}
 
 	/**
@@ -212,7 +240,7 @@ public class PanelElementFactory {
 		myTurtleBackground = new TurtleBackground(myTurtleWrapper,
 				Constants.getSpecification("TurtleBackgroundElementName"));
 		myTurtleBackground.setGraphics(myTurtlePlayground.getGraphicsContext2D());
-		
+
 		return myTurtleBackground;
 
 	}
@@ -250,7 +278,7 @@ public class PanelElementFactory {
 		TextArea bigText = new TextArea(Constants.getSpecification("InfoButtonDefaultMessage"));
 		bigText.setPrefWidth(Constants.INFO_MENU_HEIGHT);
 		bigText.setPrefHeight(Constants.INFO_MENU_WIDTH);
-		
+
 		CustomMenuItem cmi = new CustomMenuItem(bigText);
 		cmi.setHideOnClick(false);
 		cm.getItems().add(cmi);
@@ -291,7 +319,7 @@ public class PanelElementFactory {
 	 */
 	private ListView<String> createVariablesNamesListView() {
 		ListView<String> namesListView = new ListView<String>();
-		namesListView.setPrefSize(Constants.VARIABLES_WIDTH / 2.0, Constants.VARIABLES_HEIGHT);
+		namesListView.setPrefSize(Constants.PANEL_ELEMENT_WIDTH / 2.0, Constants.PANEL_ELEMENT_HEIGHT);
 
 		namesListView.setCellFactory(TextFieldListCell.forListView());
 		namesListView.setEditable(true);
@@ -317,7 +345,7 @@ public class PanelElementFactory {
 	 */
 	private ListView<String> createVariablesValuesListView(ListView<String> names) {
 		ListView<String> valuesListView = new ListView<String>();
-		valuesListView.setPrefSize(Constants.VARIABLES_WIDTH / 2.0, Constants.VARIABLES_HEIGHT);
+		valuesListView.setPrefSize(Constants.PANEL_ELEMENT_WIDTH / 2.0, Constants.PANEL_ELEMENT_HEIGHT);
 
 		valuesListView.setCellFactory(TextFieldListCell.forListView());
 		valuesListView.setEditable(true);
@@ -341,19 +369,18 @@ public class PanelElementFactory {
 		VBox colorsWrapper = new VBox();
 		Label colorsLabel = new Label(Constants.getSpecification("ColorsLabel"));
 		colorsLabel.getStyleClass().add("element-label");
-		
+
 		HBox colorsListViews = new HBox();
 		ListView<String> colorIntegersListView = createColorIntegersListView();
 		ListView<String> colorValuesListView = createColorValuesListView(colorIntegersListView);
-		
+
 		colorsListViews.getChildren().addAll(colorIntegersListView, colorValuesListView);
 		colorsWrapper.getChildren().addAll(colorsLabel, colorsListViews);
-		
+
 		ListView<String> colorsListView = new ListView<String>();
-		colorsListView.setPrefSize(Constants.COLORS_WIDTH, Constants.COLORS_HEIGHT);
+		// colorsListView.setPrefSize(Constants.COLORS_WIDTH,
+		// Constants.COLORS_HEIGHT);
 		colorsListView.setCellFactory(TextFieldListCell.forListView());
-
-
 
 		myColorsElement = new ColorsElement(colorsWrapper, Constants.getSpecification("ColorsElementName"));
 		myColorsElement.setIntegersListView(colorIntegersListView);
@@ -361,7 +388,7 @@ public class PanelElementFactory {
 
 		return myColorsElement;
 	}
-	
+
 	/**
 	 * Helper method to create an editable listview that links to variable keys
 	 * 
@@ -370,7 +397,7 @@ public class PanelElementFactory {
 	 */
 	private ListView<String> createColorIntegersListView() {
 		ListView<String> colorIntegersListView = new ListView<String>();
-		colorIntegersListView.setPrefSize(Constants.VARIABLES_WIDTH / 2.0, Constants.VARIABLES_HEIGHT);
+		colorIntegersListView.setPrefSize(Constants.PANEL_ELEMENT_WIDTH / 2.0, Constants.PANEL_ELEMENT_HEIGHT);
 		return colorIntegersListView;
 	}
 
@@ -383,7 +410,7 @@ public class PanelElementFactory {
 	 */
 	private ListView<String> createColorValuesListView(ListView<String> names) {
 		ListView<String> colorValuesListView = new ListView<String>();
-		colorValuesListView.setPrefSize(Constants.VARIABLES_WIDTH / 2.0, Constants.VARIABLES_HEIGHT);
+		colorValuesListView.setPrefSize(Constants.PANEL_ELEMENT_WIDTH / 2.0, Constants.PANEL_ELEMENT_HEIGHT);
 		return colorValuesListView;
 	}
 
@@ -395,7 +422,8 @@ public class PanelElementFactory {
 		Label commandsLabel = new Label(Constants.getSpecification("CommandsLabel"));
 		commandsLabel.getStyleClass().add("element-label");
 		ListView<String> commandsListView = new ListView<String>();
-		commandsListView.setPrefSize(Constants.COMMANDS_WIDTH, Constants.COMMANDS_HEIGHT);
+		// commandsListView.setPrefSize(Constants.COMMANDS_WIDTH,
+		// Constants.COMMANDS_HEIGHT);
 		commandsListView.setCellFactory(TextFieldListCell.forListView());
 
 		commandsWrapper.getChildren().addAll(commandsLabel, commandsListView);
@@ -408,7 +436,7 @@ public class PanelElementFactory {
 			public void handle(MouseEvent event) {
 				if (commandsListView.getSelectionModel().getSelectedItem().length() != 0) {
 					myTextArea.setText(commandsListView.getSelectionModel().getSelectedItem());
-					// myController.executeCommand(myTextArea.getText());					
+					// myController.executeCommand(myTextArea.getText());
 				}
 			}
 		});
@@ -425,7 +453,8 @@ public class PanelElementFactory {
 		Label historyLabel = new Label(Constants.getSpecification("HistoryLabel"));
 		historyLabel.getStyleClass().add("element-label");
 		ListView<String> historyListView = new ListView<String>();
-		historyListView.setPrefSize(Constants.HISTORY_WIDTH, Constants.HISTORY_HEIGHT);
+		// historyListView.setPrefSize(Constants.HISTORY_WIDTH,
+		// Constants.HISTORY_HEIGHT);
 		historyListView.setCellFactory(TextFieldListCell.forListView());
 
 		historyListView.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -450,7 +479,6 @@ public class PanelElementFactory {
 		myHistoryElement.setListView(historyListView);
 		return myHistoryElement;
 	}
-	
 
 	/**
 	 * @return formatted OutputElement which has a set TextArea
@@ -461,7 +489,8 @@ public class PanelElementFactory {
 		outputLabel.getStyleClass().add("element-label");
 
 		TextArea outputArea = new TextArea();
-		outputArea.setPrefSize(Constants.OUTPUT_WIDTH, Constants.OUTPUT_HEIGHT);
+		// outputArea.setPrefSize(Constants.OUTPUT_WIDTH,
+		// Constants.OUTPUT_HEIGHT);
 		outputArea.setEditable(false);
 		outputWrapper.getChildren().addAll(outputLabel, outputArea);
 		StackPane.setAlignment(outputArea, Pos.BOTTOM_LEFT);
@@ -473,17 +502,22 @@ public class PanelElementFactory {
 
 	}
 
+	/**
+	 * @return formatted TurtleInfoElement
+	 */
 	private PanelElement createTurtleInfoElement() {
 		VBox turtleInfoWrapper = new VBox();
 		Label turtleInfoLabel = new Label(Constants.getSpecification("TurtleInfoLabel"));
 		turtleInfoLabel.getStyleClass().add("element-label");
 
 		ListView<String> turtleInfoListView = new ListView<String>();
-		turtleInfoListView.setPrefSize(Constants.TURTLE_INFO_WIDTH, Constants.TURTLE_INFO_HEIGHT);
+		// turtleInfoListView.setPrefSize(Constants.TURTLE_INFO_WIDTH,
+		// Constants.TURTLE_INFO_HEIGHT);
 		turtleInfoListView.setCellFactory(TextFieldListCell.forListView());
 		turtleInfoWrapper.getChildren().addAll(turtleInfoLabel, turtleInfoListView);
-		
-		myTurtleInfoElement = new TurtleInfoElement(turtleInfoWrapper, Constants.getSpecification("TurtleInfoElementName"));
+
+		myTurtleInfoElement = new TurtleInfoElement(turtleInfoWrapper,
+				Constants.getSpecification("TurtleInfoElementName"));
 		myTurtleInfoElement.setListView(turtleInfoListView);
 
 		return myTurtleInfoElement;

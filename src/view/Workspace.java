@@ -1,3 +1,7 @@
+/**
+ * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
+ */
+
 package view;
 
 import java.util.ArrayList;
@@ -8,8 +12,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import view.factories.HelpPageFactory;
 import view.factories.MenuBarFactory;
@@ -22,7 +26,7 @@ public class Workspace {
 	private TabPane myTabPane;
 
 	private int myTabIndex;
-	
+
 	private PanelElementFactory myPanelElementFactory;
 	private MenuBarFactory myMenuBarFactory;
 	private HelpPageFactory myHelpPageFactory;
@@ -38,30 +42,34 @@ public class Workspace {
 	private Canvas myTurtlePlayground;
 	private GraphicsContext myTurtleGraphics;
 
-	
 	public Workspace(int tabIndex, MainController controller, Stage stage) {
 		myTabIndex = tabIndex;
 		myPanelElementFactory = new PanelElementFactory(controller);
 		myMenuBarFactory = new MenuBarFactory(controller, stage);
 		myPrimaryPane = new BorderPane();
 	}
-	
+
+	/**
+	 * public initialize method which must be called after the constructor
+	 * initializes the factories
+	 */
 	public void initialize() {
 		initializePrimaryPane();
 	}
-	
+
+	/**
+	 * private init method which must fills the primaryPane
+	 */
 	private void initializePrimaryPane() {
-		VBox leftColumn = myPanelElementFactory.createLeftColumn();
-		VBox rightColumn = myPanelElementFactory.createRightColumn();
+		GridPane myGridPane = myPanelElementFactory.createGridPane();
 		initializePanelElements();
 
 		MenuBar menuBar = myMenuBarFactory.createMenuBar();
-		myPrimaryPane.setTop(menuBar);
-		myPrimaryPane.setLeft(leftColumn);
-		myPrimaryPane.setRight(rightColumn);
 
+		myPrimaryPane.setTop(menuBar);
+		myPrimaryPane.setCenter(myGridPane);
 	}
-	
+
 	/**
 	 * Utilizes factory to initialize PanelElements
 	 */
@@ -79,9 +87,12 @@ public class Workspace {
 		myColorsElement = myPanelElementFactory.getColorsElement();
 		myTurtleInfoElement = myPanelElementFactory.getTurtleInfoElement();
 	}
-	
-	public List<PanelElement> getViewableElements() {
 
+	// =========================================================================
+	// Getters and Setters
+	// =========================================================================
+
+	public List<PanelElement> getViewableElements() {
 		List<PanelElement> viewableElements = new ArrayList<PanelElement>();
 		viewableElements.add(myVariablesElement);
 		viewableElements.add(myCommandsElement);
@@ -93,7 +104,7 @@ public class Workspace {
 		viewableElements.add(myTurtleInfoElement);
 		return viewableElements;
 	}
-		
+
 	public BorderPane getPrimaryPane() {
 		return myPrimaryPane;
 	}

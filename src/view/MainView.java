@@ -19,7 +19,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
@@ -93,9 +92,8 @@ public class MainView {
 			int currentTabIndex = myTabPane.getSelectionModel().getSelectedIndex();
 			myActiveWorkspace = myWorkspaces.get(currentTabIndex);
 			myController.setTurtleElement(myActiveWorkspace.getMyTurtleElement());
-	        //myController.setActiveModel(currentTabIndex);
+	        myController.setActiveModel(currentTabIndex);
 	    });
-		
 		
 		myTabPane.getTabs().add(initialTab);
 		
@@ -119,6 +117,7 @@ public class MainView {
 				int newTabIndex = myTabPane.getTabs().size();
 				Workspace workspace = myController.makeNewWorkspace(newTabIndex, myPrimaryStage);
 				Tab newTab = myController.makeNewTab(workspace, newTabIndex);
+				myController.makeNewModel(newTabIndex);
 				myTabPane.getTabs().add(newTab);
 			}
 		});
@@ -152,6 +151,10 @@ public class MainView {
 		myHelpScene = new Scene(advancedHelpRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.WHITE);
 	}
 
+	/**
+	 * Links controller with MainView
+	 * @param myController
+	 */
 	public void linkController(MainController myController) {
 		this.myController = myController;
 
