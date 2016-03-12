@@ -4,42 +4,28 @@
 
 package view;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import constants.Constants;
 import controller.MainController;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.control.MenuBar;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import view.factories.HelpPageFactory;
-import view.factories.MenuBarFactory;
-import view.factories.PanelElementFactory;
 import view.panelelements.PanelElement;
-import view.panelelements.TurtleElement;
 
 public class MainView {
 
@@ -57,7 +43,6 @@ public class MainView {
 	private Workspace myActiveWorkspace;
 	private Map<Integer, Workspace> myWorkspaces;
 	
-	private BorderPane myPrimaryPane;
 	private TabPane myTabPane;
 
 	private HelpPageFactory myHelpPageFactory;
@@ -73,8 +58,6 @@ public class MainView {
 	public void init() {
 		initializePrimaryRoot();
 		initializeHelpRoots();
-
-		myController.setTurtleElement(myActiveWorkspace.getMyTurtleElement());
 
 		myPrimaryScene = new Scene(myPrimaryRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.WHITE);
 		myPrimaryScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -99,17 +82,11 @@ public class MainView {
 		AnchorPane root = new AnchorPane();
 		root.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
-		myTabPane = new TabPane();
-		Tab initialTab = new Tab();
-		initialTab.setText("1");
-		myTabPane.getTabs().add(initialTab);
-		int tabIndex = myTabPane.getTabs().size();
-
 		myWorkspaces = new HashMap<Integer, Workspace>();
-		myActiveWorkspace = new Workspace(tabIndex, myController, myPrimaryStage);
-		myActiveWorkspace.initialize();
-		initialTab.setContent(myActiveWorkspace.getPrimaryPane());
-		
+		myTabPane = new TabPane();
+		int initialTabIndex = Constants.INITIAL_TAB_INDEX;
+		Tab initialTab = myController.makeNewWorkspace(initialTabIndex, myPrimaryStage);
+				
 		Button newTabButton = createNewTabButton();
 		AnchorPane.setRightAnchor(newTabButton, 5.0);
 		
@@ -118,8 +95,12 @@ public class MainView {
 
 	}
 
+	/**
+	 * Creates Add Tab button
+	 * @return
+	 */
 	private Button createNewTabButton() {
-		Button newTabButton = new Button("+");
+		Button newTabButton = new Button(Constants.getSpecification("NewTabButton"));
 		newTabButton.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent event){
@@ -128,6 +109,7 @@ public class MainView {
 			}
 		});
 		return newTabButton;
+		
 	}
 
 	/**
@@ -213,8 +195,17 @@ public class MainView {
 		return myTabPane;
 	}
 
+	public Map<Integer, Workspace> getMyWorkspaces() {
+		return myWorkspaces;
+	}
+	
 	public Workspace getMyActiveWorkspace() {
 		return myActiveWorkspace;
+	}
+
+	public void setMyActiveWorkspace(Workspace newWorkspace) {
+		myActiveWorkspace = newWorkspace;
+		
 	}
 
 }

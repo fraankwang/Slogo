@@ -7,6 +7,9 @@ import configuration.ConfigurationInfo;
 import constants.Constants;
 import controller.ModelTransformer;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
@@ -156,10 +159,26 @@ public class MainController {
 
 	public Tab makeNewWorkspace(int newTabIndex, Stage primaryStage) {
 		Tab newTab = new Tab();
-		newTab.setText(Integer.toString(newTabIndex));
+		newTab.setText(Constants.getSpecification("WorkspaceTabName") + " " + Integer.toString(newTabIndex));
+		
 		Workspace newWorkspace = new Workspace(newTabIndex, this, primaryStage);
+		myView.setMyActiveWorkspace(newWorkspace);
 		newWorkspace.initialize();
 		newTab.setContent(newWorkspace.getPrimaryPane());
+		setTurtleElement(newWorkspace.getMyTurtleElement());
+		
+		newTab.setOnSelectionChanged(new EventHandler<Event>() {
+			@Override
+			public void handle(Event event) {
+				System.out.println("new workspace selected" + "index: " + newTabIndex);
+				myView.setMyActiveWorkspace(newWorkspace);
+				setTurtleElement(newWorkspace.getMyTurtleElement());
+				myView.getMyTabPane().getSelectionModel().clearAndSelect(newTabIndex);
+			}
+			
+		});
+		
+		myView.getMyWorkspaces().put(newTabIndex, newWorkspace);
 		
 		//currently linked to one model instance
 		myView.getMyTabPane().getSelectionModel().select(newTab);
