@@ -66,7 +66,6 @@ public class ModelTransformer {
 	 * @param history
 	 */
 	public void transformHistoryElement(Queue<String> history) {
-//		HistoryElement historyElement = (HistoryElement) myController.getMyView().getMyHistoryElement();
 		HistoryElement historyElement = (HistoryElement) myController.getMyView().getMyActiveWorkspace().getMyHistoryElement();
 		ListView<String> historyValues = historyElement.getListView();
 		historyValues.getItems().clear();
@@ -83,7 +82,6 @@ public class ModelTransformer {
 	 */
 	public void transformVariablesElement(Variables myVariables) {
 		Map<String, Double> variables = myVariables.getVariableMap();
-//		VariablesElement variablesElement = (VariablesElement) myController.getMyView().getMyVariablesElement();
 		VariablesElement variablesElement = (VariablesElement) myController.getMyView().getMyActiveWorkspace().getMyVariablesElement();
 		ListView<String> variablesNames = variablesElement.getNamesListView();
 		ListView<String> variablesValues = variablesElement.getValuesListView();
@@ -102,7 +100,6 @@ public class ModelTransformer {
 	 * @param variables
 	 */
 	public void transformColorsElement(Map<Integer, Color> colors) {
-//		ColorsElement colorsElement = (ColorsElement) myController.getMyView().getColorsElement();
 		ColorsElement colorsElement = (ColorsElement) myController.getMyView().getMyActiveWorkspace().getMyColorsElement();
 		ListView<String> colorIntegers = colorsElement.getIntegersListView();
 		ListView<String> colorValues = colorsElement.getValuesListView();
@@ -122,7 +119,6 @@ public class ModelTransformer {
 	 */
 	public void transformCommandsElement(UserCommands commands) {
 		Map<String, List<String>> map = commands.getUserCommandMap();
-//		CommandsElement commandsElement = (CommandsElement) myController.getMyView().getMyCommandsElement();
 		CommandsElement commandsElement = (CommandsElement) myController.getMyView().getMyActiveWorkspace().getMyCommandsElement();
 		ListView<String> commandsValues = commandsElement.getListView();
 		commandsValues.getItems().clear();
@@ -143,7 +139,6 @@ public class ModelTransformer {
 	 * @param map
 	 */
 	public void transformTurtleInfoElement(List<Turtle> turtles) {
-//		TurtleInfoElement turtleInfoElement = (TurtleInfoElement) myController.getMyView().getMyTurtleInfoElement();
 		TurtleInfoElement turtleInfoElement = (TurtleInfoElement) myController.getMyView().getMyActiveWorkspace().getMyTurtleInfoElement();
 		ListView<String> turtleInfoValues = turtleInfoElement.getListView();
 
@@ -167,7 +162,6 @@ public class ModelTransformer {
 		myController.setBackgroundColor(turtlePlayground.getMyBackgroundColor());
 		Turtle turtle = turtlePlayground.getCurrentTurtle();
 		
-//		GraphicsContext turtlegraphics = myController.getMyView().getMyTurtleGraphics();
 		GraphicsContext turtleGraphics = myController.getMyView().getMyActiveWorkspace().getMyTurtleGraphics();
 		turtleGraphics.setFill(turtle.getPenColor());
 		turtleGraphics.setStroke(turtle.getPenColor());

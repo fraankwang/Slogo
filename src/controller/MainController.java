@@ -169,11 +169,18 @@ public class MainController {
 		newWorkspace.initialize();
 		setTurtleElement(newWorkspace.getMyTurtleElement());
 		myView.getMyWorkspaces().put(newTabIndex, newWorkspace);
-		
+
 		return newWorkspace;
-		
+
 	}
 
+	/**
+	 * Creates new tab and sets workspace content to be tab content
+	 * 
+	 * @param workspace
+	 * @param newTabIndex
+	 * @return
+	 */
 	public Tab makeNewTab(Workspace workspace, int newTabIndex) {
 		Tab tab = new Tab();
 		tab.setText(Constants.getSpecification("WorkspaceTabName") + " " + Integer.toString(newTabIndex));

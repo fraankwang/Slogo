@@ -35,7 +35,7 @@ public class MainModel {
 	public MainModel(String language) {
 		myLanguage = language;
 		myVariables = new Variables();
-		myPlayground = new TurtlePlayground(Constants.LEFT_COLUMN_WIDTH, Constants.PLAYGROUND_HEIGHT);
+		myPlayground = new TurtlePlayground(Constants.PLAYGROUND_WIDTH, Constants.PLAYGROUND_HEIGHT);
 
 		myVariables = new Variables();
 		myUserCommands = new UserCommands();
