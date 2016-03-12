@@ -7,9 +7,6 @@ import configuration.ConfigurationInfo;
 import constants.Constants;
 import controller.ModelTransformer;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
@@ -157,35 +154,34 @@ public class MainController {
 
 	}
 
-	public Tab makeNewWorkspace(int newTabIndex, Stage primaryStage) {
-		Tab newTab = new Tab();
-		newTab.setText(Constants.getSpecification("WorkspaceTabName") + " " + Integer.toString(newTabIndex));
-		
+	/**
+	 * Sets workspace to active workspace, updates TurtleElement, and
+	 * initializes workspace
+	 * 
+	 * @param newTabIndex
+	 * @param primaryStage
+	 * @return
+	 */
+	public Workspace makeNewWorkspace(int newTabIndex, Stage primaryStage) {
+
 		Workspace newWorkspace = new Workspace(newTabIndex, this, primaryStage);
 		myView.setMyActiveWorkspace(newWorkspace);
 		newWorkspace.initialize();
-		newTab.setContent(newWorkspace.getPrimaryPane());
 		setTurtleElement(newWorkspace.getMyTurtleElement());
-		
-		newTab.setOnSelectionChanged(new EventHandler<Event>() {
-			@Override
-			public void handle(Event event) {
-				System.out.println("new workspace selected" + "index: " + newTabIndex);
-				myView.setMyActiveWorkspace(newWorkspace);
-				setTurtleElement(newWorkspace.getMyTurtleElement());
-				myView.getMyTabPane().getSelectionModel().clearAndSelect(newTabIndex);
-			}
-			
-		});
-		
 		myView.getMyWorkspaces().put(newTabIndex, newWorkspace);
 		
-		//currently linked to one model instance
-		myView.getMyTabPane().getSelectionModel().select(newTab);
-		myView.getMyTabPane().getTabs().add(newTab);
-		return newTab;
+		return newWorkspace;
+		
 	}
-	
+
+	public Tab makeNewTab(Workspace workspace, int newTabIndex) {
+		Tab tab = new Tab();
+		tab.setText(Constants.getSpecification("WorkspaceTabName") + " " + Integer.toString(newTabIndex));
+		tab.setContent(workspace.getPrimaryPane());
+		return tab;
+
+	}
+
 	// =========================================================================
 	// Modifiers, Getters, and Setters
 	// =========================================================================

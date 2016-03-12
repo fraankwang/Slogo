@@ -84,9 +84,21 @@ public class MainView {
 
 		myWorkspaces = new HashMap<Integer, Workspace>();
 		myTabPane = new TabPane();
+		
 		int initialTabIndex = Constants.INITIAL_TAB_INDEX;
-		Tab initialTab = myController.makeNewWorkspace(initialTabIndex, myPrimaryStage);
-				
+		Workspace initialWorkspace = myController.makeNewWorkspace(initialTabIndex, myPrimaryStage); 		
+		Tab initialTab = myController.makeNewTab(initialWorkspace, initialTabIndex);
+		
+		myTabPane.getSelectionModel().selectedItemProperty().addListener((ov, oldTab, newTab) -> {
+			int currentTabIndex = myTabPane.getSelectionModel().getSelectedIndex();
+			myActiveWorkspace = myWorkspaces.get(currentTabIndex);
+			myController.setTurtleElement(myActiveWorkspace.getMyTurtleElement());
+	        
+	    });
+		
+		
+		myTabPane.getTabs().add(initialTab);
+		
 		Button newTabButton = createNewTabButton();
 		AnchorPane.setRightAnchor(newTabButton, 5.0);
 		
@@ -104,8 +116,10 @@ public class MainView {
 		newTabButton.setOnAction(new EventHandler<ActionEvent>(){
 			@Override
 			public void handle(ActionEvent event){
-				int newTabIndex = myTabPane.getTabs().size() + 1;
-				myController.makeNewWorkspace(newTabIndex, myPrimaryStage);
+				int newTabIndex = myTabPane.getTabs().size();
+				Workspace workspace = myController.makeNewWorkspace(newTabIndex, myPrimaryStage);
+				Tab newTab = myController.makeNewTab(workspace, newTabIndex);
+				myTabPane.getTabs().add(newTab);
 			}
 		});
 		return newTabButton;
