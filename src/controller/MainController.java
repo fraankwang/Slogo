@@ -1,7 +1,3 @@
-/**
- * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
- */
-
 package controller;
 
 import java.util.List;
@@ -9,12 +5,21 @@ import java.util.Queue;
 
 import configuration.ConfigurationInfo;
 import constants.Constants;
+import controller.ModelTransformer;
 import javafx.animation.Timeline;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import model.MainModel;
 import view.MainView;
+import view.Workspace;
 import view.panelelements.PanelElement;
 import view.panelelements.TurtleElement;
 
@@ -52,7 +57,6 @@ public class MainController {
 	 */
 	private void readCommand(String input) {
 		myModel.readCommand(input);
-
 	}
 
 	/**
@@ -89,8 +93,8 @@ public class MainController {
 
 		String penColor = "Pen color: " + myModel.getMyPlayground().getCurrentPenColor() + "\n";
 
-		Double xCoord = myView.getMyTurtleElement().getNode().getTranslateX();
-		Double yCoord = myView.getMyTurtleElement().getNode().getTranslateY();
+		Double xCoord = myView.getMyActiveWorkspace().getMyTurtleElement().getNode().getTranslateX();
+		Double yCoord = myView.getMyActiveWorkspace().getMyTurtleElement().getNode().getTranslateY();
 		if (yCoord != 0) {
 			yCoord *= -1;
 		}
@@ -132,7 +136,7 @@ public class MainController {
 		configInfo.setMyPenWidth(myModel.getMyPlayground().getCurrentTurtle().getPenWidth());
 		configInfo.setMyPalette(myModel.getPalette());
 		return configInfo;
-		
+
 	}
 
 	/**
@@ -140,15 +144,29 @@ public class MainController {
 	 * start
 	 */
 	public void resetTurtlePosition() {
-		myView.getMyTurtleGraphics().clearRect(0, 0, Constants.PLAYGROUND_WIDTH, Constants.PLAYGROUND_HEIGHT);
+		myView.getMyActiveWorkspace().getMyTurtleGraphics().clearRect(0, 0, Constants.PLAYGROUND_WIDTH,
+				Constants.PLAYGROUND_HEIGHT);
 		myModel.getMyPlayground().getCurrentTurtle().clearTurtleCoordinates();
 		myModel.getMyPlayground().setTurtleHome();
-		TurtleElement turtleElement = (TurtleElement) myView.getMyTurtleElement();
+		TurtleElement turtleElement = (TurtleElement) myView.getMyActiveWorkspace().getMyTurtleElement();
 		turtleElement.moveTurtleImage(0.0, 0.0);
 		myTransformer.transformTurtleGraphics(myModel.getMyPlayground());
 
 	}
 
+	public Tab makeNewWorkspace(int newTabIndex, Stage primaryStage) {
+		Tab newTab = new Tab();
+		newTab.setText(Integer.toString(newTabIndex));
+		Workspace newWorkspace = new Workspace(newTabIndex, this, primaryStage);
+		newWorkspace.initialize();
+		newTab.setContent(newWorkspace.getPrimaryPane());
+		
+		//currently linked to one model instance
+		myView.getMyTabPane().getSelectionModel().select(newTab);
+		myView.getMyTabPane().getTabs().add(newTab);
+		return newTab;
+	}
+	
 	// =========================================================================
 	// Modifiers, Getters, and Setters
 	// =========================================================================
@@ -157,16 +175,25 @@ public class MainController {
 		return myView;
 	}
 
-	public MainModel getMainModel() {
-		return myModel;
-	}
-
 	public List<PanelElement> getViewableElements() {
 		return myView.getViewableElements();
 	}
 
 	public void setTurtleImage(String image) {
-		myView.setTurtleImage(image);
+		TurtleElement myTurtleElement = (TurtleElement) myView.getMyActiveWorkspace().getMyTurtleElement();
+		StackPane myTurtleWrapper = myView.getMyActiveWorkspace().getMyTurtleWrapper();
+		Canvas myTurtlePlayground = myView.getMyActiveWorkspace().getMyTurtlePlayground();
+
+		ImageView newImage = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(image + ".jpg")));
+		newImage.setFitWidth(Constants.TURTLE_ELEMENT_WIDTH);
+		newImage.setFitHeight(Constants.TURTLE_ELEMENT_HEIGHT);
+		Double oldX = myTurtleElement.getNode().getTranslateX();
+		Double oldY = myTurtleElement.getNode().getTranslateY();
+		((TurtleElement) myTurtleElement).setTurtleImage(newImage);
+		myTurtleWrapper.getChildren().removeAll(myTurtlePlayground, myTurtleElement.getNode());
+		myTurtleWrapper.getChildren().addAll(myTurtlePlayground, myTurtleElement.getNode());
+		((TurtleElement) myTurtleElement).moveTurtleImage(oldX, oldY);
+
 		myModel.getMyPlayground().setCurrentTurtleShape(image);
 	}
 
@@ -175,7 +202,8 @@ public class MainController {
 	}
 
 	public void setBackgroundColor(Color color) {
-		myView.setTurtleBackgroundColor(color);
+		myView.getMyActiveWorkspace().getMyTurtleBackground()
+				.setBackground(new Background(new BackgroundFill(color, Constants.CORNER_RADIUS, null)));
 		myModel.getMyPlayground().setBackgroundColor(color);
 	}
 
@@ -212,14 +240,6 @@ public class MainController {
 
 	public void setPrimaryPane() {
 		myView.showPrimaryScene();
-	}
-
-	public Tab makeNewWorkspace(int newTabIndex) {
-		Tab test = new Tab();
-		test.setText(Integer.toString(newTabIndex));
-		myView.getMyTabPane().getTabs().add(test);
-		myView.getMyTabPane().getSelectionModel().select(test);
-		return test;
 	}
 
 }
