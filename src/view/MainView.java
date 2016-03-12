@@ -4,34 +4,27 @@
 
 package view;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import constants.Constants;
 import controller.MainController;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
-import javafx.scene.control.MenuBar;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import view.factories.HelpPageFactory;
-import view.factories.MenuBarFactory;
-import view.factories.PanelElementFactory;
 import view.panelelements.PanelElement;
-import view.panelelements.TurtleElement;
 
 public class MainView {
 
@@ -42,26 +35,17 @@ public class MainView {
 	private Scene myPrimaryScene;
 	private Scene myHelpScene;
 	private MainController myController;
-	private Group myPrimaryRoot;
+	private AnchorPane myPrimaryRoot;
 	private Group myBasicHelpRoot;
 	private Group myAdvancedHelpRoot;
-	private BorderPane myPrimaryPane;
+	
+	private Workspace myActiveWorkspace;
+	private Map<Integer, Workspace> myWorkspaces;
+	
+	private TabPane myTabPane;
 
-	private PanelElementFactory myPanelElementFactory;
-	private MenuBarFactory myMenuBarFactory;
 	private HelpPageFactory myHelpPageFactory;
-	private PanelElement myOutputElement;
-	private PanelElement myHistoryElement;
-	private PanelElement myCommandsElement;
-	private PanelElement myVariablesElement;
-	private PanelElement myTurtleBackground;
-	private PanelElement myTurtleElement;
-	private PanelElement myColorsElement;
-	private PanelElement myTurtleInfoElement;
-	private StackPane myTurtleWrapper;
-	private Canvas myTurtlePlayground;
-	private GraphicsContext myTurtleGraphics;
-
+	
 	public MainView(Stage stage) {
 		myPrimaryStage = stage;
 
@@ -73,8 +57,6 @@ public class MainView {
 	public void init() {
 		initializePrimaryRoot();
 		initializeHelpRoots();
-
-		myController.setTurtleElement(getMyTurtleElement());
 
 		myPrimaryScene = new Scene(myPrimaryRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.WHITE);
 		myPrimaryScene.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -92,72 +74,55 @@ public class MainView {
 	}
 
 	/**
-	 * Shows Help Scene
-	 */
-	public void showHelpScene(boolean basic) {
-		if (basic) {
-			myHelpScene.setRoot(myBasicHelpRoot);
-		} else {
-			myHelpScene.setRoot(myAdvancedHelpRoot);
-		}
-		
-		myPrimaryStage.setScene(myHelpScene);
-		myPrimaryStage.show();
-
-	}
-
-	/**
-	 * Shows Primary Scene
-	 */
-	public void showPrimaryScene() {
-		myPrimaryStage.setScene(myPrimaryScene);
-		myPrimaryStage.show();
-	}
-
-	/**
 	 * Primary init method which pieces together all the elements to be
 	 * displayed. PanelElements are created once using the factory
 	 */
 	private void initializePrimaryRoot() {
-		Group root = new Group();
+		AnchorPane root = new AnchorPane();
 		root.getStylesheets().add(getClass().getResource("style.css").toExternalForm());
 
-		myPrimaryPane = new BorderPane();
-		root.getChildren().add(myPrimaryPane);
-
-		myPanelElementFactory = new PanelElementFactory(myController);
-		myMenuBarFactory = new MenuBarFactory(myController, myPrimaryStage);
-
-		VBox leftColumn = myPanelElementFactory.createLeftColumn();
-		VBox rightColumn = myPanelElementFactory.createRightColumn();
-
-		initializePanelElements();
-
-		MenuBar menuBar = myMenuBarFactory.createMenuBar();
-		myPrimaryPane.setTop(menuBar);
-		myPrimaryPane.setLeft(leftColumn);
-		myPrimaryPane.setRight(rightColumn);
-
+		myWorkspaces = new HashMap<Integer, Workspace>();
+		myTabPane = new TabPane();
+		
+		int initialTabIndex = Constants.INITIAL_TAB_INDEX;
+		Workspace initialWorkspace = myController.makeNewWorkspace(initialTabIndex, myPrimaryStage); 		
+		Tab initialTab = myController.makeNewTab(initialWorkspace, initialTabIndex);
+		
+		myTabPane.getSelectionModel().selectedItemProperty().addListener((ov, oldTab, newTab) -> {
+			int currentTabIndex = myTabPane.getSelectionModel().getSelectedIndex();
+			myActiveWorkspace = myWorkspaces.get(currentTabIndex);
+			myController.setTurtleElement(myActiveWorkspace.getMyTurtleElement());
+	        myController.setActiveModel(currentTabIndex);
+	    });
+		
+		myTabPane.getTabs().add(initialTab);
+		
+		Button newTabButton = createNewTabButton();
+		AnchorPane.setRightAnchor(newTabButton, 5.0);
+		
+		root.getChildren().addAll(myTabPane, newTabButton);
 		myPrimaryRoot = root;
 
 	}
 
 	/**
-	 * Utilizes factory to initialize PanelElements
+	 * Creates Add Tab button
+	 * @return
 	 */
-	private void initializePanelElements() {
-		myTurtleGraphics = myPanelElementFactory.getTurtleGraphics();
-		myTurtleBackground = myPanelElementFactory.getTurtleBackground();
-		myTurtleElement = myPanelElementFactory.getTurtleElement();
-		myTurtleWrapper = myPanelElementFactory.getTurtleWrapper();
-		myTurtlePlayground = myPanelElementFactory.getTurtlePlayground();
-
-		myVariablesElement = myPanelElementFactory.getVariablesElement();
-		myCommandsElement = myPanelElementFactory.getCommandsElement();
-		myHistoryElement = myPanelElementFactory.getHistoryElement();
-		myOutputElement = myPanelElementFactory.getOutputElement();
-		myColorsElement = myPanelElementFactory.getColorsElement();
-		myTurtleInfoElement = myPanelElementFactory.getTurtleInfoElement();
+	private Button createNewTabButton() {
+		Button newTabButton = new Button(Constants.getSpecification("NewTabButton"));
+		newTabButton.setOnAction(new EventHandler<ActionEvent>(){
+			@Override
+			public void handle(ActionEvent event){
+				int newTabIndex = myTabPane.getTabs().size();
+				Workspace workspace = myController.makeNewWorkspace(newTabIndex, myPrimaryStage);
+				Tab newTab = myController.makeNewTab(workspace, newTabIndex);
+				myController.makeNewModel(newTabIndex);
+				myTabPane.getTabs().add(newTab);
+			}
+		});
+		return newTabButton;
+		
 	}
 
 	/**
@@ -186,86 +151,52 @@ public class MainView {
 		myHelpScene = new Scene(advancedHelpRoot, SCENE_WIDTH, SCENE_HEIGHT, Color.WHITE);
 	}
 
+	/**
+	 * Links controller with MainView
+	 * @param myController
+	 */
 	public void linkController(MainController myController) {
 		this.myController = myController;
-		myController.setTurtleElement(myTurtleElement);
+
+	}
+	
+	/**
+	 * Shows Help Scene
+	 */
+	public void showHelpScene(boolean basic) {
+		if (basic) {
+			myHelpScene.setRoot(myBasicHelpRoot);
+		} else {
+			myHelpScene.setRoot(myAdvancedHelpRoot);
+		}
+		
+		myPrimaryStage.setScene(myHelpScene);
+		myPrimaryStage.show();
+
+	}
+
+	/**
+	 * Shows Primary Scene
+	 */
+	public void showPrimaryScene() {
+		myPrimaryStage.setScene(myPrimaryScene);
+		myPrimaryStage.show();
+		
 	}
 
 	// =========================================================================
 	// Getters and Setters
 	// =========================================================================
 
-	public GraphicsContext getMyTurtleGraphics() {
-		return myTurtleGraphics;
-	}
-
-	public PanelElement getMyTurtleElement() {
-		return myTurtleElement;
-	}
-
-	public PanelElement getMyOutputElement() {
-		return myOutputElement;
-	}
-
-	public PanelElement getMyHistoryElement() {
-		return myHistoryElement;
-	}
-
-	public PanelElement getMyCommandsElement() {
-		return myCommandsElement;
-	}
-
-	public PanelElement getMyVariablesElement() {
-		return myVariablesElement;
-	}
-	
-	public PanelElement getMyTurtleInfoElement(){
-		return myTurtleInfoElement;
-	}
-
-	public PanelElement getTurtleBackground() {
-		return myTurtleBackground;
-	}
-	
-	public PanelElement getColorsElement() {
-		return myColorsElement;
-	}
-
 	public List<PanelElement> getViewableElements() {
-		List<PanelElement> viewableElements = new ArrayList<PanelElement>();
-		viewableElements.add(myVariablesElement);
-		viewableElements.add(myCommandsElement);
-		viewableElements.add(myHistoryElement);
-		viewableElements.add(myOutputElement);
-		viewableElements.add(myTurtleBackground);
-		viewableElements.add(myTurtleElement);
-		viewableElements.add(myColorsElement);
-		viewableElements.add(myTurtleInfoElement);
-		return viewableElements;
-
+		return myActiveWorkspace.getViewableElements();
 	}
 
 	public void setMyPrimaryStage(Stage myPrimaryStage) {
 		this.myPrimaryStage = myPrimaryStage;
 	}
 
-	public void setTurtleImage(String image) {
-		ImageView newImage = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(image + ".jpg")));
-		newImage.setFitWidth(Constants.TURTLE_ELEMENT_WIDTH);
-		newImage.setFitHeight(Constants.TURTLE_ELEMENT_HEIGHT);
-		Double oldX = myTurtleElement.getNode().getTranslateX();
-		Double oldY = myTurtleElement.getNode().getTranslateY();
-		((TurtleElement) myTurtleElement).setTurtleImage(newImage);
-		myTurtleWrapper.getChildren().removeAll(myTurtlePlayground, myTurtleElement.getNode());
-		myTurtleWrapper.getChildren().addAll(myTurtlePlayground, myTurtleElement.getNode());
-		((TurtleElement) myTurtleElement).moveTurtleImage(oldX, oldY);
-	}
-
-	public void setTurtleBackgroundColor(Color color) {
-		myTurtleBackground.setBackground(new Background(new BackgroundFill(color, Constants.CORNER_RADIUS, null)));
-	}
-
-	public Group getMyPrimaryRoot() {
+	public AnchorPane getMyPrimaryRoot() {
 		return myPrimaryRoot;
 	}
 
@@ -275,6 +206,23 @@ public class MainView {
 
 	public Group getMyAdvancedHelpRoot() {
 		return myAdvancedHelpRoot;
+	}
+
+	public TabPane getMyTabPane() {
+		return myTabPane;
+	}
+
+	public Map<Integer, Workspace> getMyWorkspaces() {
+		return myWorkspaces;
+	}
+	
+	public Workspace getMyActiveWorkspace() {
+		return myActiveWorkspace;
+	}
+
+	public void setMyActiveWorkspace(Workspace newWorkspace) {
+		myActiveWorkspace = newWorkspace;
+		
 	}
 
 }
