@@ -1,25 +1,24 @@
+// This entire file is part of my masterpiece.
+// Frank Wang
+
+/**
+ * This class acts as the controller within the overarching MVC paradigm. 
+ */
+
 package controller;
 
 import java.util.*;
 import configuration.ConfigurationInfo;
 import constants.Constants;
 import controller.ModelTransformer;
-import javafx.animation.Timeline;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import model.MainModel;
 import view.MainView;
 import view.Workspace;
 import view.panelelements.PanelElement;
-import view.panelelements.TurtleElement;
 
 public class MainController {
 
@@ -27,7 +26,6 @@ public class MainController {
 	private MainModel myActiveModel;
 	private Map<Integer, MainModel> myModels;
 	private ModelTransformer myTransformer;
-	private Timeline myTimeline;
 
 	public MainController(MainView view) {
 		myView = view;
@@ -88,46 +86,6 @@ public class MainController {
 	}
 
 	/**
-	 * Changes MainModel to correspond with tab change
-	 * 
-	 * @param newTabIndex
-	 */
-	public void setActiveModel(int newTabIndex) {
-		myActiveModel = myModels.get(newTabIndex);
-	}
-
-	/**
-	 * Grabs current turtle information and displays it in given TextArea
-	 * 
-	 * @param textArea
-	 */
-	public void displayTurtleInfo(TextArea textArea) {
-		String language = "Language: " + myActiveModel.getLanguage() + "\n";
-		String ID = "Turtle ID: " + Integer.toString(myActiveModel.getMyPlayground().getCurrentTurtleID()) + "\n";
-		String orientation = "Orientation: " + myActiveModel.getMyPlayground().getCurrentTurtle().getOrientation() % 360
-				+ "\n";
-
-		String penUp;
-		if (myActiveModel.getMyPlayground().getCurrentTurtle().getPenDown()) {
-			penUp = "Pen is: down" + "\n";
-		} else {
-			penUp = "Pen is: up" + "\n";
-		}
-
-		String penColor = "Pen color: " + myActiveModel.getMyPlayground().getCurrentPenColor() + "\n";
-
-		Double xCoord = myView.getMyActiveWorkspace().getMyTurtleElement().getNode().getTranslateX();
-		Double yCoord = myView.getMyActiveWorkspace().getMyTurtleElement().getNode().getTranslateY();
-		if (yCoord != 0) {
-			yCoord *= -1;
-		}
-		String x = "X Coordinate: " + Double.toString(xCoord) + "\n";
-		String y = "Y Coordinate: " + Double.toString(yCoord);
-		textArea.setText(language + ID + orientation + penUp + penColor + x + y);
-
-	}
-
-	/**
 	 * Updates all model information given packaged configuration info
 	 * 
 	 * @param configInfo
@@ -159,21 +117,6 @@ public class MainController {
 		configInfo.setMyPenWidth(myActiveModel.getMyPlayground().getCurrentTurtle().getPenWidth());
 		configInfo.setMyPalette(myActiveModel.getPalette());
 		return configInfo;
-
-	}
-
-	/**
-	 * Deletes stored previously run commands and moves turtle position back to
-	 * start
-	 */
-	public void resetTurtlePosition() {
-		myView.getMyActiveWorkspace().getMyTurtleGraphics().clearRect(0, 0, Constants.PLAYGROUND_WIDTH,
-				Constants.PLAYGROUND_HEIGHT);
-		myActiveModel.getMyPlayground().getCurrentTurtle().clearTurtleCoordinates();
-		myActiveModel.getMyPlayground().setTurtleHome();
-		TurtleElement turtleElement = (TurtleElement) myView.getMyActiveWorkspace().getMyTurtleElement();
-		turtleElement.moveTurtleImage(0.0, 0.0);
-		myTransformer.transformTurtleGraphics(myActiveModel.getMyPlayground());
 
 	}
 
@@ -212,6 +155,25 @@ public class MainController {
 
 	}
 
+	/**
+	 * Deletes stored previously run commands and moves turtle position back to
+	 * start
+	 */
+	public void resetTurtlePosition() {
+		myTransformer.resetTurtlePosition();
+		myTransformer.transformTurtleGraphics(myActiveModel.getMyPlayground());
+
+	}
+
+	/**
+	 * Grabs current turtle information and displays it in given TextArea
+	 * 
+	 * @param textArea
+	 */
+	public void displayTurtleInfo(TextArea textArea) {
+		myTransformer.displayTurtleInfo(textArea);
+	}
+
 	// =========================================================================
 	// Modifiers, Getters, and Setters
 	// =========================================================================
@@ -220,28 +182,28 @@ public class MainController {
 		return myView;
 	}
 
+	public void setHelpMenu(boolean basic) {
+		myView.showHelpScene(basic);
+	}
+
+	public void setPrimaryPane() {
+		myView.showPrimaryScene();
+	}
+
+	public void setMyActiveModel(int newTabIndex) {
+		myActiveModel = myModels.get(newTabIndex);
+	}
+
+	public MainModel getMyActiveModel() {
+		return myActiveModel;
+	}
+
 	public List<PanelElement> getViewableElements() {
 		return myView.getViewableElements();
 	}
 
 	public void setTurtleImage(String image) {
-		TurtleElement myTurtleElement = (TurtleElement) myView.getMyActiveWorkspace().getMyTurtleElement();
-		StackPane myTurtleWrapper = myView.getMyActiveWorkspace().getMyTurtleWrapper();
-		Canvas myTurtlePlayground = myView.getMyActiveWorkspace().getMyTurtlePlayground();
-
-		ImageView newImage = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(image + ".jpg")));
-		newImage.setFitWidth(Constants.TURTLE_ELEMENT_WIDTH);
-		newImage.setFitHeight(Constants.TURTLE_ELEMENT_HEIGHT);
-		Double oldX = myTurtleElement.getNode().getTranslateX();
-		Double oldY = myTurtleElement.getNode().getTranslateY();
-		((TurtleElement) myTurtleElement).setTurtleImage(newImage);
-		myTurtleWrapper.getChildren().clear();
-		myTurtleWrapper.getChildren().addAll(myTurtlePlayground, myTurtleElement.getNode());
-		((TurtleElement) myTurtleElement).moveTurtleImage(oldX, oldY);
-		((TurtleElement) myTurtleElement)
-				.setTurtleOrientation(myActiveModel.getMyPlayground().getCurrentTurtle().getOrientation());
-
-		myActiveModel.getMyPlayground().setCurrentTurtleShape(image);
+		myTransformer.setTurtleImage(image);
 	}
 
 	public void setTurtleElement(PanelElement turtleElement) {
@@ -249,8 +211,7 @@ public class MainController {
 	}
 
 	public void setBackgroundColor(Color color) {
-		myView.getMyActiveWorkspace().getMyTurtleBackground()
-				.setBackground(new Background(new BackgroundFill(color, Constants.CORNER_RADIUS, null)));
+		myView.getMyActiveWorkspace().setTurtleBackground(color);
 		myActiveModel.getMyPlayground().setBackgroundColor(color);
 	}
 
@@ -273,20 +234,6 @@ public class MainController {
 
 	public void replaceVariableValue(String name, String newVal) {
 		myActiveModel.replaceVariableValue(name, newVal);
-	}
-
-	public void setAnimationSpeed(double speed) {
-		if (myTimeline != null) {
-			myTimeline.setRate(speed);
-		}
-	}
-
-	public void setHelpMenu(boolean basic) {
-		myView.showHelpScene(basic);
-	}
-
-	public void setPrimaryPane() {
-		myView.showPrimaryScene();
 	}
 
 }
