@@ -9,9 +9,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import constants.Constants;
+import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import model.UserCommands;
 import model.Variables;
@@ -153,6 +157,38 @@ public class ModelTransformer {
 	}
 
 	/**
+	 * Grabs current turtle information and displays it in given TextArea
+	 * 
+	 * @param textArea
+	 */
+	public void displayTurtleInfo(TextArea textArea) {
+		String language = "Language: " + myController.getMyActiveModel().getLanguage() + "\n";
+		String ID = "Turtle ID: " + Integer.toString(myController.getMyActiveModel().getMyPlayground().getCurrentTurtleID()) + "\n";
+		String orientation = "Orientation: " + myController.getMyActiveModel().getMyPlayground().getCurrentTurtle().getOrientation() % 360
+				+ "\n";
+
+		String penUp;
+		if (myController.getMyActiveModel().getMyPlayground().getCurrentTurtle().getPenDown()) {
+			penUp = "Pen is: down" + "\n";
+		} else {
+			penUp = "Pen is: up" + "\n";
+		}
+
+		String penColor = "Pen color: " + myController.getMyActiveModel().getMyPlayground().getCurrentPenColor() + "\n";
+
+		Double xCoord = myController.getMyView().getMyActiveWorkspace().getMyTurtleElement().getNode().getTranslateX();
+		Double yCoord = myController.getMyView().getMyActiveWorkspace().getMyTurtleElement().getNode().getTranslateY();
+		if (yCoord != 0) {
+			yCoord *= -1;
+		}
+		String x = "X Coordinate: " + Double.toString(xCoord) + "\n";
+		String y = "Y Coordinate: " + Double.toString(yCoord);
+		textArea.setText(language + ID + orientation + penUp + penColor + x + y);
+
+	}
+	
+	
+	/**
 	 * Reads all turtle-related information and updates relevant graphics
 	 * 
 	 * @param orientation
@@ -229,6 +265,39 @@ public class ModelTransformer {
 
 	public void setTurtleElement(PanelElement turtleElement) {
 		myTurtleElement = (TurtleElement) turtleElement;
+	}
+
+	public void setTurtleImage(String image) {
+		TurtleElement myTurtleElement = (TurtleElement) myController.getMyView().getMyActiveWorkspace().getMyTurtleElement();
+		StackPane myTurtleWrapper = myController.getMyView().getMyActiveWorkspace().getMyTurtleWrapper();
+		Canvas myTurtlePlayground = myController.getMyView().getMyActiveWorkspace().getMyTurtlePlayground();
+
+		ImageView newImage = new ImageView(new Image(getClass().getClassLoader().getResourceAsStream(image + ".jpg")));
+		newImage.setFitWidth(Constants.TURTLE_ELEMENT_WIDTH);
+		newImage.setFitHeight(Constants.TURTLE_ELEMENT_HEIGHT);
+		Double oldX = myTurtleElement.getNode().getTranslateX();
+		Double oldY = myTurtleElement.getNode().getTranslateY();
+		((TurtleElement) myTurtleElement).setTurtleImage(newImage);
+		myTurtleWrapper.getChildren().clear();
+		myTurtleWrapper.getChildren().addAll(myTurtlePlayground, myTurtleElement.getNode());
+		((TurtleElement) myTurtleElement).moveTurtleImage(oldX, oldY);
+		((TurtleElement) myTurtleElement)
+				.setTurtleOrientation(myController.getMyActiveModel().getMyPlayground().getCurrentTurtle().getOrientation());
+
+		myController.getMyActiveModel().getMyPlayground().setCurrentTurtleShape(image);
+	}
+
+	/**
+	 * Deletes stored previously run commands and moves turtle position back to
+	 * start
+	 */
+	public void resetTurtlePosition() {
+		myController.getMyView().getMyActiveWorkspace().getMyTurtleGraphics().clearRect(0, 0, Constants.PLAYGROUND_WIDTH,
+				Constants.PLAYGROUND_HEIGHT);
+		myController.getMyActiveModel().getMyPlayground().getCurrentTurtle().clearTurtleCoordinates();
+		myController.getMyActiveModel().getMyPlayground().setTurtleHome();
+		TurtleElement turtleElement = (TurtleElement) myController.getMyView().getMyActiveWorkspace().getMyTurtleElement();
+		turtleElement.moveTurtleImage(0.0, 0.0);
 	}
 
 }

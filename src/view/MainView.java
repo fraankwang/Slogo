@@ -92,7 +92,7 @@ public class MainView {
 			int currentTabIndex = myTabPane.getSelectionModel().getSelectedIndex();
 			myActiveWorkspace = myWorkspaces.get(currentTabIndex);
 			myController.setTurtleElement(myActiveWorkspace.getMyTurtleElement());
-	        myController.setActiveModel(currentTabIndex);
+	        myController.setMyActiveModel(currentTabIndex);
 	    });
 		
 		myTabPane.getTabs().add(initialTab);

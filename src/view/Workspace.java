@@ -6,14 +6,19 @@ package view;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import constants.Constants;
 import controller.MainController;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.TabPane;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import view.factories.HelpPageFactory;
 import view.factories.MenuBarFactory;
@@ -176,5 +181,9 @@ public class Workspace {
 	public GraphicsContext getMyTurtleGraphics() {
 		return myTurtleGraphics;
 	}
-
+	
+	public void setTurtleBackground(Color color) {
+		myTurtleBackground.setBackground(new Background(new BackgroundFill(color, Constants.CORNER_RADIUS, null)));
+	}
+	
 }

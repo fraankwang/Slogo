@@ -137,8 +137,7 @@ public class MenuBarFactory {
 
 		Menu languageMenu = createLanguageMenu();
 		CustomMenuItem backgroundColor = makeBackgroundColorPicker(Constants.DEFAULT_BACKGROUND_COLOR);
-		CustomMenuItem animationSlider = makeAnimationRateSlider();
-		configurationMenu.getItems().addAll(languageMenu, backgroundColor, animationSlider);
+		configurationMenu.getItems().addAll(languageMenu, backgroundColor);
 
 		return configurationMenu;
 
@@ -198,30 +197,6 @@ public class MenuBarFactory {
 
 	}
 
-	/**
-	 * Creates and links Animation speed to MainController
-	 * 
-	 * @return
-	 */
-	private CustomMenuItem makeAnimationRateSlider() {
-		VBox sliderWrapper = new VBox();
-
-		Label sliderLabel = new Label(Constants.getSpecification("AnimationSliderLabel"));
-		sliderLabel.setTextFill(Color.BLACK);
-
-		Slider slider = new Slider(Constants.ANIMATION_SLIDER_MIN, Constants.ANIMATION_SLIDER_MAX,
-				Constants.DEFAULT_ANIMATION_SPEED);
-		slider.setShowTickLabels(true);
-		slider.setShowTickMarks(true);
-		slider.setStyle("-fx-stroke: black;");
-		slider.valueProperty().addListener(e -> myController.setAnimationSpeed(slider.getValue()));
-
-		sliderWrapper.getChildren().addAll(sliderLabel, slider);
-		CustomMenuItem sliderItem = new CustomMenuItem(sliderWrapper);
-		sliderItem.setHideOnClick(false);
-		return sliderItem;
-
-	}
 
 	/**
 	 * Goes through all viewable elements and creates checkable menu items that
