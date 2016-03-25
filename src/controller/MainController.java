@@ -2,7 +2,28 @@
 // Frank Wang
 
 /**
- * This class acts as the controller within the overarching MVC paradigm. 
+ * This class acts as the controller within the over-arching MVC of our entire project.
+ * I wrote this entire class as well as everything in the ModelTransformer class.
+ * 
+ * 1. This class is the cornerstone of our entire project. Without it, the front-end would 
+ * stand as an empty shell while the back-end's model information would not be displayable ever. 
+ * 2. The MainController contains references to the MainView and the active MainModel, 
+ * as well as a map of Models. The MainModels and Workspaces correspond to each other, but
+ * the map of Workspaces along with the active Workspace are managed by the MainView class instead.
+ * 3. This class has been extensively refactored to be cleaner but comprehensive enough to
+ * fully link the front-end and back-end.
+ * 4. The primary method is the executeCommand method, which has 2 parts: tell the MainModel to 
+ * update itself given the parameter command given, and then to pull the updated model
+ * information and pass it to the ModelTransformer which takes care of all the transformations.
+ * 5. All the transformations are encapsulated in the ModelTransformation, while all the 
+ * PanelElements and UI-related components are encapsulated within MainView's active Workspace, 
+ * and all the model information is encapsulated within each instance of MainModel. Therefore
+ * the MainController deals with only the active Workspace and active Models. 
+ * 6. The MainController also has control over setting the active MainModel, though 
+ * this is called from the MainView by adding a listener to the TabPane's selection model.
+ * 7. The MainController is also responsible for gathering and updating the configuration-related
+ * information, as it is the only class that has global access to all the necessary configuration information
+ * 
  */
 
 package controller;
