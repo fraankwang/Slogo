@@ -1,3 +1,9 @@
+// This entire file is part of my masterpiece.
+// HUIJIA YU
+// I chose this for my masterpiece because it is an implementation of the abstract class.
+// This also shows the encapsulation of the way parameters are taken in, as well as 
+// an example of a try-catch block.
+
 /**
  * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
  */
@@ -40,19 +46,8 @@ public class To extends HigherOrderCommands {
 	public double rule() throws Exception {
 		try {
 			usercommands.addCommand(commandname, parametervariables, commands);
-			System.out.println("added command ." + commands + ". with params ." + String.join(",", parametervariables)
-					+ parametervariables.size());
-
-			for (List<String> l : usercommands.getUserCommandMap().values()) {
-				for (String s : l) {
-					System.out.println(" command param" + s);
-
-				}
-			}
-
 			return 1;
 		} catch (Exception e) {
-			System.out.println("no");
 			throw new Exception(Constants.USER_PARAM_ERROR);
 		}
 

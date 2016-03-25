@@ -1,3 +1,9 @@
+// This entire file is part of my masterpiece.
+// HUIJIA YU
+// I chose this for my masterpiece because it is part of the abstract class hierarchy. 
+// It is consistent with the Open/Closed principle (this is closed) and 
+// the Liskov Substitution Principle (it can replace an action).
+
 /**
  * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
  */

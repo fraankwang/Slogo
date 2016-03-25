@@ -1,3 +1,9 @@
+// This entire file is part of my masterpiece.
+// HUIJIA YU
+// Since this is used by the action "To", I also added it: 
+// it is an example of encapsulating implementation in an object.
+
+
 /**
  * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
  */

@@ -27,9 +27,6 @@ public class ActionFactory {
 	/**
 	 * The makeAction() method returns an action given a node by constructing a
 	 * new instance of it utilizing the parameters passed in.
-	 *
-	 * 
-	 * 
 	 */
 
 	public Action makeAction(Node node, List<String> stringparams) throws Exception {
