@@ -12,7 +12,6 @@ public abstract class TurtleDisplayCommandsParams extends TurtleDisplayCommands 
 	public TurtleDisplayCommandsParams(List<Double> newCommands, TurtlePlayground newTurtlePlayground, Palette newPalette) {
 		super(newTurtlePlayground, newPalette);
 		commands = newCommands;
-		// TODO Auto-generated constructor stub
 	}
 
 }
