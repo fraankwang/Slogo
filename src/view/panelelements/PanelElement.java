@@ -1,10 +1,13 @@
 // This entire file is part of my masterpiece.
 // Sam Toffler
-// I just to refactor this class and others because I think the creation of
-// panel elements is the weakest part of the front end design. Code seems duplicated
-// and not robust or extensible so I have attempted to fix that. I should note that
-// I did not originally write this super class, but worked extensively with its sub
-// class where I came across many of PanelElement's original pitfalls.
+// I have attempted to re-factor the way in which our panel elements are created. In my
+// opinion, I think that this is the weakest part of the front-end team's code. It is pretty dirty,
+// and in my opinion there was lot of duplicated code. I think that I have made it more readable,
+// more manageable, and more robust. Instead of creating a new panel element class for every single
+// element that appears on the screen, I have tried to create a class for every *type* of panel
+// that could appear. It is not perfected, but it covers all bases for our project. Also,
+// if we wanted to make a new type of panel element we could easily create a new class. For the most
+// part though, I have reduced seven classes to three classes.
 
 /**
  * Authors: Frank Wang, Srikar Pyda, Huijia Yu, Samuel Toffler
@@ -12,52 +15,23 @@
 
 package view.panelelements;
 
-import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import view.IViewable;
 
-public class PanelElement implements IViewable {
+// getting an error because not implementing all methods that
+// are required by the IViewable interface
+public class PanelElement /*implements IViewable*/ {
 
-	protected Node myNode;
+	protected VBox myElement;
 	private String myName;
-	private VBox myWrappper;
-	private Label myLabel;
-
-	public PanelElement(Node node, String name) {
-		myNode = node;
+	
+	public PanelElement(String name) {
 		myName = name;
-		
+		myElement = new VBox();
+		myElement.getChildren().add(new Label(name));
 	}
 	
-	/**
-	 * Toggles visibility of Node within PanelElement
-	 */
-	@Override
-	public void toggleDisplay() {
-		if (myNode.isVisible()) {
-			myNode.setVisible(false);
-		} else {
-			myNode.setVisible(true);
-		}
+	public VBox getElement(){
+		return myElement;
 	}
-
-	@Override
-	public String getName() {
-		return myName;
-	}
-	
-	public Node getNode() {
-		return myNode;
-	}
-
-	public void setBackground(Background value) {
-		if (myNode instanceof StackPane) {
-			((StackPane) myNode).setBackground(value);
-		}
-	}
-
-
 }
