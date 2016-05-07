@@ -23,22 +23,24 @@ public class TurtlePlayground {
 	private List<Turtle> myActiveTurtles;
 	private Turtle myCurrentTurtle;
 	private List<TurtleCoordinates> stampCoordinates;
-	private double myWidth;
-	private double myHeight;
+	protected double myWidth;
+	protected double myHeight;
+	private BorderHandler myBorderHandler;
 	private Color myBackgroundColor = Constants.DEFAULT_BACKGROUND_COLOR;
-	
-	
+
 	public TurtlePlayground() {
 		resetPlayground();
 	}
 
 	public TurtlePlayground(double width, double height) {
 		this();
-		myWidth = width;
 		myHeight = height;
+		myWidth = width;
+		myBorderHandler = new FenceBorder();
+
 	}
-	
-	public void resetPlayground(){
+
+	public void resetPlayground() {
 		myCurrentTurtle = new Turtle(1);
 		myTurtles = new ArrayList<Turtle>();
 		myActiveTurtles = new ArrayList<Turtle>();
@@ -64,14 +66,6 @@ public class TurtlePlayground {
 
 	public List<TurtleCoordinates> getStampCoordinates() {
 		return this.stampCoordinates;
-	}
-
-	public void setWidth(int width) {
-		myWidth = width;
-	}
-
-	public void setHeight(int height) {
-		myHeight = height;
 	}
 
 	public void setCurrentTurtle(Turtle turtle) {
@@ -141,28 +135,6 @@ public class TurtlePlayground {
 	}
 
 	/**
-	 * The inBounds() method returns a boolean of whether the current turtle is
-	 * within the boundaries of the playground.
-	 *
-	 */
-	public boolean inBounds() {
-		return inBounds(myCurrentTurtle.getCoordinate());
-	}
-
-	/**
-	 * The inBounds() method takes in a coordinate pair and returns a boolean
-	 * indicating whether the coordinate pair is within the boundaries of the
-	 * playground.
-	 *
-	 */
-
-	public boolean inBounds(TurtleCoordinates coordinate) {
-		return !(coordinate.getXCoord() < -myWidth / 2 || coordinate.getXCoord() > myWidth / 2
-				|| coordinate.getYCoord() < -myHeight / 2 || coordinate.getYCoord() > myHeight / 2);
-
-	}
-
-	/**
 	 * The getDistance() method returns the distance between two coordinate
 	 * points
 	 * 
@@ -181,13 +153,12 @@ public class TurtlePlayground {
 	 * coordinates. If not in bounds, the method returns 0.
 	 */
 
-	public Double setTurtleCoordinates(TurtleCoordinates coordinates, Double returnValue) {
-		if (inBounds(coordinates)) {
-			myCurrentTurtle.setCoordinate(coordinates);
-			myCurrentTurtle.addCoordinates(coordinates);
-			return returnValue;
-		} else
-			return (double) 0;
+	public Double setTurtleCoordinates(TurtleCoordinates coordinates) {
+		TurtleCoordinates newcoords = myBorderHandler.updateCoords(coordinates, myWidth, myHeight);
+		myCurrentTurtle.setCoordinate(newcoords);
+		myCurrentTurtle.addCoordinates(newcoords);
+		return getDistance(myCurrentTurtle.getCoordinate(), newcoords);
+
 	}
 
 	/**
@@ -200,11 +171,11 @@ public class TurtlePlayground {
 	public Double placeTurtle(Double xCoordinate, Double yCoordinate) {
 		Double returnVal = 0.0;
 		for (Turtle turtle : getActiveTurtles()) {
-			TurtleCoordinates coordinate = new TurtleCoordinates(xCoordinate, yCoordinate, turtle.getPenDown(), turtle.getPenColor(), turtle.getPenWidth());
+			TurtleCoordinates coordinate = new TurtleCoordinates(xCoordinate, yCoordinate, turtle.getPenDown(),
+					turtle.getPenColor(), turtle.getPenWidth());
 			setCurrentTurtle(turtle);
-			Double distance = getDistance(myCurrentTurtle.getCoordinate(), coordinate);
-			returnVal = distance;
-			setTurtleCoordinates(coordinate, distance);
+
+			setTurtleCoordinates(coordinate);
 		}
 		return returnVal;
 	}
@@ -224,9 +195,10 @@ public class TurtlePlayground {
 					+ (pixels * Math.sin(Math.toRadians(myCurrentTurtle.getOrientation())));
 			Double yCoord = myCurrentTurtle.getCoordinate().getYCoord()
 					+ (pixels * Math.cos(Math.toRadians(myCurrentTurtle.getOrientation())));
-			TurtleCoordinates coordinate = new TurtleCoordinates(xCoord, yCoord, turtle.getPenDown(), turtle.getPenColor(), turtle.getPenWidth());
+			TurtleCoordinates coordinate = new TurtleCoordinates(xCoord, yCoord, turtle.getPenDown(),
+					turtle.getPenColor(), turtle.getPenWidth());
 
-			setTurtleCoordinates(coordinate, Math.abs(pixels));
+			setTurtleCoordinates(coordinate);
 		}
 		return pixels;
 	}
@@ -253,7 +225,8 @@ public class TurtlePlayground {
 		for (Turtle turtle : getActiveTurtles()) {
 			setCurrentTurtle(turtle);
 			myCurrentTurtle.setOrientation(0.0);
-			TurtleCoordinates coordinate = new TurtleCoordinates(0.0, 0.0, turtle.getPenDown(), turtle.getPenColor(), turtle.getPenWidth());
+			TurtleCoordinates coordinate = new TurtleCoordinates(0.0, 0.0, turtle.getPenDown(), turtle.getPenColor(),
+					turtle.getPenWidth());
 			returnVal = placeTurtle(coordinate);
 
 		}
@@ -275,7 +248,9 @@ public class TurtlePlayground {
 	public void setBackgroundColor(Color backgroundColor) {
 		this.myBackgroundColor = backgroundColor;
 	}
-	
 
+	public void setBorderHandler(BorderHandler bh) {
+		myBorderHandler = bh;
+	}
 
 }
