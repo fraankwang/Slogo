@@ -6,6 +6,7 @@ package model.turtle;
 
 import java.util.*;
 import constants.Constants;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 
 /**
@@ -26,6 +27,7 @@ public class Turtle {
 	private Double myPenSize;
 	private String myTurtleShape;
 	private LinkedList<TurtleCoordinates> turtleCoordinates;
+	private Image myImage;
 
 	public Turtle(int turtleID) {
 		this(0.0, 0.0, turtleID);
@@ -126,6 +128,14 @@ public class Turtle {
 	 */
 	public void addCoordinates(TurtleCoordinates coordinate) {
 		turtleCoordinates.add(coordinate);
+	}
+	
+	public void setTurtleImage(String filePath){
+		myImage = new Image(filePath);
+	}
+	
+	public Image getTurtleImage(){
+		return myImage;
 	}
 
 }

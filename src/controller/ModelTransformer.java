@@ -12,6 +12,9 @@ import constants.Constants;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import model.UserCommands;
 import model.Variables;
@@ -140,8 +143,8 @@ public class ModelTransformer {
 	 */
 	public void transformTurtleInfoElement(List<Turtle> turtles) {
 		TurtleInfoElement turtleInfoElement = (TurtleInfoElement) myController.getMyView().getMyActiveWorkspace().getMyTurtleInfoElement();
-		ListView<String> turtleInfoValues = turtleInfoElement.getListView();
-
+		
+		ListView<String> turtleInfoValues = (ListView<String>) turtleInfoElement.getTabPane().getTabs().get(0).getContent();
 		turtleInfoValues.getItems().clear();
 		for (Turtle t : turtles) {
 			turtleInfoValues.getItems()
@@ -149,6 +152,15 @@ public class ModelTransformer {
 							+ Double.toString(Math.round(t.getCoordinate().getXCoord())) + ","
 							+ Double.toString(Math.round(t.getCoordinate().getYCoord())) + ", "
 							+ Double.toString(t.getOrientation()) + ", " + t.getPenDown());
+		}
+		
+		TilePane turtlePictures = (TilePane) turtleInfoElement.getTabPane().getTabs().get(1).getContent();
+		turtlePictures.getChildren().clear();
+		for (Turtle t : turtles){
+			t.getTurtleImage();
+			Image i = t.getTurtleImage();
+			ImageView iv = new ImageView();
+			iv.setImage(i);
 		}
 	}
 

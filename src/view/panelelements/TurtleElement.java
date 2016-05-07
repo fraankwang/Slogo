@@ -14,6 +14,7 @@ import javafx.scene.image.ImageView;
 public class TurtleElement extends PanelElement {
 	
 	List<ImageView> stamps = new ArrayList<ImageView>();
+	Image myImage;
 	
 	public TurtleElement(Node node, String name) {
 		super(node, name);
@@ -21,7 +22,12 @@ public class TurtleElement extends PanelElement {
 	}
 
 	public void setTurtleImage(ImageView imageView) {
+		myImage = imageView.getImage();
 		myNode = imageView;
+	}
+	
+	public Image getImage(){
+		return myImage;
 	}
 	
 	public void moveTurtleImage(double x, double y) {

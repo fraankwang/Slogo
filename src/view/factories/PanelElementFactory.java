@@ -18,6 +18,9 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.CustomMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TabPane.TabClosingPolicy;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.cell.TextFieldListCell;
 import javafx.scene.image.Image;
@@ -509,16 +512,28 @@ public class PanelElementFactory {
 		VBox turtleInfoWrapper = new VBox();
 		Label turtleInfoLabel = new Label(Constants.getSpecification("TurtleInfoLabel"));
 		turtleInfoLabel.getStyleClass().add("element-label");
-
+		
+		TabPane myTurtlesTabPane = new TabPane();
+		myTurtlesTabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);;
+		
+		Tab infoTab = new Tab();
+		infoTab.setText("info");
 		ListView<String> turtleInfoListView = new ListView<String>();
-		// turtleInfoListView.setPrefSize(Constants.TURTLE_INFO_WIDTH,
-		// Constants.TURTLE_INFO_HEIGHT);
 		turtleInfoListView.setCellFactory(TextFieldListCell.forListView());
-		turtleInfoWrapper.getChildren().addAll(turtleInfoLabel, turtleInfoListView);
+		infoTab.setContent(turtleInfoListView);
+
+		Tab imagesTab = new Tab();
+		imagesTab.setText("images");
+		TilePane turtlesTilePane = new TilePane();
+		imagesTab.setContent(turtlesTilePane);
+		
+		myTurtlesTabPane.getTabs().addAll(infoTab, imagesTab);
+		
+		turtleInfoWrapper.getChildren().addAll(turtleInfoLabel, myTurtlesTabPane);
 
 		myTurtleInfoElement = new TurtleInfoElement(turtleInfoWrapper,
 				Constants.getSpecification("TurtleInfoElementName"));
-		myTurtleInfoElement.setListView(turtleInfoListView);
+		myTurtleInfoElement.setTabPane(myTurtlesTabPane);
 
 		return myTurtleInfoElement;
 	}

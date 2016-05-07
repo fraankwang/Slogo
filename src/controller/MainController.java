@@ -226,6 +226,7 @@ public class MainController {
 
 	public void setTurtleImage(String image) {
 		TurtleElement myTurtleElement = (TurtleElement) myView.getMyActiveWorkspace().getMyTurtleElement();
+		
 		StackPane myTurtleWrapper = myView.getMyActiveWorkspace().getMyTurtleWrapper();
 		Canvas myTurtlePlayground = myView.getMyActiveWorkspace().getMyTurtlePlayground();
 

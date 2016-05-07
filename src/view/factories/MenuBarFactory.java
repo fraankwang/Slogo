@@ -55,8 +55,9 @@ public class MenuBarFactory {
 		Menu turtleMenu = createTurtleMenu();
 		Menu configurationMenu = createConfigurationMenu();
 		Menu helpMenu = createHelpMenu();
+		Menu turtleImagesMenu = createTurtleImagesMenu();
 
-		menuBar.getMenus().addAll(fileMenu, configurationMenu, viewMenu, turtleMenu, helpMenu);
+		menuBar.getMenus().addAll(fileMenu, configurationMenu, viewMenu, turtleMenu, helpMenu, turtleImagesMenu);
 		return menuBar;
 
 	}
@@ -388,6 +389,17 @@ public class MenuBarFactory {
 		helpMenu.getItems().addAll(basicHelpItem, advancedHelpItem);
 		return helpMenu;
 
+	}
+	
+	private Menu createTurtleImagesMenu(){
+		Menu turtleImagesMenu = new Menu("Turtle Images");
+		MenuItem changeTurtleImages = new MenuItem("Access All Turtle Images");
+		Stage turtleImageStage = new Stage();
+		turtleImageStage.setWidth(400);
+		turtleImageStage.setHeight(400);
+		changeTurtleImages.setOnAction(e -> turtleImageStage.show());
+		turtleImagesMenu.getItems().add(changeTurtleImages);
+		return turtleImagesMenu;
 	}
 
 	/**
