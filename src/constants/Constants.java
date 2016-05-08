@@ -162,7 +162,7 @@ public class Constants {
 	}
 
 	public static String getDefaultTurtleImageFileName() {
-		return DEFAULT_TURTLE_IMAGES.get(0) + ".jpg";
+		return "images/" + DEFAULT_TURTLE_IMAGES.get(0) + ".jpg";
 	}
 
 	public static String getActionSuperClass(String key) {

@@ -329,7 +329,7 @@ public class MenuBarFactory {
 		turtleImages = new Menu(Constants.getSpecification("TurtleImagesOption"));
 
 		for (String image : Constants.getTurtleImages()) {
-			turtleImages.getItems().add(createTurtleImageMenuItem(image));
+			turtleImages.getItems().add(createTurtleImageMenuItem("images/" + image));
 		}
 
 		for (MenuItem item : turtleImages.getItems()) {

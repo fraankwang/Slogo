@@ -252,7 +252,7 @@ public class PanelElementFactory {
 	 */
 	private TurtleElement createTurtleElement() {
 		ImageView turtleImage = new ImageView(
-				new Image(getClass().getClassLoader().getResourceAsStream(Constants.getDefaultTurtleImageFileName())));
+				new Image(Constants.getDefaultTurtleImageFileName()));
 		turtleImage.setFitWidth(Constants.TURTLE_ELEMENT_WIDTH);
 		turtleImage.setFitHeight(Constants.TURTLE_ELEMENT_HEIGHT);
 		TurtleElement turtleElement = new TurtleElement(turtleImage, Constants.getSpecification("TurtleElementName"));
@@ -269,7 +269,7 @@ public class PanelElementFactory {
 	private Button createInfoButton() {
 		Button infoButton = new Button();
 
-		ImageView infoImage = new ImageView(new Image((getClass().getClassLoader().getResourceAsStream("icon.png"))));
+		ImageView infoImage = new ImageView(new Image("images/icon.png"));
 		infoImage.setFitHeight(Constants.TURTLE_INFO_BUTTON_SIZE);
 		infoImage.setFitWidth(Constants.TURTLE_INFO_BUTTON_SIZE);
 

@@ -23,6 +23,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import view.Workspace;
 import view.factories.HelpPageFactory;
 import view.panelelements.PanelElement;
 
