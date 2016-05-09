@@ -37,12 +37,10 @@ It took me a while to remember that I had to update the resources file. Although
 I believe that this exercise demonstrated the modularity and extensibility of the design of our project: the existing architecture provides sufficient flexibility in order to incorporate new functionality (much of it was detailed in the Review above). Although the project had not considered window border behavior as a relevant design parameter, I was able to incoporate the new functions within the existing infrastructure. I only had to create four classes (one of which is an enumeration) and modify two files. 
 
 
-
 > - What could be improved?
+There ought to have been more delegation in order to narrow the scope of classes in order to ensure any lack of dependencies. Although our design was modular, the TurtlePlayground class ought to further delegate functionality to closed compositional element who can store, manage, and update their own information (Example: Delegating bounds functionality to a BoundsHandler object).
 
-d
 > - What would it have been like if you were not familiar with the code at all?
-
-d
+I believe that adding this functionality would not have been difficult due to the design on the back-end. Due to the lack of dependencies between objects on the back-end, there is a great amount of modularity and flexibility in the number of different methods and design patterns a particular function can be implemented in.
 
 
